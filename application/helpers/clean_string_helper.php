@@ -26,75 +26,24 @@ function clean($str)
 	
 }
 
-function kdlokasi($kdsatker)
+function getProvByKotaKabId($kotakabid)
 {
-	return substr($kdsatker,2,2);
+	$CI =& get_instance();
+
+	$idProv = substr($kotakabid, 0, 2);
+
+	$qry = "SELECT * FROM m_prov WHERE provid='$idProv'";
+
+	return $CI->db->query($qry)->row()->provinsi;
 }
 
-function kdkabkota($kdsatker)
+function getKabKota($kotakabid)
 {
-	return substr($kdsatker,4,2);
-}
+	$CI =& get_instance();
 
-function kdbidang($kdsatker)
-{
-	return substr($kdsatker,6,2);
-}
+	$qry = "SELECT * FROM m_kotakab WHERE kotakabid='$kotakabid'";
 
-function getNameBidang($kdsatker)
-{
-	$kdbidangan = substr($kdsatker,6,2);
-
-	switch ($kdbidangan) {
-		case "01":
-		return "Jalan";
-		break;
-		case "02":
-		return "Irigasi";
-		break;
-		case "03":
-		return "Air Minum";
-		break;
-		case "04":
-		return "Sanitasi";
-		break;
-		case "05":
-		return "Perumahan";
-		break;
-		default:
-		return null;
-	}
-}
-
-
-function getNameBidangByKdbidang($kdbidang)
-{
-
-	switch ($kdbidang) {
-		case "01":
-		return "JALAN";
-		break;
-		case "02":
-		return "IRIGASI";
-		break;
-		case "03":
-		return "AIR MINUM";
-		break;
-		case "04":
-		return "SANITASI";
-		break;
-		case "05":
-		return "PERUMAHAN";
-		break;
-		case "03;04":
-		return "Air Minum dan Sanitasi";
-		break;
-		case "04;03":
-		return "Air Minum dan Sanitasi";
-		break;
-		default:
-		return null;
-	}
+	return $CI->db->query($qry)->row()->kemendagri;
 }
 
 
@@ -296,5 +245,10 @@ function getArrayBidang()
 	return $data;
 }
 
+
+function ubahKomaMenjadiTitik($str)
+{
+	return str_replace(',', '.', $str);
+}
 
 ?>
