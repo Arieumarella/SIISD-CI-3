@@ -53,7 +53,7 @@
         <?php 
 
 
-        $arrayDataTeknis = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D'];
+        $arrayDataTeknis = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F'];
         $uri1 = @$this->uri->segment(1);
 
 
@@ -95,11 +95,11 @@
                       <p>1D - Aset D.I.T</p>
                     </a>
                   </li>
-                  <li class="nav-item pl-2 m-0 "><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/1e" class="nav-link p-1 m-0  ">
+                  <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>FormTeknis1E" class="nav-link p-1 m-0 <?= $tittle == '1E' ? 'active' : ''; ?> ">
                     <p>1E - Aset D.I.P</p>
                   </a>
                 </li>
-                <li class="nav-item pl-2 m-0 "><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/1f" class="nav-link p-1 m-0  ">
+                <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>FormTeknis1F" class="nav-link p-1 m-0 <?= $tittle == '1F' ? 'active' : ''; ?> ">
                   <p>1F - Progres PAI</p>
                 </a>
               </li>

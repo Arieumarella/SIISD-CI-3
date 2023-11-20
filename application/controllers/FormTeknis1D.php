@@ -103,7 +103,7 @@ class FormTeknis1D extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data 1D',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIR']) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIT']) : null,
 		);
 
 		$this->load->view('FormTeknis/tambaD1', $tmp);
@@ -249,7 +249,7 @@ class FormTeknis1D extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f1D', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f1d', ['id' => $id]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
