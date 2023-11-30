@@ -57,9 +57,11 @@
         $uri1 = @$this->uri->segment(1);
 
 
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D'];
+
         ?>
 
-        <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+        <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
           <a href="#" class="nav-link ">
             <i class="nav-icon fas fa-columns"></i>
             <p>
@@ -67,7 +69,7 @@
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknis)) ? 'block;' : 'none'; ?>;">
+          <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
             <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
               <a href="#" class="nav-link">
                 <p>
@@ -105,29 +107,37 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+
+          <?php 
+
+          $arrayDataTeknis = ['RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D'];
+          $uri1 = @$this->uri->segment(1);
+
+          ?>          
+
+          <li class="nav-item has-treeview  <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
             <a href="#" class="nav-link">
               <p>
                 2 - Realisasi Tanam                  
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview pl-2" style="border-left: thin solid rgb(204, 204, 204); display: none;">
-              <li class="nav-item pl-2 m-0 ">
-                <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/2a" class="nav-link p-1 m-0  ">
+            <ul class="nav nav-treeview pl-2" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknis)) ? 'block;' : 'none'; ?>;">
+              <li class="nav-item pl-2 m-0 <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
+                <a href="<?= base_url(); ?>RealisasiTanam2A" class="nav-link p-1 m-0  <?= $tittle == '2A' ? 'active' : ''; ?>">
                   <p>2A - RTI D.I</p>
                 </a>
               </li>
-              <li class="nav-item pl-2 m-0 "><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/2b" class="nav-link p-1 m-0  ">
+              <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>RealisasiTanam2B" class="nav-link p-1 m-0  <?= $tittle == '2B' ? 'active' : ''; ?>">
                 <p>2B - RT1 D.I.R</p>
               </a>
             </li>
-            <li class="nav-item pl-2 m-0 "><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/2c" class="nav-link p-1 m-0  ">
+            <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>RealisasiTanam2C" class="nav-link p-1 m-0 <?= $tittle == '2C' ? 'active' : ''; ?>">
               <p>2C - RTI D.I.A.T</p>
             </a>
           </li>
           <li class="nav-item pl-2 m-0 ">
-            <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/2d" class="nav-link p-1 m-0  ">
+            <a href="<?= base_url(); ?>RealisasiTanam2D" class="nav-link p-1 m-0  <?= $tittle == '2D' ? 'active' : ''; ?>">
               <p>2D - RTI D.I.T</p>
             </a>
           </li>
