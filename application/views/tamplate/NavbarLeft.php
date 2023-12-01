@@ -57,7 +57,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E'];
 
         ?>
 
@@ -110,7 +110,7 @@
 
           <?php 
 
-          $arrayDataTeknis = ['RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D'];
+          $arrayDataTeknis = ['RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E'];
           $uri1 = @$this->uri->segment(1);
 
           ?>          
@@ -142,7 +142,7 @@
             </a>
           </li>
           <li class="nav-item pl-2 m-0 ">
-            <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/2e" class="nav-link p-1 m-0  ">
+            <a href="<?= base_url(); ?>RealisasiTanam2E" class="nav-link p-1 m-0  <?= $tittle == '2E' ? 'active' : ''; ?>">
               <p>2E - RTI D.I.P</p>
             </a>
           </li>

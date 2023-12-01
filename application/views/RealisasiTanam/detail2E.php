@@ -82,15 +82,15 @@
                   <div class="container-fluid">
                     <div class="row m-0 p-0 text-left">
                       <div class="col-sm-7">
-                        <h4 class="m-0" id="titleBox">Form 2C : RTI D.I.A.T</h4>
+                        <h4 class="m-0" id="titleBox">Form 2E : RTI D.I.P</h4>
                     </div>
 
                     <div class="col-5 text-right">
-                        <a href="<?= base_url(); ?>RealisasiTanam2C" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
+                        <a href="<?= base_url(); ?>RealisasiTanam2E" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
 
                         <?php if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'provinsi') { ?>
 
-                        <a href="<?= base_url(); ?>RealisasiTanam2C/editData/<?= $dataDi->id; ?>" class="btn btn-primary btn-sm" aksi="ubah" title="Ubah data"><i class="far fa-edit"></i> Ubah</a>
+                        <a href="<?= base_url(); ?>RealisasiTanam2E/editData/<?= $dataDi->id; ?>" class="btn btn-primary btn-sm" aksi="ubah" title="Ubah data"><i class="far fa-edit"></i> Ubah</a>
 
                         <?php } ?>
 
@@ -160,7 +160,7 @@
                     </div>
 
                     <div class="row">         
-                       <div class="col-sm-6">
+                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
                                 <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">P→P→P</label>
@@ -232,7 +232,7 @@
                 </div>
 
                 <div class="row">         
-                   <div class="col-sm-6">
+                 <div class="col-sm-6">
                     <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                         <div class="row p-0 m-0">
                             <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
@@ -295,7 +295,7 @@
 
             <div class="row">         
 
-               <div class="col-sm-6">
+             <div class="col-sm-6">
                 <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                     <div class="row p-0 m-0">
                         <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
@@ -423,7 +423,7 @@
 
         <div class="row">         
 
-           <div class="col-sm-6">
+         <div class="col-sm-6">
             <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                 <div class="row p-0 m-0">
                     <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
@@ -648,7 +648,7 @@
         if (result.value) {
 
             $.ajax({
-                url: base_url()+'RealisasiTanam2C/delete',
+                url: base_url()+'RealisasiTanam2E/delete',
                 type: "post",
                 dataType: 'json',
                 data: {id},
@@ -657,7 +657,7 @@
                     alert('Error')
                     return;
                 }
-                window.location = base_url()+'RealisasiTanam2C';
+                window.location = base_url()+'RealisasiTanam2E';
 
             }
         });

@@ -82,22 +82,22 @@
                   <div class="container-fluid">
                     <div class="row m-0 p-0 text-left">
                       <div class="col-sm-7">
-                        <h4 class="m-0" id="titleBox">Form 2C : RTI D.I.A.T</h4>
+                        <h4 class="m-0" id="titleBox">Form 2D : RTI D.I.T</h4>
                     </div>
 
                     <div class="col-5 text-right">
-                        <a href="<?= base_url(); ?>RealisasiTanam2C" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
+                        <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
 
                         <?php if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'provinsi') { ?>
 
-                        <a href="<?= base_url(); ?>RealisasiTanam2C/editData/<?= $dataDi->id; ?>" class="btn btn-primary btn-sm" aksi="ubah" title="Ubah data"><i class="far fa-edit"></i> Ubah</a>
+                            <a href="<?= base_url(); ?>RealisasiTanam2D/editData/<?= $dataDi->id; ?>" class="btn btn-primary btn-sm" aksi="ubah" title="Ubah data"><i class="far fa-edit"></i> Ubah</a>
 
                         <?php } ?>
 
                         <button onclick="cetakPdf();" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</button>
 
                         <?php if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'provinsi') { ?>
-                        <button onclick="deleteData('<?= $dataDi->id; ?>')" class="btn btn-danger btn-sm" aksi="delete" title="Hapus data"><i class="far fa-trash-alt"></i> Hapus</button>
+                            <button onclick="deleteData('<?= $dataDi->id; ?>')" class="btn btn-danger btn-sm" aksi="delete" title="Hapus data"><i class="far fa-trash-alt"></i> Hapus</button>
                         <?php } ?>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
 
                     <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
                         <div class="p-0 m-0" style="border:0px;">
-                            <h5 class="card-title">Pola Tanam</h5>
+                            <h5 class="card-title">Pola Tambak</h5>
                         </div>
                     </div>
 
@@ -163,9 +163,9 @@
                        <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">P→P→P</label>
+                                <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">I→I→I</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laPermen"><?= ($dataDi->polatanamPadi3 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laPermen"><?= ($dataDi->polatambakIkan3 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -174,9 +174,9 @@
                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">P→P→Plw</label>
+                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">I→I→L</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatanamPadi2Plw == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatambakIkan2Lain == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -185,9 +185,9 @@
                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">P→Plw→Plw</label>
+                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">I→L→L</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatanamPadiPlw2 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatambakIkanLain2 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -195,9 +195,9 @@
                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">P→P</label>
+                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">I→I</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatanamPadi2 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatambakIkan2 == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -205,9 +205,9 @@
                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">P→Plw</label>
+                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">I→L</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatanamPadiPlw == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatambakIkanLain == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -215,9 +215,9 @@
                     <div class="col-sm-6">
                         <div class="form-group p-0" style="border-bottom:1px solid #ccc;">
                             <div class="row p-0 m-0">
-                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">P</label>
+                                <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">I</label>
                                 <div class="col-sm-6 pr-2 m-0 row">
-                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatanamPadi == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
+                                    <div class="" id="isi_laBaku"><?= ($dataDi->polatambakIkan == 'V') ? '<i class="fas fa-check"></i>' : ''; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
 
                 <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
                     <div class="p-0 m-0" style="border:0px;">
-                        <h5 class="card-title">REALISASI TANAM PADI</h5>
+                        <h5 class="card-title">IKAN</h5>
                     </div>
                 </div>
 
@@ -237,7 +237,7 @@
                         <div class="row p-0 m-0">
                             <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
                             <div class="col-sm-6 pr-2 m-0 row">
-                                <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->reatamPadiMT1); ?></div>
+                                <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->ikanMT1); ?></div>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                         <div class="row p-0 m-0">
                             <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.2 (Ha)</label>
                             <div class="col-sm-6 pr-2 m-0 row">
-                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPadiMT2); ?></div>
+                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->ikanMT2); ?></div>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         <div class="row p-0 m-0">
                             <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.3 (Ha)</label>
                             <div class="col-sm-6 pr-2 m-0 row">
-                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPadiMT3); ?></div>
+                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->ikanMT3); ?></div>
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@
                         <div class="row p-0 m-0">
                             <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total (Ha)</label>
                             <div class="col-sm-6 pr-2 m-0 row">
-                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPadiTotalHa); ?></div>
+                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->ikanTotalHa); ?></div>
                             </div>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                         <div class="row p-0 m-0">
                             <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total IP (%)</label>
                             <div class="col-sm-6 pr-2 m-0 row">
-                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPadiTotalHaIp); ?></div>
+                                <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->ikanTotalHaIp); ?></div>
                             </div>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
 
             <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
                 <div class="p-0 m-0" style="border:0px;">
-                    <h5 class="card-title">REALISASI TANAM PALAWIJA</h5>
+                    <h5 class="card-title">UDANG</h5>
                 </div>
             </div>
 
@@ -300,7 +300,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->reatamPalawijaMT1); ?></div>
+                            <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->udangMT1); ?></div>
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.2 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPalawijaMT2); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->udangMT2); ?></div>
                         </div>
                     </div>
                 </div>
@@ -322,7 +322,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.3 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPalawijaMT3); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->udangMT3); ?></div>
                         </div>
                     </div>
                 </div>
@@ -332,7 +332,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPalawijaTotalHa); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->udangTotalHa); ?></div>
                         </div>
                     </div>
                 </div>
@@ -342,7 +342,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total IP (%)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamPalawijaTotalHaIp); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->udangTotalHaIp); ?></div>
                         </div>
                     </div>
                 </div>
@@ -353,7 +353,7 @@
 
         <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
             <div class="p-0 m-0" style="border:0px;">
-                <h5 class="card-title">REALISASI TANAM TEBU</h5>
+                <h5 class="card-title">KEPITING</h5>
             </div>
         </div>
 
@@ -364,7 +364,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->reatamTebuMT1); ?></div>
+                            <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->kepitingMT1); ?></div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.2 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamTebuMT2); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->kepitingMT2); ?></div>
                         </div>
                     </div>
                 </div>
@@ -386,7 +386,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.3 (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamTebuMT3); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->kepitingMT3); ?></div>
                         </div>
                     </div>
                 </div>
@@ -396,7 +396,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total (Ha)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamTebuTotalHa); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->kepitingTotalHa); ?></div>
                         </div>
                     </div>
                 </div>
@@ -406,7 +406,7 @@
                     <div class="row p-0 m-0">
                         <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total IP (%)</label>
                         <div class="col-sm-6 pr-2 m-0 row">
-                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamTebuTotalHaIp); ?></div>
+                            <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->kepitingTotalHaIp); ?></div>
                         </div>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
 
         <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
             <div class="p-0 m-0" style="border:0px;">
-                <h5 class="card-title">REALISASI TANAM LAINNYA</h5>
+                <h5 class="card-title">LAINNYA</h5>
             </div>
         </div>
 
@@ -428,7 +428,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laPermen" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laPermen" style="background-color:#e6e6e6;">MT.1 (Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->reatamLainnyaMT1); ?></div>
+                        <div class="" id="isi_laPermen"><?= str_replace('.', ',', $dataDi->lainMT1); ?></div>
                     </div>
                 </div>
             </div>
@@ -439,7 +439,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.2 (Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamLainnyaMT2); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->lainMT2); ?></div>
                     </div>
                 </div>
             </div>
@@ -450,7 +450,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.3 (Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamLainnyaMT3); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->lainMT3); ?></div>
                     </div>
                 </div>
             </div>
@@ -460,7 +460,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total (Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamLainnyaTotalHa); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->lainTotalHa); ?></div>
                     </div>
                 </div>
             </div>
@@ -470,7 +470,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Total IP (%)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->reatamLainnyaTotalHaIp); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->lainTotalHaIp); ?></div>
                     </div>
                 </div>
             </div>
@@ -544,7 +544,7 @@
 
     <div class="mb-2 p-1" style="background-color:#ccc; border:0px;">
         <div class="p-0 m-0" style="border:0px;">
-            <h5 class="card-title">PRODUKTIVITAS PADI</h5>
+            <h5 class="card-title">PRODUKTIVITAS IKAN</h5>
         </div>
     </div>
 
@@ -555,7 +555,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.1 (Ton/Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasPadiMT1); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasIkanMT1); ?></div>
                     </div>
                 </div>
             </div>
@@ -565,7 +565,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.2 (Ton/Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasPadiMT2); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasIkanMT2); ?></div>
                     </div>
                 </div>
             </div>
@@ -575,7 +575,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">MT.3 (Ton/Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasPadiMT3); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasIkanMT3); ?></div>
                     </div>
                 </div>
             </div>
@@ -585,7 +585,7 @@
                 <div class="row p-0 m-0">
                     <label id="label_laBaku" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_laBaku" style="background-color:#e6e6e6;">Rata2 (Ton/Ha)</label>
                     <div class="col-sm-6 pr-2 m-0 row">
-                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasRata2); ?></div>
+                        <div class="" id="isi_laBaku"><?= str_replace('.', ',', $dataDi->produktivitasIkanRata2); ?></div>
                     </div>
                 </div>
             </div>
@@ -648,7 +648,7 @@
         if (result.value) {
 
             $.ajax({
-                url: base_url()+'RealisasiTanam2C/delete',
+                url: base_url()+'RealisasiTanam2D/delete',
                 type: "post",
                 dataType: 'json',
                 data: {id},
@@ -657,7 +657,7 @@
                     alert('Error')
                     return;
                 }
-                window.location = base_url()+'RealisasiTanam2C';
+                window.location = base_url()+'RealisasiTanam2D';
 
             }
         });
