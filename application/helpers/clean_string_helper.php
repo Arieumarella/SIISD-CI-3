@@ -46,6 +46,12 @@ function getKabKota($kotakabid)
 	return $CI->db->query($qry)->row()->kemendagri;
 }
 
+function getProvIdByKotakabid($kotakabid)
+{
+	$kotakabid = substr($kotakabid, 0, 2);
+	return $kotakabid;
+}
+
 
 function getNamaBalaiByIdBalai($idBalai='')
 {

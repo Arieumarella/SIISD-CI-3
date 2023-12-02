@@ -9,9 +9,10 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
+    <br>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2">>
+        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
       </div>
       <div class="info">
         <a href="/pengguna/detail/Test" class="d-block">Test Umar</a>
@@ -57,7 +58,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A'];
 
         ?>
 
@@ -148,20 +149,30 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item has-treeview">
+
+      
+
+      <?php 
+
+      $arrayDataTeknis = ['SdmOp3A'];
+      $uri1 = @$this->uri->segment(1);
+
+      ?>  
+
+      <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
         <a href="#" class="nav-link">
           <p>
             3 - SDM OP       
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
-        <ul class="nav nav-treeview pl-2" style="border-left:thin solid #ccc;">
-          <li class="nav-item pl-2 m-0 ">
-            <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/3a" class="nav-link p-1 m-0  ">
+        <ul class="nav nav-treeview pl-2" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknis)) ? 'block;' : 'none'; ?>;">
+          <li class="nav-item pl-2 m-0 <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
+            <a href="<?= base_url(); ?>SdmOp3A" class="nav-link p-1 m-0  <?= $tittle == '3A' ? 'active' : ''; ?>">
               <p>3A - SDM OP</p>
             </a>
           </li>
-          <li class="nav-item pl-2 m-0 "><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/3b" class="nav-link p-1 m-0  ">
+          <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>SdmOp3A" class="nav-link p-1 m-0  ">
             <p>3B - PENUNJ. OP</p>
           </a>
         </li>                
