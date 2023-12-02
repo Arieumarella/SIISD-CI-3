@@ -180,11 +180,12 @@ class SdmOp3A extends CI_Controller {
 	public function getDetailData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Detail Data 2E',
-			'dataDi' => $this->M_sdmOp3A->getDataDiById($id)
+			'tittle' => 'Detail Data 3A',
+			'dataHeader' => $this->M_sdmOp3A->getDataHeader($id),
+			'dataBody' => $this->M_sdmOp3A->getDataBodyDetail($id)
 		);
 
-		$this->load->view('SdmOp/detail2E', $tmp);
+		$this->load->view('SdmOp/detail3A', $tmp);
 	}
 
 
@@ -192,7 +193,8 @@ class SdmOp3A extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f2e', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f3a', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f3a_detail', ['idF3a' => $id]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">

@@ -75,6 +75,8 @@ class M_sdmOp3A extends CI_Model {
 	}
 
 
+
+
 	public function getDataDiFull($thangX, $kab)
 	{
 		$this->thang = $this->load->database($thangX, TRUE);
@@ -83,6 +85,24 @@ class M_sdmOp3A extends CI_Model {
 
 		return $this->thang->query($qry)->result();
 
+	}
+
+	public function getDataHeader($id='')
+	{
+		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
+		LEFT JOIN m_prov AS b ON a.provid=b.provid
+		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid WHERE a.id='$id'";
+
+		return $this->db->query($qry)->row();
+	}
+
+	public function getDataBodyDetail($id='')
+	{
+		$qry = "SELECT c.nama, c.alamat, d.label, a.* FROM (SELECT * FROM p_f3a_detail WHERE idF3a='$id') AS a
+		LEFT JOIN p_f3_tempat AS c ON a.idTbl2=c.id
+		LEFT JOIN m_label AS d ON a.labelid=d.id";
+
+		return $this->db->query($qry)->result();
 	}
 
 
