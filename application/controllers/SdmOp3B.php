@@ -190,14 +190,15 @@ class SdmOp3B extends CI_Controller {
 	public function editData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Edit Data 3A',
+			'tittle' => 'Edit Data 3B',
 			'dataHeader' => $this->M_SdmOp3B->getDataHeader($id),
 			'dataBody' => $this->M_SdmOp3B->getDataBodyDetail($id),
 			'dataKantor' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('p_f3_tempat', '*', 'id', 'asc') : $this->M_dinamis->getResult('p_f3_tempat', ['kdKewenangan' => $this->session->userdata('kdKewenangan')]),
+			'dataTable' => $this->M_SdmOp3B->getDataLabel(),
 			'id' => $id
 		);
 
-		$this->load->view('SdmOp/formEdit3A', $tmp);
+		$this->load->view('SdmOp/formEdit3B', $tmp);
 	}
 
 	public function SimpanDataEdit()
@@ -213,9 +214,7 @@ class SdmOp3B extends CI_Controller {
 
 		$idTempat = $this->input->post('idTempat');
 
-		$dataUpdate3a = array(
-			'provid' => $provid,
-			'kotakabid' => $kotakabid,
+		$dataUpdate3b = array(
 			'jmlDI' => $jmlDI,
 			'luasDI' => $luasDI,
 			'alokasiApbn' => $alokasiApbn,
@@ -224,7 +223,7 @@ class SdmOp3B extends CI_Controller {
 		);
 
 
-		$pros = $this->M_SdmOp3B->prsEditData($dataUpdate3a, $idEdit);
+		$pros = $this->M_SdmOp3B->prsEditData($dataUpdate3b, $idEdit);
 
 
 		if ($pros == true) {

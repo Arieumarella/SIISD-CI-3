@@ -27,10 +27,10 @@
   <script type="text/javascript" src="<?= base_url(); ?>assets/admin/Ite/plugins/jquery/jquery.validate.min.js"></script>
   <script type="text/javascript">
     function base_url() {
-       return '<?= base_url(); ?>';
-   }
+     return '<?= base_url(); ?>';
+ }
 
-   function ajaxUntukSemua(url, requestData, onSuccess, onError) {
+ function ajaxUntukSemua(url, requestData, onSuccess, onError) {
     $.ajax({
       url: url,
       type: 'POST',
@@ -95,246 +95,326 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
-   <!-- width:99%; height:100vh; -->
-   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+ <!-- width:99%; height:100vh; -->
+ <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
-   <!-- <div class="wrapper"> -->
+ <!-- <div class="wrapper"> -->
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class=""> <!-- content-wrapper -->
-        <div class="" data-select2-id="28"> <!-- content-wrapper -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class=""> <!-- content-wrapper -->
+    <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-            <div class="row m-0" data-select2-id="27">
-              <!-- panel panel-default -->
-              <div class="col-lg-12 p-0" data-select2-id="26">
-                <form role="form" action="<?= base_url(); ?>SdmOp3A/SimpanDataEdit" method="POST" data-select2-id="25">
-                    <input type="hidden" name="idEdit" value="<?= $id; ?>">
-                    <div class="content-header bg-warning">
-                        <div class="container-fluid">
-                          <div class="row m-0 p-0 text-left">
-                            <div class="col-sm-7">
-                                <h4 class="m-0">Form 3A : SDM OP</h4>
-                            </div>
+        <div class="row m-0" data-select2-id="27">
+          <!-- panel panel-default -->
+          <div class="col-lg-12 p-0" data-select2-id="26">
+            <form role="form" action="<?= base_url(); ?>SdmOp3A/SimpanDataEdit" method="POST" data-select2-id="25">
+                <input type="hidden" name="idEdit" value="<?= $id; ?>">
+                <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                            <h4 class="m-0">Form 3A : SDM OP</h4>
+                        </div>
 
-                            <div class="col-sm-5 text-right">
-                                <a href="<?= base_url(); ?>SdmOp3A" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                                <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
-                            </div>
+                        <div class="col-sm-5 text-right">
+                            <a href="<?= base_url(); ?>SdmOp3A/<?= $id; ?>" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+                            <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <section class="content" data-select2-id="24">
+            <section class="content" data-select2-id="24">
 
-                    <div class="container-fluid" data-select2-id="23">
+                <div class="container-fluid" data-select2-id="23">
 
-                        <!-- box data teknis -->
-                        <div class="row" data-select2-id="22">
+                    <!-- box data teknis -->
+                    <div class="row" data-select2-id="22">
 
-                            <div class="card-body p-0 " data-select2-id="21">
+                        <div class="card-body p-0 " data-select2-id="21">
 
 
 
-                                <!-- form start -->
-                                <div class="modal-body" data-select2-id="20">
+                            <!-- form start -->
+                            <div class="modal-body" data-select2-id="20">
 
-                                    <?= $this->session->flashdata('psn'); ?>
+                                <?= $this->session->flashdata('psn'); ?>
 
-                                    <div style="background-color:red; color:#fff;">
+                                <div style="background-color:red; color:#fff;">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="provid">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="provid" name="provid" class="form-control select2" required>
+
+                                                <option value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
+
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                        </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="kotakabid">Kota/Kab  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="kotakabid" name="kotakabid" class="form-control select2" required>
 
-                                        <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
-                                            <div class="form-group" data-select2-id="32">
-                                                <label for="provid">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                                <select id="provid" name="provid" class="form-control select2" required>
+                                                <option value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
 
-                                                    <option value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
-
-                                                </select>
-                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                            </div>
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
                                         </div>
+                                    </div> 
 
-                                        <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
-                                            <div class="form-group" data-select2-id="32">
-                                                <label for="kotakabid">Kota/Kab  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                                <select id="kotakabid" name="kotakabid" class="form-control select2" required>
-
-                                                    <option value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
-
-                                                </select>
-                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
-                                            <div class="form-group" data-select2-id="32">
-                                                <label for="in_jmlDI">Jumlah DI (Buah)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                                <input id="in_jmlDI" name="jmlDI" value="<?= str_replace('.', ',', $dataHeader->jmlDI); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  required placeholder="Jumlah DI (Buah)" required>
-                                            </div>
+                                    <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="in_jmlDI">Jumlah DI (Buah)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="in_jmlDI" name="jmlDI" value="<?= str_replace('.', ',', $dataHeader->jmlDI); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  required placeholder="Jumlah DI (Buah)" required>
                                         </div>
-
-                                        <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
-                                            <div class="form-group" data-select2-id="32">
-                                                <label for="luasDI">Luas DI (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                                <input id="luasDI" name="luasDI" value="<?= str_replace('.', ',', $dataHeader->luasDI); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')"  required placeholder="Luas DI (Ha)" required>
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
-                                            <div class="form-group" data-select2-id="32">
-                                                <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                                <input id="alokasiApbn" name="alokasiApbn" value="<?= str_replace('.', ',', $dataHeader->alokasiApbn); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
-                                            </div>
-                                        </div> 
-
                                     </div>
 
+                                    <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="luasDI">Luas DI (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="luasDI" name="luasDI" value="<?= str_replace('.', ',', $dataHeader->luasDI); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')"  required placeholder="Luas DI (Ha)" required>
+                                        </div>
+                                    </div> 
 
-                                    <!-- Awal Tabel -->
-                                    <div id="boxFormLain" style="border:thin solid #ccc;">
-                                        <!-- <div class="row col-sm-12 bg-info mb-2 text-center" style="padding:2px; margin:0px;"><b>DATA ORGANISASI PERSONALIA OPERASI DAN PEMELIHARAAN</b></div> -->
+                                    <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="alokasiApbn" name="alokasiApbn" value="<?= str_replace('.', ',', $dataHeader->alokasiApbn); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
+                                        </div>
+                                    </div> 
 
-                                        <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 92vh; width:96.6vw; background-color:#efebe9; padding:2px; border:thin solid #ccc;">
-                                            <table class="table">
-
-                                                <tbody id="boxTempatList">
-                                                    <thead>
-                                                        <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">NO</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">ORGANISASI PERSONALIA O&amp;P</th>
-                                                            <th style="border: thin solid #006666; " colspan="11" rowspan="1" class="text-center">KONDISI SAAT INI</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">KEBUTUHAN*</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">KEKURANGAN*</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">KETERANGAN</th>
-                                                        </tr>
-                                                        <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">JUMLAH</th>
-                                                            <th style="border: thin solid #006666; " colspan="2" rowspan="1" class="text-center">STATUS (ORG)</th>
-                                                            <th style="border: thin solid #006666; " colspan="5" rowspan="1" class="text-center">PENDIDIKAN (ORG)</th>
-                                                            <th style="border: thin solid #006666; " colspan="3" rowspan="1" class="text-center">USIA (TAHUN) (ORG)</th>
-                                                        </tr>
-                                                        <tr id="boxThField2" style="background-color:#18978F; color:#fff;">
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">PNS</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">NON PNS/ HARIAN</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">S1/D4</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">D3</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SLTA</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SLTP</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SD</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">&gt;50</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">40-50</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">&lt;40</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
-                                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <!-- Sini gan kontennya -->
-                                                    <tbody id="bosTempatisiPerkakas-0">
-
-                                                        <?php 
-
-                                                        $nomorKuning = 1;
-                                                        $nomorPutih = 1;
-                                                        $idTbl2 = '';
-
-                                                        ?>
-
-                                                        <?php foreach ($dataBody as $key => $val) { ?>
-
-                                                           <?php if ($idTbl2 != $val->idTbl2) { ?>  
-                                                            <tr class="bg-warning indexKuningke-<?= $nomorKuning; ?>">
-                                                                <td><?= $nomorKuning; ?>
-                                                                <br>
-                                                                <?= ($nomorKuning > 1) ? '<buttom class="btn btn-danger btn-sm" onclick="hapusKuning('.$nomorKuning.')">X</buttom>':'';  ?>
-                                                            </td>
-                                                            <td colspan="15"><div class="row col-sm-12">
-                                                                <div class="col-sm-3">
-                                                                    <div class="form-group">
-                                                                        <label for="in_idTempat-<?= $nomorKuning; ?>">Kantor UPTD/Pengamat</label>
-                                                                        <select id="in_idTempat-<?= $nomorKuning; ?>" name="idTempat[]" required class="form-control select2">
-                                                                            <option selected="" value="">-pilih-</option>
-
-                                                                            <?php foreach ($dataKantor as $key => $value) { ?>
-                                                                                <option value="<?= $value->id; ?>" <?= ($value->id == $val->idTbl2) ? 'selected':''; ?>><?= $value->nama; ?></option>
-                                                                            <?php } ?>
-
-                                                                        </select>
-                                                                        <div class="invalid-feedback" id="pesan_idTempat"></div>
-                                                                    </div>
-                                                                </div> 
+                                </div>
 
 
-                                                                <div class="col-sm-3">
+                                <!-- Awal Tabel -->
+                                <div id="boxFormLain" style="border:thin solid #ccc;">
+                                    <!-- <div class="row col-sm-12 bg-info mb-2 text-center" style="padding:2px; margin:0px;"><b>DATA ORGANISASI PERSONALIA OPERASI DAN PEMELIHARAAN</b></div> -->
 
+                                    <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 92vh; width:96.6vw; background-color:#efebe9; padding:2px; border:thin solid #ccc;">
+                                        <table class="table">
 
-                                                                    <div class="form-group">
-                                                                        <label for="in_nama-<?= $nomorKuning; ?>">Nama Kantor</label>
-                                                                        <input id="in_nama-<?= $nomorKuning; ?>" name="nama[]" value="<?= $val->nama; ?>" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0" required placeholder="Nama Kantor" disabled="">
-                                                                        <div class="invalid-feedback" id="pesan_nama"></div>
-                                                                    </div>
+                                            <tbody id="boxTempatList">
+                                                <thead>
+                                                    <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">NO</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">ORGANISASI PERSONALIA O&amp;P</th>
+                                                        <th style="border: thin solid #006666; " colspan="11" rowspan="1" class="text-center">KONDISI SAAT INI</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">KEBUTUHAN*</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">KEKURANGAN*</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="3" class="text-center">KETERANGAN</th>
+                                                    </tr>
+                                                    <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">JUMLAH</th>
+                                                        <th style="border: thin solid #006666; " colspan="2" rowspan="1" class="text-center">STATUS (ORG)</th>
+                                                        <th style="border: thin solid #006666; " colspan="5" rowspan="1" class="text-center">PENDIDIKAN (ORG)</th>
+                                                        <th style="border: thin solid #006666; " colspan="3" rowspan="1" class="text-center">USIA (TAHUN) (ORG)</th>
+                                                    </tr>
+                                                    <tr id="boxThField2" style="background-color:#18978F; color:#fff;">
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">PNS</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">NON PNS/ HARIAN</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">S1/D4</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">D3</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SLTA</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SLTP</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SD</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">&gt;50</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">40-50</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">&lt;40</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ORG</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- Sini gan kontennya -->
+                                                <tbody id="bosTempatisiPerkakas-0">
 
+                                                    <?php 
 
-                                                                </div> 
+                                                    $nomorKuning = 1;
+                                                    $nomorPutih = 1;
+                                                    $idTbl2 = '';
 
+                                                    ?>
 
-                                                                <div class="col-sm-3">
+                                                    <?php foreach ($dataBody as $key => $val) { ?>
 
-
-                                                                    <div class="form-group">
-                                                                        <label for="in_alamat-<?= $nomorKuning; ?>">Alamat</label>
-                                                                        <input id="in_alamat-<?= $nomorKuning; ?>" name="alamat[]" value="<?= $val->alamat; ?>" type="text" class="form-control grupTempatF dampak_idTempat" required placeholder="Alamat" noklaster="" disabled="">
-                                                                        <div class="invalid-feedback" id="pesan_alamat"></div>
-                                                                    </div>
-
-
-                                                                </div> 
-
-                                                            </div>
+                                                     <?php if ($idTbl2 != $val->idTbl2) { ?>  
+                                                        <tr class="bg-warning indexKuningke-<?= $nomorKuning; ?>">
+                                                            <td><?= $nomorKuning; ?>
+                                                            <br>
+                                                            <?= ($nomorKuning > 1) ? '<buttom class="btn btn-danger btn-sm" onclick="hapusKuning('.$nomorKuning.')">X</buttom>':'';  ?>
                                                         </td>
-                                                    </tr>
+                                                        <td colspan="15"><div class="row col-sm-12">
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label for="in_idTempat-<?= $nomorKuning; ?>">Kantor UPTD/Pengamat</label>
+                                                                    <select id="in_idTempat-<?= $nomorKuning; ?>" name="idTempat[]" required class="form-control select2">
+                                                                        <option selected="" value="">-pilih-</option>
 
-                                                    <?php 
+                                                                        <?php foreach ($dataKantor as $key => $value) { ?>
+                                                                            <option value="<?= $value->id; ?>" <?= ($value->id == $val->idTbl2) ? 'selected':''; ?>><?= $value->nama; ?></option>
+                                                                        <?php } ?>
 
-                                                    $nomorKuning++;
-                                                    $idTbl2=$val->idTbl2;
-                                                    $nomorPutih=1;
-
-                                                    ?>
-
-                                                <?php } ?>
+                                                                    </select>
+                                                                    <div class="invalid-feedback" id="pesan_idTempat"></div>
+                                                                </div>
+                                                            </div> 
 
 
-                                                <tr id="tr_aLabel_13" class="indexPutihke-<?= $nomorKuning; ?>">
-                                                    <td style="width:2%;"><?= $nomorPutih; ?></td>
+                                                            <div class="col-sm-3">
 
-                                                    <td class="col-sm-3" style="min-width:200px;">
-                                                        <?= $val->label; ?>
-                                                        <input id="in_labelid" name="labelid[]" value="<?= $val->labelid; ?>" class="form-control grupTempat" type="hidden">
-                                                        <div class="invalid-feedback" id="pesan_labelid"></div>
+
+                                                                <div class="form-group">
+                                                                    <label for="in_nama-<?= $nomorKuning; ?>">Nama Kantor</label>
+                                                                    <input id="in_nama-<?= $nomorKuning; ?>" name="nama[]" value="<?= $val->nama; ?>" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0" required placeholder="Nama Kantor" disabled="">
+                                                                    <div class="invalid-feedback" id="pesan_nama"></div>
+                                                                </div>
+
+
+                                                            </div> 
+
+
+                                                            <div class="col-sm-3">
+
+
+                                                                <div class="form-group">
+                                                                    <label for="in_alamat-<?= $nomorKuning; ?>">Alamat</label>
+                                                                    <input id="in_alamat-<?= $nomorKuning; ?>" name="alamat[]" value="<?= $val->alamat; ?>" type="text" class="form-control grupTempatF dampak_idTempat" required placeholder="Alamat" noklaster="" disabled="">
+                                                                    <div class="invalid-feedback" id="pesan_alamat"></div>
+                                                                </div>
+
+
+                                                            </div> 
+
+                                                        </div>
                                                     </td>
+                                                </tr>
+
+                                                <?php 
+
+                                                $nomorKuning++;
+                                                $idTbl2=$val->idTbl2;
+                                                $nomorPutih=1;
+
+                                                ?>
+
+                                            <?php } ?>
 
 
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                        <input id="in_jmlOrg" name="jmlOrg[]" value="<?= $val->jmlOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+                                            <tr id="tr_aLabel_13" class="indexPutihke-<?= $nomorKuning; ?>">
+                                                <td style="width:2%;"><?= $nomorPutih; ?></td>
+
+                                                <td class="col-sm-3" style="min-width:200px;">
+                                                    <?= $val->label; ?>
+                                                    <input id="in_labelid" name="labelid[]" value="<?= $val->labelid; ?>" class="form-control grupTempat" type="hidden">
+                                                    <div class="invalid-feedback" id="pesan_labelid"></div>
+                                                </td>
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                    <input id="in_jmlOrg" name="jmlOrg[]" value="<?= $val->jmlOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+                                                </td> 
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                    <input id="in_stPnsOrg" name="stPnsOrg[]" value="<?= $val->stPnsOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+                                                </td> 
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                    <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="<?= $val->stNonPnsOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+                                                </td> 
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+                                                    <input id="in_pendS1Org" name="pendS1Org[]" value="<?= $val->pendS1Org; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_pendD3Org" name="pendD3Org[]" value="<?= $val->pendD3Org; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="<?= $val->pendSltaOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="<?= $val->pendSltpOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_pendSdOrg" name="pendSdOrg[]" value="<?= $val->pendSdOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_usiaAtas59" name="usiaAtas59[]" value="<?= $val->usiaAtas59; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="<?= $val->usiaAntara40d59; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+                                                    <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+
+
+                                                </td> 
+
+
+                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                    <input id="in_usiaKurang40" name="usiaKurang40[]" value="<?= $val->usiaKurang40; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+                                                        <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+
+
                                                     </td> 
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                        <input id="in_stPnsOrg" name="stPnsOrg[]" value="<?= $val->stPnsOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
-                                                    </td> 
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                        <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="<?= $val->stNonPnsOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
-                                                    </td> 
+
+
                                                     <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
-                                                        <input id="in_pendS1Org" name="pendS1Org[]" value="<?= $val->pendS1Org; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
+                                                        <input id="in_kebutuhan" name="kebutuhan[]" value="<?= $val->kebutuhan; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+                                                        <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
                                                     </td> 
@@ -343,145 +423,65 @@
                                                     <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-                                                        <input id="in_pendD3Org" name="pendD3Org[]" value="<?= $val->pendD3Org; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+                                                        <input id="in_kekurangan" name="kekurangan[]" value="<?= $val->kekurangan; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+                                                        <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
                                                     </td> 
 
 
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                    <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-                                                        <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="<?= $val->pendSltaOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
-
-
-                                                    </td> 
-
-
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                        <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="<?= $val->pendSltpOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+                                                        <input id="in_keterangan" name="keterangan[]" value="<?= $val->keterangan; ?>" type="text" class="form-control grupTempat" placeholder="Keterangan">
+                                                        <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
                                                     </td> 
+                                                </tr>
 
+                                                <?php 
 
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                $nomorPutih++;
 
+                                                ?>
 
-                                                        <input id="in_pendSdOrg" name="pendSdOrg[]" value="<?= $val->pendSdOrg; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
-
-
-                                                    </td> 
-
-
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                        <input id="in_usiaAtas59" name="usiaAtas59[]" value="<?= $val->usiaAtas59; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
-
-
-                                                    </td> 
-
-
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                        <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="<?= $val->usiaAntara40d59; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-                                                        <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
-
-
-                                                    </td> 
-
-
-                                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                        <input id="in_usiaKurang40" name="usiaKurang40[]" value="<?= $val->usiaKurang40; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-                                                            <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
-
-
-                                                        </td> 
-
-
-                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                            <input id="in_kebutuhan" name="kebutuhan[]" value="<?= $val->kebutuhan; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-                                                            <div class="invalid-feedback" id="pesan_kebutuhan"></div>
-
-
-                                                        </td> 
-
-
-                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-
-                                                            <input id="in_kekurangan" name="kekurangan[]" value="<?= $val->kekurangan; ?>" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-                                                            <div class="invalid-feedback" id="pesan_kekurangan"></div>
-
-
-                                                        </td> 
-
-
-                                                        <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
-
-
-                                                            <input id="in_keterangan" name="keterangan[]" value="<?= $val->keterangan; ?>" type="text" class="form-control grupTempat" placeholder="Keterangan">
-                                                            <div class="invalid-feedback" id="pesan_keterangan"></div>
-
-
-                                                        </td> 
-                                                    </tr>
-
-                                                    <?php 
-
-                                                    $nomorPutih++;
-
-                                                    ?>
-
-                                                <?php } ?>
-
-                                            </tbody>
-                                            <!-- End Sini Gan -->
-
-
+                                            <?php } ?>
 
                                         </tbody>
+                                        <!-- End Sini Gan -->
 
 
-                                    </table>
-                                    <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
-                                </div>
+
+                                    </tbody>
+
+
+                                </table>
+                                <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
                             </div>
-                            <!-- Akhir Table -->
-
-
                         </div>
+                        <!-- Akhir Table -->
 
-                        <div class="modal-footer justify-content-between">
-                            <div class="row">
-                              <a href="<?= base_url(); ?>SdmOp3A" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
-                          </div>
+
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <div class="row">
+                          <a href="<?= base_url(); ?>SdmOp3A/<?= $id; ?>" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+                          <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
                       </div>
-
-
-                      <!-- form end -->
-
                   </div>
+
+
+                  <!-- form end -->
+
               </div>
-
           </div>
-      </section>
 
-  </form>
+      </div>
+  </section>
+
+</form>
 
 </div>
 </div>
@@ -542,999 +542,999 @@
     tempatIsian = async function () {
         try {
 
-         await indexData++;
-         await indexKuning++;
+           await indexData++;
+           await indexKuning++;
 
-         let html = `<tbody id="bosTempatisiPerkakas-${indexData}">
-         <tr class="bg-warning">
-         <td>${indexKuning}<br><buttom class="btn btn-danger btn-sm" onclick="tempatIsianHapus(${indexData})">X</buttom></td>
-         <td colspan="15"><div class="row col-sm-12">
-         <div class="col-sm-3">
-         <div class="form-group">
-         <label for="in_idTempat-${indexKuning}">Kantor UPTD/Pengamat</label>
-         <select id="in_idTempat-${indexKuning}" name="idTempat[]" required class="form-control select2">
-         <option selected="" value="">-pilih-</option>
+           let html = `<tbody id="bosTempatisiPerkakas-${indexData}">
+           <tr class="bg-warning">
+           <td>${indexKuning}<br><buttom class="btn btn-danger btn-sm" onclick="tempatIsianHapus(${indexData})">X</buttom></td>
+           <td colspan="15"><div class="row col-sm-12">
+           <div class="col-sm-3">
+           <div class="form-group">
+           <label for="in_idTempat-${indexKuning}">Kantor UPTD/Pengamat</label>
+           <select id="in_idTempat-${indexKuning}" name="idTempat[]" required class="form-control select2">
+           <option selected="" value="">-pilih-</option>
 
-         <?php foreach ($dataKantor as $key => $value) { ?>
-             <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
-         <?php } ?>
+           <?php foreach ($dataKantor as $key => $value) { ?>
+               <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
+           <?php } ?>
 
-         </select>
-         <div class="invalid-feedback" id="pesan_idTempat"></div>
-         </div>
+           </select>
+           <div class="invalid-feedback" id="pesan_idTempat"></div>
+           </div>
 
-         <!-- checkbox2 -->
+           <!-- checkbox2 -->
 
-         </div> 
+           </div> 
 
 
-         <div class="col-sm-3">
+           <div class="col-sm-3">
 
 
-         <div class="form-group">
-         <label for="in_nama-${indexKuning}">Nama Kantor</label>
-         <input id="in_nama-${indexKuning}" name="nama[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0" required placeholder="Nama Kantor" disabled="">
-         <div class="invalid-feedback" id="pesan_nama"></div>
-         </div>
+           <div class="form-group">
+           <label for="in_nama-${indexKuning}">Nama Kantor</label>
+           <input id="in_nama-${indexKuning}" name="nama[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0" required placeholder="Nama Kantor" disabled="">
+           <div class="invalid-feedback" id="pesan_nama"></div>
+           </div>
 
 
-         </div> 
+           </div> 
 
 
-         <div class="col-sm-3">
+           <div class="col-sm-3">
 
 
-         <div class="form-group">
-         <label for="in_alamat-${indexKuning}">Alamat</label>
-         <input id="in_alamat-${indexKuning}" name="alamat[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" required placeholder="Alamat" noklaster="" disabled="">
-         <div class="invalid-feedback" id="pesan_alamat"></div>
-         </div>
+           <div class="form-group">
+           <label for="in_alamat-${indexKuning}">Alamat</label>
+           <input id="in_alamat-${indexKuning}" name="alamat[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" required placeholder="Alamat" noklaster="" disabled="">
+           <div class="invalid-feedback" id="pesan_alamat"></div>
+           </div>
 
 
-         </div> 
+           </div> 
 
-         </div></td></tr>
+           </div></td></tr>
 
 
-         <tr id="tr_aLabel_13">
-         <td style="width:2%;">1</td>
+           <tr id="tr_aLabel_13">
+           <td style="width:2%;">1</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         UPTD/Pengamat                        
-         <input id="in_labelid" name="labelid[]" value="13" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
+           UPTD/Pengamat                        
+           <input id="in_labelid" name="labelid[]" value="13" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
+           </tr>
 
 
-         <tr id="tr_aLabel_14">
-         <td style="width:2%;">2</td>
+           <tr id="tr_aLabel_14">
+           <td style="width:2%;">2</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         Staf UPTD/Pengamat                        
-         <input id="in_labelid" name="labelid[]" value="14" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
+           Staf UPTD/Pengamat                        
+           <input id="in_labelid" name="labelid[]" value="14" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
+           </tr>
 
 
-         <tr id="tr_aLabel_15">
-         <td style="width:2%;">3</td>
+           <tr id="tr_aLabel_15">
+           <td style="width:2%;">3</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         Juru / Mantri Pengairan                        
-         <input id="in_labelid" name="labelid[]" value="15" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
+           Juru / Mantri Pengairan                        
+           <input id="in_labelid" name="labelid[]" value="15" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
+           </tr>
 
 
-         <tr id="tr_aLabel_16">
-         <td style="width:2%;">4</td>
+           <tr id="tr_aLabel_16">
+           <td style="width:2%;">4</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         Petugas Operasi Bendung/Pompa                        
-         <input id="in_labelid" name="labelid[]" value="16" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
+           Petugas Operasi Bendung/Pompa                        
+           <input id="in_labelid" name="labelid[]" value="16" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
+           </tr>
 
 
-         <tr id="tr_aLabel_17">
-         <td style="width:2%;">5</td>
+           <tr id="tr_aLabel_17">
+           <td style="width:2%;">5</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         Petugas Pintu Air                        
-         <input id="in_labelid" name="labelid[]" value="17" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           Petugas Pintu Air                        
+           <input id="in_labelid" name="labelid[]" value="17" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
-         </td> 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           </td> 
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
+           </tr>
 
 
-         <tr id="tr_aLabel_18">
-         <td style="width:2%;">6</td>
+           <tr id="tr_aLabel_18">
+           <td style="width:2%;">6</td>
 
 
 
 
 
-         <td class="col-sm-3" style="min-width:200px;">
+           <td class="col-sm-3" style="min-width:200px;">
 
-         Pekerja / Pekarya Saluran**                        
-         <input id="in_labelid" name="labelid[]" value="18" class="form-control grupTempat" type="hidden">
-         <div class="invalid-feedback" id="pesan_labelid"></div>
-         </td>
+           Pekerja / Pekarya Saluran**                        
+           <input id="in_labelid" name="labelid[]" value="18" class="form-control grupTempat" type="hidden">
+           <div class="invalid-feedback" id="pesan_labelid"></div>
+           </td>
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
-         <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+           <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Jumlah (Orang)">
+           <div class="invalid-feedback" id="pesan_jmlOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
-         <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
+           <input id="in_stPnsOrg" name="stPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status PNS (Orang)">
+           <div class="invalid-feedback" id="pesan_stPnsOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
-         <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
+           <input id="in_stNonPnsOrg" name="stNonPnsOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Status Non PNS?Harian (Orang)">
+           <div class="invalid-feedback" id="pesan_stNonPnsOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendS1Org"></div>
+           <input id="in_pendS1Org" name="pendS1Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan S1/D4 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendS1Org"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
-         <div class="invalid-feedback" id="pesan_pendD3Org"></div>
+           <input id="in_pendD3Org" name="pendD3Org[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan D3 (Orang)">
+           <div class="invalid-feedback" id="pesan_pendD3Org"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
+           <input id="in_pendSltaOrg" name="pendSltaOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTA (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltaOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
+           <input id="in_pendSltpOrg" name="pendSltpOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SLTP (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSltpOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
-         <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
+           <input id="in_pendSdOrg" name="pendSdOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Pendidikan SD (Orang)">
+           <div class="invalid-feedback" id="pesan_pendSdOrg"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
+           <input id="in_usiaAtas59" name="usiaAtas59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia>50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAtas59"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
+           <input id="in_usiaAntara40d59" name="usiaAntara40d59[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia 40-50 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaAntara40d59"></div>
 
 
 
-         </td> 
+           </td> 
 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
-         <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
+           <input id="in_usiaKurang40" name="usiaKurang40[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Usia<40 (Orang)">
+           <div class="invalid-feedback" id="pesan_usiaKurang40"></div>
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
-         <div class="invalid-feedback" id="pesan_kebutuhan"></div>
+           <input id="in_kebutuhan" name="kebutuhan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kebutuhan (Orang)">
+           <div class="invalid-feedback" id="pesan_kebutuhan"></div>
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+           <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-         <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
-         <div class="invalid-feedback" id="pesan_kekurangan"></div>
+           <input id="in_kekurangan" name="kekurangan[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Kekurangan (Orang)">
+           <div class="invalid-feedback" id="pesan_kekurangan"></div>
 
 
-         </td> 
+           </td> 
 
-         <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+           <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
 
 
-         <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-         <div class="invalid-feedback" id="pesan_keterangan"></div>
+           <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+           <div class="invalid-feedback" id="pesan_keterangan"></div>
 
 
-         </td> 
+           </td> 
 
 
 
 
-         </tr>
-         </tbody>`;
+           </tr>
+           </tbody>`;
 
-         $(".table").append(html);
+           $(".table").append(html);
 
 
-         $(`#in_idTempat-${indexKuning}`).select2({
+           $(`#in_idTempat-${indexKuning}`).select2({
             theme: 'default'
         });
 
 
 
-     }catch(err){
+       }catch(err){
         alert(err)
     }                        
 
