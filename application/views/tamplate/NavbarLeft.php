@@ -58,7 +58,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B'];
 
         ?>
 
@@ -154,7 +154,7 @@
 
       <?php 
 
-      $arrayDataTeknis = ['SdmOp3A'];
+      $arrayDataTeknis = ['SdmOp3A', 'SdmOp3B'];
       $uri1 = @$this->uri->segment(1);
 
       ?>  
@@ -172,7 +172,7 @@
               <p>3A - SDM OP</p>
             </a>
           </li>
-          <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>SdmOp3A" class="nav-link p-1 m-0  ">
+          <li class="nav-item pl-2 m-0 "><a href="<?= base_url(); ?>SdmOp3B" class="nav-link p-1 m-0 <?= $tittle == '3B' ? 'active' : ''; ?>">
             <p>3B - PENUNJ. OP</p>
           </a>
         </li>                
