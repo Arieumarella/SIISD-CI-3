@@ -180,7 +180,7 @@
 
                                             <?php }else if ($this->session->userdata('prive') == 'pemda') { ?>
 
-                                                <option value="<?= $dataKabKota->provid; ?>"><?= $dataKabKota->provinsi; ?></option>
+                                                <option value="<?= $dataKabKota->kotakabid; ?>"><?= $dataKabKota->kemendagri; ?></option>
 
                                             <?php } ?>
 

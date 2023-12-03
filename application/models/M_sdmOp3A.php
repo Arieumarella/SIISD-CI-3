@@ -28,65 +28,6 @@ class M_sdmOp3A extends CI_Model {
 	}
 
 
-
-	public function getDataDi($searchDi, $kdprov, $kdKab)
-	{
-		if ($searchDi != null or $searchDi != '') {
-			$searchDi = " AND m_irigasi.nama like '%$searchDi%'";
-		}
-
-		if ($kdprov != '') {
-			$searchDi .= " AND m_irigasi.provid='$kdprov'";
-		}
-
-
-		if ($kdKab != '') {
-			$searchDi .= " AND m_irigasi. kotakabid='$kdKab'";
-		}
-
-		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 AND kategori='DIP' $searchDi LIMIT 80 ";
-
-		return $this->db->query($qry)->result();
-	}
-
-
-	public function getDataDiTambah($searchDi)
-	{
-		if ($searchDi != null or $searchDi != '') {
-			$searchDi = " AND m_irigasi.nama like '%$searchDi%'";
-		}
-
-		if ($this->session->userdata('prive') == 'provinsi' OR $this->session->userdata('prive') == 'pemda') {
-			$kotakabid = $this->session->userdata('kotakabid');
-			$searchDi .= " AND 	kotakabid='$kotakabid'";
-		}
-
-		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 AND kategori='DIP' $searchDi LIMIT 80 ";
-
-
-		return $this->db->query($qry)->result();
-	}
-
-
-	public function getDataDiById($id='')
-	{
-		$qry = "SELECT b.nama, a.* FROM p_f2e AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
-		return $this->db->query($qry)->row();
-	}
-
-
-
-
-	public function getDataDiFull($thangX, $kab)
-	{
-		$this->thang = $this->load->database($thangX, TRUE);
-
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f2e as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIP'";
-
-		return $this->thang->query($qry)->result();
-
-	}
-
 	public function getDataHeader($id='')
 	{
 		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
@@ -184,6 +125,91 @@ class M_sdmOp3A extends CI_Model {
 			$this->db->trans_commit();
 			return TRUE;
 		}
+	}
+
+
+	public function prsEditData($dataUpdate3a, $idEdit)
+	{
+		$this->db->trans_start();
+
+		$this->db->where(['id' => $idEdit]);
+		$this->db->update('p_f3a', $dataUpdate3a);
+
+
+		$this->db->where(['idF3a' => $idEdit]);
+		$this->db->delete('p_f3a_detail');
+
+		$idTempat = $this->input->post('idTempat');
+		
+		$labelid = $this->input->post('labelid');
+		$jmlOrg = $this->input->post('jmlOrg');
+		$stPnsOrg = $this->input->post('stPnsOrg');
+		$stNonPnsOrg = $this->input->post('stNonPnsOrg');
+		$pendS1Org = $this->input->post('pendS1Org');
+		$pendD3Org = $this->input->post('pendD3Org');
+		$pendSltaOrg = $this->input->post('pendSltaOrg');
+		$pendSltpOrg = $this->input->post('pendSltpOrg');
+		$pendSdOrg = $this->input->post('pendSdOrg');
+		$usiaAtas59 = $this->input->post('usiaAtas59');
+		$usiaAntara40d59 = $this->input->post('usiaAntara40d59');
+		$usiaKurang40 = $this->input->post('usiaKurang40');
+		$kebutuhan = $this->input->post('kebutuhan');
+		$kekurangan = $this->input->post('kekurangan');
+		$keterangan = clean($this->input->post('keterangan'));
+		$baseArray = [];
+
+		$nomorLoop = 1;
+		$nomorindexArray = 0;
+
+		foreach ($labelid as $key => $val) {
+			
+			$dataInsert2 = array(
+				'ta' => date('Y'),
+				'idF3a' => $idEdit,
+				'idTbl2' => $idTempat[$nomorindexArray],
+				'labelid' => $labelid[$key],
+				'jmlDI' => 0,
+				'jmlOrg' => $jmlOrg[$key],
+				'stPnsOrg' => $stPnsOrg[$key],
+				'stNonPnsOrg' => $stNonPnsOrg[$key],
+				'pendS1Org' => $pendS1Org[$key],
+				'pendD3Org' => $pendD3Org[$key],
+				'pendSltaOrg' => $pendSltaOrg[$key],
+				'pendSltpOrg' =>  $pendSltpOrg[$key],
+				'pendSdOrg' => $pendSdOrg[$key],
+				'usiaAtas59' => $usiaAtas59[$key],
+				'usiaAntara40d59' => $usiaAntara40d59[$key],
+				'usiaKurang40' => $usiaKurang40[$key],
+				'kebutuhan' => $kebutuhan[$key],
+				'kekurangan' => $kekurangan[$key],
+				'keterangan' => $keterangan[$key],
+				'uidIn' => $this->session->userdata('uid'),
+				'uidDt' => date('Y-m-d H:i:s')
+			);
+
+			$baseArray[] = $dataInsert2;
+
+			if ($nomorLoop == '6') {
+				$nomorLoop=1;
+				$nomorindexArray++;
+			}else{
+				$nomorLoop++;
+			}
+
+		}
+
+		$this->db->insert_batch('p_f3a_detail', $baseArray); 
+
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			return FALSE;
+		} else {
+			$this->db->trans_commit();
+			return TRUE;
+		}
+
 	}
 
 
