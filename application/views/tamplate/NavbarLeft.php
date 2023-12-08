@@ -58,7 +58,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A'];
 
         ?>
 
@@ -178,16 +178,24 @@
         </li>                
       </ul>
     </li>
-    <li class="nav-item has-treeview ">
+
+    <?php 
+
+    $arrayDataTeknis = ['IndexKinerja4A'];
+    $uri1 = @$this->uri->segment(1);
+
+    ?>  
+
+    <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
       <a href="#" class="nav-link">
         <p>
           4 - Indeks Kinerja       
           <i class="fas fa-angle-left right"></i>
         </p>
       </a>
-      <ul class="nav nav-treeview pl-2" style="border-left:thin solid #ccc;">
-        <li class="nav-item pl-2 m-0 ">
-          <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/4a" class="nav-link p-1 m-0  ">
+      <ul class="nav nav-treeview pl-2" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknis)) ? 'block;' : 'none'; ?>;">
+        <li class="nav-item pl-2 m-0 <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
+          <a href="<?= base_url(); ?>IndexKinerja4A" class="nav-link p-1 m-0  <?= $tittle == '4A' ? 'active' : ''; ?>">
             <p>4A - DATA KONDISI  D.I</p>
           </a>
         </li>
