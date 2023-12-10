@@ -82,11 +82,11 @@
                   <div class="container-fluid">
                     <div class="row m-0 p-0 text-left">
                       <div class="col-sm-7">
-                        <h4 class="m-0" id="titleBox">Format Excel 4A</h4>
+                        <h4 class="m-0" id="titleBox">Format Excel 4B</h4>
                     </div>
 
                     <div class="col-5 text-right">
-                        <a href="<?= base_url(); ?>IndexKinerja4A" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
+                        <a href="<?= base_url(); ?>IndexKinerja4B" class="btn btn-default btn-sm" aksi="table" title="Kembali"><i class="fas fa-home"></i> Kembali</a>
 
                     </div>
                 </div>
@@ -113,28 +113,28 @@
                                 </div>
 
 
-                                <form class="form-horizontal" method="POST" action="<?= base_url(); ?>IndexKinerja4A/downloadExcel">
+                                <form class="form-horizontal" method="POST" action="<?= base_url(); ?>IndexKinerja4B/downloadExcel">
                                     <div class="card-body">
                                         <?php if ($this->session->userdata('prive') == 'admin') { ?>
-                                            <div class="form-group row">
-                                                <label for="prov" class="col-sm-3 col-form-label">Pilih Provinsi :</label>
-                                                <div class="col-sm-9">
-                                                    <select id="prov" name="prov" class="form-control form-control-sm select2" required>
-                                                        <option selected="" value="" selected disabled>- Pilih Provinsi -</option>
-                                                        <?php foreach ($dataProv as $key => $value) { ?>
-                                                            <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="prov" class="col-sm-3 col-form-label">Pilih Provinsi :</label>
+                                            <div class="col-sm-9">
+                                                <select id="prov" name="prov" class="form-control form-control-sm select2" required>
+                                                    <option selected="" value="" selected disabled>- Pilih Provinsi -</option>
+                                                    <?php foreach ($dataProv as $key => $value) { ?>
+                                                    <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="kab" class="col-sm-3 col-form-label">Pilih Kab/Kota :</label>
-                                                <div class="col-sm-9">
-                                                    <select id="kab" name="kab" class="form-control form-control-sm select2" required>
-                                                        <option selected="" value="" selected disabled>- Pilih Kab/Kota -</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="kab" class="col-sm-3 col-form-label">Pilih Kab/Kota :</label>
+                                            <div class="col-sm-9">
+                                                <select id="kab" name="kab" class="form-control form-control-sm select2" required>
+                                                    <option selected="" value="" selected disabled>- Pilih Kab/Kota -</option>
+                                                </select>
                                             </div>
+                                        </div>
                                         <?php } ?>
                                         <button type="submit" class="btn btn-success float-right">Download</button>
 
@@ -149,28 +149,28 @@
                                     <h3 class="card-title">Form Upload Excel</h3>
                                 </div>
 
-                                <form class="form-horizontal" action="<?= base_url(); ?>IndexKinerja4A/prosesUploadExcel" method="POST" enctype="multipart/form-data">
+                                <form class="form-horizontal" action="<?= base_url(); ?>IndexKinerja4B/prosesUploadExcel" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <?php if ($this->session->userdata('prive') == 'admin') { ?>
-                                            <div class="form-group row">
-                                                <label for="prov-upload" class="col-sm-3 col-form-label">Pilih Provinsi :</label>
-                                                <div class="col-sm-9">
-                                                    <select id="prov-upload" name="prov-upload" class="form-control form-control-sm select2" required>
-                                                        <option selected="" value="" selected disabled>- Pilih Provinsi -</option>
-                                                        <?php foreach ($dataProv as $key => $value) { ?>
-                                                            <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="prov-upload" class="col-sm-3 col-form-label">Pilih Provinsi :</label>
+                                            <div class="col-sm-9">
+                                                <select id="prov-upload" name="prov-upload" class="form-control form-control-sm select2" required>
+                                                    <option selected="" value="" selected disabled>- Pilih Provinsi -</option>
+                                                    <?php foreach ($dataProv as $key => $value) { ?>
+                                                    <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="kab-upload" class="col-sm-3 col-form-label">Pilih Kab/Kota :</label>
-                                                <div class="col-sm-9">
-                                                    <select id="kab-upload" name="kab-upload" class="form-control form-control-sm select2" required>
-                                                        <option selected="" value="" selected disabled>- Pilih Kab/Kota -</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="kab-upload" class="col-sm-3 col-form-label">Pilih Kab/Kota :</label>
+                                            <div class="col-sm-9">
+                                                <select id="kab-upload" name="kab-upload" class="form-control form-control-sm select2" required>
+                                                    <option selected="" value="" selected disabled>- Pilih Kab/Kota -</option>
+                                                </select>
                                             </div>
+                                        </div>
                                         <?php } ?>
                                         <div class="form-group row">
                                             <label for="fileExcel" class="col-sm-3 col-form-label">Input File Excel :</label>
@@ -227,16 +227,16 @@
 <script>
   $(document).ready(function(){
 
-   $('.select2').select2({
+     $('.select2').select2({
       theme: 'default'
   })
 
 
-   $('#prov').change(function() {
+     $('#prov').change(function() {
       let val = $(this).val();
 
       $.ajax({
-          url: base_url()+'IndexKinerja4A/getDataKabKota',
+          url: base_url()+'IndexKinerja4B/getDataKabKota',
           type: 'POST',
           dataType: 'json',
           data: {prov:val},
@@ -261,11 +261,11 @@
   });
 
 
-   $('#prov-upload').change(function() {
+     $('#prov-upload').change(function() {
       let val = $(this).val();
 
       $.ajax({
-          url: base_url()+'IndexKinerja4A/getDataKabKota',
+          url: base_url()+'IndexKinerja4B/getDataKabKota',
           type: 'POST',
           dataType: 'json',
           data: {prov:val},
@@ -289,6 +289,6 @@
 
   });
 
-});
+ });
 </script>
 </body>

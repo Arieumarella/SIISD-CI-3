@@ -692,7 +692,7 @@ public function downloadExcel()
 	$path = "./assets/format/tmp/$menitDetik.xlsx";
 	$spreadsheet = IOFactory::load($path);
 
-	$cek = $this->M_dinamis->getById('p_f4a', ['ta' => $thang]);
+	$cek = $this->M_dinamis->getById('p_f4a', ['kotakabid'=>$kab, 'ta' => $thang]);
 
 	if ($cek) {
 		$data = $this->M_IndexKinerja4A->getDataDiFull($thang, $kab);
@@ -1213,7 +1213,7 @@ private function hitungTotalA($arrayAll=[], $kondisi)
 	$nilaiHasilBagi = $nilaiTotal/$totalData;
 
 	if ($kondisi == 2) {
-		
+
 		return $nilaiHasilBagi;
 	}else{
 
