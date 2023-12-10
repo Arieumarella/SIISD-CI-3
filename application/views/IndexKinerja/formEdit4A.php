@@ -90,7 +90,7 @@
         <div class="row m-0" data-select2-id="27">
           <!-- panel panel-default -->
           <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>IndexKinerja4A/SimpanData" method="POST" data-select2-id="25">
+            <form role="form" action="<?= base_url(); ?>IndexKinerja4A/SimpanDataEdit" method="POST" data-select2-id="25">
 
               <div class="content-header bg-warning">
                 <div class="container-fluid">
@@ -114,7 +114,7 @@
             <!-- box data teknis -->
             <div class="row" data-select2-id="22">
 
-                <div class="card-body p-0 " data-select2-id="21">                        <!-- form start -->
+                <div class="card-body p-0 " data-select2-id="21"> 
                     <div class="modal-body" data-select2-id="20">
 
                         <?= $this->session->flashdata('psn'); ?>
@@ -123,34 +123,24 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
+                            <div class="col-sm-6" data-select2-id="33">
 
-                                <?php if ($this->session->userdata('prive') == 'admin') { ?> 
-                                    <div class="form-group" data-select2-id="32">
-                                        <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="irigasiid" name="irigasiid" class="form-control select3" required>
 
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-                                <?php }else{ ?>
-                                    <div class="form-group" data-select2-id="32">
-                                        <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="irigasiid" name="irigasiid" class="form-control select2" required>
-                                            <option value="" selected disabled>- Pilih D.I -</option>
-                                            <?php foreach ($dataDi as $key => $value) { ?>
-                                                <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-                                <?php } ?>
+
+                                <div class="form-group" data-select2-id="32">
+                                    <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="irigasiid" name="irigasiid" class="form-control select2" required>
+                                        <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                </div>
+
 
                             </div>
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                     <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                    <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen);  ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
                                     <div class="invalid-feedback" id="pesan_laPermen"></div>
                                 </div>
                             </div>
@@ -158,7 +148,7 @@
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                     <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="sawahFungsional" name="sawahFungsional" value="" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
+                                    <input id="sawahFungsional" name="sawahFungsional" value="<?= str_replace('.', ',', $dataDi->sawahFungsional);  ?>" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
                                     <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
                                 </div>
                             </div>
@@ -177,7 +167,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="isi1">B/RR/RS/RB</label>
-                                    <input id="isi1" value="" type="text" class="form-control kududisabled" name="buBendungA" placeholder="B/RR/RS/RB" readonly >
+                                    <input id="isi1" value="<?= str_replace('.', ',', $dataDi->buBendungA);  ?>" type="text" class="form-control kududisabled" name="buBendungA" placeholder="B/RR/RS/RB" readonly >
                                     <div class="invalid-feedback" id="pesan_buBendungA"></div>
                                 </div>
 
@@ -185,7 +175,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="bangnanUtama1">Nilai Kondisi (%)</label>
-                                    <input id="bangnanUtama1" name="buBendungB" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi (%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(1);" required>
+                                    <input id="bangnanUtama1" name="buBendungB" value="<?= str_replace('.', ',', $dataDi->buBendungB);  ?>" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi (%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(1);" required>
                                     <div class="invalid-feedback" id="pesan_buBendungB"></div>
                                 </div>
                             </div>
@@ -200,7 +190,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="isi2">B/RR/RS/RB</label>
-                                    <input id="isi2" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                    <input id="isi2" value="<?= str_replace('.', ',', $dataDi->buPengambilanBebasA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
                                     <div class="invalid-feedback" id="pesan_buPengambilanBebasA"></div>
                                 </div>
 
@@ -208,7 +198,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="bangnanUtama2">Nilai Kondisi (%)</label>
-                                    <input id="bangnanUtama2" name="buPengambilanBebasB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(2);" required placeholder="Nilai Kondisi (%)">
+                                    <input id="bangnanUtama2" name="buPengambilanBebasB" value="<?= str_replace('.', ',', $dataDi->buPengambilanBebasB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(2);" required placeholder="Nilai Kondisi (%)">
                                     <div class="invalid-feedback" id="pesan_buPengambilanBebasB"></div>
                                 </div>
                             </div>
@@ -223,7 +213,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="isi3">B/RR/RS/RB</label>
-                                    <input id="isi3" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                    <input id="isi3" value="<?= str_replace('.', ',', $dataDi->buStasiunPompaA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
                                     <div class="invalid-feedback" id="pesan_buStasiunPompaA"></div>
                                 </div>
 
@@ -231,7 +221,7 @@
                             <div class="col-sm-6"> 
                                 <div class="form-group">
                                     <label for="bangnanUtama3">Nilai Kondisi (%)</label>
-                                    <input id="bangnanUtama3" name="buStasiunPompaB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(3);" required placeholder="Nilai Kondisi (%)">
+                                    <input id="bangnanUtama3" name="buStasiunPompaB" value="<?= str_replace('.', ',', $dataDi->buStasiunPompaB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(3);" required placeholder="Nilai Kondisi (%)">
                                     <div class="invalid-feedback" id="pesan_buStasiunPompaB"></div>
                                 </div>
                             </div>
@@ -243,7 +233,7 @@
                         <div class="col-sm-6"> 
                             <div class="form-group">
                                 <label for="isi4">B/RR/RS/RB</label>
-                                <input id="isi4" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                <input id="isi4" value="<?= str_replace('.', ',', $dataDi->buEmbungA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
                                 <div class="invalid-feedback" id="pesan_buEmbungA"></div>
                             </div>
 
@@ -251,7 +241,7 @@
                         <div class="col-sm-6"> 
                             <div class="form-group">
                                 <label for="bangnanUtama4">Nilai Kondisi (%)</label>
-                                <input id="bangnanUtama4" name="buEmbungB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(4);" required placeholder="Nilai Kondisi (%)">
+                                <input id="bangnanUtama4" name="buEmbungB" value="<?= str_replace('.', ',', $dataDi->buEmbungB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanUtama(4);" required placeholder="Nilai Kondisi (%)">
                                 <div class="invalid-feedback" id="pesan_buEmbungB"></div>
                             </div>
                         </div>
@@ -270,7 +260,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="saluranB1">B (%)</label>
-                        <input id="saluranB1" name="saluranPrimerB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="B (%)">
+                        <input id="saluranB1" name="saluranPrimerB" value="<?= str_replace('.', ',', $dataDi->saluranPrimerB);  ?>" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="B (%)">
                         <div class="invalid-feedback" id="pesan_saluranPrimerB"></div>
                     </div>
 
@@ -278,7 +268,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="saluranRR1">RR (%)</label>
-                        <input id="saluranRR1" name="saluranPrimerBR" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RR (%)">
+                        <input id="saluranRR1" name="saluranPrimerBR" value="<?= str_replace('.', ',', $dataDi->saluranPrimerBR);  ?>" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RR (%)">
                         <div class="invalid-feedback" id="pesan_saluranPrimerBR"></div>
                     </div>
 
@@ -286,7 +276,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="saluranRS1">RS (%)</label>
-                        <input id="saluranRS1" name="saluranPrimerRS" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RS (%)">
+                        <input id="saluranRS1" name="saluranPrimerRS" value="<?= str_replace('.', ',', $dataDi->saluranPrimerRS);  ?>" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RS (%)">
                         <div class="invalid-feedback" id="pesan_saluranPrimerRS"></div>
                     </div>
 
@@ -294,7 +284,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="saluranRB1">RB (%)</label>
-                        <input id="saluranRB1" name="saluranPrimerRB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RB (%)">
+                        <input id="saluranRB1" name="saluranPrimerRB" value="<?= str_replace('.', ',', $dataDi->saluranPrimerRB);  ?>" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RB (%)">
                         <div class="invalid-feedback" id="pesan_saluranPrimerRB"></div>
                     </div>
 
@@ -302,7 +292,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="saluranRerata1">Rerata (B/RR/RS/RB)</label>
-                        <input id="saluranRerata1" name="saluranPrimerRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+                        <input id="saluranRerata1" name="saluranPrimerRerata" value="<?= str_replace('.', ',', $dataDi->saluranPrimerRerata);  ?>" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
                         <div class="invalid-feedback" id="pesan_saluranPrimerRerata"></div>
                     </div>
 
@@ -310,7 +300,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="kondisiKerusakan1">Nilai Kondisi Kerusakan (%)</label>
-                        <input id="kondisiKerusakan1" name="saluranPrimerNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+                        <input id="kondisiKerusakan1" name="saluranPrimerNilai" value="<?= str_replace('.', ',', $dataDi->saluranPrimerNilai);  ?>" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
 
                         <div class="invalid-feedback" id="pesan_saluranPrimerNilai"></div>
                     </div>
@@ -324,7 +314,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="saluranB2">B (%)</label>
-                    <input id="saluranB2" name="saluranSekunderB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="B (%)">
+                    <input id="saluranB2" name="saluranSekunderB" value="<?= str_replace('.', ',', $dataDi->saluranSekunderB);  ?>" type="text" class="form-control text-right number saluranSekunder" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="B (%)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderB"></div>
                 </div>
 
@@ -332,7 +322,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="saluranRR2">RR (%)</label>
-                    <input id="saluranRR2" name="saluranSekunderBR" value="" type="text" class="form-control text-right number saluranSekunder" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RR (%)">
+                    <input id="saluranRR2" name="saluranSekunderBR" value="<?= str_replace('.', ',', $dataDi->saluranSekunderBR);  ?>" type="text" class="form-control text-right number saluranSekunder" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RR (%)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderBR"></div>
                 </div>
 
@@ -340,7 +330,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="saluranRS2">RS (%)</label>
-                    <input id="saluranRS2" name="saluranSekunderRS" value="" type="text" class="form-control text-right number saluranSekunder" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RS (%)">
+                    <input id="saluranRS2" name="saluranSekunderRS" value="<?= str_replace('.', ',', $dataDi->saluranSekunderRS);  ?>" type="text" class="form-control text-right number saluranSekunder" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RS (%)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderRS"></div>
                 </div>
 
@@ -348,7 +338,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="saluranRB2">RB (%)</label>
-                    <input id="saluranRB2" name="saluranSekunderRB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RB (%)">
+                    <input id="saluranRB2" name="saluranSekunderRB" value="<?= str_replace('.', ',', $dataDi->saluranSekunderRB);  ?>" type="text" class="form-control text-right number saluranSekunder" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RB (%)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderRB"></div>
                 </div>
 
@@ -356,7 +346,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="saluranRerata2">Rerata (B/RR/RS/RB)</label>
-                    <input id="saluranRerata2" name="saluranSekunderRerata" value="" type="text" class="form-control text-right" readonly placeholder="Rerata (B/RR/RS/RB)">
+                    <input id="saluranRerata2" name="saluranSekunderRerata" value="<?= str_replace('.', ',', $dataDi->saluranSekunderRerata);  ?>" type="text" class="form-control text-right" readonly placeholder="Rerata (B/RR/RS/RB)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderRerata"></div>
                 </div>
 
@@ -364,7 +354,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="kondisiKerusakan2">Nilai Kondisi Kerusakan (%)</label>
-                    <input id="kondisiKerusakan2" name="saluranSekunderNilai" value="" type="text" class="form-control text-right number rataJaringan" readonly placeholder="Nilai Kondisi Kerusakan (%)">
+                    <input id="kondisiKerusakan2" name="saluranSekunderNilai" value="<?= str_replace('.', ',', $dataDi->saluranSekunderNilai);  ?>" type="text" class="form-control text-right number rataJaringan" readonly placeholder="Nilai Kondisi Kerusakan (%)">
                     <div class="invalid-feedback" id="pesan_saluranSekunderNilai"></div>
                 </div>
 
@@ -377,7 +367,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="saluranB3">B (%)</label>
-                <input id="saluranB3" name="saluranTersierB" value="" type="text" class="form-control text-right number saluranTersier" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="B (%)">
+                <input id="saluranB3" name="saluranTersierB" value="<?= str_replace('.', ',', $dataDi->saluranTersierB);  ?>" type="text" class="form-control text-right number saluranTersier" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="B (%)">
                 <div class="invalid-feedback" id="pesan_saluranTersierB"></div>
             </div>
 
@@ -385,7 +375,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="saluranRR3">RR (%)</label>
-                <input id="saluranRR3" name="saluranTersierBR" value="" type="text" class="form-control text-right number saluranTersier" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RR (%)">
+                <input id="saluranRR3" name="saluranTersierBR" value="<?= str_replace('.', ',', $dataDi->saluranTersierBR);  ?>" type="text" class="form-control text-right number saluranTersier" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RR (%)">
                 <div class="invalid-feedback" id="pesan_saluranTersierBR"></div>
             </div>
 
@@ -393,7 +383,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="saluranRS3">RS (%)</label>
-                <input id="saluranRS3" name="saluranTersierRS" value="" type="text" class="form-control text-right number saluranTersier" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RS (%)">
+                <input id="saluranRS3" name="saluranTersierRS" value="<?= str_replace('.', ',', $dataDi->saluranTersierRS);  ?>" type="text" class="form-control text-right number saluranTersier" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RS (%)">
                 <div class="invalid-feedback" id="pesan_saluranTersierRS"></div>
             </div>
 
@@ -401,7 +391,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="saluranRB1">RB (%)</label>
-                <input id="saluranRB1" name="saluranTersierRB" value="" type="text" class="form-control text-right number saluranTersier" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RB (%)">
+                <input id="saluranRB1" name="saluranTersierRB" value="<?= str_replace('.', ',', $dataDi->saluranTersierRB);  ?>" type="text" class="form-control text-right number saluranTersier" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RB (%)">
                 <div class="invalid-feedback" id="pesan_saluranTersierRB"></div>
             </div>
 
@@ -409,7 +399,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="saluranRerata3">Rerata (B/RR/RS/RB)</label>
-                <input id="saluranRerata3" name="saluranTersierRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+                <input id="saluranRerata3" name="saluranTersierRerata" value="<?= str_replace('.', ',', $dataDi->saluranTersierRerata);  ?>" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
                 <div class="invalid-feedback" id="pesan_saluranTersierRerata"></div>
             </div>
 
@@ -417,7 +407,7 @@
         <div class="col-sm-2">
             <div class="form-group">
                 <label for="kondisiKerusakan3">Nilai Kondisi Kerusakan (%)</label>
-                <input id="kondisiKerusakan3" name="saluranTersierNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+                <input id="kondisiKerusakan3" name="saluranTersierNilai" value="<?= str_replace('.', ',', $dataDi->saluranTersierNilai);  ?>" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
                 <div class="invalid-feedback" id="pesan_saluranTersierNilai"></div>
             </div>
 
@@ -430,7 +420,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="saluranB4">B (%)</label>
-            <input id="saluranB4" name="saluranPembuangB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="B (%)">
+            <input id="saluranB4" name="saluranPembuangB" value="<?= str_replace('.', ',', $dataDi->saluranPembuangB);  ?>" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="B (%)">
             <div class="invalid-feedback" id="pesan_saluranPembuangB"></div>
         </div>
 
@@ -438,7 +428,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="saluranRR4">RR (%)</label>
-            <input id="saluranRR4" name="saluranPembuangBR" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RR (%)">
+            <input id="saluranRR4" name="saluranPembuangBR" value="<?= str_replace('.', ',', $dataDi->saluranPembuangBR);  ?>" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RR (%)">
             <div class="invalid-feedback" id="pesan_saluranPembuangBR"></div>
         </div>
 
@@ -446,7 +436,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="saluranRS4">RS (%)</label>
-            <input id="saluranRS4" name="saluranPembuangRS" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RS (%)">
+            <input id="saluranRS4" name="saluranPembuangRS" value="<?= str_replace('.', ',', $dataDi->saluranPembuangRS);  ?>" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RS (%)">
             <div class="invalid-feedback" id="pesan_saluranPembuangRS"></div>
         </div>
 
@@ -454,7 +444,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="saluranRB4">RB (%)</label>
-            <input id="saluranRB4" name="saluranPembuangRB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RB (%)">
+            <input id="saluranRB4" name="saluranPembuangRB" value="<?= str_replace('.', ',', $dataDi->saluranPembuangRB);  ?>" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RB (%)">
             <div class="invalid-feedback" id="pesan_saluranPembuangRB"></div>
         </div>
 
@@ -462,7 +452,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="saluranRerata4">Rerata (B/RR/RS/RB)</label>
-            <input id="saluranRerata4" name="saluranPembuangRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+            <input id="saluranRerata4" name="saluranPembuangRerata" value="<?= str_replace('.', ',', $dataDi->saluranPembuangRerata);  ?>" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
             <div class="invalid-feedback" id="pesan_saluranPembuangRerata"></div>
         </div>
 
@@ -470,7 +460,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="kondisiKerusakan4">Nilai Kondisi Kerusakan (%)</label>
-            <input id="kondisiKerusakan4" name="saluranPembuangNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+            <input id="kondisiKerusakan4" name="saluranPembuangNilai" value="<?= str_replace('.', ',', $dataDi->saluranPembuangNilai);  ?>" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
             <div class="invalid-feedback" id="pesan_saluranPembuangNilai"></div>
         </div>
 
@@ -491,7 +481,7 @@
 
         <div class="form-group">
             <label for="bangutarPengukur1">B/RR/RS/RB</label>
-            <input id="bangutarPengukur1" name="bppBagiA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="bangutarPengukur1" name="bppBagiA" value="<?= str_replace('.', ',', $dataDi->bppBagiA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bppBagiA"></div>
         </div>
 
@@ -500,7 +490,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="bangunanPengukurValue1">Nilai Kondisi (%)</label>
-            <input id="bangunanPengukurValue1" name="bppBagiB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(1);" required placeholder="Nilai Kondisi (%)">
+            <input id="bangunanPengukurValue1" name="bppBagiB" value="<?= str_replace('.', ',', $dataDi->bppBagiB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(1);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bppBagiB"></div>
         </div>
         
@@ -514,7 +504,7 @@
 
         <div class="form-group">
             <label for="bangutarPengukur2">B/RR/RS/RB</label>
-            <input id="bangutarPengukur2" value="" type="text" name="bppBagiSadapA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="bangutarPengukur2" value="<?= str_replace('.', ',', $dataDi->bppBagiSadapA);  ?>" type="text" name="bppBagiSadapA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bppBagiSadapA"></div>
         </div>
 
@@ -523,7 +513,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="bangunanPengukurValue2">Nilai Kondisi (%)</label>
-            <input id="bangunanPengukurValue2" name="bppBagiSadapB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(2);" required placeholder="Nilai Kondisi (%)">
+            <input id="bangunanPengukurValue2" name="bppBagiSadapB" value="<?= str_replace('.', ',', $dataDi->bppBagiSadapB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(2);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bppBagiSadapB"></div>
         </div>
         
@@ -537,7 +527,7 @@
 
         <div class="form-group">
             <label for="bangutarPengukur3">B/RR/RS/RB</label>
-            <input id="bangutarPengukur3" name="bppSadapA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="bangutarPengukur3" name="bppSadapA" value="<?= str_replace('.', ',', $dataDi->bppSadapA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bppSadapA"></div>
         </div>
 
@@ -546,7 +536,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="bangunanPengukurValue3">Nilai Kondisi (%)</label>
-            <input id="bangunanPengukurValue3" name="bppSadapB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(3);" required placeholder="Nilai Kondisi (%)">
+            <input id="bangunanPengukurValue3" name="bppSadapB" value="<?= str_replace('.', ',', $dataDi->bppSadapB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(3);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bppSadapB"></div>
         </div>
         
@@ -560,7 +550,7 @@
 
         <div class="form-group">
             <label for="bangutarPengukur4">B/RR/RS/RB</label>
-            <input id="bangutarPengukur4" name="bppBangunanPengukurA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="bangutarPengukur4" name="bppBangunanPengukurA" value="<?= str_replace('.', ',', $dataDi->bppBangunanPengukurA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bppBangunanPengukurA"></div>
         </div>
 
@@ -569,7 +559,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="bangunanPengukurValue4">Nilai Kondisi (%)</label>
-            <input id="bangunanPengukurValue4" name="bppBangunanPengukurB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(4);" required placeholder="Nilai Kondisi (%)">
+            <input id="bangunanPengukurValue4" name="bppBangunanPengukurB" value="<?= str_replace('.', ',', $dataDi->bppBangunanPengukurB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(4);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bppBangunanPengukurB"></div>
         </div>
         
@@ -592,7 +582,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa1">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa1" name="bPembawaGorongA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa1" name="bPembawaGorongA" value="<?= str_replace('.', ',', $dataDi->bPembawaGorongA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaGorongA"></div>
         </div>
         
@@ -600,7 +590,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa1">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa1" name="bPembawaGorongB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(1);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa1" name="bPembawaGorongB" value="<?= str_replace('.', ',', $dataDi->bPembawaGorongB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(1);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaGorongB"></div>
         </div>
         
@@ -619,7 +609,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa2">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa2" value="" type="text" name="bPembawaSiponA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa2" value="<?= str_replace('.', ',', $dataDi->bPembawaSiponA);  ?>" type="text" name="bPembawaSiponA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaSiponA"></div>
         </div>
         
@@ -627,7 +617,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa2">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa2" name="bPembawaSiponB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(2);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa2" name="bPembawaSiponB" value="<?= str_replace('.', ',', $dataDi->bPembawaSiponB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(2);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaSiponB"></div>
         </div>
         
@@ -646,7 +636,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa3">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa3" value="" type="text" name="bPembawaTalangA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa3" value="<?= str_replace('.', ',', $dataDi->bPembawaTalangA);  ?>" type="text" name="bPembawaTalangA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaTalangA"></div>
         </div>
         
@@ -654,7 +644,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa3">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa3" name="bPembawaTalangB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(3);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa3" name="bPembawaTalangB" value="<?= str_replace('.', ',', $dataDi->bPembawaTalangB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(3);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaTalangB"></div>
         </div>
         
@@ -673,7 +663,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa4">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa4" value="" type="text" name="bPembawaTerjunanA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa4" value="<?= str_replace('.', ',', $dataDi->bPembawaTerjunanA);  ?>" type="text" name="bPembawaTerjunanA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaTerjunanA"></div>
         </div>
         
@@ -681,7 +671,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa4">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa4" name="bPembawaTerjunanB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(4);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa4" name="bPembawaTerjunanB" value="<?= str_replace('.', ',', $dataDi->bPembawaTerjunanB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(4);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaTerjunanB"></div>
         </div>
         
@@ -700,7 +690,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa5">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa5" value="" name="bPembawaGotMiringA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa5" value="<?= str_replace('.', ',', $dataDi->bPembawaGotMiringA);  ?>" name="bPembawaGotMiringA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaGotMiringA"></div>
         </div>
         
@@ -708,7 +698,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa5">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa5" name="bPembawaGotMiringB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(5);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa5" name="bPembawaGotMiringB" value="<?= str_replace('.', ',', $dataDi->bPembawaGotMiringB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(5);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaGotMiringB"></div>
         </div>
         
@@ -727,7 +717,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa6">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa6" name="bPembawaFlumA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa6" name="bPembawaFlumA" value="<?= str_replace('.', ',', $dataDi->bPembawaFlumA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaFlumA"></div>
         </div>
         
@@ -735,7 +725,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa6">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa6" name="bPembawaFlumB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(6);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa6" name="bPembawaFlumB" value="<?= str_replace('.', ',', $dataDi->bPembawaFlumB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(6);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaFlumB"></div>
         </div>
         
@@ -754,7 +744,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanPembawa7">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPembawa7" value="" type="text" name="bPembawaTerawanganA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPembawa7" value="<?= str_replace('.', ',', $dataDi->bPembawaTerawanganA);  ?>" type="text" name="bPembawaTerawanganA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_bPembawaTerawanganA"></div>
         </div>
         
@@ -762,7 +752,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPembawa7">Nilai Kondisi (%)</label>
-            <input id="valBangunanPembawa7" name="bPembawaTerawanganB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(7);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPembawa7" name="bPembawaTerawanganB" value="<?= str_replace('.', ',', $dataDi->bPembawaTerawanganB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPembawa(7);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_bPembawaTerawanganB"></div>
         </div>
         
@@ -786,7 +776,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung1">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung1" value="" name="blinKantongA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung1" value="<?= str_replace('.', ',', $dataDi->blinKantongA);  ?>" name="blinKantongA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinKantongA"></div>
         </div>
         
@@ -795,7 +785,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung1">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung1" name="blinKantongB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(1);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung1" name="blinKantongB" value="<?= str_replace('.', ',', $dataDi->blinKantongB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(1);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinKantongB"></div>
         </div>
         
@@ -813,7 +803,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung2">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung2" value="" name="blinPelimpahA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung2" value="<?= str_replace('.', ',', $dataDi->blinPelimpahA);  ?>" name="blinPelimpahA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinPelimpahA"></div>
         </div>
         
@@ -822,7 +812,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung2">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung2" name="blinPelimpahB" value="" type="text" class="form-control text-right  number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(2);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung2" name="blinPelimpahB" value="<?= str_replace('.', ',', $dataDi->blinPelimpahB);  ?>" type="text" class="form-control text-right  number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(2);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinPelimpahB"></div>
         </div>
         
@@ -840,7 +830,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung3">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung3" value="" name="blinPengurasA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung3" value="<?= str_replace('.', ',', $dataDi->blinPengurasA);  ?>" name="blinPengurasA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinPengurasA"></div>
         </div>
         
@@ -849,7 +839,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung3">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung3" name="blinPengurasB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(3);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung3" name="blinPengurasB" value="<?= str_replace('.', ',', $dataDi->blinPengurasB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(3);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinPengurasB"></div>
         </div>
         
@@ -867,7 +857,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung4">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung4" value="" type="text" name="blinSaluranGendongA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung4" value="<?= str_replace('.', ',', $dataDi->blinSaluranGendongA);  ?>" type="text" name="blinSaluranGendongA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinSaluranGendongA"></div>
         </div>
         
@@ -876,7 +866,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung4">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung4" name="blinSaluranGendongB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(4);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung4" name="blinSaluranGendongB" value="<?= str_replace('.', ',', $dataDi->blinSaluranGendongB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(4);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinSaluranGendongB"></div>
         </div>
         
@@ -894,7 +884,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung5">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung5" name="blinKribA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung5" name="blinKribA" value="<?= str_replace('.', ',', $dataDi->blinKribA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinKribA"></div>
         </div>
         
@@ -903,7 +893,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung5">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung5" name="blinKribB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(5);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung5" name="blinKribB" value="<?= str_replace('.', ',', $dataDi->blinKribB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(5);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinKribB"></div>
         </div>
         
@@ -921,7 +911,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung6">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung6" value="" name="blinPerkuatanTebingA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung6" value="<?= str_replace('.', ',', $dataDi->blinPerkuatanTebingA);  ?>" name="blinPerkuatanTebingA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinPerkuatanTebingA"></div>
         </div>
         
@@ -930,7 +920,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung6">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung6" name="blinPerkuatanTebingB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(6);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung6" name="blinPerkuatanTebingB" value="<?= str_replace('.', ',', $dataDi->blinPerkuatanTebingB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(6);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinPerkuatanTebingB"></div>
         </div>
         
@@ -948,7 +938,7 @@
 
         <div class="form-group">
             <label for="kondisiBangunanLindung7">B/RR/RS/RB</label>
-            <input id="kondisiBangunanLindung7" value="" name="blinTanggungA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanLindung7" value="<?= str_replace('.', ',', $dataDi->blinTanggungA);  ?>" name="blinTanggungA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_blinTanggungA"></div>
         </div>
         
@@ -957,7 +947,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valBangunanLindung7">Nilai Kondisi (%)</label>
-            <input id="valBangunanLindung7" name="blinTanggungB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(7);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanLindung7" name="blinTanggungB" value="<?= str_replace('.', ',', $dataDi->blinTanggungB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungbangunanLindung(7);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_blinTanggungB"></div>
         </div>
         
@@ -977,7 +967,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap1">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap1" name="balengJalanInspeksiA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap1" name="balengJalanInspeksiA" value="<?= str_replace('.', ',', $dataDi->balengJalanInspeksiA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengJalanInspeksiA"></div>
         </div>
         
@@ -985,7 +975,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap1">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap1" name="balengJalanInspeksiB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(1);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap1" name="balengJalanInspeksiB" value="<?= str_replace('.', ',', $dataDi->balengJalanInspeksiB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(1);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengJalanInspeksiB"></div>
         </div>
         
@@ -1002,7 +992,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap2">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap2" value="" name="balengJembatanA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap2" value="<?= str_replace('.', ',', $dataDi->balengJembatanA);  ?>" name="balengJembatanA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengJembatanA"></div>
         </div>
         
@@ -1010,7 +1000,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap2">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap2" name="balengJembatanB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(2);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap2" name="balengJembatanB" value="<?= str_replace('.', ',', $dataDi->balengJembatanB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(2);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengJembatanB"></div>
         </div>
         
@@ -1027,7 +1017,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap3">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap3" value="" name="balengKantorPengamatA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap3" value="<?= str_replace('.', ',', $dataDi->balengKantorPengamatA);  ?>" name="balengKantorPengamatA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengKantorPengamatA"></div>
         </div>
         
@@ -1035,7 +1025,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap3">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap3" name="balengKantorPengamatB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(3);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap3" name="balengKantorPengamatB" value="<?= str_replace('.', ',', $dataDi->balengKantorPengamatB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(3);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengKantorPengamatB"></div>
         </div>
         
@@ -1052,7 +1042,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap4">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap4" value="" name="balengGudangA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap4" value="<?= str_replace('.', ',', $dataDi->balengGudangA);  ?>" name="balengGudangA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengGudangA"></div>
         </div>
         
@@ -1060,7 +1050,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap4">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap4" name="balengGudangB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(4);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap4" name="balengGudangB" value="<?= str_replace('.', ',', $dataDi->balengGudangB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(4);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengGudangB"></div>
         </div>
         
@@ -1077,7 +1067,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap5">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap5" name="balengRumahJagaA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap5" name="balengRumahJagaA" value="<?= str_replace('.', ',', $dataDi->balengRumahJagaA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengRumahJagaA"></div>
         </div>
         
@@ -1085,7 +1075,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap5">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap5" name="balengRumahJagaB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(5);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap5" name="balengRumahJagaB" value="<?= str_replace('.', ',', $dataDi->balengRumahJagaB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(5);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengRumahJagaB"></div>
         </div>
         
@@ -1102,7 +1092,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap6">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap6" name="balengRumahA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap6" name="balengRumahA" value="<?= str_replace('.', ',', $dataDi->balengRumahA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengRumahA"></div>
         </div>
         
@@ -1110,7 +1100,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap6">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap6" name="balengRumahB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(6);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap6" name="balengRumahB" value="<?= str_replace('.', ',', $dataDi->balengRumahB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(6);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengRumahB"></div>
         </div>
         
@@ -1127,7 +1117,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="kondisiBangunanPelengkap7">B/RR/RS/RB</label>
-            <input id="kondisiBangunanPelengkap7" value="" name="balengSanggarTaniA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiBangunanPelengkap7" value="<?= str_replace('.', ',', $dataDi->balengSanggarTaniA);  ?>" name="balengSanggarTaniA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_balengSanggarTaniA"></div>
         </div>
         
@@ -1135,7 +1125,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="valBangunanPelengkap7">Nilai Kondisi (%)</label>
-            <input id="valBangunanPelengkap7" name="balengSanggarTaniB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(7);" required placeholder="Nilai Kondisi (%)">
+            <input id="valBangunanPelengkap7" name="balengSanggarTaniB" value="<?= str_replace('.', ',', $dataDi->balengSanggarTaniB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPelengkap(7);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_balengSanggarTaniB"></div>
         </div>
         
@@ -1156,7 +1146,7 @@
 
         <div class="form-group">
             <label for="kondisiAlatUkur1">B/RR/RS/RB</label>
-            <input id="kondisiAlatUkur1" value="" name="saranaPintuAirA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiAlatUkur1" value="<?= str_replace('.', ',', $dataDi->saranaPintuAirA);  ?>" name="saranaPintuAirA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_saranaPintuAirA"></div>
         </div>
         
@@ -1165,7 +1155,7 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valAlatUkur1">Nilai Kondisi (%)</label>
-            <input id="valAlatUkur1" name="saranaPintuAirB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSarana(1);" required placeholder="Nilai Kondisi (%)">
+            <input id="valAlatUkur1" name="saranaPintuAirB" value="<?= str_replace('.', ',', $dataDi->saranaPintuAirB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSarana(1);" required placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_saranaPintuAirB"></div>
         </div>
         
@@ -1181,14 +1171,14 @@
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="kondisiAlatUkur2">B/RR/RS/RB</label>
-            <input id="kondisiAlatUkur2" value="" name="saranaAlatUkurA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="kondisiAlatUkur2" value="<?= str_replace('.', ',', $dataDi->saranaAlatUkurA);  ?>" name="saranaAlatUkurA" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_saranaAlatUkurA"></div>
         </div>            
     </div> 
     <div class="col-sm-6"> 
         <div class="form-group">
             <label for="valAlatUkur2">Nilai Kondisi (%)</label>
-            <input id="valAlatUkur2" name="saranaAlatUkurB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSarana(2);" placeholder="Nilai Kondisi (%)">
+            <input id="valAlatUkur2" name="saranaAlatUkurB" value="<?= str_replace('.', ',', $dataDi->saranaAlatUkurB);  ?>" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSarana(2);" placeholder="Nilai Kondisi (%)">
             <div class="invalid-feedback" id="pesan_saranaAlatUkurB"></div>
         </div>        
     </div> 
@@ -1208,7 +1198,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="rataJaringanA">B/RR/RS/RB</label>
-            <input id="rataJaringanA" name="rataJaringanA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+            <input id="rataJaringanA" name="rataJaringanA" value="<?= str_replace('.', ',', $dataDi->rataJaringanA);  ?>" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
             <div class="invalid-feedback" id="pesan_rataJaringanA"></div>
         </div>
         
@@ -1218,7 +1208,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="rataJaringanB">Nilai Kondisi (%)</label>
-            <input id="rataJaringanB" name="rataJaringanB" value="" type="text" class="form-control kududisabled" placeholder="Nilai Kondisi (%)" readonly>
+            <input id="rataJaringanB" name="rataJaringanB" value="<?= str_replace('.', ',', $dataDi->rataJaringanB);  ?>" type="text" class="form-control kududisabled" placeholder="Nilai Kondisi (%)" readonly>
             <div class="invalid-feedback" id="pesan_rataJaringanB"></div>
         </div>
         
@@ -1236,7 +1226,7 @@
 <div class="col-sm-12">
     <div class="form-group">
         <label for="in_keterangan">Keterangan</label>
-        <textarea id="in_keterangan" name="keterangan" class="form-control" rows="3" placeholder="Keterangan"></textarea>
+        <textarea id="in_keterangan" name="keterangan" class="form-control" rows="3"  placeholder="Keterangan"><?= str_replace('.', ',', $dataDi->keterangan);  ?></textarea>
         <div class="invalid-feedback" id="pesan_keterangan"></div>
     </div>
 </div>

@@ -365,13 +365,13 @@ private function hitungSaluran($saluranB1=null, $saluranRR1=null,$saluranRS1=nul
 
 	if ($nilaiKondisiKerusakanFix !== 0) {
 		if ($nilaiKondisiKerusakanFix > 40) {
-			return 'RB';
+			return "RB";
 		} else if ($nilaiKondisiKerusakanFix >= 21) {
-			return 'RS';
+			return "RS";
 		} else if ($nilaiKondisiKerusakanFix >= 10) {
-			return 'RR';
+			return "RR";
 		} else if ($nilaiKondisiKerusakanFix > 0) {
-			return 'B';
+			return "B";
 		} else {
 			return null;
 		}
@@ -384,13 +384,13 @@ private function getDataKondisi($nilai=null)
 {
 	if ($nilai !== 0) {
 		if ($nilai > 90) {
-			return 'B';
+			return "B";
 		} else if ($nilai >= 80) {
-			return 'RR';
+			return "RR";
 		} else if ($nilai >= 60) {
-			return 'RS';
+			return "RS";
 		} else if ($nilai > 0) {
-			return 'RB';
+			return "RB";
 		} else {
 			return null;
 		}
@@ -403,11 +403,11 @@ private function getDataKondisi($nilai=null)
 public function getDetailData($id=null)
 {
 	$tmp = array(
-		'tittle' => 'Detail Data 2B',
+		'tittle' => 'Detail Data 4A',
 		'dataDi' => $this->M_IndexKinerja4A->getDataDiById($id)
 	);
 
-	$this->load->view('IndexKinerja/detail2B', $tmp);
+	$this->load->view('IndexKinerja/detail4A', $tmp);
 }
 
 
@@ -415,7 +415,7 @@ public function delete()
 {
 	$id = $this->input->post('id');
 
-	$pros = $this->M_dinamis->delete('p_f2b', ['id' => $id]);
+	$pros = $this->M_dinamis->delete('p_f4a', ['id' => $id]);
 
 	if ($pros) {
 		$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -439,152 +439,231 @@ public function delete()
 public function editData($id=null)
 {
 	$tmp = array(
-		'tittle' => 'Edit Data 2B',
+		'tittle' => 'Edit Data 4A',
 		'dataDi' => $this->M_IndexKinerja4A->getDataDiById($id),
 		'id' => $id
 	);
 
-	$this->load->view('IndexKinerja/formEdit2B', $tmp);
+	$this->load->view('IndexKinerja/formEdit4A', $tmp);
 }
 
 public function SimpanDataEdit()
 {
-	$id2A = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
+	$irigasiid = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
 
 	$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 	$sawahFungsional = ubahKomaMenjadiTitik($this->input->post('sawahFungsional'));
 
-	$luasFix = 0;
-
-	if ($laPermen != null) {
-		$luasFix = $laPermen;
-	}else{
-		$luasFix = $sawahFungsional;
-	}
-
-	$polatanamPadi3  = ubahKomaMenjadiTitik($this->input->post('polatanamPadi3'));
-	$polatanamPadi2Plw  = ubahKomaMenjadiTitik($this->input->post('polatanamPadi2Plw'));
-	$polatanamPadiPlw2  = ubahKomaMenjadiTitik($this->input->post('polatanamPadiPlw2'));
-	$polatanamPadi2  = ubahKomaMenjadiTitik($this->input->post('polatanamPadi2'));
-	$polatanamPadiPlw  = ubahKomaMenjadiTitik($this->input->post('polatanamPadiPlw'));
-	$polatanamPadi  = ubahKomaMenjadiTitik($this->input->post('polatanamPadi'));
-
-	$reatamPadiMT1  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT1'));
-	$reatamPadiMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT2'));
-	$reatamPadiMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT3'));
-	$reatamPadiTotalHa = $reatamPadiMT1+$reatamPadiMT2+$reatamPadiMT3;
-	$reatamPadiTotalHaIp = $reatamPadiTotalHa/$luasFix;
-
-	$reatamPalawijaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT1'));
-	$reatamPalawijaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT2'));
-	$reatamPalawijaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT3'));
-	$reatamPalawijaTotalHa = $reatamPalawijaMT1+$reatamPalawijaMT2+$reatamPalawijaMT3;
-	$reatamPalawijaTotalHaIp = $reatamPalawijaTotalHa/$luasFix;
-
-	$reatamTebuMT1  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT1'));
-	$reatamTebuMT2  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT2'));
-	$reatamTebuMT3  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT3'));
-	$reatamTebuTotalHa = $reatamTebuMT1+$reatamTebuMT2+$reatamTebuMT3;
-	$reatamTebuTotalHaIp = $reatamTebuTotalHa/$luasFix;
-
-	$reatamLainnyaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT1'));
-	$reatamLainnyaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT2'));
-	$reatamLainnyaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT3'));
-	$reatamLainnyaTotalHa = $reatamLainnyaMT1+$reatamLainnyaMT2+$reatamLainnyaMT3;
-	$reatamLainnyaTotalHaIp = $reatamLainnyaTotalHa/$luasFix;
-
-	$jmlMT1 = $reatamPadiMT1+$reatamPalawijaMT1+$reatamTebuMT1+$reatamLainnyaMT1;
-	$jmlMT2 = $reatamPadiMT2+$reatamPalawijaMT2+$reatamTebuMT2+$reatamLainnyaMT2;
-	$jmlMT3 = $reatamPadiMT3+$reatamPalawijaMT3+$reatamTebuMT3+$reatamLainnyaMT3;
-	$jmlTotalHa = $jmlMT1+$jmlMT2+$jmlMT3;
-	$jmlTotalIp = $jmlTotalHa/$luasFix;
-
-	$produktivitasPadiMT1  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT1'));
-	$produktivitasPadiMT2  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT2'));
-	$produktivitasPadiMT3  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT3'));
-
-	$dataArray = array($produktivitasPadiMT1, $produktivitasPadiMT2, $produktivitasPadiMT3);
-
-	$sum = 0;
-	$count = 0;
-
-	foreach ($dataArray as $value) {
-		if ($value > 0 && $value !== null && $value !== '') {
-			$sum += $value;
-			$count++;
-		}
-	}
-
-	if ($count > 0) {
-		$produktivitasRata2 = $sum / $count;
-	} else {
-		$produktivitasRata2 = 0; 
-	}
+	$buBendungA = ubahKomaMenjadiTitik($this->input->post('buBendungA')); 
+	$buBendungB = ubahKomaMenjadiTitik($this->input->post('buBendungB')); 
+	$buPengambilanBebasA = ubahKomaMenjadiTitik($this->input->post('buPengambilanBebasA')); 
+	$buPengambilanBebasB = ubahKomaMenjadiTitik($this->input->post('buPengambilanBebasB')); 
+	$buStasiunPompaA = ubahKomaMenjadiTitik($this->input->post('buStasiunPompaA')); 
+	$buStasiunPompaB = ubahKomaMenjadiTitik($this->input->post('buStasiunPompaB')); 
+	$buEmbungA = ubahKomaMenjadiTitik($this->input->post('buEmbungA')); 
+	$buEmbungB = ubahKomaMenjadiTitik($this->input->post('buEmbungB')); 
+	$saluranPrimerB = ubahKomaMenjadiTitik($this->input->post('saluranPrimerB')); 
+	$saluranPrimerBR = ubahKomaMenjadiTitik($this->input->post('saluranPrimerBR')); 
+	$saluranPrimerRS = ubahKomaMenjadiTitik($this->input->post('saluranPrimerRS')); 
+	$saluranPrimerRB = ubahKomaMenjadiTitik($this->input->post('saluranPrimerRB')); 
+	$saluranPrimerRerata = ubahKomaMenjadiTitik($this->input->post('saluranPrimerRerata')); 
+	$saluranPrimerNilai = ubahKomaMenjadiTitik($this->input->post('saluranPrimerNilai')); 
+	$saluranSekunderB = ubahKomaMenjadiTitik($this->input->post('saluranSekunderB')); 
+	$saluranSekunderBR = ubahKomaMenjadiTitik($this->input->post('saluranSekunderBR')); 
+	$saluranSekunderRS = ubahKomaMenjadiTitik($this->input->post('saluranSekunderRS')); 
+	$saluranSekunderRB = ubahKomaMenjadiTitik($this->input->post('saluranSekunderRB')); 
+	$saluranSekunderRerata = ubahKomaMenjadiTitik($this->input->post('saluranSekunderRerata')); 
+	$saluranSekunderNilai = ubahKomaMenjadiTitik($this->input->post('saluranSekunderNilai')); 
+	$saluranTersierB = ubahKomaMenjadiTitik($this->input->post('saluranTersierB')); 
+	$saluranTersierBR = ubahKomaMenjadiTitik($this->input->post('saluranTersierBR')); 
+	$saluranTersierRS = ubahKomaMenjadiTitik($this->input->post('saluranTersierRS')); 
+	$saluranTersierRB = ubahKomaMenjadiTitik($this->input->post('saluranTersierRB')); 
+	$saluranTersierRerata = ubahKomaMenjadiTitik($this->input->post('saluranTersierRerata')); 
+	$saluranTersierNilai = ubahKomaMenjadiTitik($this->input->post('saluranTersierNilai')); 
+	$saluranPembuangB = ubahKomaMenjadiTitik($this->input->post('saluranPembuangB')); 
+	$saluranPembuangBR = ubahKomaMenjadiTitik($this->input->post('saluranPembuangBR')); 
+	$saluranPembuangRS = ubahKomaMenjadiTitik($this->input->post('saluranPembuangRS')); 
+	$saluranPembuangRB = ubahKomaMenjadiTitik($this->input->post('saluranPembuangRB')); 
+	$saluranPembuangRerata = ubahKomaMenjadiTitik($this->input->post('saluranPembuangRerata')); 
+	$saluranPembuangNilai = ubahKomaMenjadiTitik($this->input->post('saluranPembuangNilai')); 
+	$bppBagiA = ubahKomaMenjadiTitik($this->input->post('bppBagiA')); 
+	$bppBagiB = ubahKomaMenjadiTitik($this->input->post('bppBagiB')); 
+	$bppBagiSadapA = ubahKomaMenjadiTitik($this->input->post('bppBagiSadapA')); 
+	$bppBagiSadapB = ubahKomaMenjadiTitik($this->input->post('bppBagiSadapB')); 
+	$bppSadapA = ubahKomaMenjadiTitik($this->input->post('bppSadapA')); 
+	$bppSadapB = ubahKomaMenjadiTitik($this->input->post('bppSadapB')); 
+	$bppBangunanPengukurA = ubahKomaMenjadiTitik($this->input->post('bppBangunanPengukurA')); 
+	$bppBangunanPengukurB = ubahKomaMenjadiTitik($this->input->post('bppBangunanPengukurB')); 
+	$bPembawaGorongA = ubahKomaMenjadiTitik($this->input->post('bPembawaGorongA')); 
+	$bPembawaGorongB = ubahKomaMenjadiTitik($this->input->post('bPembawaGorongB')); 
+	$bPembawaSiponA = ubahKomaMenjadiTitik($this->input->post('bPembawaSiponA')); 
+	$bPembawaSiponB = ubahKomaMenjadiTitik($this->input->post('bPembawaSiponB')); 
+	$bPembawaTalangA = ubahKomaMenjadiTitik($this->input->post('bPembawaTalangA')); 
+	$bPembawaTalangB = ubahKomaMenjadiTitik($this->input->post('bPembawaTalangB')); 
+	$bPembawaTerjunanA = ubahKomaMenjadiTitik($this->input->post('bPembawaTerjunanA')); 
+	$bPembawaTerjunanB = ubahKomaMenjadiTitik($this->input->post('bPembawaTerjunanB')); 
+	$bPembawaGotMiringA = ubahKomaMenjadiTitik($this->input->post('bPembawaGotMiringA')); 
+	$bPembawaGotMiringB = ubahKomaMenjadiTitik($this->input->post('bPembawaGotMiringB')); 
+	$bPembawaFlumA = ubahKomaMenjadiTitik($this->input->post('bPembawaFlumA')); 
+	$bPembawaFlumB = ubahKomaMenjadiTitik($this->input->post('bPembawaFlumB')); 
+	$bPembawaTerawanganA = ubahKomaMenjadiTitik($this->input->post('bPembawaTerawanganA')); 
+	$bPembawaTerawanganB = ubahKomaMenjadiTitik($this->input->post('bPembawaTerawanganB')); 
+	$blinKantongA = ubahKomaMenjadiTitik($this->input->post('blinKantongA')); 
+	$blinKantongB = ubahKomaMenjadiTitik($this->input->post('blinKantongB')); 
+	$blinPelimpahA = ubahKomaMenjadiTitik($this->input->post('blinPelimpahA')); 
+	$blinPelimpahB = ubahKomaMenjadiTitik($this->input->post('blinPelimpahB')); 
+	$blinPengurasA = ubahKomaMenjadiTitik($this->input->post('blinPengurasA')); 
+	$blinPengurasB = ubahKomaMenjadiTitik($this->input->post('blinPengurasB')); 
+	$blinSaluranGendongA = ubahKomaMenjadiTitik($this->input->post('blinSaluranGendongA')); 
+	$blinSaluranGendongB = ubahKomaMenjadiTitik($this->input->post('blinSaluranGendongB')); 
+	$blinKribA = ubahKomaMenjadiTitik($this->input->post('blinKribA')); 
+	$blinKribB = ubahKomaMenjadiTitik($this->input->post('blinKribB')); 
+	$blinPerkuatanTebingA = ubahKomaMenjadiTitik($this->input->post('blinPerkuatanTebingA')); 
+	$blinPerkuatanTebingB = ubahKomaMenjadiTitik($this->input->post('blinPerkuatanTebingB')); 
+	$blinTanggungA = ubahKomaMenjadiTitik($this->input->post('blinTanggungA')); 
+	$blinTanggungB = ubahKomaMenjadiTitik($this->input->post('blinTanggungB')); 
+	$balengJalanInspeksiA = ubahKomaMenjadiTitik($this->input->post('balengJalanInspeksiA')); 
+	$balengJalanInspeksiB = ubahKomaMenjadiTitik($this->input->post('balengJalanInspeksiB')); 
+	$balengJembatanA = ubahKomaMenjadiTitik($this->input->post('balengJembatanA')); 
+	$balengJembatanB = ubahKomaMenjadiTitik($this->input->post('balengJembatanB')); 
+	$balengKantorPengamatA = ubahKomaMenjadiTitik($this->input->post('balengKantorPengamatA')); 
+	$balengKantorPengamatB = ubahKomaMenjadiTitik($this->input->post('balengKantorPengamatB')); 
+	$balengGudangA = ubahKomaMenjadiTitik($this->input->post('balengGudangA')); 
+	$balengGudangB = ubahKomaMenjadiTitik($this->input->post('balengGudangB')); 
+	$balengRumahJagaA = ubahKomaMenjadiTitik($this->input->post('balengRumahJagaA')); 
+	$balengRumahJagaB = ubahKomaMenjadiTitik($this->input->post('balengRumahJagaB')); 
+	$balengRumahA = ubahKomaMenjadiTitik($this->input->post('balengRumahA')); 
+	$balengRumahB = ubahKomaMenjadiTitik($this->input->post('balengRumahB')); 
+	$balengSanggarTaniA = ubahKomaMenjadiTitik($this->input->post('balengSanggarTaniA')); 
+	$balengSanggarTaniB = ubahKomaMenjadiTitik($this->input->post('balengSanggarTaniB')); 
+	$saranaPintuAirA = ubahKomaMenjadiTitik($this->input->post('saranaPintuAirA')); 
+	$saranaPintuAirB = ubahKomaMenjadiTitik($this->input->post('saranaPintuAirB')); 
+	$saranaAlatUkurA = ubahKomaMenjadiTitik($this->input->post('saranaAlatUkurA')); 
+	$saranaAlatUkurB = ubahKomaMenjadiTitik($this->input->post('saranaAlatUkurB')); 
+	$rataJaringanA = ubahKomaMenjadiTitik($this->input->post('rataJaringanA')); 
+	$rataJaringanB = ubahKomaMenjadiTitik($this->input->post('rataJaringanB')); 
+	$keterangan = $this->input->post('keterangan');
 
 
 	$dataInsert = array(
+		'ta' => date('Y'),
 		'laPermen' => $laPermen,
 		'sawahFungsional' => $sawahFungsional,
-		'polatanamPadi3' => $polatanamPadi3,
-		'polatanamPadi2Plw' => $polatanamPadi2Plw,
-		'polatanamPadiPlw2' => $polatanamPadiPlw2,
-		'polatanamPadi2' => $polatanamPadi2,
-		'polatanamPadiPlw' => $polatanamPadiPlw,
-		'polatanamPadi' => $polatanamPadi,
-		'reatamPadiMT1' => $reatamPadiMT1,
-		'reatamPadiMT2' => $reatamPadiMT2,
-		'reatamPadiMT3' => $reatamPadiMT3,
-		'reatamPadiTotalHa' => $reatamPadiTotalHa,
-		'reatamPadiTotalHaIp' => $reatamPadiTotalHaIp,
-		'reatamPalawijaMT1' => $reatamPalawijaMT1,
-		'reatamPalawijaMT2' => $reatamPalawijaMT2,
-		'reatamPalawijaMT3' => $reatamPalawijaMT3,
-		'reatamPalawijaTotalHa' => $reatamPalawijaTotalHa,
-		'reatamPalawijaTotalHaIp' => $reatamPalawijaTotalHaIp,
-		'reatamTebuMT1' => $reatamTebuMT1,
-		'reatamTebuMT2' => $reatamTebuMT2,
-		'reatamTebuMT3' => $reatamTebuMT3,
-		'reatamTebuTotalHa' => $reatamTebuTotalHa,
-		'reatamTebuTotalHaIp' => $reatamTebuTotalHaIp,
-		'reatamLainnyaMT1' => $reatamLainnyaMT1,
-		'reatamLainnyaMT2' => $reatamLainnyaMT2,
-		'reatamLainnyaMT3' => $reatamLainnyaMT3,
-		'reatamLainnyaTotalHa' => $reatamLainnyaTotalHa,
-		'reatamLainnyaTotalHaIp' => $reatamLainnyaTotalHaIp,
-		'jmlMT1' => $jmlMT1,
-		'jmlMT2' => $jmlMT2,
-		'jmlMT3' => $jmlMT3,
-		'jmlTotalHa' => $jmlTotalHa,
-		'jmlTotalIp' => $jmlTotalIp,
-		'produktivitasPadiMT1' => $produktivitasPadiMT1,
-		'produktivitasPadiMT2' => $produktivitasPadiMT2,
-		'produktivitasPadiMT3' => $produktivitasPadiMT3,
-		'produktivitasRata2' => $produktivitasRata2,
+		'buBendungA' => $this->getDataKondisi($buBendungB), 
+		'buBendungB' => $buBendungB, 
+		'buPengambilanBebasA' => $this->getDataKondisi($buPengambilanBebasB), 
+		'buPengambilanBebasB' => $buPengambilanBebasB, 
+		'buStasiunPompaA' => $this->getDataKondisi($buStasiunPompaB), 
+		'buStasiunPompaB' => $buStasiunPompaB, 
+		'buEmbungA' => $this->getDataKondisi($buEmbungB), 
+		'buEmbungB' => $buEmbungB, 
+		'saluranPrimerB' => $saluranPrimerB, 
+		'saluranPrimerBR' => $saluranPrimerBR, 
+		'saluranPrimerRS' => $saluranPrimerRS, 
+		'saluranPrimerRB' => $saluranPrimerRB, 
+		'saluranPrimerRerata' => $this->hitungSaluran($saluranPrimerB, $saluranPrimerBR,$saluranPrimerRS, $saluranPrimerRB, 2), 
+		'saluranPrimerNilai' => $this->hitungSaluran($saluranPrimerB, $saluranPrimerBR,$saluranPrimerRS, $saluranPrimerRB, 1), 
+		'saluranSekunderB' => $saluranSekunderB, 
+		'saluranSekunderBR' => $saluranSekunderBR, 
+		'saluranSekunderRS' => $saluranSekunderRS, 
+		'saluranSekunderRB' => $saluranSekunderRB, 
+		'saluranSekunderRerata' => $this->hitungSaluran($saluranSekunderB, $saluranSekunderBR,$saluranSekunderRS, $saluranSekunderRB, 2), 
+		'saluranSekunderNilai' =>  $this->hitungSaluran($saluranSekunderB, $saluranSekunderBR,$saluranSekunderRS, $saluranSekunderRB, 1), 
+		'saluranTersierB' => $saluranTersierB, 
+		'saluranTersierBR' => $saluranTersierBR, 
+		'saluranTersierRS' => $saluranTersierRS, 
+		'saluranTersierRB' => $saluranTersierRB, 
+		'saluranTersierRerata' => $this->hitungSaluran($saluranTersierB, $saluranTersierBR,$saluranTersierRS, $saluranTersierRB, 2), 
+		'saluranTersierNilai' => $this->hitungSaluran($saluranTersierB, $saluranTersierBR,$saluranTersierRS, $saluranTersierRB, 1), 
+		'saluranPembuangB' => $saluranPembuangB, 
+		'saluranPembuangBR' => $saluranPembuangBR, 
+		'saluranPembuangRS' => $saluranPembuangRS, 
+		'saluranPembuangRB' => $saluranPembuangRB, 
+		'saluranPembuangRerata' => $this->hitungSaluran($saluranPembuangB, $saluranPembuangBR,$saluranPembuangRS, $saluranPembuangRB, 2), 
+		'saluranPembuangNilai' => $this->hitungSaluran($saluranPembuangB, $saluranPembuangBR,$saluranPembuangRS, $saluranPembuangRB, 1), 
+		'bppBagiA' => $this->getDataKondisi($bppBagiB), 
+		'bppBagiB' => $bppBagiB, 
+		'bppBagiSadapA' =>  $this->getDataKondisi($bppBagiSadapB), 
+		'bppBagiSadapB' => $bppBagiSadapB, 
+		'bppSadapA' => $this->getDataKondisi($bppSadapB), 
+		'bppSadapB' => $bppSadapB, 
+		'bppBangunanPengukurA' => $this->getDataKondisi($bppBangunanPengukurB), 
+		'bppBangunanPengukurB' => $bppBangunanPengukurB, 
+		'bPembawaGorongA' => $this->getDataKondisi($bPembawaGorongB), 
+		'bPembawaGorongB' => $bPembawaGorongB, 
+		'bPembawaSiponA' => $this->getDataKondisi($bPembawaSiponB), 
+		'bPembawaSiponB' => $bPembawaSiponB, 
+		'bPembawaTalangA' => $this->getDataKondisi($bPembawaTalangB), 
+		'bPembawaTalangB' => $bPembawaTalangB, 
+		'bPembawaTerjunanA' => $this->getDataKondisi($bPembawaTerjunanB), 
+		'bPembawaTerjunanB' => $bPembawaTerjunanB, 
+		'bPembawaGotMiringA' => $this->getDataKondisi($bPembawaGotMiringB), 
+		'bPembawaGotMiringB' => $bPembawaGotMiringB, 
+		'bPembawaFlumA' =>  $this->getDataKondisi($bPembawaFlumB), 
+		'bPembawaFlumB' => $bPembawaFlumB, 
+		'bPembawaTerawanganA' => $this->getDataKondisi($bPembawaTerawanganB), 
+		'bPembawaTerawanganB' => $bPembawaTerawanganB, 
+		'blinKantongA' => $this->getDataKondisi($blinKantongB), 
+		'blinKantongB' => $blinKantongB, 
+		'blinPelimpahA' => $this->getDataKondisi($blinPelimpahB), 
+		'blinPelimpahB' => $blinPelimpahB, 
+		'blinPengurasA' => $this->getDataKondisi($blinPengurasB), 
+		'blinPengurasB' => $blinPengurasB, 
+		'blinSaluranGendongA' => $this->getDataKondisi($blinSaluranGendongB), 
+		'blinSaluranGendongB' => $blinSaluranGendongB, 
+		'blinKribA' => $this->getDataKondisi($blinKribB), 
+		'blinKribB' => $blinKribB, 
+		'blinPerkuatanTebingA' => $this->getDataKondisi($blinPerkuatanTebingB), 
+		'blinPerkuatanTebingB' => $blinPerkuatanTebingB, 
+		'blinTanggungA' => $this->getDataKondisi($blinTanggungB), 
+		'blinTanggungB' => $blinTanggungB, 
+		'balengJalanInspeksiA' => $this->getDataKondisi($balengJalanInspeksiB), 
+		'balengJalanInspeksiB' => $balengJalanInspeksiB, 
+		'balengJembatanA' => $this->getDataKondisi($balengJembatanB), 
+		'balengJembatanB' => $balengJembatanB, 
+		'balengKantorPengamatA' => $this->getDataKondisi($balengKantorPengamatB), 
+		'balengKantorPengamatB' => $balengKantorPengamatB, 
+		'balengGudangA' => $this->getDataKondisi($balengGudangB), 
+		'balengGudangB' => $balengGudangB, 
+		'balengRumahJagaA' => $this->getDataKondisi($balengRumahJagaB), 
+		'balengRumahJagaB' => $balengRumahJagaB, 
+		'balengRumahA' => $this->getDataKondisi($balengRumahB), 
+		'balengRumahB' => $balengRumahB, 
+		'balengSanggarTaniA' => $this->getDataKondisi($balengSanggarTaniB), 
+		'balengSanggarTaniB' => $balengSanggarTaniB, 
+		'saranaPintuAirA' => $this->getDataKondisi($saranaPintuAirB), 
+		'saranaPintuAirB' => $saranaPintuAirB, 
+		'saranaAlatUkurA' => $this->getDataKondisi($saranaAlatUkurB), 
+		'saranaAlatUkurB' => $saranaAlatUkurB, 
+		'rataJaringanA' => $this->getDataKondisi($rataJaringanB), 
+		'rataJaringanB' => $rataJaringanB, 
+		'keterangan' => clean($keterangan),
 		'uidInUp' => $this->session->userdata('uid'),
 		'uidDtUp' => date('Y-m-d H:i:s')
 	);
 
 
 
-	$pros = $this->M_dinamis->update('p_f2b', $dataInsert, ['id' => $id2A]);
+
+$pros = $this->M_dinamis->update('p_f4a', $dataInsert, ['id' => $irigasiid]);
 
 
-	if ($pros == true) {
-		$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-			Data Berhasil Disimpan.!
-			</div>');
-	}else{
+if ($pros == true) {
+	$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+		Data Berhasil Disimpan.!
+		</div>');
+}else{
 
-		$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-			Data Gagal Disimpan.
-			</div>');
-	}
+	$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+		Data Gagal Disimpan.
+		</div>');
+}
 
-	redirect("/IndexKinerja4A/editData/$id2A", 'refresh');
+redirect("/IndexKinerja4A/editData/$irigasiid", 'refresh');
 
 }
 
@@ -592,11 +671,11 @@ public function SimpanDataEdit()
 public function formExcel()
 {
 	$tmp = array(
-		'tittle' => 'Format Excel 2B',
+		'tittle' => 'Format Excel 4A',
 		'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc')
 	);
 
-	$this->load->view('IndexKinerja/excelB2', $tmp);
+	$this->load->view('IndexKinerja/excel4A', $tmp);
 }
 
 
@@ -608,12 +687,12 @@ public function downloadExcel()
 
 	$menitDetik = date('i').date('s');
 
-	copy('./assets/format/B2.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+	copy('./assets/format/4A.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 	$path = "./assets/format/tmp/$menitDetik.xlsx";
 	$spreadsheet = IOFactory::load($path);
 
-	$cek = $this->M_dinamis->getById('p_f2b', ['kotakabid' => $kab]);
+	$cek = $this->M_dinamis->getById('p_f4a', ['ta' => $thang]);
 
 	if ($cek) {
 		$data = $this->M_IndexKinerja4A->getDataDiFull($thang, $kab);
@@ -640,41 +719,107 @@ public function downloadExcel()
 		$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
 		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
 		$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
-		$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->polatanamPadi3);
-		$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->polatanamPadi2Plw);
-		$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->polatanamPadiPlw2);
-		$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->polatanamPadi2);
-		$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->polatanamPadiPlw);
-		$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->polatanamPadi);
-		$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->reatamPadiMT1);
-		$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->reatamPadiMT2);
-		$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->reatamPadiMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("Q$indexLopp", "=SUM(N$indexLopp:P$indexLopp)");
-		$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", "=Q$indexLopp/$celValue$indexLopp*100");		
-		$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->reatamPalawijaMT1);
-		$spreadsheet->getActiveSheet()->getCell("T$indexLopp")->setValue($val->reatamPalawijaMT2);
-		$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->reatamPalawijaMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("V$indexLopp", "=SUM(S$indexLopp:U$indexLopp)");
-		$spreadsheet->getActiveSheet()->setCellValue("W$indexLopp", "=V$indexLopp/$celValue$indexLopp*100");
-		$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->reatamTebuMT1);
-		$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->reatamTebuMT2);
-		$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->reatamTebuMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", "=SUM(X$indexLopp:Z$indexLopp)");
-		$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", "=AA$indexLopp/$celValue$indexLopp*100");
-		$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->reatamLainnyaMT1);
-		$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->reatamLainnyaMT2);
-		$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->reatamLainnyaMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("AF$indexLopp", "=SUM(AC$indexLopp:AE$indexLopp)");
-		$spreadsheet->getActiveSheet()->setCellValue("AG$indexLopp", "=AF$indexLopp/$celValue$indexLopp*100");
-		$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->jmlMT1);
-		$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->jmlMT2);
-		$spreadsheet->getActiveSheet()->getCell("AJ$indexLopp")->setValue($val->jmlMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("AK$indexLopp", "=SUM(AH$indexLopp:AJ$indexLopp)");
-		$spreadsheet->getActiveSheet()->setCellValue("AL$indexLopp", "=AK$indexLopp/$celValue$indexLopp*100");
-		$spreadsheet->getActiveSheet()->getCell("AM$indexLopp")->setValue($val->produktivitasPadiMT1);
-		$spreadsheet->getActiveSheet()->getCell("AN$indexLopp")->setValue($val->produktivitasPadiMT2);
-		$spreadsheet->getActiveSheet()->getCell("AO$indexLopp")->setValue($val->produktivitasPadiMT3);
-		$spreadsheet->getActiveSheet()->setCellValue("AP$indexLopp", '=AVERAGEIFS(AM'.$indexLopp.':AO'.$indexLopp.', AM'.$indexLopp.':AO'.$indexLopp.',">0",AM'.$indexLopp.':AO'.$indexLopp.',"<>")');
+		$spreadsheet->getActiveSheet()->setCellValue("H$indexLopp", '=IF(COUNT(I'.$indexLopp.')<>0,IF(I'.$indexLopp.'>90,"B",IF(I'.$indexLopp.'>=80,"RR",IF(I'.$indexLopp.'>=60,"RS",IF(I'.$indexLopp.'>0,"RB","Null")))),"Null")');	
+		$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->buBendungB);
+		$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=IF(COUNT(K'.$indexLopp.')<>0,IF(K'.$indexLopp.'>90,"B",IF(K'.$indexLopp.'>=80,"RR",IF(K'.$indexLopp.'>=60,"RS",IF(K'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->buPengambilanBebasB);
+		$spreadsheet->getActiveSheet()->setCellValue("L$indexLopp", '=IF(COUNT(M'.$indexLopp.')<>0,IF(M'.$indexLopp.'>90,"B",IF(M'.$indexLopp.'>=80,"RR",IF(M'.$indexLopp.'>=60,"RS",IF(M'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->buStasiunPompaB);
+		$spreadsheet->getActiveSheet()->setCellValue("N$indexLopp", '=IF(COUNT(O'.$indexLopp.')<>0,IF(O'.$indexLopp.'>90,"B",IF(O'.$indexLopp.'>=80,"RR",IF(O'.$indexLopp.'>=60,"RS",IF(O'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->buEmbungB);
+
+		$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->saluranPrimerB);
+		$spreadsheet->getActiveSheet()->setCellValue("Q$indexLopp", "$val->saluranPrimerBR");
+		$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", "$val->saluranPrimerRS");		
+		$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->saluranPrimerRB);
+		$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=IF(COUNT(U'.$indexLopp.')<>0,IF(U'.$indexLopp.'>40,"RB",IF(U'.$indexLopp.'>=21,"RS",IF(U'.$indexLopp.'>=10,"RR",IF(U'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("U$indexLopp", '=IFERROR(((P'.$indexLopp.'*1)+(Q'.$indexLopp.'*20)+(R'.$indexLopp.'*40)+(S'.$indexLopp.'*50))/SUM(P'.$indexLopp.':S'.$indexLopp.'),0)');
+		$spreadsheet->getActiveSheet()->setCellValue("V$indexLopp", "$val->saluranSekunderB");
+		$spreadsheet->getActiveSheet()->setCellValue("W$indexLopp", "$val->saluranSekunderBR");
+		$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->saluranSekunderRS);
+		$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->saluranSekunderRB);
+		$spreadsheet->getActiveSheet()->setCellValue("z$indexLopp", '=IF(COUNT(AA'.$indexLopp.')<>0,IF(AA'.$indexLopp.'>40,"RB",IF(AA'.$indexLopp.'>=21,"RS",IF(AA'.$indexLopp.'>=10,"RR",IF(AA'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=IFERROR(((V'.$indexLopp.'*1)+(W'.$indexLopp.'*20)+(X'.$indexLopp.'*40)+(Y'.$indexLopp.'*50))/SUM(V'.$indexLopp.':Y'.$indexLopp.'),0)');
+		$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", "$val->saluranTersierB");
+		$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->saluranTersierBR);
+		$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->saluranTersierRS);
+		$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->saluranTersierRB);
+		$spreadsheet->getActiveSheet()->setCellValue("AF$indexLopp", '=IF(COUNT(AG'.$indexLopp.')<>0,IF(AG'.$indexLopp.'>40,"RB",IF(AG'.$indexLopp.'>=21,"RS",IF(AG'.$indexLopp.'>=10,"RR",IF(AG'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("AG$indexLopp", '=IFERROR(((AB'.$indexLopp.'*1)+(AC'.$indexLopp.'*20)+(AD'.$indexLopp.'*40)+(AE'.$indexLopp.'*50))/SUM(AB'.$indexLopp.':AE'.$indexLopp.'),0)');
+		$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->saluranPembuangB);
+		$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->saluranPembuangBR);
+		$spreadsheet->getActiveSheet()->getCell("AJ$indexLopp")->setValue($val->saluranPembuangRS);
+		$spreadsheet->getActiveSheet()->setCellValue("AK$indexLopp", "$val->saluranPembuangRB");
+		$spreadsheet->getActiveSheet()->setCellValue("AL$indexLopp", '=IF(COUNT(AM'.$indexLopp.')<>0,IF(AM'.$indexLopp.'>40,"RB",IF(AM'.$indexLopp.'>=21,"RS",IF(AM'.$indexLopp.'>=10,"RR",IF(AM'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("AM$indexLopp", '=IFERROR(((AH'.$indexLopp.'*1)+(AI'.$indexLopp.'*20)+(AJ'.$indexLopp.'*40)+(AK'.$indexLopp.'*50))/SUM(AH'.$indexLopp.':AK'.$indexLopp.'),0)');
+		$spreadsheet->getActiveSheet()->setCellValue("AN$indexLopp", '=IF(COUNT(AO'.$indexLopp.')<>0,IF(AO'.$indexLopp.'>90,"B",IF(AO'.$indexLopp.'>=80,"RR",IF(AO'.$indexLopp.'>=60,"RS",IF(AO'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AO$indexLopp")->setValue($val->bppBagiB);
+		$spreadsheet->getActiveSheet()->setCellValue("AP$indexLopp", '=IF(COUNT(AQ'.$indexLopp.')<>0,IF(AQ'.$indexLopp.'>90,"B",IF(AQ'.$indexLopp.'>=80,"RR",IF(AQ'.$indexLopp.'>=60,"RS",IF(AQ'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AQ$indexLopp")->setValue($val->bppBagiSadapB);
+		$spreadsheet->getActiveSheet()->setCellValue("AR$indexLopp", '=IF(COUNT(AS'.$indexLopp.')<>0,IF(AS'.$indexLopp.'>90,"B",IF(AS'.$indexLopp.'>=80,"RR",IF(AS'.$indexLopp.'>=60,"RS",IF(AS'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AS$indexLopp")->setValue($val->bppSadapB);
+		$spreadsheet->getActiveSheet()->setCellValue("AT$indexLopp", '=IF(COUNT(AU'.$indexLopp.')<>0,IF(AU'.$indexLopp.'>90,"B",IF(AU'.$indexLopp.'>=80,"RR",IF(AU'.$indexLopp.'>=60,"RS",IF(AU'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AU$indexLopp")->setValue($val->bppBangunanPengukurB);
+		$spreadsheet->getActiveSheet()->setCellValue("AV$indexLopp", '=IF(COUNT(AW'.$indexLopp.')<>0,IF(AW'.$indexLopp.'>90,"B",IF(AW'.$indexLopp.'>=80,"RR",IF(AW'.$indexLopp.'>=60,"RS",IF(AW'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AW$indexLopp")->setValue($val->bPembawaGorongB);
+		$spreadsheet->getActiveSheet()->setCellValue("AX$indexLopp", '=IF(COUNT(AY'.$indexLopp.')<>0,IF(AY'.$indexLopp.'>90,"B",IF(AY'.$indexLopp.'>=80,"RR",IF(AY'.$indexLopp.'>=60,"RS",IF(AY'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AY$indexLopp")->setValue($val->bPembawaSiponB);
+		$spreadsheet->getActiveSheet()->setCellValue("AZ$indexLopp", '=IF(COUNT(BA'.$indexLopp.')<>0,IF(BA'.$indexLopp.'>90,"B",IF(BA'.$indexLopp.'>=80,"RR",IF(BA'.$indexLopp.'>=60,"RS",IF(BA'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BA$indexLopp")->setValue($val->bPembawaTalangB);
+		$spreadsheet->getActiveSheet()->setCellValue("BB$indexLopp", '=IF(COUNT(BC'.$indexLopp.')<>0,IF(BC'.$indexLopp.'>90,"B",IF(BC'.$indexLopp.'>=80,"RR",IF(BC'.$indexLopp.'>=60,"RS",IF(BC'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BC$indexLopp")->setValue($val->bPembawaTerjunanB);
+		$spreadsheet->getActiveSheet()->setCellValue("BD$indexLopp", '=IF(COUNT(BE'.$indexLopp.')<>0,IF(BE'.$indexLopp.'>90,"B",IF(BE'.$indexLopp.'>=80,"RR",IF(BE'.$indexLopp.'>=60,"RS",IF(BE'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BE$indexLopp")->setValue($val->bPembawaGotMiringB);
+		$spreadsheet->getActiveSheet()->setCellValue("BF$indexLopp", '=IF(COUNT(BG'.$indexLopp.')<>0,IF(BG'.$indexLopp.'>90,"B",IF(BG'.$indexLopp.'>=80,"RR",IF(BG'.$indexLopp.'>=60,"RS",IF(BG'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BG$indexLopp")->setValue($val->bPembawaFlumB);
+		$spreadsheet->getActiveSheet()->setCellValue("BH$indexLopp", '=IF(COUNT(BI'.$indexLopp.')<>0,IF(BI'.$indexLopp.'>90,"B",IF(BI'.$indexLopp.'>=80,"RR",IF(BI'.$indexLopp.'>=60,"RS",IF(BI'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BI$indexLopp")->setValue($val->bPembawaTerawanganB);
+		$spreadsheet->getActiveSheet()->setCellValue("BJ$indexLopp", '=IF(COUNT(BK'.$indexLopp.')<>0,IF(BK'.$indexLopp.'>90,"B",IF(BK'.$indexLopp.'>=80,"RR",IF(BK'.$indexLopp.'>=60,"RS",IF(BK'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BK$indexLopp")->setValue($val->blinKantongB);
+		$spreadsheet->getActiveSheet()->setCellValue("BL$indexLopp", '=IF(COUNT(BM'.$indexLopp.')<>0,IF(BM'.$indexLopp.'>90,"B",IF(BM'.$indexLopp.'>=80,"RR",IF(BM'.$indexLopp.'>=60,"RS",IF(BM'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BM$indexLopp")->setValue($val->blinPelimpahB);
+		$spreadsheet->getActiveSheet()->setCellValue("BN$indexLopp", '=IF(COUNT(BO'.$indexLopp.')<>0,IF(BO'.$indexLopp.'>90,"B",IF(BO'.$indexLopp.'>=80,"RR",IF(BO'.$indexLopp.'>=60,"RS",IF(BO'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BO$indexLopp")->setValue($val->blinPengurasB);
+		$spreadsheet->getActiveSheet()->setCellValue("BP$indexLopp", '=IF(COUNT(BQ'.$indexLopp.')<>0,IF(BQ'.$indexLopp.'>90,"B",IF(BQ'.$indexLopp.'>=80,"RR",IF(BQ'.$indexLopp.'>=60,"RS",IF(BQ'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BQ$indexLopp")->setValue($val->blinSaluranGendongB);
+		$spreadsheet->getActiveSheet()->setCellValue("BR$indexLopp", '=IF(COUNT(BS'.$indexLopp.')<>0,IF(BS'.$indexLopp.'>90,"B",IF(BS'.$indexLopp.'>=80,"RR",IF(BS'.$indexLopp.'>=60,"RS",IF(BS'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BS$indexLopp")->setValue($val->blinKribB);
+		$spreadsheet->getActiveSheet()->setCellValue("BT$indexLopp", '=IF(COUNT(BU'.$indexLopp.')<>0,IF(BU'.$indexLopp.'>90,"B",IF(BU'.$indexLopp.'>=80,"RR",IF(BU'.$indexLopp.'>=60,"RS",IF(BU'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BU$indexLopp")->setValue($val->blinPerkuatanTebingB);
+		$spreadsheet->getActiveSheet()->setCellValue("BV$indexLopp", '=IF(COUNT(BW'.$indexLopp.')<>0,IF(BW'.$indexLopp.'>90,"B",IF(BW'.$indexLopp.'>=80,"RR",IF(BW'.$indexLopp.'>=60,"RS",IF(BW'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BW$indexLopp")->setValue($val->blinTanggungB);
+		$spreadsheet->getActiveSheet()->setCellValue("BX$indexLopp", '=IF(COUNT(BY'.$indexLopp.')<>0,IF(BY'.$indexLopp.'>90,"B",IF(BY'.$indexLopp.'>=80,"RR",IF(BY'.$indexLopp.'>=60,"RS",IF(BY'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BY$indexLopp")->setValue($val->balengJalanInspeksiB);
+		$spreadsheet->getActiveSheet()->setCellValue("BZ$indexLopp", '=IF(COUNT(CA'.$indexLopp.')<>0,IF(CA'.$indexLopp.'>90,"B",IF(CA'.$indexLopp.'>=80,"RR",IF(CA'.$indexLopp.'>=60,"RS",IF(CA'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CA$indexLopp")->setValue($val->balengJembatanB);
+		$spreadsheet->getActiveSheet()->setCellValue("CB$indexLopp", '=IF(COUNT(CC'.$indexLopp.')<>0,IF(CC'.$indexLopp.'>90,"B",IF(CC'.$indexLopp.'>=80,"RR",IF(CC'.$indexLopp.'>=60,"RS",IF(CC'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CC$indexLopp")->setValue($val->balengKantorPengamatB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CD$indexLopp", '=IF(COUNT(CE'.$indexLopp.')<>0,IF(CE'.$indexLopp.'>90,"B",IF(CE'.$indexLopp.'>=80,"RR",IF(CE'.$indexLopp.'>=60,"RS",IF(CE'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CE$indexLopp")->setValue($val->balengGudangB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CF$indexLopp", '=IF(COUNT(CG'.$indexLopp.')<>0,IF(CG'.$indexLopp.'>90,"B",IF(CG'.$indexLopp.'>=80,"RR",IF(CG'.$indexLopp.'>=60,"RS",IF(CG'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CG$indexLopp")->setValue($val->balengRumahJagaB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CH$indexLopp", '=IF(COUNT(CI'.$indexLopp.')<>0,IF(CI'.$indexLopp.'>90,"B",IF(CI'.$indexLopp.'>=80,"RR",IF(CI'.$indexLopp.'>=60,"RS",IF(CI'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CI$indexLopp")->setValue($val->balengRumahB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CJ$indexLopp", '=IF(COUNT(CK'.$indexLopp.')<>0,IF(CK'.$indexLopp.'>90,"B",IF(CK'.$indexLopp.'>=80,"RR",IF(CK'.$indexLopp.'>=60,"RS",IF(CK'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CK$indexLopp")->setValue($val->balengSanggarTaniB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CL$indexLopp", '=IF(COUNT(CM'.$indexLopp.')<>0,IF(CM'.$indexLopp.'>90,"B",IF(CM'.$indexLopp.'>=80,"RR",IF(CM'.$indexLopp.'>=60,"RS",IF(CM'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CM$indexLopp")->setValue($val->saranaPintuAirB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CN$indexLopp", '=IF(COUNT(CO'.$indexLopp.')<>0,IF(CO'.$indexLopp.'>90,"B",IF(CO'.$indexLopp.'>=80,"RR",IF(CO'.$indexLopp.'>=60,"RS",IF(CO'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("CO$indexLopp")->setValue($val->saranaAlatUkurB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("CP$indexLopp", '=IF(COUNT(CQ'.$indexLopp.')<>0,IF(CQ'.$indexLopp.'>90,"B",IF(CQ'.$indexLopp.'>=80,"RR",IF(CQ'.$indexLopp.'>=60,"RS",IF(CQ'.$indexLopp.'>0,"RB","Null")))),"Null")');
+
+		$spreadsheet->getActiveSheet()->setCellValue("CQ$indexLopp", '=IFERROR((SUM(H'.$indexLopp.':CO'.$indexLopp.')-SUM(P'.$indexLopp.':S'.$indexLopp.',V'.$indexLopp.':Y'.$indexLopp.',AB'.$indexLopp.':AE'.$indexLopp.',AH'.$indexLopp.':AK'.$indexLopp.'))/((COUNTIF(H'.$indexLopp.':O'.$indexLopp.',">0")+(COUNTIF(U'.$indexLopp.',">0")+(COUNTIF(AA'.$indexLopp.',">0")+(COUNTIF(AG'.$indexLopp.',">0")+(COUNTIF(AM'.$indexLopp.',">0")+(COUNTIF(AN'.$indexLopp.':CN'.$indexLopp.',">0")))))))),0)');
+
+		
+
+		$spreadsheet->getActiveSheet()->getCell("CR$indexLopp")->setValue($val->keterangan);
 
 
 		$nilaiAwal++;
@@ -683,7 +828,7 @@ public function downloadExcel()
 
 	ob_end_clean();
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	header('Content-Disposition: attachment; filename="export 2B.xlsx"');  
+	header('Content-Disposition: attachment; filename="export 4A.xlsx"');  
 	header('Cache-Control: max-age=0');
 	$writer = new Xlsx($spreadsheet);
 	$writer->save('php://output');
@@ -721,22 +866,22 @@ public function prosesUploadExcel()
 	if (!empty($_FILES['fileExcel']['name'])) {
 
 		if (!file_exists('assets/upload_file')) {
-			mkDI('assets/upload_file');
+			mkdir('assets/upload_file');
 		}
 
-		if (!file_exists('assets/upload_file/2A')) {
-			mkDI('assets/upload_file/2A');
+		if (!file_exists('assets/upload_file/4A')) {
+			mkdir('assets/upload_file/4A');
 		}
 
-		if (!file_exists("assets/upload_file/2A/$nmProv")) {
-			mkDI("assets/upload_file/2A/$nmProv");
+		if (!file_exists("assets/upload_file/4A/$nmProv")) {
+			mkdir("assets/upload_file/4A/$nmProv");
 		}
 
-		if (!file_exists("assets/upload_file/2A/$nmProv/$nmKab")) {
-			mkDI("assets/upload_file/2A/$nmProv/$nmKab");
+		if (!file_exists("assets/upload_file/4A/$nmProv/$nmKab")) {
+			mkdir("assets/upload_file/4A/$nmProv/$nmKab");
 		}
 
-		$path = "assets/upload_file/2A/$nmProv/$nmKab/";
+		$path = "assets/upload_file/4A/$nmProv/$nmKab/";
 
 		$pathX = $_FILES['fileExcel']['name'];
 		$ext = pathinfo($pathX, PATHINFO_EXTENSION);
@@ -765,24 +910,25 @@ public function prosesUploadExcel()
 			$fullPath = $upload_data['full_path'];
 			$kotakabidX = '';
 
-			$filePath = "assets/upload_file/2A/$nmProv/$nmKab/$namaFile";
+			$filePath = "assets/upload_file/4A/$nmProv/$nmKab/$namaFile";
 
 			$spreadsheet = IOFactory::load($filePath);
 
 			$sheetX = $spreadsheet->getActiveSheet();
-			$ValA1 = $sheetX->getCell('A2')->getValue();
-			$ValB1 = $sheetX->getCell('B2')->getValue();
-			$ValC1 = $sheetX->getCell('C2')->getValue();
-			$AP5 = $sheetX->getCell('AP5')->getValue();
+			$ValA1 = $sheetX->getCell('A1')->getValue();
+			$ValB1 = $sheetX->getCell('B1')->getValue();
+			$ValC1 = $sheetX->getCell('C1')->getValue();
+			$CR5 = $sheetX->getCell('CR5')->getValue();
 
 
-			if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $AP5 != '39') {
+			if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $CR5 != '93') {
 
 				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
 					Format Dokumen Tidak Sesuai.
 					</div>');
+				
 
 				redirect("/IndexKinerja4A/formExcel", 'refresh');
 
@@ -799,12 +945,13 @@ public function prosesUploadExcel()
 				$highestRow = $sheet->getHighestRow(); 
 				$highestColumn = $sheet->getHighestColumn(); 
 
+
 				for ($row = 6; $row <= $highestRow; $row++) { 
 					$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 
 					$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
 
-					if ($rowData[0][7] == '' and $rowData[0][6] == '') {
+					if ($rowData[0][5] == '' and $rowData[0][6] == '') {
 
 						$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -813,9 +960,64 @@ public function prosesUploadExcel()
 							</div>');
 
 						redirect("/IndexKinerja4A/formExcel", 'refresh');
-
-
 					}
+
+					if ($rowData[0][2] == '') {
+
+						$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+							Irigasi ID Tidak Boleh Kosong.!
+							</div>');
+
+						redirect("/IndexKinerja4A/formExcel", 'refresh');
+					}
+
+					$saluran1 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 1);
+					$saluran2 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 1);
+					$saluran3 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 1);
+					$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1);
+
+					$arrayX = [
+						$rowData[0][8],
+						$rowData[0][10],
+						$rowData[0][12],
+						$rowData[0][14],
+						$rowData[0][40],
+						$rowData[0][42],
+						$rowData[0][44],
+						$rowData[0][46],
+						$rowData[0][48],
+						$rowData[0][50],
+						$rowData[0][52],
+						$rowData[0][54],
+						$rowData[0][56],
+						$rowData[0][58],
+						$rowData[0][60],
+						$rowData[0][62],
+						$rowData[0][64],
+						$rowData[0][66],
+						$rowData[0][68],
+						$rowData[0][70],
+						$rowData[0][72],
+						$rowData[0][74],
+						$rowData[0][76],
+						$rowData[0][78],
+						$rowData[0][80],
+						$rowData[0][82],
+						$rowData[0][84],
+						$rowData[0][86],
+						$rowData[0][88],
+						$rowData[0][90],
+						$rowData[0][92],
+						$saluran1,
+						$saluran2,
+						$saluran3,
+						$saluran4
+					];
+
+					$dataKoonisi = $this->hitungTotalA($arrayX, 1);
+					$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
 					$arrayRow = array(
 						'ta' => date('Y'),
@@ -824,75 +1026,215 @@ public function prosesUploadExcel()
 						'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 						'laPermen' => ubahKomaMenjadiTitik($rowData[0][5]),
 						'sawahFungsional' => ubahKomaMenjadiTitik($rowData[0][6]),
-						'polatanamPadi3' => ubahKomaMenjadiTitik($rowData[0][7]),
-						'polatanamPadi2Plw' => ubahKomaMenjadiTitik($rowData[0][8]),
-						'polatanamPadiPlw2' => ubahKomaMenjadiTitik($rowData[0][9]),
-						'polatanamPadi2' => ubahKomaMenjadiTitik($rowData[0][10]),
-						'polatanamPadiPlw' => ubahKomaMenjadiTitik($rowData[0][11]),
-						'polatanamPadi' => ubahKomaMenjadiTitik($rowData[0][12]),
-						'reatamPadiMT1' => ubahKomaMenjadiTitik($rowData[0][13]),
-						'reatamPadiMT2' => ubahKomaMenjadiTitik($rowData[0][14]),
-						'reatamPadiMT3' => ubahKomaMenjadiTitik($rowData[0][15]),
-						'reatamPadiTotalHa' => ubahKomaMenjadiTitik($rowData[0][16]),
-						'reatamPadiTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][17]),
-						'reatamPalawijaMT1' => ubahKomaMenjadiTitik($rowData[0][18]),
-						'reatamPalawijaMT2' => ubahKomaMenjadiTitik($rowData[0][19]),
-						'reatamPalawijaMT3' => ubahKomaMenjadiTitik($rowData[0][20]),
-						'reatamPalawijaTotalHa' => ubahKomaMenjadiTitik($rowData[0][21]),
-						'reatamPalawijaTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][22]),
-						'reatamTebuMT1' => ubahKomaMenjadiTitik($rowData[0][23]),
-						'reatamTebuMT2' => ubahKomaMenjadiTitik($rowData[0][24]),
-						'reatamTebuMT3' => ubahKomaMenjadiTitik($rowData[0][25]),
-						'reatamTebuTotalHa' => ubahKomaMenjadiTitik($rowData[0][26]),
-						'reatamTebuTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][27]),
-						'reatamLainnyaMT1' => ubahKomaMenjadiTitik($rowData[0][28]),
-						'reatamLainnyaMT2' => ubahKomaMenjadiTitik($rowData[0][29]),
-						'reatamLainnyaMT3' => ubahKomaMenjadiTitik($rowData[0][30]),
-						'reatamLainnyaTotalHa' => ubahKomaMenjadiTitik($rowData[0][31]),
-						'reatamLainnyaTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][32]),
-						'jmlMT1' => ubahKomaMenjadiTitik($rowData[0][33]),
-						'jmlMT2' => ubahKomaMenjadiTitik($rowData[0][34]),
-						'jmlMT3' => ubahKomaMenjadiTitik($rowData[0][35]),
-						'jmlTotalHa' => ubahKomaMenjadiTitik($rowData[0][36]),
-						'jmlTotalIp' => ubahKomaMenjadiTitik($rowData[0][37]),
-						'produktivitasPadiMT1' => ubahKomaMenjadiTitik($rowData[0][38]),
-						'produktivitasPadiMT2' => ubahKomaMenjadiTitik($rowData[0][39]),
-						'produktivitasPadiMT3' => ubahKomaMenjadiTitik($rowData[0][40]),
-						'produktivitasRata2' => ubahKomaMenjadiTitik($rowData[0][41]),
+						
+
+						'buBendungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][8])), 
+						'buBendungB'  => ubahKomaMenjadiTitik($rowData[0][8]), 
+
+						'buPengambilanBebasA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][10])), 
+						'buPengambilanBebasB'  => ubahKomaMenjadiTitik($rowData[0][10]), 
+
+						'buStasiunPompaA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][12])), 
+						'buStasiunPompaB'  => ubahKomaMenjadiTitik($rowData[0][12]), 
+
+						'buEmbungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][14])), 
+						'buEmbungB'  => ubahKomaMenjadiTitik($rowData[0][14]), 
+						
+						'saluranPrimerB'  => ubahKomaMenjadiTitik($rowData[0][15]), 
+						'saluranPrimerBR'  => ubahKomaMenjadiTitik($rowData[0][16]), 
+						'saluranPrimerRS'  => ubahKomaMenjadiTitik($rowData[0][17]), 
+						'saluranPrimerRB'  => ubahKomaMenjadiTitik($rowData[0][18]),
+						'saluranPrimerRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 2), 
+						'saluranPrimerNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 1),
+
+
+						'saluranSekunderB'  => ubahKomaMenjadiTitik($rowData[0][21]), 
+						'saluranSekunderBR'  => ubahKomaMenjadiTitik($rowData[0][22]), 
+						'saluranSekunderRS'  => ubahKomaMenjadiTitik($rowData[0][23]), 
+						'saluranSekunderRB'  => ubahKomaMenjadiTitik($rowData[0][24]), 
+						'saluranSekunderRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 2), 
+						'saluranSekunderNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 1), 
+
+
+						'saluranTersierB'  => ubahKomaMenjadiTitik($rowData[0][27]), 
+						'saluranTersierBR'  => ubahKomaMenjadiTitik($rowData[0][28]), 
+						'saluranTersierRS'  => ubahKomaMenjadiTitik($rowData[0][29]), 
+						'saluranTersierRB'  => ubahKomaMenjadiTitik($rowData[0][30]), 
+						'saluranTersierRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 2), 
+						'saluranTersierNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 1), 
+
+
+						'saluranPembuangB'  => ubahKomaMenjadiTitik($rowData[0][33]), 
+						'saluranPembuangBR'  => ubahKomaMenjadiTitik($rowData[0][34]), 
+						'saluranPembuangRS'  => ubahKomaMenjadiTitik($rowData[0][35]), 
+						'saluranPembuangRB'  => ubahKomaMenjadiTitik($rowData[0][36]), 
+						'saluranPembuangRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 2), 
+						'saluranPembuangNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1), 
+
+						'bppBagiA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][40])), 
+						'bppBagiB'  => ubahKomaMenjadiTitik($rowData[0][40]), 
+
+						'bppBagiSadapA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][42])), 
+						'bppBagiSadapB'  => ubahKomaMenjadiTitik($rowData[0][42]), 
+
+						'bppSadapA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][44])), 
+						'bppSadapB'  => ubahKomaMenjadiTitik($rowData[0][44]), 
+
+						'bppBangunanPengukurA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][46])), 
+						'bppBangunanPengukurB'  => ubahKomaMenjadiTitik($rowData[0][46]), 
+
+						'bPembawaGorongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][48])), 
+						'bPembawaGorongB'  => ubahKomaMenjadiTitik($rowData[0][48]),
+
+						'bPembawaSiponA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][50])), 
+						'bPembawaSiponB'  => ubahKomaMenjadiTitik($rowData[0][50]), 
+
+						'bPembawaTalangA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][52])), 
+						'bPembawaTalangB'  => ubahKomaMenjadiTitik($rowData[0][52]), 
+
+						'bPembawaTerjunanA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][54])), 
+						'bPembawaTerjunanB'  => ubahKomaMenjadiTitik($rowData[0][54]), 
+
+						'bPembawaGotMiringA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][56])), 
+						'bPembawaGotMiringB'  => ubahKomaMenjadiTitik($rowData[0][56]), 
+
+						'bPembawaFlumA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][58])), 
+						'bPembawaFlumB'  => ubahKomaMenjadiTitik($rowData[0][58]), 
+
+						'bPembawaTerawanganA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][60])), 
+						'bPembawaTerawanganB'  => ubahKomaMenjadiTitik($rowData[0][60]),
+
+						'blinKantongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][62])), 
+						'blinKantongB'  => ubahKomaMenjadiTitik($rowData[0][62]), 
+
+						'blinPelimpahA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][64])), 
+						'blinPelimpahB'  => ubahKomaMenjadiTitik($rowData[0][64]),
+
+						'blinPengurasA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][66])), 
+						'blinPengurasB'  => ubahKomaMenjadiTitik($rowData[0][66]), 
+
+						'blinSaluranGendongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][68])), 
+						'blinSaluranGendongB'  => ubahKomaMenjadiTitik($rowData[0][68]),
+
+						'blinKribA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][70])), 
+						'blinKribB'  => ubahKomaMenjadiTitik($rowData[0][70]),
+
+						'blinPerkuatanTebingA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][72])), 
+						'blinPerkuatanTebingB'  => ubahKomaMenjadiTitik($rowData[0][72]),
+
+						'blinTanggungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][74])), 
+						'blinTanggungB'  => ubahKomaMenjadiTitik($rowData[0][74]), 
+
+						'balengJalanInspeksiA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][76])), 
+						'balengJalanInspeksiB'  => ubahKomaMenjadiTitik($rowData[0][76]),
+
+						'balengJembatanA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][78])), 
+						'balengJembatanB'  => ubahKomaMenjadiTitik($rowData[0][78]),
+
+						'balengKantorPengamatA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][80])), 
+						'balengKantorPengamatB'  => ubahKomaMenjadiTitik($rowData[0][80]),
+
+						'balengGudangA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][82])), 
+						'balengGudangB'  => ubahKomaMenjadiTitik($rowData[0][82]), 
+
+						'balengRumahJagaA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][84])), 
+						'balengRumahJagaB'  => ubahKomaMenjadiTitik($rowData[0][84]),
+
+						'balengRumahA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][86])), 
+						'balengRumahB'  => ubahKomaMenjadiTitik($rowData[0][86]),
+
+						'balengSanggarTaniA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][88])), 
+						'balengSanggarTaniB' => ubahKomaMenjadiTitik($rowData[0][88]),
+
+						'saranaPintuAirA' => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][90])),  
+						'saranaPintuAirB' => ubahKomaMenjadiTitik($rowData[0][90]),
+
+						'saranaAlatUkurA' => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][92])),  
+						'saranaAlatUkurB' => ubahKomaMenjadiTitik($rowData[0][92]),
+
+						'rataJaringanA' => $dataKoonisi,  
+						'rataJaringanB' => $nilaiTotal, 
+
+						'keterangan' => ubahKomaMenjadiTitik($rowData[0][0]), 
+
+
 						'uidIn' => $this->session->userdata('uid'),
 						'uidDt' => date('Y-m-d H:i:s')
 					);
 
-					$baseArray[] = $arrayRow;
+$baseArray[] = $arrayRow;
 
-				}
+}
+}
+
+$this->M_dinamis->delete('p_f4a', ['kotakabid' => $kotakabidX, 'ta' => $this->session->userdata('thang')]);
+$pros = $this->M_dinamis->insertBatch('p_f4a', $baseArray);
+
+if ($pros == true) {
+	$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+		Data Berhasil Disimpan.!
+		</div>');
+}else{
+
+	$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+		Data Gagal Disimpan.
+		</div>');
+}
+
+redirect("/IndexKinerja4A/formExcel", 'refresh');
+
+}
+
+
+}
+
+}
+
+private function hitungTotalA($arrayAll=[], $kondisi)
+{
+	
+	$nilaiTotal = 0;
+	$totalData = 0;
+	$nilaiHasilBagi = 0;
+
+	foreach ($arrayAll as $key => $val) {
+		
+		if ($val != null and $val != '') {
+			$totalData++;
+			$nilaiTotal = $nilaiTotal+ubahKomaMenjadiTitik($val);
+		}
+		
+	}
+
+	$nilaiHasilBagi = $nilaiTotal/$totalData;
+
+	if ($kondisi == 2) {
+		
+		return $nilaiHasilBagi;
+	}else{
+
+		if ($nilaiHasilBagi !== 0) {
+			if ($nilaiHasilBagi > 90) {
+				return 'B';
+			} else if ($nilaiHasilBagi >= 80) {
+				return 'RR';
+			} else if ($nilaiHasilBagi >= 60) {
+				return 'RS';
+			} else if ($nilaiHasilBagi > 0) {
+				return 'RB';
+			} else {
+				return '';
 			}
-
-			$this->M_dinamis->delete('p_f2b', ['kotakabid' => $kotakabidX]);
-			$pros = $this->M_dinamis->insertBatch('p_f2b', $baseArray);
-
-			if ($pros == true) {
-				$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-					Data Berhasil Disimpan.!
-					</div>');
-			}else{
-
-				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-					Data Gagal Disimpan.
-					</div>');
-			}
-
-			redirect("/IndexKinerja4A/formExcel", 'refresh');
-
+		} else {
+			return '';
 		}
 
 
 	}
-
 }
 
 
