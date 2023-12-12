@@ -909,10 +909,10 @@ class IndexKinerja4B extends CI_Controller {
 							redirect("/IndexKinerja4B/formExcel", 'refresh');
 						}
 
-						$saluran1 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 1);
-						$saluran2 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 1);
-						$saluran3 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 1);
-						$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1);
+						$saluran1 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][7]), ubahKomaMenjadiTitik($rowData[0][8]),ubahKomaMenjadiTitik($rowData[0][9]), ubahKomaMenjadiTitik($rowData[0][10]), 1);
+						$saluran2 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][13]), ubahKomaMenjadiTitik($rowData[0][14]),ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]), 1);
+						$saluran3 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][19]), ubahKomaMenjadiTitik($rowData[0][20]),ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]), 1);
+						$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][25]), ubahKomaMenjadiTitik($rowData[0][26]),ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]), 1);
 
 						$arrayX = [
 							$rowData[0][32],
