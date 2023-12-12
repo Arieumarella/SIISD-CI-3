@@ -230,6 +230,53 @@ class IndexKinerja4A extends CI_Controller {
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
+
+		$saluran1 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranPrimerB), ubahKomaMenjadiTitik($saluranPrimerBR),ubahKomaMenjadiTitik($saluranPrimerRS), ubahKomaMenjadiTitik($saluranPrimerRB), 1);
+		$saluran2 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranSekunderB), ubahKomaMenjadiTitik($saluranSekunderBR),ubahKomaMenjadiTitik($saluranSekunderRS), ubahKomaMenjadiTitik($saluranSekunderRB), 1);
+		$saluran3 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranTersierB), ubahKomaMenjadiTitik($saluranTersierBR),ubahKomaMenjadiTitik($saluranTersierRS), ubahKomaMenjadiTitik($saluranTersierRB), 1);
+		$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranPembuangB), ubahKomaMenjadiTitik($saluranPembuangBR),ubahKomaMenjadiTitik($saluranPembuangRS), ubahKomaMenjadiTitik($saluranPembuangRB), 1);
+
+		$arrayX = [
+			$buBendungB,
+			$buPengambilanBebasB,
+			$buStasiunPompaB,
+			$buEmbungB,
+			$bppBagiB,
+			$bppBagiSadapB,
+			$bppSadapB,
+			$bppBangunanPengukurB,
+			$bPembawaGorongB,
+			$bPembawaSiponB,
+			$bPembawaTalangB,
+			$bPembawaTerjunanB,
+			$bPembawaGotMiringB,
+			$bPembawaFlumB,
+			$bPembawaTerawanganB,
+			$blinKantongB,
+			$blinPelimpahB,
+			$blinPengurasB,
+			$blinSaluranGendongB,
+			$blinKribB,
+			$blinPerkuatanTebingB,
+			$blinTanggungB,
+			$balengJalanInspeksiB,
+			$balengJembatanB,
+			$balengKantorPengamatB,
+			$balengGudangB,
+			$balengRumahJagaB,
+			$balengRumahB,
+			$balengSanggarTaniB,
+			$saranaPintuAirB,
+			$saranaAlatUkurB,
+			$saluran1,
+			$saluran2,
+			$saluran3,
+			$saluran4
+		];
+
+		$dataKoonisi = $this->hitungTotalA($arrayX, 1);
+		$nilaiTotal = $this->hitungTotalA($arrayX, 2);
+
 		$dataInsert = array(
 			'ta' => date('Y'),
 			'provid' => $dataM_irigasi->provid,
@@ -323,8 +370,8 @@ class IndexKinerja4A extends CI_Controller {
 			'saranaPintuAirB' => $saranaPintuAirB, 
 			'saranaAlatUkurA' => $this->getDataKondisi($saranaAlatUkurB), 
 			'saranaAlatUkurB' => $saranaAlatUkurB, 
-			'rataJaringanA' => $this->getDataKondisi($rataJaringanB), 
-			'rataJaringanB' => $rataJaringanB, 
+			'rataJaringanA' => $dataKoonisi, 
+			'rataJaringanB' => $nilaiTotal, 
 			'keterangan' => clean($keterangan),
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
@@ -545,6 +592,53 @@ public function SimpanDataEdit()
 	$keterangan = $this->input->post('keterangan');
 
 
+	$saluran1 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranPrimerB), ubahKomaMenjadiTitik($saluranPrimerBR),ubahKomaMenjadiTitik($saluranPrimerRS), ubahKomaMenjadiTitik($saluranPrimerRB), 1);
+	$saluran2 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranSekunderB), ubahKomaMenjadiTitik($saluranSekunderBR),ubahKomaMenjadiTitik($saluranSekunderRS), ubahKomaMenjadiTitik($saluranSekunderRB), 1);
+	$saluran3 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranTersierB), ubahKomaMenjadiTitik($saluranTersierBR),ubahKomaMenjadiTitik($saluranTersierRS), ubahKomaMenjadiTitik($saluranTersierRB), 1);
+	$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($saluranPembuangB), ubahKomaMenjadiTitik($saluranPembuangBR),ubahKomaMenjadiTitik($saluranPembuangRS), ubahKomaMenjadiTitik($saluranPembuangRB), 1);
+
+	$arrayX = [
+		$buBendungB,
+		$buPengambilanBebasB,
+		$buStasiunPompaB,
+		$buEmbungB,
+		$bppBagiB,
+		$bppBagiSadapB,
+		$bppSadapB,
+		$bppBangunanPengukurB,
+		$bPembawaGorongB,
+		$bPembawaSiponB,
+		$bPembawaTalangB,
+		$bPembawaTerjunanB,
+		$bPembawaGotMiringB,
+		$bPembawaFlumB,
+		$bPembawaTerawanganB,
+		$blinKantongB,
+		$blinPelimpahB,
+		$blinPengurasB,
+		$blinSaluranGendongB,
+		$blinKribB,
+		$blinPerkuatanTebingB,
+		$blinTanggungB,
+		$balengJalanInspeksiB,
+		$balengJembatanB,
+		$balengKantorPengamatB,
+		$balengGudangB,
+		$balengRumahJagaB,
+		$balengRumahB,
+		$balengSanggarTaniB,
+		$saranaPintuAirB,
+		$saranaAlatUkurB,
+		$saluran1,
+		$saluran2,
+		$saluran3,
+		$saluran4
+	];
+
+	$dataKoonisi = $this->hitungTotalA($arrayX, 1);
+	$nilaiTotal = $this->hitungTotalA($arrayX, 2);
+
+
 	$dataInsert = array(
 		'ta' => date('Y'),
 		'laPermen' => $laPermen,
@@ -635,8 +729,8 @@ public function SimpanDataEdit()
 		'saranaPintuAirB' => $saranaPintuAirB, 
 		'saranaAlatUkurA' => $this->getDataKondisi($saranaAlatUkurB), 
 		'saranaAlatUkurB' => $saranaAlatUkurB, 
-		'rataJaringanA' => $this->getDataKondisi($rataJaringanB), 
-		'rataJaringanB' => $rataJaringanB, 
+		'rataJaringanA' => $dataKoonisi, 
+		'rataJaringanB' => $nilaiTotal, 
 		'keterangan' => clean($keterangan),
 		'uidInUp' => $this->session->userdata('uid'),
 		'uidDtUp' => date('Y-m-d H:i:s')
@@ -979,37 +1073,37 @@ public function prosesUploadExcel()
 					$saluran4 = $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1);
 
 					$arrayX = [
-						$rowData[0][8],
-						$rowData[0][10],
-						$rowData[0][12],
-						$rowData[0][14],
-						$rowData[0][40],
-						$rowData[0][42],
-						$rowData[0][44],
-						$rowData[0][46],
-						$rowData[0][48],
-						$rowData[0][50],
-						$rowData[0][52],
-						$rowData[0][54],
-						$rowData[0][56],
-						$rowData[0][58],
-						$rowData[0][60],
-						$rowData[0][62],
-						$rowData[0][64],
-						$rowData[0][66],
-						$rowData[0][68],
-						$rowData[0][70],
-						$rowData[0][72],
-						$rowData[0][74],
-						$rowData[0][76],
-						$rowData[0][78],
-						$rowData[0][80],
-						$rowData[0][82],
-						$rowData[0][84],
-						$rowData[0][86],
-						$rowData[0][88],
-						$rowData[0][90],
-						$rowData[0][92],
+						ubahKomaMenjadiTitik($rowData[0][8]), 
+						ubahKomaMenjadiTitik($rowData[0][10]), 
+						ubahKomaMenjadiTitik($rowData[0][12]),
+						ubahKomaMenjadiTitik($rowData[0][14]),
+						ubahKomaMenjadiTitik($rowData[0][40]),
+						ubahKomaMenjadiTitik($rowData[0][42]),
+						ubahKomaMenjadiTitik($rowData[0][44]),
+						ubahKomaMenjadiTitik($rowData[0][46]),
+						ubahKomaMenjadiTitik($rowData[0][48]),
+						ubahKomaMenjadiTitik($rowData[0][50]),
+						ubahKomaMenjadiTitik($rowData[0][52]),
+						ubahKomaMenjadiTitik($rowData[0][54]),
+						ubahKomaMenjadiTitik($rowData[0][56]),
+						ubahKomaMenjadiTitik($rowData[0][58]),
+						ubahKomaMenjadiTitik($rowData[0][60]),
+						ubahKomaMenjadiTitik($rowData[0][62]),
+						ubahKomaMenjadiTitik($rowData[0][64]),
+						ubahKomaMenjadiTitik($rowData[0][66]),
+						ubahKomaMenjadiTitik($rowData[0][68]),
+						ubahKomaMenjadiTitik($rowData[0][70]),
+						ubahKomaMenjadiTitik($rowData[0][72]),
+						ubahKomaMenjadiTitik($rowData[0][74]),
+						ubahKomaMenjadiTitik($rowData[0][76]),
+						ubahKomaMenjadiTitik($rowData[0][78]),
+						ubahKomaMenjadiTitik($rowData[0][80]),
+						ubahKomaMenjadiTitik($rowData[0][82]),
+						ubahKomaMenjadiTitik($rowData[0][84]),
+						ubahKomaMenjadiTitik($rowData[0][86]),
+						ubahKomaMenjadiTitik($rowData[0][88]),
+						ubahKomaMenjadiTitik($rowData[0][90]),
+						ubahKomaMenjadiTitik($rowData[0][92]),
 						$saluran1,
 						$saluran2,
 						$saluran3,
@@ -1019,6 +1113,9 @@ public function prosesUploadExcel()
 					$dataKoonisi = $this->hitungTotalA($arrayX, 1);
 					$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
+
+
+
 					$arrayRow = array(
 						'ta' => date('Y'),
 						'provid' => ubahKomaMenjadiTitik($rowData[0][0]),
@@ -1026,138 +1123,95 @@ public function prosesUploadExcel()
 						'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 						'laPermen' => ubahKomaMenjadiTitik($rowData[0][5]),
 						'sawahFungsional' => ubahKomaMenjadiTitik($rowData[0][6]),
-						
-
 						'buBendungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][8])), 
 						'buBendungB'  => ubahKomaMenjadiTitik($rowData[0][8]), 
-
 						'buPengambilanBebasA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][10])), 
-						'buPengambilanBebasB'  => ubahKomaMenjadiTitik($rowData[0][10]), 
-
+						'buPengambilanBebasB'  => ubahKomaMenjadiTitik($rowData[0][10]),
 						'buStasiunPompaA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][12])), 
 						'buStasiunPompaB'  => ubahKomaMenjadiTitik($rowData[0][12]), 
-
 						'buEmbungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][14])), 
-						'buEmbungB'  => ubahKomaMenjadiTitik($rowData[0][14]), 
-						
+						'buEmbungB'  => ubahKomaMenjadiTitik($rowData[0][14]), 						
 						'saluranPrimerB'  => ubahKomaMenjadiTitik($rowData[0][15]), 
 						'saluranPrimerBR'  => ubahKomaMenjadiTitik($rowData[0][16]), 
 						'saluranPrimerRS'  => ubahKomaMenjadiTitik($rowData[0][17]), 
 						'saluranPrimerRB'  => ubahKomaMenjadiTitik($rowData[0][18]),
 						'saluranPrimerRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 2), 
 						'saluranPrimerNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][15]), ubahKomaMenjadiTitik($rowData[0][16]),ubahKomaMenjadiTitik($rowData[0][17]), ubahKomaMenjadiTitik($rowData[0][18]), 1),
-
-
 						'saluranSekunderB'  => ubahKomaMenjadiTitik($rowData[0][21]), 
 						'saluranSekunderBR'  => ubahKomaMenjadiTitik($rowData[0][22]), 
 						'saluranSekunderRS'  => ubahKomaMenjadiTitik($rowData[0][23]), 
 						'saluranSekunderRB'  => ubahKomaMenjadiTitik($rowData[0][24]), 
 						'saluranSekunderRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 2), 
 						'saluranSekunderNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][21]), ubahKomaMenjadiTitik($rowData[0][22]),ubahKomaMenjadiTitik($rowData[0][23]), ubahKomaMenjadiTitik($rowData[0][24]), 1), 
-
-
 						'saluranTersierB'  => ubahKomaMenjadiTitik($rowData[0][27]), 
 						'saluranTersierBR'  => ubahKomaMenjadiTitik($rowData[0][28]), 
 						'saluranTersierRS'  => ubahKomaMenjadiTitik($rowData[0][29]), 
 						'saluranTersierRB'  => ubahKomaMenjadiTitik($rowData[0][30]), 
 						'saluranTersierRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 2), 
 						'saluranTersierNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][27]), ubahKomaMenjadiTitik($rowData[0][28]),ubahKomaMenjadiTitik($rowData[0][29]), ubahKomaMenjadiTitik($rowData[0][30]), 1), 
-
-
 						'saluranPembuangB'  => ubahKomaMenjadiTitik($rowData[0][33]), 
 						'saluranPembuangBR'  => ubahKomaMenjadiTitik($rowData[0][34]), 
 						'saluranPembuangRS'  => ubahKomaMenjadiTitik($rowData[0][35]), 
 						'saluranPembuangRB'  => ubahKomaMenjadiTitik($rowData[0][36]), 
 						'saluranPembuangRerata'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 2), 
-						'saluranPembuangNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1), 
-
+						'saluranPembuangNilai'  => $this->hitungSaluran(ubahKomaMenjadiTitik($rowData[0][33]), ubahKomaMenjadiTitik($rowData[0][34]),ubahKomaMenjadiTitik($rowData[0][35]), ubahKomaMenjadiTitik($rowData[0][36]), 1),
 						'bppBagiA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][40])), 
 						'bppBagiB'  => ubahKomaMenjadiTitik($rowData[0][40]), 
-
 						'bppBagiSadapA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][42])), 
 						'bppBagiSadapB'  => ubahKomaMenjadiTitik($rowData[0][42]), 
-
 						'bppSadapA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][44])), 
 						'bppSadapB'  => ubahKomaMenjadiTitik($rowData[0][44]), 
-
 						'bppBangunanPengukurA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][46])), 
-						'bppBangunanPengukurB'  => ubahKomaMenjadiTitik($rowData[0][46]), 
-
+						'bppBangunanPengukurB'  => ubahKomaMenjadiTitik($rowData[0][46]),
 						'bPembawaGorongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][48])), 
 						'bPembawaGorongB'  => ubahKomaMenjadiTitik($rowData[0][48]),
-
 						'bPembawaSiponA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][50])), 
 						'bPembawaSiponB'  => ubahKomaMenjadiTitik($rowData[0][50]), 
-
 						'bPembawaTalangA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][52])), 
 						'bPembawaTalangB'  => ubahKomaMenjadiTitik($rowData[0][52]), 
-
 						'bPembawaTerjunanA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][54])), 
 						'bPembawaTerjunanB'  => ubahKomaMenjadiTitik($rowData[0][54]), 
-
 						'bPembawaGotMiringA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][56])), 
-						'bPembawaGotMiringB'  => ubahKomaMenjadiTitik($rowData[0][56]), 
-
+						'bPembawaGotMiringB'  => ubahKomaMenjadiTitik($rowData[0][56]),
 						'bPembawaFlumA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][58])), 
 						'bPembawaFlumB'  => ubahKomaMenjadiTitik($rowData[0][58]), 
-
 						'bPembawaTerawanganA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][60])), 
 						'bPembawaTerawanganB'  => ubahKomaMenjadiTitik($rowData[0][60]),
-
 						'blinKantongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][62])), 
 						'blinKantongB'  => ubahKomaMenjadiTitik($rowData[0][62]), 
-
 						'blinPelimpahA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][64])), 
 						'blinPelimpahB'  => ubahKomaMenjadiTitik($rowData[0][64]),
-
 						'blinPengurasA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][66])), 
-						'blinPengurasB'  => ubahKomaMenjadiTitik($rowData[0][66]), 
-
+						'blinPengurasB'  => ubahKomaMenjadiTitik($rowData[0][66]),
 						'blinSaluranGendongA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][68])), 
 						'blinSaluranGendongB'  => ubahKomaMenjadiTitik($rowData[0][68]),
-
 						'blinKribA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][70])), 
 						'blinKribB'  => ubahKomaMenjadiTitik($rowData[0][70]),
-
 						'blinPerkuatanTebingA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][72])), 
 						'blinPerkuatanTebingB'  => ubahKomaMenjadiTitik($rowData[0][72]),
-
 						'blinTanggungA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][74])), 
 						'blinTanggungB'  => ubahKomaMenjadiTitik($rowData[0][74]), 
-
 						'balengJalanInspeksiA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][76])), 
 						'balengJalanInspeksiB'  => ubahKomaMenjadiTitik($rowData[0][76]),
-
 						'balengJembatanA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][78])), 
 						'balengJembatanB'  => ubahKomaMenjadiTitik($rowData[0][78]),
-
 						'balengKantorPengamatA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][80])), 
 						'balengKantorPengamatB'  => ubahKomaMenjadiTitik($rowData[0][80]),
-
 						'balengGudangA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][82])), 
 						'balengGudangB'  => ubahKomaMenjadiTitik($rowData[0][82]), 
-
 						'balengRumahJagaA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][84])), 
 						'balengRumahJagaB'  => ubahKomaMenjadiTitik($rowData[0][84]),
-
 						'balengRumahA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][86])), 
 						'balengRumahB'  => ubahKomaMenjadiTitik($rowData[0][86]),
-
 						'balengSanggarTaniA'  => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][88])), 
 						'balengSanggarTaniB' => ubahKomaMenjadiTitik($rowData[0][88]),
-
 						'saranaPintuAirA' => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][90])),  
 						'saranaPintuAirB' => ubahKomaMenjadiTitik($rowData[0][90]),
-
 						'saranaAlatUkurA' => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][92])),  
 						'saranaAlatUkurB' => ubahKomaMenjadiTitik($rowData[0][92]),
-
 						'rataJaringanA' => $dataKoonisi,  
 						'rataJaringanB' => $nilaiTotal, 
-
 						'keterangan' => ubahKomaMenjadiTitik($rowData[0][0]), 
-
-
 						'uidIn' => $this->session->userdata('uid'),
 						'uidDt' => date('Y-m-d H:i:s')
 					);

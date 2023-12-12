@@ -1012,8 +1012,8 @@ class IndexKinerja4B extends CI_Controller {
 							'saranaPintuAirB' => ubahKomaMenjadiTitik($rowData[0][62]),
 							'saranaAlatUkurA' => $this->getDataKondisi(ubahKomaMenjadiTitik($rowData[0][64])),
 							'saranaAlatUkurB' => ubahKomaMenjadiTitik($rowData[0][64]),
-							'rataJaringanA' => ubahKomaMenjadiTitik($rowData[0][66]),
-							'rataJaringanB' => ubahKomaMenjadiTitik($rowData[0][66]),
+							'rataJaringanA' => $dataKoonisi,
+							'rataJaringanB' => $nilaiTotal,
 							'keterangan' => clean($rowData[0][67]),
 							'uidIn' => $this->session->userdata('uid'),
 							'uidDt' => date('Y-m-d H:i:s')
