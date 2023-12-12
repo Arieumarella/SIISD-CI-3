@@ -114,7 +114,7 @@
             <!-- box data teknis -->
             <div class="row" data-select2-id="22">
 
-                <div class="card-body p-0 " data-select2-id="21">                        <!-- form start -->
+                <div class="card-body p-0 " data-select2-id="21">                        
                     <div class="modal-body" data-select2-id="20">
 
                         <?= $this->session->flashdata('psn'); ?>
@@ -1437,29 +1437,29 @@ $('.select2').select2({
 
 <?php if ($this->session->userdata('prive') == 'admin') { ?> 
 
-$('.select3').select2({
-  placeholder: '-Tentukan Daerah Irigasi-',
-  theme: 'default',
-  ajax: {
-    url: base_url() + "IndexKinerja4C/getDiTambahData",
-    dataType: 'json',
-    type: 'post',
-    delay: 250,
-    data: function (params) {
-      var query = {
-        searchDi: params.term
-    };
-    return query;
-},
-processResults: function (response) {
+    $('.select3').select2({
+      placeholder: '-Tentukan Daerah Irigasi-',
+      theme: 'default',
+      ajax: {
+        url: base_url() + "IndexKinerja4C/getDiTambahData",
+        dataType: 'json',
+        type: 'post',
+        delay: 250,
+        data: function (params) {
+          var query = {
+            searchDi: params.term
+        };
+        return query;
+    },
+    processResults: function (response) {
 
-   response.data.unshift({ id: '', text: 'Tampilkan semua' });
+       response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-   return {
-      results: response.data 
-  };
-},
-cache: true
+       return {
+          results: response.data 
+      };
+  },
+  cache: true
 }
 });
 <?php } ?>

@@ -58,7 +58,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D'];
 
         ?>
 
@@ -181,7 +181,7 @@
 
     <?php 
 
-    $arrayDataTeknis = ['IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C'];
+    $arrayDataTeknis = ['IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D'];
     $uri1 = @$this->uri->segment(1);
 
     ?>  
@@ -209,8 +209,8 @@
             <p>4C - DATA KONDISI  D.I.A.T</p>
           </a>
         </li>
-        <li class="nav-item pl-2 m-0 ">
-          <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/4d" class="nav-link p-1 m-0  ">
+        <li class="nav-item pl-2 m-0 <?= (in_array($uri1, $arrayDataTeknis)) ? 'menu-open' : ''; ?>">
+          <a href="<?= base_url(); ?>IndexKinerja4D" class="nav-link p-1 m-0  <?= $tittle == '4D' ? 'active' : ''; ?>">
             <p>4D - DATA KONDISI  D.I.T</p>
           </a>
         </li>
