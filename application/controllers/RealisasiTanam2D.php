@@ -480,7 +480,7 @@ class RealisasiTanam2D extends CI_Controller {
 		$cek = $this->M_dinamis->getById('p_f2d', ['kotakabid' => $kab]);
 
 		if ($cek) {
-			$data = $this->M_RealisasiTanam2D->getDataDiFull($thang, $kab);
+			$data = $this->M_RealisasiTanam2D->getDataDiFull($thang, $kab, 'ta' => $thang);
 		}else{
 			$thang = $thang-1;
 			$data = $this->M_RealisasiTanam2D->getDataDiFull((string)$thang, $kab);

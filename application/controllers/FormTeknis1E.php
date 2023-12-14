@@ -440,7 +440,7 @@ class FormTeknis1E extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f1e', ['kotakabid' => $kab]);
+		$cek = $this->M_dinamis->getById('p_f1e', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
 			$data = $this->M_FormTeknis1E->getDataDiFull($thang, $kab);

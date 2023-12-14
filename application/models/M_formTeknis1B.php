@@ -81,12 +81,11 @@ class M_formTeknis1B extends CI_Model {
 
 
 	public function getDataDiFull($thangX, $kab)
-	{
-		$this->thang = $this->load->database($thangX, TRUE);
+	{	
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f1b as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIR'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f1b as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIR' and d.ta='$thangX'";
 
-		return $this->thang->query($qry)->result();
+		return $this->db->query($qry)->result();
 
 	}
 

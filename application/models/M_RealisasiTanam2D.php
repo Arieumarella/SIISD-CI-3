@@ -82,11 +82,10 @@ class M_RealisasiTanam2D extends CI_Model {
 
 	public function getDataDiFull($thangX, $kab)
 	{
-		$this->thang = $this->load->database($thangX, TRUE);
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f2d as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIT'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f2d as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIT' and d.ta='$thangX'";
 
-		return $this->thang->query($qry)->result();
+		return $this->db->query($qry)->result();
 
 	}
 

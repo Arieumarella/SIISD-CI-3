@@ -477,7 +477,7 @@ class RealisasiTanam2B extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f2b', ['kotakabid' => $kab]);
+		$cek = $this->M_dinamis->getById('p_f2b', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
 			$data = $this->M_RealisasiTanam2B->getDataDiFull($thang, $kab);
