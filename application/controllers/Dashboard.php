@@ -37,4 +37,17 @@ class Dashboard extends CI_Controller {
 	}
 
 
+	public function setTahun($ta=null)
+	{
+		if ($ta == null) {
+			$ta = '2023';
+		}
+
+		$this->session->set_userdata('thang', $ta);
+
+		redirect('/Dashboard', 'refresh');
+		
+	}
+
+
 }

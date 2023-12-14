@@ -12,10 +12,10 @@
     <br>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); margin-top: 10px;">
       </div>
       <div class="info">
-        <a href="/pengguna/detail/Test" class="d-block">Test Umar</a>
+        <a href="/pengguna/detail/Test" class="d-block"><?= $this->session->userdata('nama'); ?> <br> <i style="font-size: 15px;"><i class="fa fa-circle text-success" style="font-size:8px;" aria-hidden="true"></i> <?= $this->session->userdata('prive'); ?></i></a>
       </div>
     </div>
 
@@ -29,8 +29,17 @@
               <i class="nav-icon far fa-calendar-alt"></i>
             </a>
             <p  class="col-sm-6 p-0 m-0" style="">
-              <select class="form-control form-control-sm" name="ta" id="in_kuTaAktif" title="Menampilkan Data pada Tahun Aanggaran 2023">
-                <option value="2015">2015</option>                
+              <select class="form-control form-control-sm" id="in_kuTaAktifX">
+                <option value="2015" <?= $this->session->userdata('thang') == '2015' ? 'selected' : ''; ?>>2015</option>
+                <option value="2016" <?= $this->session->userdata('thang') == '2016' ? 'selected' : ''; ?>>2016</option>                
+                <option value="2017" <?= $this->session->userdata('thang') == '2017' ? 'selected' : ''; ?>>2017</option>
+                <option value="2018" <?= $this->session->userdata('thang') == '2018' ? 'selected' : ''; ?>>2018</option>
+                <option value="2019" <?= $this->session->userdata('thang') == '2019' ? 'selected' : ''; ?>>2019</option>
+                <option value="2020" <?= $this->session->userdata('thang') == '2020' ? 'selected' : ''; ?>>2020</option>
+                <option value="2021" <?= $this->session->userdata('thang') == '2021' ? 'selected' : ''; ?>>2021</option>
+                <option value="2022" <?= $this->session->userdata('thang') == '2022' ? 'selected' : ''; ?>>2022</option>
+                <option value="2023" <?= $this->session->userdata('thang') == '2023' ? 'selected' : ''; ?>>2023</option>
+                <option value="2024" <?= $this->session->userdata('thang') == '2024' ? 'selected' : ''; ?>>2024</option>
               </select>
             </p>
           </span>

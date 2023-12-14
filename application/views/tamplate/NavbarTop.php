@@ -13,7 +13,7 @@
   <ul class="navbar-nav ml-auto">
 
     <li class="nav-item dropdown">
-      <b><a class="nav-link" href="/ta" style="border:thin solid red; color:#e60000;" title="Menampilkan Data pada Tahun Aanggaran TEST">TA. : TEST</a></b>
+      <b><a class="nav-link" href="javascript:void(0)" style="border:thin solid red; color:#e60000;" title="Menampilkan Data pada Tahun Aanggaran TEST">TA. : <?= $this->session->userdata('thang'); ?></a></b>
     </li>
 
     <li class="nav-item dropdown">

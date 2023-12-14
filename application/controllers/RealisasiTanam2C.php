@@ -477,10 +477,10 @@ class RealisasiTanam2C extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f2c', ['kotakabid' => $kab]);
+		$cek = $this->M_dinamis->getById('p_f2c', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
-			$data = $this->M_RealisasiTanam2C->getDataDiFull($thang, $kab, 'ta' => $thang);
+			$data = $this->M_RealisasiTanam2C->getDataDiFull($thang, $kab);
 		}else{
 			$thang = $thang-1;
 			$data = $this->M_RealisasiTanam2C->getDataDiFull((string)$thang, $kab);

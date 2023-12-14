@@ -177,7 +177,21 @@
  <script src="<?= base_url(); ?>assets/admin/Ite/plugins/sweetalert2/sweetalert2.min.js" type="text/javascript"></script>
 
 
- 
+ <script type="text/javascript">
+  $(document).ready(function() { 
+
+
+    $('#in_kuTaAktifX').change(function() {
+      let tahun = $(this).val();
+
+      window.location.href = base_url()+'Dashboard/setTahun/'+tahun;
+
+
+    });
+
+
+  });
+</script>
 
 
 </body>
