@@ -1221,7 +1221,9 @@ $baseArray[] = $arrayRow;
 }
 }
 
-$this->M_dinamis->delete('p_f4a', ['kotakabid' => $kotakabidX, 'ta' => $this->session->userdata('thang')]);
+$thang = $this->session->userdata('thang');
+
+$this->M_dinamis->delete('p_f4a', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
 $pros = $this->M_dinamis->insertBatch('p_f4a', $baseArray);
 
 if ($pros == true) {

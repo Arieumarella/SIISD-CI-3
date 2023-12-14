@@ -697,7 +697,9 @@ class FormTeknis extends CI_Controller {
 					}
 				}
 
-				$this->M_dinamis->delete('p_f1a', ['kotakabid' => $kotakabidX]);
+				$thang = $this->session->userdata('thang');
+
+				$this->M_dinamis->delete('p_f1a', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
 				$pros = $this->M_dinamis->insertBatch('p_f1a', $baseArray);
 
 				if ($pros == true) {

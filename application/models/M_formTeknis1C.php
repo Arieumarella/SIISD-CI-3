@@ -11,16 +11,17 @@ class M_formTeknis1C extends CI_Model {
 		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
 		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$ta = $this->session->userdata('thang');
 
 		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1c AS a
 		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		WHERE 1=1 $cari AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
 		$qry2 = "SELECT count(*) as jml_data FROM p_f1c AS a
 		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
-		WHERE 1=1 $cari";
+		WHERE 1=1 $cari AND a.ta=$ta";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();

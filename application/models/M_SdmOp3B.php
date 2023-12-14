@@ -10,13 +10,14 @@ class M_sdmOp3B extends CI_Model {
 
 		$cari = ($provid != null) ? " AND a.provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$ta = $this->session->userdata('thang');
 
 		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3b AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY b.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		WHERE 1=1 $cari AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM p_f3b AS a WHERE 1=1 $cari";
+		$qry2 = "SELECT count(*) as jml_data FROM p_f3b AS a WHERE 1=1 $cari AND a.ta=$ta";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();

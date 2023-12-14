@@ -733,7 +733,9 @@ class RealisasiTanam2A extends CI_Controller {
 					}
 				}
 
-				$this->M_dinamis->delete('p_f2a', ['kotakabid' => $kotakabidX]);
+				$thang = $this->session->userdata('thang');
+
+				$this->M_dinamis->delete('p_f2a', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
 				$pros = $this->M_dinamis->insertBatch('p_f2a', $baseArray);
 
 				if ($pros == true) {
