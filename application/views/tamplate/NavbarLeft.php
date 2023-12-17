@@ -67,7 +67,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D', 'IndexKinerja4E', 'SharingAPBD', 'Kelembagaan'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D', 'IndexKinerja4E', 'SharingAPBD', 'Kelembagaan', 'Form7'];
 
         ?>
 
@@ -256,7 +256,7 @@
       </a>
     </li>  
     <li class="nav-item">
-      <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/7" class="nav-link ">
+      <a href="<?= base_url(); ?>Form7" class="nav-link <?= $tittle == 'Form 7' ? 'active' : ''; ?>">
         <p>7 - P3A,GP3A,IP3A</p>
       </a>
     </li>                         
