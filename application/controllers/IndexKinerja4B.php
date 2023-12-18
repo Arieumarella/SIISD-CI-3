@@ -317,7 +317,7 @@ class IndexKinerja4B extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/IndexKinerja4B/TambahData', 'refresh');
+		redirect('/IndexKinerja4B', 'refresh');
 
 	}
 
@@ -611,7 +611,7 @@ class IndexKinerja4B extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/IndexKinerja4B/editData/$irigasiid", 'refresh');
+		redirect("/IndexKinerja4B", 'refresh');
 
 	}
 
@@ -1043,7 +1043,7 @@ if ($pros == true) {
 		</div>');
 }
 
-redirect("/IndexKinerja4B/formExcel", 'refresh');
+redirect("/IndexKinerja4B", 'refresh');
 
 }
 

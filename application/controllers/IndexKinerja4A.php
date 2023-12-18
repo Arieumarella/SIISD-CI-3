@@ -757,7 +757,7 @@ if ($pros == true) {
 		</div>');
 }
 
-redirect("/IndexKinerja4A/editData/$irigasiid", 'refresh');
+redirect("/IndexKinerja4A", 'refresh');
 
 }
 
@@ -1241,7 +1241,7 @@ if ($pros == true) {
 		</div>');
 }
 
-redirect("/IndexKinerja4A/formExcel", 'refresh');
+redirect("/IndexKinerja4A", 'refresh');
 
 }
 

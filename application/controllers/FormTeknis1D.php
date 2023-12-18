@@ -229,7 +229,7 @@ class FormTeknis1D extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/FormTeknis1D/TambahData', 'refresh');
+		redirect('/FormTeknis1D', 'refresh');
 
 	}
 
@@ -386,7 +386,7 @@ class FormTeknis1D extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/FormTeknis1D/editData/$id1B", 'refresh');
+		redirect("/FormTeknis1D", 'refresh');
 
 	}
 
@@ -677,7 +677,7 @@ class FormTeknis1D extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/FormTeknis1D/formExcel", 'refresh');
+				redirect("/FormTeknis1D", 'refresh');
 
 			}
 

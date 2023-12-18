@@ -121,7 +121,7 @@ class Kelembagaan extends CI_Controller {
 
 		}
 
-		redirect('/Kelembagaan/TambahData', 'refresh');
+		redirect('/Kelembagaan', 'refresh');
 
 	}
 
@@ -182,7 +182,7 @@ class Kelembagaan extends CI_Controller {
 
 		}
 
-		redirect("/Kelembagaan/editData/$idEdit", 'refresh');
+		redirect("/Kelembagaan", 'refresh');
 
 	}
 

@@ -117,7 +117,7 @@
                   </div>
 
                   <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+                    <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
                     <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
                 </div>
             </div>
@@ -260,9 +260,9 @@
 
                 <div class="modal-footer justify-content-between">
                     <div class="row">
-                      <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button> -->
-                      <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Batal"><i class="fas fa-file"></i> Batal</a> -->
-                      <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/5" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+                      <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
+                      <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
+                      <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/5" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
                       <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
                   </div>
               </div>

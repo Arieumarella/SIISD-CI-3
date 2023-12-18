@@ -27,10 +27,10 @@
   <script type="text/javascript" src="<?= base_url(); ?>assets/admin/Ite/plugins/jquery/jquery.validate.min.js"></script>
   <script type="text/javascript">
     function base_url() {
-     return '<?= base_url(); ?>';
- }
+       return '<?= base_url(); ?>';
+   }
 
- function ajaxUntukSemua(url, requestData, onSuccess, onError) {
+   function ajaxUntukSemua(url, requestData, onSuccess, onError) {
     $.ajax({
       url: url,
       type: 'POST',
@@ -95,269 +95,269 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" > <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" > <!-- content-wrapper -->
 
-        <div class="row m-0" >
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" >
-            <form role="form" action="<?= base_url(); ?>SdmOp3B/SimpanData" method="POST" >
+            <div class="row m-0" >
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" >
+                <form role="form" action="<?= base_url(); ?>SdmOp3B/SimpanData" method="POST" >
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                        <h4 class="m-0">Form 3B : PENUNJ. OP</h4>
-                    </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                            <h4 class="m-0">Form 3B : PENUNJ. OP</h4>
+                        </div>
 
-                    <div class="col-sm-5 text-right">
-                        <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                        <div class="col-sm-5 text-right">
+                            <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                            <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <section class="content" >
+            <section class="content" >
 
-            <div class="container-fluid" >
+                <div class="container-fluid" >
 
-                <!-- box data teknis -->
-                <div class="row" >
+                    <!-- box data teknis -->
+                    <div class="row" >
 
-                    <div class="card-body p-0 " >
-
+                        <div class="card-body p-0 " >
 
 
-                        <!-- form start -->
-                        <div class="modal-body" >
 
-                            <?= $this->session->flashdata('psn'); ?>
+                            <!-- form start -->
+                            <div class="modal-body" >
 
-                            <div style="background-color:red; color:#fff;">
-                            </div>
+                                <?= $this->session->flashdata('psn'); ?>
 
-                            <div class="row">
-
-                                <div class="col-sm-12 col-lg-3" > 
-                                    <div class="form-group" >
-                                        <label for="provid">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="provid" name="provid" class="form-control select2" required>
-
-                                            <?php if ($this->session->userdata('prive') == 'admin') { ?>
-
-                                                <option value="" selected disabled>- Pilih Provinsi -</option>
-                                                <?php foreach ($dataProvinsi as $key => $value) { ?>
-                                                    <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
-                                                <?php } ?>
-
-                                            <?php }else if ($this->session->userdata('prive') == 'pemda') { ?>
-
-                                                <option value="<?= $dataProvinsi->provid; ?>"><?= $dataProvinsi->provinsi; ?></option>
-
-                                            <?php } ?>
-
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
+                                <div style="background-color:red; color:#fff;">
                                 </div>
 
-                                <div class="col-sm-12 col-lg-3" > 
-                                    <div class="form-group" >
-                                        <label for="kotakabid">Kota/Kab  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="kotakabid" name="kotakabid" class="form-control select2" required>
+                                <div class="row">
 
-                                            <?php if ($this->session->userdata('prive') == 'admin') { ?>
+                                    <div class="col-sm-12 col-lg-3" > 
+                                        <div class="form-group" >
+                                            <label for="provid">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="provid" name="provid" class="form-control select2" required>
 
-                                                <option value="" selected disabled>- Pilih Kota/Kab -</option>
+                                                <?php if ($this->session->userdata('prive') == 'admin') { ?>
 
-
-                                            <?php }else if ($this->session->userdata('prive') == 'pemda') { ?>
-
-                                                <option value="<?= $dataKabKota->kotakabid; ?>"><?= $dataKabKota->kemendagri; ?></option>
-
-                                            <?php } ?>
-
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-12 col-lg-3" > 
-                                    <div class="form-group" >
-                                        <label for="in_jmlDI">Jumlah DI (Buah)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="in_jmlDI" name="jmlDI" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  required placeholder="Jumlah DI (Buah)" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 col-lg-3" > 
-                                    <div class="form-group" >
-                                        <label for="luasDI">Luas DI (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="luasDI" name="luasDI" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')"  required placeholder="Luas DI (Ha)" required>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-12 col-lg-3" > 
-                                    <div class="form-group" >
-                                        <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="alokasiApbn" name="alokasiApbn" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
-                                    </div>
-                                </div> 
-
-                            </div>
-
-
-                            <!-- Tabel Awal -->
-                            <div id="boxFormLain" style="border:thin solid #ccc;">
-                                <!-- <div class="row col-sm-12 bg-info mb-2 text-center" style="padding:2px; margin:0px;"><b>DATA ORGANISASI PERSONALIA OPERASI DAN PEMELIHARAAN</b></div> -->
-
-                                <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 92vh; width:96.6vw; background-color:#efebe9; padding:2px; border:thin solid #ccc;" >
-                                    <table class="table">
-
-                                        <tbody id="boxTempatList" >
-                                            <thead>
-                                                <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">NO</th>
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SARANA PENUNJANG O&amp;P</th>
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ADA/TIDAK ADA</th>
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">JUMLAH (BUAH)</th>
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center"> KONDISI (LAYAK/TIDAK LAYAK)</th>
-                                                    <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">KETERANGAN</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="bosTempatisiPerkakas-0">
-                                                <tr class="bg-warning">
-                                                    <td>I<br></td>
-                                                    <td colspan="15">
-                                                        <div class="row col-sm-12" >
-                                                            <div class="col-sm-3" >
-                                                                <div class="form-group" >
-                                                                    <label for="in_idTempat">Kantor UPTD/Pengamat</label>
-                                                                    <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
-                                                                        <option selected="" value="">-pilih-</option>
-                                                                        <?php foreach ($dataKantor as $key => $value) { ?>
-                                                                            <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback" id="pesan_idTempat"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <label for="in_nama-1">Nama Kantor</label>
-                                                                    <input id="in_nama-1" name="nama[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" noklaster="0" placeholder="Nama Kantor" disabled="">
-                                                                    <div class="invalid-feedback" id="pesan_nama"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <label for="in_alamat-1">Alamat</label>
-                                                                    <input id="in_alamat-1" name="alamat[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" placeholder="Alamat" noklaster="" disabled="">
-                                                                    <div class="invalid-feedback" id="pesan_alamat"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <?php 
-
-                                                $kategoriSaatIni = '';
-                                                $nomorJudul = 1;
-
-                                                ?>
-
-                                                <?php foreach ($dataTable as $key => $val) { ?>
-
-                                                    <?php if ($kategoriSaatIni != $val->kategori) { ?>
-                                                        <!-- Judul -->
-                                                        <tr style="background-color:#CCC;">
-                                                            <td><?= $nomorJudul; ?></td>
-                                                            <td colspan="5"><b><?= $val->kategori; ?></b></td>
-                                                        </tr>
-                                                        <!-- End Judul -->
-                                                        <?php 
-
-                                                        $kategoriSaatIni = $val->kategori;
-                                                        $nomorJudul++;
-
-                                                        ?>
+                                                    <option value="" selected disabled>- Pilih Provinsi -</option>
+                                                    <?php foreach ($dataProvinsi as $key => $value) { ?>
+                                                        <option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
                                                     <?php } ?>
 
-                                                    <tr id="tr_aLabel_19">
-                                                        <td style="width:2%;"></td>
-                                                        <td class="col-sm-3" style="min-width:200px;">
-                                                            - <?= $val->label; ?>                        
-                                                            <input id="in_labelid" name="labelid[]" value="<?= $val->id; ?>" class="form-control grupTempat" type="hidden">
-                                                            <div class="invalid-feedback" id="pesan_labelid"></div>
-                                                        </td>
+                                                <?php }else if ($this->session->userdata('prive') == 'pemda') { ?>
 
-                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                    <option value="<?= $dataProvinsi->provid; ?>"><?= $dataProvinsi->provinsi; ?></option>
 
-                                                            <select id="in_stPenunjang" name="stPenunjang[]" required class="form-control select2">
-                                                                <option selected="" value="" >-pilih-</option>
-                                                                <option value="Ada">Ada</option>
-                                                                <option value="Tidak Ada">Tidak Ada</option>
-                                                            </select>
-                                                            <div class="invalid-feedback" id="pesan_stPenunjang"></div>
+                                                <?php } ?>
 
-                                                        </td>
-                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah (Orang)">
-                                                            <div class="invalid-feedback" id="pesan_jmlOrg"></div>
-                                                        </td>
-                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                            <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2" required>
-                                                                <option selected="" value="" >-pilih-</option>
-                                                                <option class="in_stKondisi_option" value="Layak" >Layak</option>
-                                                                <option class="in_stKondisi_option" value="Tidak Layak" >Tidak Layak</option>
-                                                            </select>
-                                                            <div class="invalid-feedback" id="pesan_stKondisi"></div>
-                                                        </td>
-                                                        <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
-                                                            <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-                                                            <div class="invalid-feedback" id="pesan_keterangan"></div>
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-lg-3" > 
+                                        <div class="form-group" >
+                                            <label for="kotakabid">Kota/Kab  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="kotakabid" name="kotakabid" class="form-control select2" required>
+
+                                                <?php if ($this->session->userdata('prive') == 'admin') { ?>
+
+                                                    <option value="" selected disabled>- Pilih Kota/Kab -</option>
+
+
+                                                <?php }else if ($this->session->userdata('prive') == 'pemda') { ?>
+
+                                                    <option value="<?= $dataKabKota->kotakabid; ?>"><?= $dataKabKota->kemendagri; ?></option>
+
+                                                <?php } ?>
+
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                        </div>
+                                    </div> 
+
+                                    <div class="col-sm-12 col-lg-3" > 
+                                        <div class="form-group" >
+                                            <label for="in_jmlDI">Jumlah DI (Buah)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="in_jmlDI" name="jmlDI" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  required placeholder="Jumlah DI (Buah)" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-lg-3" > 
+                                        <div class="form-group" >
+                                            <label for="luasDI">Luas DI (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="luasDI" name="luasDI" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')"  required placeholder="Luas DI (Ha)" required>
+                                        </div>
+                                    </div> 
+
+                                    <div class="col-sm-12 col-lg-3" > 
+                                        <div class="form-group" >
+                                            <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="alokasiApbn" name="alokasiApbn" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
+                                        </div>
+                                    </div> 
+
+                                </div>
+
+
+                                <!-- Tabel Awal -->
+                                <div id="boxFormLain" style="border:thin solid #ccc;">
+                                    <!-- <div class="row col-sm-12 bg-info mb-2 text-center" style="padding:2px; margin:0px;"><b>DATA ORGANISASI PERSONALIA OPERASI DAN PEMELIHARAAN</b></div> -->
+
+                                    <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 92vh; width:96.6vw; background-color:#efebe9; padding:2px; border:thin solid #ccc;" >
+                                        <table class="table">
+
+                                            <tbody id="boxTempatList" >
+                                                <thead>
+                                                    <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">NO</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">SARANA PENUNJANG O&amp;P</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">ADA/TIDAK ADA</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">JUMLAH (BUAH)</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center"> KONDISI (LAYAK/TIDAK LAYAK)</th>
+                                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">KETERANGAN</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bosTempatisiPerkakas-0">
+                                                    <tr class="bg-warning">
+                                                        <td>I<br></td>
+                                                        <td colspan="15">
+                                                            <div class="row col-sm-12" >
+                                                                <div class="col-sm-3" >
+                                                                    <div class="form-group" >
+                                                                        <label for="in_idTempat">Kantor UPTD/Pengamat</label>
+                                                                        <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
+                                                                            <option selected="" value="">-pilih-</option>
+                                                                            <?php foreach ($dataKantor as $key => $value) { ?>
+                                                                                <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback" id="pesan_idTempat"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <label for="in_nama-1">Nama Kantor</label>
+                                                                        <input id="in_nama-1" name="nama[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" noklaster="0" placeholder="Nama Kantor" disabled="">
+                                                                        <div class="invalid-feedback" id="pesan_nama"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <label for="in_alamat-1">Alamat</label>
+                                                                        <input id="in_alamat-1" name="alamat[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" placeholder="Alamat" noklaster="" disabled="">
+                                                                        <div class="invalid-feedback" id="pesan_alamat"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
-                                                <?php } ?>
+
+                                                    <?php 
+
+                                                    $kategoriSaatIni = '';
+                                                    $nomorJudul = 1;
+
+                                                    ?>
+
+                                                    <?php foreach ($dataTable as $key => $val) { ?>
+
+                                                        <?php if ($kategoriSaatIni != $val->kategori) { ?>
+                                                            <!-- Judul -->
+                                                            <tr style="background-color:#CCC;">
+                                                                <td><?= $nomorJudul; ?></td>
+                                                                <td colspan="5"><b><?= $val->kategori; ?></b></td>
+                                                            </tr>
+                                                            <!-- End Judul -->
+                                                            <?php 
+
+                                                            $kategoriSaatIni = $val->kategori;
+                                                            $nomorJudul++;
+
+                                                            ?>
+                                                        <?php } ?>
+
+                                                        <tr id="tr_aLabel_19">
+                                                            <td style="width:2%;"></td>
+                                                            <td class="col-sm-3" style="min-width:200px;">
+                                                                - <?= $val->label; ?>                        
+                                                                <input id="in_labelid" name="labelid[]" value="<?= $val->id; ?>" class="form-control grupTempat" type="hidden">
+                                                                <div class="invalid-feedback" id="pesan_labelid"></div>
+                                                            </td>
+
+                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+                                                                <select id="in_stPenunjang" name="stPenunjang[]" required class="form-control select2">
+                                                                    <option selected="" value="" >-pilih-</option>
+                                                                    <option value="Ada">Ada</option>
+                                                                    <option value="Tidak Ada">Tidak Ada</option>
+                                                                </select>
+                                                                <div class="invalid-feedback" id="pesan_stPenunjang"></div>
+
+                                                            </td>
+                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                                <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
+                                                                <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+                                                            </td>
+                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                                <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2" required>
+                                                                    <option selected="" value="" >-pilih-</option>
+                                                                    <option class="in_stKondisi_option" value="Layak" >Layak</option>
+                                                                    <option class="in_stKondisi_option" value="Tidak Layak" >Tidak Layak</option>
+                                                                </select>
+                                                                <div class="invalid-feedback" id="pesan_stKondisi"></div>
+                                                            </td>
+                                                            <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+                                                                <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+                                                                <div class="invalid-feedback" id="pesan_keterangan"></div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
                                             </tbody>
-                                        </tbody>
 
 
-                                    </table>
-                                    <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
+                                        </table>
+                                        <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
+                                    </div>
                                 </div>
+                                <!-- End Tabel Akhir -->
+
+
                             </div>
-                            <!-- End Tabel Akhir -->
 
-
-                        </div>
-
-                        <div class="modal-footer justify-content-between">
-                            <div class="row">
-                              <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
+                            <div class="modal-footer justify-content-between">
+                                <div class="row">
+                                  <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
+                              </div>
                           </div>
+
+
+                          <!-- form end -->
+
                       </div>
-
-
-                      <!-- form end -->
-
                   </div>
+
               </div>
+          </section>
 
-          </div>
-      </section>
+      </form>
 
-  </form>
-
-</div>
+  </div>
 </div>
 
 
@@ -409,20 +409,20 @@
     tempatIsian = async function () {
         try {
 
-           await indexData++;
-           await indexKuning++;
+         await indexData++;
+         await indexKuning++;
 
-           let html = `<tbody id="bosTempatisiPerkakas-${indexKuning}">
-           <tr class="bg-warning">
-           <td>${indexKuning}<br><buttom class="btn btn-danger btn-sm" onclick="tempatIsianHapus(${indexKuning})">X</buttom></td>
-           <td colspan="15">
-           <div class="row col-sm-12" >
-           <div class="col-sm-3" >
-           <div class="form-group" >
-           <label for="in_idTempat">Kantor UPTD/Pengamat</label>
-           <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
-           <option selected="" value="">-pilih-</option>
-           <?php foreach ($dataKantor as $key => $value) { ?>
+         let html = `<tbody id="bosTempatisiPerkakas-${indexKuning}">
+         <tr class="bg-warning">
+         <td>${indexKuning}<br><buttom class="btn btn-danger btn-sm" onclick="tempatIsianHapus(${indexKuning})">X</buttom></td>
+         <td colspan="15">
+         <div class="row col-sm-12" >
+         <div class="col-sm-3" >
+         <div class="form-group" >
+         <label for="in_idTempat">Kantor UPTD/Pengamat</label>
+         <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
+         <option selected="" value="">-pilih-</option>
+         <?php foreach ($dataKantor as $key => $value) { ?>
             <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
         <?php } ?>
         </select>
@@ -487,7 +487,7 @@
 
             </td>
             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah (Orang)">
+            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
             <div class="invalid-feedback" id="pesan_jmlOrg"></div>
             </td>
             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">

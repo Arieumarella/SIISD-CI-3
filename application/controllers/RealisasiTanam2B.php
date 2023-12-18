@@ -146,31 +146,31 @@ class RealisasiTanam2B extends CI_Controller {
 		$reatamPadiMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT2'));
 		$reatamPadiMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT3'));
 		$reatamPadiTotalHa = $reatamPadiMT1+$reatamPadiMT2+$reatamPadiMT2;
-		$reatamPadiTotalHaIp = $reatamPadiTotalHa/$luasFix;
+		$reatamPadiTotalHaIp = ($reatamPadiTotalHa/$luasFix)*100;
 
 		$reatamPalawijaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT1'));
 		$reatamPalawijaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT2'));
 		$reatamPalawijaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT3'));
 		$reatamPalawijaTotalHa = $reatamPalawijaMT1+$reatamPalawijaMT2+$reatamPalawijaMT3;
-		$reatamPalawijaTotalHaIp = $reatamPalawijaTotalHa/$luasFix;
+		$reatamPalawijaTotalHaIp = ($reatamPalawijaTotalHa/$luasFix)*100;
 
 		$reatamTebuMT1  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT1'));
 		$reatamTebuMT2  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT2'));
 		$reatamTebuMT3  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT3'));
 		$reatamTebuTotalHa = $reatamTebuMT1+$reatamTebuMT2+$reatamTebuMT3;
-		$reatamTebuTotalHaIp = $reatamTebuTotalHa/$luasFix;
+		$reatamTebuTotalHaIp = ($reatamTebuTotalHa/$luasFix)*100;
 
 		$reatamLainnyaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT1'));
 		$reatamLainnyaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT2'));
 		$reatamLainnyaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT3'));
 		$reatamLainnyaTotalHa = $reatamLainnyaMT1+$reatamLainnyaMT2+$reatamLainnyaMT3;
-		$reatamLainnyaTotalHaIp = $reatamLainnyaTotalHa/$luasFix;
+		$reatamLainnyaTotalHaIp = ($reatamLainnyaTotalHa/$luasFix)*100;
 
 		$jmlMT1 = $reatamPadiMT1+$reatamPalawijaMT1+$reatamTebuMT1+$reatamLainnyaMT1;
 		$jmlMT2 = $reatamPadiMT2+$reatamPalawijaMT2+$reatamTebuMT2+$reatamLainnyaMT2;
 		$jmlMT3 = $reatamPadiMT3+$reatamPalawijaMT3+$reatamTebuMT3+$reatamLainnyaMT3;
 		$jmlTotalHa = $jmlMT1+$jmlMT2+$jmlMT3;
-		$jmlTotalIp = $jmlTotalHa/$luasFix;
+		$jmlTotalIp = ($jmlTotalHa/$luasFix)*100;
 
 		$produktivitasPadiMT1  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT1'));
 		$produktivitasPadiMT2  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT2'));
@@ -259,7 +259,7 @@ class RealisasiTanam2B extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/RealisasiTanam2B/TambahData', 'refresh');
+		redirect('/RealisasiTanam2B', 'refresh');
 
 	}
 
@@ -337,31 +337,31 @@ class RealisasiTanam2B extends CI_Controller {
 		$reatamPadiMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT2'));
 		$reatamPadiMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPadiMT3'));
 		$reatamPadiTotalHa = $reatamPadiMT1+$reatamPadiMT2+$reatamPadiMT3;
-		$reatamPadiTotalHaIp = $reatamPadiTotalHa/$luasFix;
+		$reatamPadiTotalHaIp = ($reatamPadiTotalHa/$luasFix)*100;
 
 		$reatamPalawijaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT1'));
 		$reatamPalawijaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT2'));
 		$reatamPalawijaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamPalawijaMT3'));
 		$reatamPalawijaTotalHa = $reatamPalawijaMT1+$reatamPalawijaMT2+$reatamPalawijaMT3;
-		$reatamPalawijaTotalHaIp = $reatamPalawijaTotalHa/$luasFix;
+		$reatamPalawijaTotalHaIp = ($reatamPalawijaTotalHa/$luasFix)*100;
 
 		$reatamTebuMT1  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT1'));
 		$reatamTebuMT2  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT2'));
 		$reatamTebuMT3  = ubahKomaMenjadiTitik($this->input->post('reatamTebuMT3'));
 		$reatamTebuTotalHa = $reatamTebuMT1+$reatamTebuMT2+$reatamTebuMT3;
-		$reatamTebuTotalHaIp = $reatamTebuTotalHa/$luasFix;
+		$reatamTebuTotalHaIp = ($reatamTebuTotalHa/$luasFix)*100;
 
 		$reatamLainnyaMT1  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT1'));
 		$reatamLainnyaMT2  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT2'));
 		$reatamLainnyaMT3  = ubahKomaMenjadiTitik($this->input->post('reatamLainnyaMT3'));
 		$reatamLainnyaTotalHa = $reatamLainnyaMT1+$reatamLainnyaMT2+$reatamLainnyaMT3;
-		$reatamLainnyaTotalHaIp = $reatamLainnyaTotalHa/$luasFix;
+		$reatamLainnyaTotalHaIp = ($reatamLainnyaTotalHa/$luasFix)*100;
 
 		$jmlMT1 = $reatamPadiMT1+$reatamPalawijaMT1+$reatamTebuMT1+$reatamLainnyaMT1;
 		$jmlMT2 = $reatamPadiMT2+$reatamPalawijaMT2+$reatamTebuMT2+$reatamLainnyaMT2;
 		$jmlMT3 = $reatamPadiMT3+$reatamPalawijaMT3+$reatamTebuMT3+$reatamLainnyaMT3;
 		$jmlTotalHa = $jmlMT1+$jmlMT2+$jmlMT3;
-		$jmlTotalIp = $jmlTotalHa/$luasFix;
+		$jmlTotalIp = ($jmlTotalHa/$luasFix)*100;
 
 		$produktivitasPadiMT1  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT1'));
 		$produktivitasPadiMT2  = ubahKomaMenjadiTitik($this->input->post('produktivitasPadiMT2'));
@@ -448,7 +448,7 @@ class RealisasiTanam2B extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/RealisasiTanam2B/editData/$id2A", 'refresh');
+		redirect("/RealisasiTanam2B", 'refresh');
 
 	}
 
@@ -681,6 +681,65 @@ class RealisasiTanam2B extends CI_Controller {
 
 						}
 
+
+						$luasFix = 0;
+
+						if (ubahKomaMenjadiTitik($rowData[0][5]) != '') {
+							$luasFix = $rowData[0][5];
+						}else{
+							$luasFix = $rowData[0][6];
+						}
+
+
+						$cklst=0;
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][7])) == 'V') {
+							$cklst++;
+						}
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][8])) == 'V') {
+							$cklst++;
+						}
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][9])) == 'V') {
+							$cklst++;
+						}
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][10])) == 'V') {
+							$cklst++;
+						}
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][11])) == 'V') {
+							$cklst++;
+						}
+
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][12])) == 'V') {
+							$cklst++;
+						}
+
+
+						if ($cklst > 2) {
+							$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+								Checklist Pola Tanam Tidak Boleh Lebih Dari 2.
+								</div>');
+
+							redirect("/RealisasiTanam2A/formExcel", 'refresh');
+							return;
+						}
+
+						if ($cklst == 0) {
+							$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+								Checklist Pola Tanam Harus Ada yg Terceklist.!.
+								</div>');
+
+							redirect("/RealisasiTanam2A/formExcel", 'refresh');
+							return;
+						}
+
 						$arrayRow = array(
 							'ta' => date('Y'),
 							'provid' => ubahKomaMenjadiTitik($rowData[0][0]),
@@ -694,31 +753,37 @@ class RealisasiTanam2B extends CI_Controller {
 							'polatanamPadi2' => ubahKomaMenjadiTitik($rowData[0][10]),
 							'polatanamPadiPlw' => ubahKomaMenjadiTitik($rowData[0][11]),
 							'polatanamPadi' => ubahKomaMenjadiTitik($rowData[0][12]),
+
 							'reatamPadiMT1' => ubahKomaMenjadiTitik($rowData[0][13]),
 							'reatamPadiMT2' => ubahKomaMenjadiTitik($rowData[0][14]),
 							'reatamPadiMT3' => ubahKomaMenjadiTitik($rowData[0][15]),
-							'reatamPadiTotalHa' => ubahKomaMenjadiTitik($rowData[0][16]),
-							'reatamPadiTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][17]),
+							'reatamPadiTotalHa' => ubahKomaMenjadiTitik($rowData[0][13])+ubahKomaMenjadiTitik($rowData[0][14])+ubahKomaMenjadiTitik($rowData[0][15]),
+							'reatamPadiTotalHaIp' => ((ubahKomaMenjadiTitik($rowData[0][13])+ubahKomaMenjadiTitik($rowData[0][14])+ubahKomaMenjadiTitik($rowData[0][15]))/$luasFix)*100,
+
 							'reatamPalawijaMT1' => ubahKomaMenjadiTitik($rowData[0][18]),
 							'reatamPalawijaMT2' => ubahKomaMenjadiTitik($rowData[0][19]),
 							'reatamPalawijaMT3' => ubahKomaMenjadiTitik($rowData[0][20]),
-							'reatamPalawijaTotalHa' => ubahKomaMenjadiTitik($rowData[0][21]),
-							'reatamPalawijaTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][22]),
+							'reatamPalawijaTotalHa' => ubahKomaMenjadiTitik($rowData[0][18])+ubahKomaMenjadiTitik($rowData[0][19])+ubahKomaMenjadiTitik($rowData[0][20]),
+							'reatamPalawijaTotalHaIp' => ((ubahKomaMenjadiTitik($rowData[0][18])+ubahKomaMenjadiTitik($rowData[0][19])+ubahKomaMenjadiTitik($rowData[0][20]))/$luasFix)*100,
+
 							'reatamTebuMT1' => ubahKomaMenjadiTitik($rowData[0][23]),
 							'reatamTebuMT2' => ubahKomaMenjadiTitik($rowData[0][24]),
 							'reatamTebuMT3' => ubahKomaMenjadiTitik($rowData[0][25]),
-							'reatamTebuTotalHa' => ubahKomaMenjadiTitik($rowData[0][26]),
-							'reatamTebuTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][27]),
+							'reatamTebuTotalHa' => ubahKomaMenjadiTitik($rowData[0][23])+ubahKomaMenjadiTitik($rowData[0][24])+ubahKomaMenjadiTitik($rowData[0][25]),
+							'reatamTebuTotalHaIp' => ((ubahKomaMenjadiTitik($rowData[0][23])+ubahKomaMenjadiTitik($rowData[0][24])+ubahKomaMenjadiTitik($rowData[0][25]))/$luasFix)*100,
+
 							'reatamLainnyaMT1' => ubahKomaMenjadiTitik($rowData[0][28]),
 							'reatamLainnyaMT2' => ubahKomaMenjadiTitik($rowData[0][29]),
 							'reatamLainnyaMT3' => ubahKomaMenjadiTitik($rowData[0][30]),
-							'reatamLainnyaTotalHa' => ubahKomaMenjadiTitik($rowData[0][31]),
-							'reatamLainnyaTotalHaIp' => ubahKomaMenjadiTitik($rowData[0][32]),
+							'reatamLainnyaTotalHa' => ubahKomaMenjadiTitik($rowData[0][28])+ubahKomaMenjadiTitik($rowData[0][29])+ubahKomaMenjadiTitik($rowData[0][30]),
+							'reatamLainnyaTotalHaIp' => ((ubahKomaMenjadiTitik($rowData[0][28])+ubahKomaMenjadiTitik($rowData[0][29])+ubahKomaMenjadiTitik($rowData[0][30]))/$luasFix)*100,
+
 							'jmlMT1' => ubahKomaMenjadiTitik($rowData[0][33]),
 							'jmlMT2' => ubahKomaMenjadiTitik($rowData[0][34]),
 							'jmlMT3' => ubahKomaMenjadiTitik($rowData[0][35]),
-							'jmlTotalHa' => ubahKomaMenjadiTitik($rowData[0][36]),
-							'jmlTotalIp' => ubahKomaMenjadiTitik($rowData[0][37]),
+							'jmlTotalHa' => ubahKomaMenjadiTitik($rowData[0][33])+ubahKomaMenjadiTitik($rowData[0][34])+ubahKomaMenjadiTitik($rowData[0][35]),
+							'jmlTotalIp' => ((ubahKomaMenjadiTitik($rowData[0][33])+ubahKomaMenjadiTitik($rowData[0][34])+ubahKomaMenjadiTitik($rowData[0][35]))/$luasFix)*100,
+
 							'produktivitasPadiMT1' => ubahKomaMenjadiTitik($rowData[0][38]),
 							'produktivitasPadiMT2' => ubahKomaMenjadiTitik($rowData[0][39]),
 							'produktivitasPadiMT3' => ubahKomaMenjadiTitik($rowData[0][40]),
@@ -752,7 +817,7 @@ class RealisasiTanam2B extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/RealisasiTanam2B/formExcel", 'refresh');
+				redirect("/RealisasiTanam2B", 'refresh');
 
 			}
 

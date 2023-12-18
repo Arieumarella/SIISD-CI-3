@@ -141,7 +141,7 @@ class SdmOp3A extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/SdmOp3A/TambahData', 'refresh');
+		redirect('/SdmOp3A', 'refresh');
 
 	}
 
@@ -239,7 +239,7 @@ class SdmOp3A extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/SdmOp3A/editData/$idEdit", 'refresh');
+		redirect("/SdmOp3A", 'refresh');
 
 	}
 

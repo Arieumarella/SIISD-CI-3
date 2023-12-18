@@ -212,7 +212,7 @@ class FormTeknis1B extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/FormTeknis1B/TambahData', 'refresh');
+		redirect('/FormTeknis1B', 'refresh');
 
 	}
 
@@ -353,7 +353,7 @@ class FormTeknis1B extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/FormTeknis1B/editData/$id1B", 'refresh');
+		redirect("/FormTeknis1B", 'refresh');
 
 	}
 
@@ -463,7 +463,7 @@ class FormTeknis1B extends CI_Controller {
 				Silakan Pilih Provinsi dan Kabupaten/kota Terlebih Dahulu.
 				</div>');
 			
-			redirect("/FormTeknis1B/formExcel", 'refresh');
+			redirect("/FormTeknis1B", 'refresh');
 		}
 
 		$nmProv = getProvByKotaKabId($kab);
@@ -513,7 +513,7 @@ class FormTeknis1B extends CI_Controller {
 					Dokumen Gagal diUpload Karena $psnError
 					</div>");
 
-				redirect("/FormTeknis1B/formExcelB1", 'refresh');
+				redirect("/FormTeknis1B", 'refresh');
 
 			}else{
 
@@ -541,7 +541,7 @@ class FormTeknis1B extends CI_Controller {
 						Format Dokumen Tidak Sesuai.
 						</div>');
 
-					redirect("/FormTeknis1B/formExcel", 'refresh');
+					redirect("/FormTeknis1B", 'refresh');
 
 				}
 
@@ -628,7 +628,7 @@ class FormTeknis1B extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/FormTeknis1B/formExcel", 'refresh');
+				redirect("/FormTeknis1B", 'refresh');
 
 			}
 

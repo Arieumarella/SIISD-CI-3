@@ -66,7 +66,7 @@ class M_formTeknis extends CI_Model {
 			$searchDi .= " AND 	kotakabid='$kotakabid'";
 		}
 
-		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 kategori='DI' $searchDi LIMIT 80 ";
+		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 AND kategori='DI' $searchDi LIMIT 80 ";
 
 		return $this->db->query($qry)->result();
 	}

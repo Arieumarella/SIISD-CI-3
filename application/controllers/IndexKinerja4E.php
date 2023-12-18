@@ -381,7 +381,7 @@ if ($pros == true) {
 		</div>');
 }
 
-redirect('/IndexKinerja4E/TambahData', 'refresh');
+redirect('/IndexKinerja4E', 'refresh');
 
 }
 
@@ -1262,7 +1262,7 @@ if ($pros == true) {
 		</div>');
 }
 
-redirect("/IndexKinerja4E/formExcel", 'refresh');
+redirect("/IndexKinerja4E", 'refresh');
 
 }
 

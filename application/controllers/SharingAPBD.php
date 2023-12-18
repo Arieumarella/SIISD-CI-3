@@ -126,7 +126,7 @@ class SharingAPBD extends CI_Controller {
 
 		}
 
-		redirect('/SharingAPBD/TambahData', 'refresh');
+		redirect('/SharingAPBD', 'refresh');
 
 	}
 
@@ -194,7 +194,7 @@ class SharingAPBD extends CI_Controller {
 
 		}
 
-		redirect("/SharingAPBD/editData/$idEdit", 'refresh');
+		redirect("/SharingAPBD", 'refresh');
 
 	}
 

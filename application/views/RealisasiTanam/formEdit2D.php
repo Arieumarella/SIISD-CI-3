@@ -589,6 +589,17 @@
 <script>
   $(document).ready(function(){
 
+    $('input[type="checkbox"]').on('change', function() {
+
+        let jumlahDicentang = $('input[type="checkbox"]:checked').length;
+
+        if (jumlahDicentang > 2) {
+            Swal.fire("Cheklist Tidak Boleh Lebih Dari Dua");
+            $('input[type="checkbox"]').prop('checked', false);
+        }
+
+    })
+
     // Row 1
     TotalRTanamPadi = function () {
 
@@ -599,10 +610,10 @@
         sawahFungsional =  ($('#sawahFungsional').val() == '') ? 0 : parseFloat($('#sawahFungsional').val().replace(",", "."));
 
         let jmlhData = reatamPadiMT1 + reatamPadiMT2 + reatamPadiMT3,
-        jmlhDataString = jmlhData.toFixed(3),
+        jmlhDataString = jmlhData,
         laperSawah = 0;
 
-        jmlhDataString = jmlhDataString.replace(".", ",");
+        jmlhDataString = jmlhDataString;
 
         $('#reatamPadiTotalHa').val(jmlhDataString);
 
@@ -612,11 +623,11 @@
             laperSawah = sawahFungsional;
         }
 
-        let jmlhTotalIp = jmlhData/laperSawah,
-        jmlhDataBagi = jmlhTotalIp.toFixed(3);
+        let jmlhTotalIp = (jmlhData/laperSawah)*100,
+        jmlhDataBagi = jmlhTotalIp;
 
         if (jmlhTotalIp != Infinity) {
-            $('#reatamPadiTotalHaIp').val(jmlhDataBagi.replace(".", ","));
+            $('#reatamPadiTotalHaIp').val(jmlhDataBagi);
         }
 
         totalAllData();
@@ -634,10 +645,10 @@
         sawahFungsional =  ($('#sawahFungsional').val() == '') ? 0 : parseFloat($('#sawahFungsional').val().replace(",", "."));
 
         let jmlhData = reatamPalawijaMT1 + reatamPalawijaMT2 + reatamPalawijaMT3,
-        jmlhDataString = jmlhData.toFixed(3),
+        jmlhDataString = jmlhData,
         laperSawah = 0;
 
-        jmlhDataString = jmlhDataString.replace(".", ",");
+        jmlhDataString = jmlhDataString;
 
         $('#reatamPalawijaTotalHa').val(jmlhDataString);
 
@@ -647,11 +658,11 @@
             laperSawah = sawahFungsional;
         }
 
-        let jmlhTotalIp = jmlhData/laperSawah,
-        jmlhDataBagi = jmlhTotalIp.toFixed(3);
+        let jmlhTotalIp = (jmlhData/laperSawah)*100,
+        jmlhDataBagi = jmlhTotalIp;
 
         if (jmlhTotalIp != Infinity) {
-            $('#reatamPalawijaTotalHaIp').val(jmlhDataBagi.replace(".", ","));
+            $('#reatamPalawijaTotalHaIp').val(jmlhDataBagi);
         }
 
         totalAllData();
@@ -668,10 +679,10 @@
         sawahFungsional =  ($('#sawahFungsional').val() == '') ? 0 : parseFloat($('#sawahFungsional').val().replace(",", "."));
 
         let jmlhData = reatamTebuMT1 + reatamTebuMT2 + reatamTebuMT3,
-        jmlhDataString = jmlhData.toFixed(3),
+        jmlhDataString = jmlhData,
         laperSawah = 0;
 
-        jmlhDataString = jmlhDataString.replace(".", ",");
+        jmlhDataString = jmlhDataString;
 
         $('#reatamTebuTotalHa').val(jmlhDataString);
 
@@ -681,11 +692,11 @@
             laperSawah = sawahFungsional;
         }
 
-        let jmlhTotalIp = jmlhData/laperSawah,
-        jmlhDataBagi = jmlhTotalIp.toFixed(3);
+        let jmlhTotalIp = (jmlhData/laperSawah)*100,
+        jmlhDataBagi = jmlhTotalIp;
 
         if (jmlhTotalIp != Infinity) {
-            $('#reatamTebuTotalHaIp').val(jmlhDataBagi.replace(".", ","));
+            $('#reatamTebuTotalHaIp').val(jmlhDataBagi);
         }
 
         totalAllData();
@@ -702,10 +713,10 @@
         sawahFungsional =  ($('#sawahFungsional').val() == '') ? 0 : parseFloat($('#sawahFungsional').val().replace(",", "."));
 
         let jmlhData = reatamLainnyaMT1 + reatamLainnyaMT2 + reatamLainnyaMT3,
-        jmlhDataString = jmlhData.toFixed(3),
+        jmlhDataString = jmlhData,
         laperSawah = 0;
 
-        jmlhDataString = jmlhDataString.replace(".", ",");
+        jmlhDataString = jmlhDataString;
 
         $('#reatamLainnyaTotalHa').val(jmlhDataString);
 
@@ -715,11 +726,11 @@
             laperSawah = sawahFungsional;
         }
 
-        let jmlhTotalIp = jmlhData/laperSawah,
-        jmlhDataBagi = jmlhTotalIp.toFixed(3);
+        let jmlhTotalIp = (jmlhData/laperSawah)*100,
+        jmlhDataBagi = jmlhTotalIp;
 
         if (jmlhTotalIp != Infinity) {
-            $('#reatamLainnyaTotalHaIp').val(jmlhDataBagi.replace(".", ","));
+            $('#reatamLainnyaTotalHaIp').val(jmlhDataBagi);
         }
 
         totalAllData();
@@ -735,7 +746,7 @@
         reatamTebuMT1 = ($('#reatamTebuMT1').val() == '') ? 0 : parseFloat($('#reatamTebuMT1').val().replace(",", ".")),
         reatamLainnyaMT1 = ($('#reatamLainnyaMT1').val() == '') ? 0 : parseFloat($('#reatamLainnyaMT1').val().replace(",", ".")),
         totMt1 = reatamPadiMT1+reatamPalawijaMT1+reatamTebuMT1+reatamLainnyaMT1,
-        totMt1Fix = totMt1.toFixed(3).replace(",", ".");
+        totMt1Fix = totMt1;
 
         $('#jmlMT1').val(totMt1Fix);
 
@@ -745,7 +756,7 @@
         reatamTebuMT2 = ($('#reatamTebuMT2').val() == '') ? 0 : parseFloat($('#reatamTebuMT2').val().replace(",", ".")),
         reatamLainnyaMT2 = ($('#reatamLainnyaMT2').val() == '') ? 0 : parseFloat($('#reatamLainnyaMT2').val().replace(",", ".")),
         totMt2 = reatamPadiMT2+reatamPalawijaMT2+reatamTebuMT2+reatamLainnyaMT2,
-        totMt2Fix = totMt2.toFixed(3).replace(",", ".");
+        totMt2Fix = totMt2;
 
         $('#jmlMT2').val(totMt2Fix);
 
@@ -755,7 +766,7 @@
         reatamTebuMT3 = ($('#reatamTebuMT3').val() == '') ? 0 : parseFloat($('#reatamTebuMT3').val().replace(",", ".")),
         reatamLainnyaMT3 = ($('#reatamLainnyaMT3').val() == '') ? 0 : parseFloat($('#reatamLainnyaMT3').val().replace(",", ".")),
         totMt3 = reatamPadiMT3+reatamPalawijaMT3+reatamTebuMT3+reatamLainnyaMT3,
-        totMt3Fix = totMt3.toFixed(3).replace(",", ".");
+        totMt3Fix = totMt3;
 
         $('#jmlMT3').val(totMt3Fix);
 
@@ -772,16 +783,16 @@
         }
 
 
-        let jmlhTotalIp = jmlhData/laperSawah,
-        jmlhDataBagi = jmlhTotalIp.toFixed(3);
+        let jmlhTotalIp = (jmlhData/laperSawah)*100,
+        jmlhDataBagi = jmlhTotalIp;
 
         if (jmlhTotalIp != Infinity) {
-            $('#jmlTotalIp').val(jmlhDataBagi.replace(".", ","));
+            $('#jmlTotalIp').val(jmlhDataBagi);
         }
 
 
         // Total Ip
-        jmlhDataFix = jmlhData.toFixed(3).replace(".", ",");
+        jmlhDataFix = jmlhData;
         $('#jmlTotalHa').val(jmlhDataFix);
 
 
@@ -813,7 +824,7 @@
             hasilData = sum / count;
         }
 
-        hasilData = hasilData.toFixed(3).replace(".", ",");
+        hasilData = hasilData;
 
         $('#produktivitasRata2').val(hasilData);
 

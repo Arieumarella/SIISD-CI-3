@@ -126,17 +126,18 @@ class Form7 extends CI_Controller {
 		$irigasiid  = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 		
-		$tkpaiInvAsetIrigasiThn = ubahKomaMenjadiTitik($this->input->post('tkpaiInvAsetIrigasiThn'));
-		$tkpaiInvAsetIrigasiPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiInvAsetIrigasiPsen'));
-		$tkpaiPerencanaanPAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPerencanaanPAIThn'));
-		$tkpaiPerencanaanPAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiPerencanaanPAIPsen'));
-		$tkpaiPelaksanaanPAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPelaksanaanPAIThn'));
-		$tkpaiPelaksanaanPAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiPelaksanaanPAIPsen'));
-		$tkpaiEvaluasiPAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiEvaluasiPAIThn'));
-		$tkpaiEvaluasiPAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiEvaluasiPAIPsen'));
-		$tkpaiPethirHasilInventAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIThn'));
-		$tkpaiPethirHasilInventAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIPsen'));
-		$keterangan = clean($this->input->post('keterangan'));
+		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
+		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
+		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
+		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
+		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
+		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
+		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
+		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
+		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
+		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
+		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
+		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
@@ -145,18 +146,28 @@ class Form7 extends CI_Controller {
 			'provid' => $dataM_irigasi->provid,
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
-			'laPermen' => $laPermen,
-			'tkpaiInvAsetIrigasiThn' => $tkpaiInvAsetIrigasiThn,
-			'tkpaiInvAsetIrigasiPsen' => $tkpaiInvAsetIrigasiPsen,
-			'tkpaiPerencanaanPAIThn' => $tkpaiPerencanaanPAIThn,
-			'tkpaiPerencanaanPAIPsen' => $tkpaiPerencanaanPAIPsen,
-			'tkpaiPelaksanaanPAIThn' => $tkpaiPelaksanaanPAIThn,
-			'tkpaiPelaksanaanPAIPsen' => $tkpaiPelaksanaanPAIPsen,
-			'tkpaiEvaluasiPAIThn' => $tkpaiEvaluasiPAIThn,
-			'tkpaiEvaluasiPAIPsen' => $tkpaiEvaluasiPAIPsen,
-			'tkpaiPethirHasilInventAIThn' => $tkpaiPethirHasilInventAIThn,
-			'tkpaiPethirHasilInventAIPsen' => $tkpaiPethirHasilInventAIPsen,
-			'keterangan' => $keterangan,
+			'laPermen' => $laPermen,			
+			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'P3ABhAktif' => $P3ABhAktif, 
+			'GP3ABhAktif' => $GP3ABhAktif, 
+			'IP3ABhAktif' => $IP3ABhAktif, 
+			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
+			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
+			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
+			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
+			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
+			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
+			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
+			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
+			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
+			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
+			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
+			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
@@ -186,11 +197,11 @@ class Form7 extends CI_Controller {
 	public function getDetailData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Detail Data 1F',
+			'tittle' => 'Detail Data Form 7',
 			'dataDi' => $this->M_Form7->getDataDiById($id)
 		);
 
-		$this->load->view('Form7/detailF1', $tmp);
+		$this->load->view('Form7/detail', $tmp);
 	}
 
 
@@ -222,7 +233,7 @@ class Form7 extends CI_Controller {
 	public function editData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Edit Data 1F',
+			'tittle' => 'Edit Data Form 7',
 			'dataDi' => $this->M_Form7->getDataDiById($id),
 			'id' => $id
 		);
