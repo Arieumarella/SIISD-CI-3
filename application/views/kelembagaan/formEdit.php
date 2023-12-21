@@ -95,163 +95,163 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" data-select2-id="28"> <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-        <div class="row m-0" data-select2-id="27">
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>Kelembagaan/SimpanDataEdit" method="POST" data-select2-id="25">
+            <div class="row m-0" data-select2-id="27">
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" data-select2-id="26">
+                <form role="form" action="<?= base_url(); ?>Kelembagaan/SimpanDataEdit" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                      <h4 class="m-0">Form 6 : KELEMBAGAAN</h4>
-                  </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 6 : KELEMBAGAAN</h4>
+                      </div>
 
-                  <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="content">
-        <div class="container-fluid">
+        <section class="content">
+            <div class="container-fluid">
 
-          <!-- box data teknis -->
-          <div class="row">
-            <div class="card-body p-0 ">
+              <!-- box data teknis -->
+              <div class="row">
+                <div class="card-body p-0 ">
 
-              <!-- form start -->
+                  <!-- form start -->
 
-              <div class="modal-body">
+                  <div class="modal-body">
 
-                <?= $this->session->flashdata('psn'); ?>
+                    <?= $this->session->flashdata('psn'); ?>
 
-                <div class="row">
-                    <form method="POST" action="<?= base_url(); ?>Kelembagaan/SimpanDataEdit">
+                    <div class="row">
+                        <form method="POST" action="<?= base_url(); ?>Kelembagaan/SimpanDataEdit">
 
-                        <input type="hidden" name="idEdit" value="<?= $id; ?>">
+                            <input type="hidden" name="idEdit" value="<?= $id; ?>">
 
-                        <div class="col-sm-3" data-select2-id="7">
+                            <div class="col-sm-3" data-select2-id="7">
 
-                            <div class="form-group" data-select2-id="6">
-                                <label for="prov">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                <select id="prov" name="provid" class="form-control select2" required>
+                                <div class="form-group" data-select2-id="6">
+                                    <label for="prov">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="prov" name="provid" class="form-control select2" required>
 
-                                 <option  value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
+                                       <option  value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
 
-                             </select>
-                             <div class="invalid-feedback" id="pesan_provid"></div>
-                         </div>
-
-
-                     </div> 
-
-                     <div class="col-sm-3" data-select2-id="45">
-
-                        <div class="form-group" data-select2-id="44">
-                            <label for="kabkota">Kab/Kota  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                            <select id="kabkota" name="kotakabid" class="form-control select2">
-
-                             <option  value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
-
-                         </select>
-                         <div class="invalid-feedback" id="pesan_kotakabid"></div>
-                     </div>
+                                   </select>
+                                   <div class="invalid-feedback" id="pesan_provid"></div>
+                               </div>
 
 
-                 </div> 
-             </div>
+                           </div> 
 
-             <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;"><center><b>Kelembagaan</b></center></div></div>
+                           <div class="col-sm-3" data-select2-id="45">
 
-             <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 100vh; width:95vw; background-color:#efebe9; padding:2px;">
-                <table class="table">
-                    <thead id="thead_data">
-                        <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">No</th>
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Kelengkapan</th>
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Ada/Tidak Ada</th>
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Nomor Surat/Peraturan</th>
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Tahun Surat/Peraturan</th>
-                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Keterangan</th>
-                        </tr>
-                    </thead>
+                            <div class="form-group" data-select2-id="44">
+                                <label for="kabkota">Kab/Kota  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                <select id="kabkota" name="kotakabid" class="form-control select2">
 
-                    <tbody id="tbody_label">
-                        <?php $no=1; ?>
+                                   <option  value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
 
-                        <?php foreach ($dataBody as $key => $value) { ?>
-
-                            <tr id="tr_aLabel_9">
-                                <td style="width:2%;"><?= $no++; ?></td>
-
-                                <td class="col-sm-3" style="min-width:200px;"> <!-- start box per input -->
-
-                                    <?= $value->label; ?>                        
-                                    <input id="in_labelid" name="labelid[]" value="<?= $value->id; ?>" type="hidden">
-                                    <div class="invalid-feedback" id="pesan_labelid"></div>
-                                </td>
-
-                                <td class="col-sm-3">
-                                    <select id="in_stKelengkapan<?= $no; ?>" name="stKelengkapan[]" class="form-control form-control-sm select2" required>
-                                        <option value="" selected disabled>-pilih-</option>
-                                        <option value="Ada" <?= ($value->stKelengkapan == 'Ada') ? 'selected' : ''; ?>>Ada</option>
-                                        <option value="Tidak Ada" <?= ($value->stKelengkapan == 'Tidak Ada') ? 'selected' : ''; ?>>Tidak Ada</option>
-                                    </select>
-                                    <div class="invalid-feedback" id="pesan_stKelengkapan"></div>
-
-                                </td>
-                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                    <input id="in_noSuratOrPeraturan" name="noSuratOrPeraturan[]" value="<?= $value->noSuratOrPeraturan; ?>" type="text" class="form-control form-control-sm" placeholder="Nomor Surat/Peraturan">
-                                    <div class="invalid-feedback" id="pesan_noSuratOrPeraturan"></div>
+                               </select>
+                               <div class="invalid-feedback" id="pesan_kotakabid"></div>
+                           </div>
 
 
-                                </td>
-                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                    <input id="in_thnSuratOrPeraturan" name="thnSuratOrPeraturan[]" value="<?= $value->thnSuratOrPeraturan; ?>" type="text" class="form-control form-control-sm" placeholder="Tahun Surat/Peraturan">
-                                    <div class="invalid-feedback" id="pesan_thnSuratOrPeraturan"></div>
+                       </div> 
+                   </div>
 
+                   <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;"><center><b>Kelembagaan</b></center></div></div>
 
-                                </td>
-                                <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
-                                    <input id="in_keterangan" name="keterangan[]" value="<?= $value->keterangan; ?>" type="text" class="form-control form-control-sm" placeholder="Keterangan">
-                                    <div class="invalid-feedback" id="pesan_keterangan"></div>
-                                </td>
+                   <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 100vh; width:95vw; background-color:#efebe9; padding:2px;">
+                    <table class="table">
+                        <thead id="thead_data">
+                            <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">No</th>
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Kelengkapan</th>
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Ada/Tidak Ada</th>
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Nomor Surat/Peraturan</th>
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Tahun Surat/Peraturan</th>
+                                <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">Keterangan</th>
                             </tr>
+                        </thead>
 
-                        <?php } ?>
+                        <tbody id="tbody_label">
+                            <?php $no=1; ?>
 
-                    </tbody>
+                            <?php foreach ($dataBody as $key => $value) { ?>
 
-                </table>
+                                <tr id="tr_aLabel_9">
+                                    <td style="width:2%;"><?= $no++; ?></td>
+
+                                    <td class="col-sm-3" style="min-width:200px;"> <!-- start box per input -->
+
+                                        <?= $value->label; ?>                        
+                                        <input id="in_labelid" name="labelid[]" value="<?= $value->id; ?>" type="hidden">
+                                        <div class="invalid-feedback" id="pesan_labelid"></div>
+                                    </td>
+
+                                    <td class="col-sm-3">
+                                        <select id="in_stKelengkapan<?= $no; ?>" name="stKelengkapan[]" class="form-control form-control-sm select2" required>
+                                            <option value="" selected disabled>-pilih-</option>
+                                            <option value="Ada" <?= ($value->stKelengkapan == 'Ada') ? 'selected' : ''; ?>>Ada</option>
+                                            <option value="Tidak Ada" <?= ($value->stKelengkapan == 'Tidak Ada') ? 'selected' : ''; ?>>Tidak Ada</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="pesan_stKelengkapan"></div>
+
+                                    </td>
+                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                        <input id="in_noSuratOrPeraturan" name="noSuratOrPeraturan[]" value="<?= $value->noSuratOrPeraturan; ?>" type="text" class="form-control form-control-sm" placeholder="Nomor Surat/Peraturan">
+                                        <div class="invalid-feedback" id="pesan_noSuratOrPeraturan"></div>
+
+
+                                    </td>
+                                    <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                        <input id="in_thnSuratOrPeraturan" name="thnSuratOrPeraturan[]" value="<?= $value->thnSuratOrPeraturan; ?>" type="text" class="form-control form-control-sm" placeholder="Tahun Surat/Peraturan">
+                                        <div class="invalid-feedback" id="pesan_thnSuratOrPeraturan"></div>
+
+
+                                    </td>
+                                    <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+                                        <input id="in_keterangan" name="keterangan[]" value="<?= $value->keterangan; ?>" type="text" class="form-control form-control-sm" placeholder="Keterangan">
+                                        <div class="invalid-feedback" id="pesan_keterangan"></div>
+                                    </td>
+                                </tr>
+
+                            <?php } ?>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="modal-footer justify-content-between">
-            <div class="row">
-              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
-              <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
-              <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/5" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
+            <div class="modal-footer justify-content-between">
+                <div class="row">
+                  <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
+                  <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
+                  <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
+              </div>
           </div>
-      </div>
 
-  </form>
-  <!-- form end -->
+      </form>
+      <!-- form end -->
 
-</div>
+  </div>
 </div>
 
 </div>

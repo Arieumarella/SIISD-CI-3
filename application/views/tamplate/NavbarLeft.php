@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="/" class="brand-link">
+  <a href="<?= base_url(); ?>" class="brand-link">
     <img src="<?= base_url(); ?>assets/admin/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8">
     <span class="brand-text font-weight-light text-center" >SIISD <br> <font size="-1">(Sistem Informasi Irigasi dan Sungai Daerah)</font></span>
   </a>
@@ -15,7 +15,7 @@
         <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); margin-top: 10px;">
       </div>
       <div class="info">
-        <a href="/pengguna/detail/Test" class="d-block"><?= $this->session->userdata('nama'); ?> <br> <i style="font-size: 15px;"><i class="fa fa-circle text-success" style="font-size:8px;" aria-hidden="true"></i> <?= $this->session->userdata('prive'); ?></i></a>
+        <a href="<?= base_url(); ?>" class="d-block"><?= $this->session->userdata('nama'); ?> <br> <i style="font-size: 15px;"><i class="fa fa-circle text-success" style="font-size:8px;" aria-hidden="true"></i> <?= $this->session->userdata('prive'); ?></i></a>
       </div>
     </div>
 
@@ -229,21 +229,6 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item has-treeview ">
-      <a href="#" class="nav-link">
-        <p>
-          10 - Rekap Riwayat Penanganan   
-          <i class="fas fa-angle-left right"></i>
-        </p>
-      </a>
-      <ul class="nav nav-treeview pl-2" style="border-left:thin solid #ccc;">
-        <li class="nav-item pl-2 m-0 ">
-          <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/riwayatpenanganan" class="nav-link p-1 m-0  ">
-            <p>10 - Riwayat Penanganan</p>
-          </a>
-        </li>  
-      </ul>
-    </li>
     <li class="nav-item">
       <a href="<?= base_url(); ?>SharingAPBD" class="nav-link <?= $tittle == 'Sharing APBD' ? 'active' : ''; ?>">
         <p>5 - Sharing APBD</p>
@@ -274,7 +259,7 @@
 
 
 <li class="nav-item">
-  <a href="/pengendalibanjir" class="nav-link">
+  <a href="#" class="nav-link">
     <i class="nav-icon fas fa-th"></i>
     <p>
       Infrastruktur<br/>Pengendalian Banjir
@@ -283,7 +268,7 @@
 </li>
 
 <li class="nav-item">
-  <a href="/riwayat" class="nav-link ">
+  <a href="#" class="nav-link ">
     <i class="nav-icon fa fa-history"></i>
     <p> Riwayat Penanganan </p>
   </a>
@@ -297,14 +282,14 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="/pengguna" class="nav-link"><i class="far fa-user nav-icon"></i><p>Pengguna</p></a>
+      <a href="#" class="nav-link"><i class="far fa-user nav-icon"></i><p>Pengguna</p></a>
     </li>
   </ul>
 </li>
 
 
 <li class="nav-item">
-  <a href="/riwayat" class="nav-link">
+  <a href="#" class="nav-link">
     <i class="nav-icon fa fa-history"></i>
     <p>Download Data Excel </p>
   </a>

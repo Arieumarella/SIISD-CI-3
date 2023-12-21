@@ -262,7 +262,7 @@
                     <div class="row">
                       <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
                       <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
-                      <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/5" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                      <a href="<?= base_url(); ?>Kelembagaan" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
                       <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
                   </div>
               </div>

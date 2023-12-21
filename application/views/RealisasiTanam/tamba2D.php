@@ -102,7 +102,7 @@
                       </div>
 
                       <div class="col-sm-5 text-right">
-                        <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+                        <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
                         <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
                     </div>
                 </div>
@@ -549,7 +549,7 @@
 
 <div class="modal-footer justify-content-between">
     <div class="row">
-      <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
+      <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
       <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
   </div>
 </div>

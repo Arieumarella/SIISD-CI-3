@@ -254,6 +254,10 @@ function getArrayBidang()
 
 function ubahKomaMenjadiTitik($str)
 {
+	if ($str == null or $str == '') {
+		return 0;
+	}
+
 	return str_replace(',', '.', $str);
 }
 

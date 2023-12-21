@@ -125,19 +125,37 @@ class Form9 extends CI_Controller {
 
 		$irigasiid  = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
+
+		$areaTerdampakJarIrigasiB = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiB'));
+		$areaTerdampakJarIrigasiRR = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRR'));
+		$areaTerdampakJarIrigasiRS = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRS'));
+		$areaTerdampakJarIrigasiRB = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRB'));
+
+		$areaTerdampakJarIrigasiT = $areaTerdampakJarIrigasiB+$areaTerdampakJarIrigasiRR+$areaTerdampakJarIrigasiRS+$areaTerdampakJarIrigasiRB;
 		
-		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
-		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
-		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
-		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
-		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
-		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
-		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
-		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
-		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
-		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
-		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
-		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
+		$iKSIPrasaranaFisik = ubahKomaMenjadiTitik($this->input->post('iKSIPrasaranaFisik'));
+		$iKSIProduktivitas = ubahKomaMenjadiTitik($this->input->post('iKSIProduktivitas'));
+		$iKSISaranaPenujang = ubahKomaMenjadiTitik($this->input->post('iKSISaranaPenujang'));
+		$iKSIOrgPersonalia = ubahKomaMenjadiTitik($this->input->post('iKSIOrgPersonalia'));
+		$iKSIDokumentasi = ubahKomaMenjadiTitik($this->input->post('iKSIDokumentasi'));
+		$iKSIPGI = ubahKomaMenjadiTitik($this->input->post('iKSIPGI'));
+
+
+		$iKSIJumlah = $iKSIPrasaranaFisik+$iKSIProduktivitas+$iKSISaranaPenujang+$iKSIOrgPersonalia+$iKSIDokumentasi+$iKSIPGI;
+
+		if ($iKSIJumlah > 100) {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan. kolom total Indeks Kondisi Sistem Irigasi tidak boleh lebih dari 100% .!
+				</div>');
+
+			redirect('/Form9', 'refresh');
+			redirect;
+		}
+
+
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
@@ -147,32 +165,23 @@ class Form9 extends CI_Controller {
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
 			'laPermen' => $laPermen,			
-			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
-			'P3ABhAktif' => $P3ABhAktif, 
-			'GP3ABhAktif' => $GP3ABhAktif, 
-			'IP3ABhAktif' => $IP3ABhAktif, 
-			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
-			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
-			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
-			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
-			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
-			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
-			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
-			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
-			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
-			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
-			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
-			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'areaTerdampakJarIrigasiB' => $areaTerdampakJarIrigasiB,
+			'areaTerdampakJarIrigasiRR' => $areaTerdampakJarIrigasiRR,
+			'areaTerdampakJarIrigasiRS' => $areaTerdampakJarIrigasiRS,
+			'areaTerdampakJarIrigasiRB' => $areaTerdampakJarIrigasiRB,
+			'areaTerdampakJarIrigasiT' => $areaTerdampakJarIrigasiT,
+			'iKSIPrasaranaFisik' => $iKSIPrasaranaFisik,
+			'iKSIProduktivitas' => $iKSIProduktivitas,
+			'iKSISaranaPenujang' => $iKSISaranaPenujang,
+			'iKSIOrgPersonalia' => $iKSIOrgPersonalia,
+			'iKSIDokumentasi' => $iKSIDokumentasi,
+			'iKSIPGI' => $iKSIPGI,
+			'iKSIJumlah' => $iKSIJumlah,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->save('p_f7', $dataInsert);
+		$pros = $this->M_dinamis->save('p_f9', $dataInsert);
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -189,7 +198,7 @@ class Form9 extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/Form9/TambahData', 'refresh');
+		redirect('/Form9', 'refresh');
 
 	}
 
@@ -197,7 +206,7 @@ class Form9 extends CI_Controller {
 	public function getDetailData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Detail Data Form 7',
+			'tittle' => 'Detail Data Form 9',
 			'dataDi' => $this->M_Form9->getDataDiById($id)
 		);
 
@@ -209,7 +218,7 @@ class Form9 extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f7', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f9', ['id' => $id]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -233,7 +242,7 @@ class Form9 extends CI_Controller {
 	public function editData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Edit Data Form 7',
+			'tittle' => 'Edit Data Form 9',
 			'dataDi' => $this->M_Form9->getDataDiById($id),
 			'id' => $id
 		);
@@ -244,51 +253,57 @@ class Form9 extends CI_Controller {
 	public function SimpanDataEdit()
 	{
 		$idEdit = ubahKomaMenjadiTitik($this->input->post('idEdit'));
-
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 		
+		$areaTerdampakJarIrigasiB = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiB'));
+		$areaTerdampakJarIrigasiRR = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRR'));
+		$areaTerdampakJarIrigasiRS = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRS'));
+		$areaTerdampakJarIrigasiRB = ubahKomaMenjadiTitik($this->input->post('areaTerdampakJarIrigasiRB'));
 
-		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
-		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
-		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
-		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
-		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
-		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
-		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
-		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
-		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
-		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
-		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
-		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
+		$areaTerdampakJarIrigasiT = $areaTerdampakJarIrigasiB+$areaTerdampakJarIrigasiRR+$areaTerdampakJarIrigasiRS+$areaTerdampakJarIrigasiRB;
+		
+		$iKSIPrasaranaFisik = ubahKomaMenjadiTitik($this->input->post('iKSIPrasaranaFisik'));
+		$iKSIProduktivitas = ubahKomaMenjadiTitik($this->input->post('iKSIProduktivitas'));
+		$iKSISaranaPenujang = ubahKomaMenjadiTitik($this->input->post('iKSISaranaPenujang'));
+		$iKSIOrgPersonalia = ubahKomaMenjadiTitik($this->input->post('iKSIOrgPersonalia'));
+		$iKSIDokumentasi = ubahKomaMenjadiTitik($this->input->post('iKSIDokumentasi'));
+		$iKSIPGI = ubahKomaMenjadiTitik($this->input->post('iKSIPGI'));
+
+
+		$iKSIJumlah = $iKSIPrasaranaFisik+$iKSIProduktivitas+$iKSISaranaPenujang+$iKSIOrgPersonalia+$iKSIDokumentasi+$iKSIPGI;
+
+		if ($iKSIJumlah > 100) {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan. kolom total Indeks Kondisi Sistem Irigasi tidak boleh lebih dari 100% .!
+				</div>');
+
+			redirect('/Form9', 'refresh');
+			redirect;
+		}
+
 
 		$dataInsert = array(
-			'laPermen' => $laPermen,
-			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
-			'P3ABhAktif' => $P3ABhAktif, 
-			'GP3ABhAktif' => $GP3ABhAktif, 
-			'IP3ABhAktif' => $IP3ABhAktif, 
-			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
-			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
-			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
-			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
-			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
-			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
-			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
-			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
-			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
-			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
-			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
-			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'laPermen' => $laPermen,			
+			'areaTerdampakJarIrigasiB' => $areaTerdampakJarIrigasiB,
+			'areaTerdampakJarIrigasiRR' => $areaTerdampakJarIrigasiRR,
+			'areaTerdampakJarIrigasiRS' => $areaTerdampakJarIrigasiRS,
+			'areaTerdampakJarIrigasiRB' => $areaTerdampakJarIrigasiRB,
+			'areaTerdampakJarIrigasiT' => $areaTerdampakJarIrigasiT,
+			'iKSIPrasaranaFisik' => $iKSIPrasaranaFisik,
+			'iKSIProduktivitas' => $iKSIProduktivitas,
+			'iKSISaranaPenujang' => $iKSISaranaPenujang,
+			'iKSIOrgPersonalia' => $iKSIOrgPersonalia,
+			'iKSIDokumentasi' => $iKSIDokumentasi,
+			'iKSIPGI' => $iKSIPGI,
+			'iKSIJumlah' => $iKSIJumlah,
 			'uidInUp' => $this->session->userdata('uid'),
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f7', $dataInsert, ['id' => $idEdit]);
+		$pros = $this->M_dinamis->update('p_f9', $dataInsert, ['id' => $idEdit]);
 
 
 		if ($pros == true) {
@@ -314,11 +329,11 @@ class Form9 extends CI_Controller {
 	public function formExcel()
 	{
 		$tmp = array(
-			'tittle' => 'Format Excel 1F',
+			'tittle' => 'Format Excel 9',
 			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc')
 		);
 
-		$this->load->view('Form9/excelF1', $tmp);
+		$this->load->view('Form9/excel', $tmp);
 	}
 
 
@@ -330,12 +345,12 @@ class Form9 extends CI_Controller {
 
 		$menitDetik = date('i').date('s');
 
-		copy('./assets/format/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+		copy('./assets/format/9.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f7', ['kotakabid' => $kab, 'ta' => $thang]);
+		$cek = $this->M_dinamis->getById('p_f9', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
 			$data = $this->M_Form9->getDataDiFull($thang, $kab);
@@ -352,22 +367,26 @@ class Form9 extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($val->provIdX);
 			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->kotakabidX);
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiidX);
-			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
-			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->provinsi);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
+			
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
-			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->tkpaiInvAsetIrigasiThn);
-			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->tkpaiInvAsetIrigasiPsen);
-			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->tkpaiPerencanaanPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->tkpaiPerencanaanPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->tkpaiPelaksanaanPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->tkpaiPelaksanaanPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->tkpaiEvaluasiPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->tkpaiEvaluasiPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->tkpaiPethirHasilInventAIThn);
-			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->tkpaiPethirHasilInventAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->keterangan);
+
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->areaTerdampakJarIrigasiB);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->areaTerdampakJarIrigasiRR);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->areaTerdampakJarIrigasiRS);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->areaTerdampakJarIrigasiRB);
+			$spreadsheet->getActiveSheet()->setCellValue("M$indexLopp", '=SUM(I'.$indexLopp.':L'.$indexLopp.')');
+			
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->iKSIPrasaranaFisik);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->iKSIProduktivitas);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->iKSISaranaPenujang);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->iKSIOrgPersonalia);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->iKSIDokumentasi);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->iKSIPGI);
+			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=SUM(N'.$indexLopp.':S'.$indexLopp.')');
 
 
 			$nilaiAwal++;
@@ -376,7 +395,7 @@ class Form9 extends CI_Controller {
 
 		ob_end_clean();
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="export 1F.xlsx"');  
+		header('Content-Disposition: attachment; filename="export FORM 9.xlsx"');  
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
@@ -417,19 +436,19 @@ class Form9 extends CI_Controller {
 				mkdir('assets/upload_file');
 			}
 
-			if (!file_exists('assets/upload_file/F1')) {
-				mkdir('assets/upload_file/F1');
+			if (!file_exists('assets/upload_file/FORM 9')) {
+				mkdir('assets/upload_file/FORM 9');
 			}
 
-			if (!file_exists("assets/upload_file/F1/$nmProv")) {
-				mkdir("assets/upload_file/F1/$nmProv");
+			if (!file_exists("assets/upload_file/FORM 9/$nmProv")) {
+				mkdir("assets/upload_file/FORM 9/$nmProv");
 			}
 
-			if (!file_exists("assets/upload_file/F1/$nmProv/$nmKab")) {
-				mkdir("assets/upload_file/F1/$nmProv/$nmKab");
+			if (!file_exists("assets/upload_file/FORM 9/$nmProv/$nmKab")) {
+				mkdir("assets/upload_file/FORM 9/$nmProv/$nmKab");
 			}
 
-			$path = "assets/upload_file/F1/$nmProv/$nmKab/";
+			$path = "assets/upload_file/FORM 9/$nmProv/$nmKab/";
 
 			$pathX = $_FILES['fileExcel']['name'];
 			$ext = pathinfo($pathX, PATHINFO_EXTENSION);
@@ -458,7 +477,7 @@ class Form9 extends CI_Controller {
 				$fullPath = $upload_data['full_path'];
 				$kotakabidX = '';
 
-				$filePath = "assets/upload_file/F1/$nmProv/$nmKab/$namaFile";
+				$filePath = "assets/upload_file/FORM 9/$nmProv/$nmKab/$namaFile";
 
 				$spreadsheet = IOFactory::load($filePath);
 
@@ -466,10 +485,10 @@ class Form9 extends CI_Controller {
 				$ValA1 = $sheetX->getCell('A1')->getValue();
 				$ValB1 = $sheetX->getCell('B1')->getValue();
 				$ValC1 = $sheetX->getCell('C1')->getValue();
-				$S4 = $sheetX->getCell('S4')->getValue();
+				$T4 = $sheetX->getCell('T4')->getValue();
 
 
-				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $S4 != '16') {
+				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $T4 != '15') {
 
 					$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -503,17 +522,18 @@ class Form9 extends CI_Controller {
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 							'laPermen' => ubahKomaMenjadiTitik($rowData[0][7]),
-							'tkpaiInvAsetIrigasiThn' => ubahKomaMenjadiTitik($rowData[0][8]),
-							'tkpaiInvAsetIrigasiPsen' => ubahKomaMenjadiTitik($rowData[0][9]),
-							'tkpaiPerencanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][10]),
-							'tkpaiPerencanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][11]),
-							'tkpaiPelaksanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][12]),
-							'tkpaiPelaksanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][13]),
-							'tkpaiEvaluasiPAIThn' => ubahKomaMenjadiTitik($rowData[0][14]),
-							'tkpaiEvaluasiPAIPsen' => ubahKomaMenjadiTitik($rowData[0][15]),
-							'tkpaiPethirHasilInventAIThn' => ubahKomaMenjadiTitik($rowData[0][16]),
-							'tkpaiPethirHasilInventAIPsen' => ubahKomaMenjadiTitik($rowData[0][17]),
-							'keterangan' => ubahKomaMenjadiTitik($rowData[0][18]),
+							'areaTerdampakJarIrigasiB' => ubahKomaMenjadiTitik($rowData[0][8]),
+							'areaTerdampakJarIrigasiRR' => ubahKomaMenjadiTitik($rowData[0][9]),
+							'areaTerdampakJarIrigasiRS' => ubahKomaMenjadiTitik($rowData[0][10]),
+							'areaTerdampakJarIrigasiRB' => ubahKomaMenjadiTitik($rowData[0][11]),
+							'areaTerdampakJarIrigasiT' => ubahKomaMenjadiTitik($rowData[0][8])+ubahKomaMenjadiTitik($rowData[0][9])+ubahKomaMenjadiTitik($rowData[0][10])+ubahKomaMenjadiTitik($rowData[0][11]),
+							'iKSIPrasaranaFisik' => ubahKomaMenjadiTitik($rowData[0][13]),
+							'iKSIProduktivitas' => ubahKomaMenjadiTitik($rowData[0][14]),
+							'iKSISaranaPenujang' => ubahKomaMenjadiTitik($rowData[0][15]),
+							'iKSIOrgPersonalia' => ubahKomaMenjadiTitik($rowData[0][16]),
+							'iKSIDokumentasi' => ubahKomaMenjadiTitik($rowData[0][17]),
+							'iKSIPGI' => ubahKomaMenjadiTitik($rowData[0][18]),
+							'iKSIJumlah' => ubahKomaMenjadiTitik($rowData[0][13])+ubahKomaMenjadiTitik($rowData[0][14])+ubahKomaMenjadiTitik($rowData[0][15])+ubahKomaMenjadiTitik($rowData[0][16])+ubahKomaMenjadiTitik($rowData[0][17]),
 							'uidIn' => $this->session->userdata('uid'),
 							'uidDt' => date('Y-m-d H:i:s')
 						);
@@ -525,8 +545,8 @@ class Form9 extends CI_Controller {
 
 				$thang = $this->session->userdata('thang');
 
-				$this->M_dinamis->delete('p_f7', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
-				$pros = $this->M_dinamis->insertBatch('p_f7', $baseArray);
+				$this->M_dinamis->delete('p_f9', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
+				$pros = $this->M_dinamis->insertBatch('p_f9', $baseArray);
 
 				if ($pros == true) {
 					$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -543,7 +563,7 @@ class Form9 extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/Form9/formExcel", 'refresh');
+				redirect("/Form9", 'refresh');
 
 			}
 

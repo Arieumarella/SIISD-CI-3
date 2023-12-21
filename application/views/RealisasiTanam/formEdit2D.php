@@ -80,479 +80,479 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" data-select2-id="28"> <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-        <div class="row m-0" data-select2-id="27">
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>RealisasiTanam2D/SimpanDataEdit" method="POST" data-select2-id="25">
+            <div class="row m-0" data-select2-id="27">
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" data-select2-id="26">
+                <form role="form" action="<?= base_url(); ?>RealisasiTanam2D/SimpanDataEdit" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                      <h4 class="m-0">Form 2D : RTI D.I.T</h4>
-                  </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 2D : RTI D.I.T</h4>
+                      </div>
 
-                  <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="content" data-select2-id="24">
+        <section class="content" data-select2-id="24">
 
-        <div class="container-fluid" data-select2-id="23">
+            <div class="container-fluid" data-select2-id="23">
 
-            <!-- box data teknis -->
-            <div class="row" data-select2-id="22">
+                <!-- box data teknis -->
+                <div class="row" data-select2-id="22">
 
-                <div class="card-body p-0 " data-select2-id="21">
-
+                    <div class="card-body p-0 " data-select2-id="21">
 
 
-                    <!-- form start -->
-                    <div class="modal-body" data-select2-id="20">
 
-                        <?= $this->session->flashdata('psn'); ?>
+                        <!-- form start -->
+                        <div class="modal-body" data-select2-id="20">
 
-                        <div style="background-color:red; color:#fff;">
+                            <?= $this->session->flashdata('psn'); ?>
+
+                            <div style="background-color:red; color:#fff;">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
+
+
+                                    <div class="form-group" data-select2-id="32">
+                                        <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                        <select id="irigasiid" name="irigasiid" class="form-control select2" required>
+
+                                            <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>
+
+                                        </select>
+                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                    </div>
+
+
+                                </div> <!-- end box per input -->
+
+                                <div class="col-sm-3"> 
+                                    <div class="form-group">
+                                        <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                        <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                        <div class="invalid-feedback" id="pesan_laPermen"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3"> <!-- start box per input -->
+
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                        <input id="sawahFungsional" name="sawahFungsional" value="<?= str_replace('.', ',', $dataDi->sawahFungsional); ?>" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pola Tambak</div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadi3" class="form-check-input" idasli="in_polatanamPadi3" type="checkbox" value="V" valueasli="V" name="polatambakIkan3" <?= $dataDi->polatambakIkan3 == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadi3">Ikan→Ikan→Ikan</label>        
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadi3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadi2Plw" class="form-check-input" name="polatambakIkan2Lain" idasli="in_polatanamPadi2Plw" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan2Lain == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadi2Plw">Ikan→Ikan→Lainnya</label>  
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadi2Plw"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadiPlw2" class="form-check-input" idasli="in_polatanamPadiPlw2" name="polatambakIkanLain2" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkanLain2 == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadiPlw2">Ikan→Lainnya→Lainnya</label>
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadiPlw2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadi2" class="form-check-input" name="polatambakIkan2" idasli="in_polatanamPadi2" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan2 == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadi2">Ikan→Ikan</label>        
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadi2">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadiPlw" class="form-check-input" name="polatambakIkanLain" idasli="in_polatanamPadiPlw" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkanLain == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadiPlw">Ikan→Lainnya</label>     
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadiPlw">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="polatanamPadi" class="form-check-input" idasli="in_polatanamPadi" name="polatambakIkan" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan == 'V' ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="polatanamPadi">Ikan</label>        
+                                        </div>
+                                        <div class="invalid-feedback" id="pesan_polatanamPadi">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Row Luas Areal (Ha) -->
+
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">IKAN</div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPadiMT1">MT.1 (Ha)</label>
+                                        <input id="reatamPadiMT1" name="ikanMT1" value="<?= str_replace('.', ',', $dataDi->ikanMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.1 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPadiMT1"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPadiMT2">MT.2 (Ha)</label>
+                                        <input id="reatamPadiMT2" name="ikanMT2" value="<?= str_replace('.', ',', $dataDi->ikanMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.2 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPadiMT2"></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPadiMT3">MT.3 (Ha)</label>
+                                        <input id="reatamPadiMT3" name="ikanMT3" value="<?= str_replace('.', ',', $dataDi->ikanMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.3 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPadiMT3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPadiTotalHa">Total (Ha)</label>
+                                        <input id="reatamPadiTotalHa" value="<?= str_replace('.', ',', $dataDi->ikanTotalHa); ?>" name="ikanTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamPadiTotalHa"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <label for="reatamPadiTotalHaIp">Total IP (%)</label>
+                                        <input id="reatamPadiTotalHaIp" value="<?= str_replace('.', ',', $dataDi->ikanTotalHaIp); ?>" name="ikanTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamPadiTotalHaIp"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Row Luas Areal (Ha) -->
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">UDANG</div></div>
+
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPalawijaMT1">MT.1 (Ha)</label>
+                                        <input id="reatamPalawijaMT1" name="udangMT1" value="<?= str_replace('.', ',', $dataDi->udangMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.1 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPalawijaMT1">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPalawijaMT2">MT.2 (Ha)</label>
+                                        <input id="reatamPalawijaMT2" name="udangMT2" value="<?= str_replace('.', ',', $dataDi->udangMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.2 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPalawijaMT2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPalawijaMT3">MT.3 (Ha)</label>
+                                        <input id="reatamPalawijaMT3" name="udangMT3" value="<?= str_replace('.', ',', $dataDi->udangMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.3 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamPalawijaMT3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamPalawijaTotalHa">Total (Ha)</label>
+                                        <input id="reatamPalawijaTotalHa" value="<?= str_replace('.', ',', $dataDi->udangTotalHa); ?>" name="udangTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamPalawijaTotalHa"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <label for="reatamPalawijaTotalHaIp">Total IP (%)</label>
+                                        <input id="reatamPalawijaTotalHaIp" value="<?= str_replace('.', ',', $dataDi->udangTotalHaIp); ?>" name="udangTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamPalawijaTotalHaIp"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Row Luas Areal (Ha) -->
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">KEPITING</div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamTebuMT1">MT.1 (Ha)</label>
+                                        <input id="reatamTebuMT1" name="kepitingMT1" value="<?= str_replace('.', ',', $dataDi->kepitingMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.1 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamTebuMT1">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamTebuMT2">MT.2 (Ha)</label>
+                                        <input id="reatamTebuMT2" name="kepitingMT2" value="<?= str_replace('.', ',', $dataDi->kepitingMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.2 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamTebuMT2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamTebuMT3">MT.3 (Ha)</label>
+                                        <input id="reatamTebuMT3" name="kepitingMT3" value="<?= str_replace('.', ',', $dataDi->kepitingMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.3 (Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_reatamTebuMT3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamTebuTotalHa">Total (Ha)</label>
+                                        <input id="reatamTebuTotalHa" value="<?= str_replace('.', ',', $dataDi->kepitingTotalHa); ?>" name="kepitingTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamTebuTotalHa"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <label for="reatamTebuTotalHaIp">Total IP (%)</label>
+                                        <input id="reatamTebuTotalHaIp" value="<?= str_replace('.', ',', $dataDi->kepitingTotalHaIp); ?>" name="kepitingTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamTebuTotalHaIp"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Row Luas Areal (Ha) -->
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">LAINNYA</div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamLainnyaMT1">MT.1 (Ha)</label>
+                                        <input id="reatamLainnyaMT1" name="lainMT1" value="<?= str_replace('.', ',', $dataDi->lainMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.1 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_reatamLainnyaMT1">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamLainnyaMT2">MT.2 (Ha)</label>
+                                        <input id="reatamLainnyaMT2" name="lainMT2" value="<?= str_replace('.', ',', $dataDi->lainMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.2 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_reatamLainnyaMT2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamLainnyaMT3">MT.3 (Ha)</label>
+                                        <input id="reatamLainnyaMT3" name="lainMT3" value="<?= str_replace('.', ',', $dataDi->lainMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.3 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_reatamLainnyaMT3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="reatamLainnyaTotalHa">Total (Ha)</label>
+                                        <input id="reatamLainnyaTotalHa" value="<?= str_replace('.', ',', $dataDi->lainTotalHa); ?>" name="lainTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamLainnyaTotalHa"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <label for="reatamLainnyaTotalHaIp">Total IP (%)</label>
+                                        <input id="reatamLainnyaTotalHaIp" value="<?= str_replace('.', ',', $dataDi->lainTotalHaIp); ?>" name="lainTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_reatamLainnyaTotalHaIp"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Row Luas Areal (Ha) -->
+
+
+                            <!-- Row Luas Areal (Ha) -->
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">JUMLAH</div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="jmlMT1">MT.1 (Ha)</label>
+                                        <input id="jmlMT1" name="jmlMT1" value="<?= str_replace('.', ',', $dataDi->jmlMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); " readonly placeholder="MT.1 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_jmlMT1">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="jmlMT2">MT.2 (Ha)</label>
+                                        <input id="jmlMT2" name="jmlMT2" value="<?= str_replace('.', ',', $dataDi->jmlMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" readonly placeholder="MT.2 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_jmlMT2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="jmlMT3">MT.3 (Ha)</label>
+                                        <input id="jmlMT3" name="jmlMT3" value="<?= str_replace('.', ',', $dataDi->jmlMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" readonly placeholder="MT.3 (Ha)">
+                                        <div class="invalid-feedback" id="pesan_jmlMT3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="jmlTotalHa">Total (Ha)</label>
+                                        <input id="jmlTotalHa" value="<?= str_replace('.', ',', $dataDi->jmlTotalHa); ?>" name="jmlTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_jmlTotalHa"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2"> 
+                                    <div class="form-group">
+                                        <label for="jmlTotalIp">Total IP (%)</label>
+                                        <input id="jmlTotalIp" value="<?= str_replace('.', ',', $dataDi->jmlTotalIp); ?>" name="jmlTotalIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_jmlTotalIp"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">PRODUKTIVITAS IKAN
+                            </div></div>
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="produktivitasPadiMT1">MT.1 (Ton/Ha)</label>
+                                        <input id="produktivitasPadiMT1" name="produktivitasIkanMT1" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.1 (Ton/Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_produktivitasPadiMT1">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="produktivitasPadiMT2">MT.2 (Ton/Ha)</label>
+                                        <input id="produktivitasPadiMT2" name="produktivitasIkanMT2" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.2 (Ton/Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_produktivitasPadiMT2">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="produktivitasPadiMT3">MT.3 (Ton/Ha)</label>
+                                        <input id="produktivitasPadiMT3" name="produktivitasIkanMT3" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.3 (Ton/Ha)" required>
+                                        <div class="invalid-feedback" id="pesan_produktivitasPadiMT3">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="produktivitasRata2">Rata2 (Ton/Ha)</label>
+                                        <input id="produktivitasRata2" name="produktivitasIkanRata2" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanRata2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); " readonly placeholder="Rata2 (Ton/Ha)">
+                                        <div class="invalid-feedback" id="pesan_produktivitasRata2">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
 
-
-                                <div class="form-group" data-select2-id="32">
-                                    <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <select id="irigasiid" name="irigasiid" class="form-control select2" required>
-
-                                        <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>
-
-                                    </select>
-                                    <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                </div>
-
-
-                            </div> <!-- end box per input -->
-
-                            <div class="col-sm-3"> 
-                                <div class="form-group">
-                                    <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
-                                    <div class="invalid-feedback" id="pesan_laPermen"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3"> <!-- start box per input -->
-
-                                <!-- text input -->
-                                <div class="form-group">
-                                    <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="sawahFungsional" name="sawahFungsional" value="<?= str_replace('.', ',', $dataDi->sawahFungsional); ?>" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pola Tambak</div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadi3" class="form-check-input" idasli="in_polatanamPadi3" type="checkbox" value="V" valueasli="V" name="polatambakIkan3" <?= $dataDi->polatambakIkan3 == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadi3">Ikan→Ikan→Ikan</label>        
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadi3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadi2Plw" class="form-check-input" name="polatambakIkan2Lain" idasli="in_polatanamPadi2Plw" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan2Lain == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadi2Plw">Ikan→Ikan→Lainnya</label>  
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadi2Plw"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadiPlw2" class="form-check-input" idasli="in_polatanamPadiPlw2" name="polatambakIkanLain2" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkanLain2 == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadiPlw2">Ikan→Lainnya→Lainnya</label>
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadiPlw2"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadi2" class="form-check-input" name="polatambakIkan2" idasli="in_polatanamPadi2" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan2 == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadi2">Ikan→Ikan</label>        
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadi2">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadiPlw" class="form-check-input" name="polatambakIkanLain" idasli="in_polatanamPadiPlw" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkanLain == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadiPlw">Ikan→Lainnya</label>     
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadiPlw">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input id="polatanamPadi" class="form-check-input" idasli="in_polatanamPadi" name="polatambakIkan" type="checkbox" value="V" valueasli="V" <?= $dataDi->polatambakIkan == 'V' ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="polatanamPadi">Ikan</label>        
-                                    </div>
-                                    <div class="invalid-feedback" id="pesan_polatanamPadi">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Row Luas Areal (Ha) -->
-
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">IKAN</div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPadiMT1">MT.1 (Ha)</label>
-                                    <input id="reatamPadiMT1" name="ikanMT1" value="<?= str_replace('.', ',', $dataDi->ikanMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.1 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPadiMT1"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPadiMT2">MT.2 (Ha)</label>
-                                    <input id="reatamPadiMT2" name="ikanMT2" value="<?= str_replace('.', ',', $dataDi->ikanMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.2 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPadiMT2"></div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPadiMT3">MT.3 (Ha)</label>
-                                    <input id="reatamPadiMT3" name="ikanMT3" value="<?= str_replace('.', ',', $dataDi->ikanMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi();" placeholder="MT.3 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPadiMT3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPadiTotalHa">Total (Ha)</label>
-                                    <input id="reatamPadiTotalHa" value="<?= str_replace('.', ',', $dataDi->ikanTotalHa); ?>" name="ikanTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamPadiTotalHa"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <label for="reatamPadiTotalHaIp">Total IP (%)</label>
-                                    <input id="reatamPadiTotalHaIp" value="<?= str_replace('.', ',', $dataDi->ikanTotalHaIp); ?>" name="ikanTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamPadiTotalHaIp"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Row Luas Areal (Ha) -->
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">UDANG</div></div>
-
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPalawijaMT1">MT.1 (Ha)</label>
-                                    <input id="reatamPalawijaMT1" name="udangMT1" value="<?= str_replace('.', ',', $dataDi->udangMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.1 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPalawijaMT1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPalawijaMT2">MT.2 (Ha)</label>
-                                    <input id="reatamPalawijaMT2" name="udangMT2" value="<?= str_replace('.', ',', $dataDi->udangMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.2 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPalawijaMT2"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPalawijaMT3">MT.3 (Ha)</label>
-                                    <input id="reatamPalawijaMT3" name="udangMT3" value="<?= str_replace('.', ',', $dataDi->udangMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamPalawija();" placeholder="MT.3 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamPalawijaMT3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamPalawijaTotalHa">Total (Ha)</label>
-                                    <input id="reatamPalawijaTotalHa" value="<?= str_replace('.', ',', $dataDi->udangTotalHa); ?>" name="udangTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamPalawijaTotalHa"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <label for="reatamPalawijaTotalHaIp">Total IP (%)</label>
-                                    <input id="reatamPalawijaTotalHaIp" value="<?= str_replace('.', ',', $dataDi->udangTotalHaIp); ?>" name="udangTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamPalawijaTotalHaIp"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Row Luas Areal (Ha) -->
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">KEPITING</div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamTebuMT1">MT.1 (Ha)</label>
-                                    <input id="reatamTebuMT1" name="kepitingMT1" value="<?= str_replace('.', ',', $dataDi->kepitingMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.1 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamTebuMT1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamTebuMT2">MT.2 (Ha)</label>
-                                    <input id="reatamTebuMT2" name="kepitingMT2" value="<?= str_replace('.', ',', $dataDi->kepitingMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.2 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamTebuMT2"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamTebuMT3">MT.3 (Ha)</label>
-                                    <input id="reatamTebuMT3" name="kepitingMT3" value="<?= str_replace('.', ',', $dataDi->kepitingMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamTebu();" placeholder="MT.3 (Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_reatamTebuMT3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamTebuTotalHa">Total (Ha)</label>
-                                    <input id="reatamTebuTotalHa" value="<?= str_replace('.', ',', $dataDi->kepitingTotalHa); ?>" name="kepitingTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamTebuTotalHa"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <label for="reatamTebuTotalHaIp">Total IP (%)</label>
-                                    <input id="reatamTebuTotalHaIp" value="<?= str_replace('.', ',', $dataDi->kepitingTotalHaIp); ?>" name="kepitingTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamTebuTotalHaIp"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Row Luas Areal (Ha) -->
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">LAINNYA</div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamLainnyaMT1">MT.1 (Ha)</label>
-                                    <input id="reatamLainnyaMT1" name="lainMT1" value="<?= str_replace('.', ',', $dataDi->lainMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.1 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_reatamLainnyaMT1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamLainnyaMT2">MT.2 (Ha)</label>
-                                    <input id="reatamLainnyaMT2" name="lainMT2" value="<?= str_replace('.', ',', $dataDi->lainMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.2 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_reatamLainnyaMT2"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamLainnyaMT3">MT.3 (Ha)</label>
-                                    <input id="reatamLainnyaMT3" name="lainMT3" value="<?= str_replace('.', ',', $dataDi->lainMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); RealisasiTanamLainnya();" required placeholder="MT.3 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_reatamLainnyaMT3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="reatamLainnyaTotalHa">Total (Ha)</label>
-                                    <input id="reatamLainnyaTotalHa" value="<?= str_replace('.', ',', $dataDi->lainTotalHa); ?>" name="lainTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamLainnyaTotalHa"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <label for="reatamLainnyaTotalHaIp">Total IP (%)</label>
-                                    <input id="reatamLainnyaTotalHaIp" value="<?= str_replace('.', ',', $dataDi->lainTotalHaIp); ?>" name="lainTotalHaIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_reatamLainnyaTotalHaIp"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Row Luas Areal (Ha) -->
-
-
-                        <!-- Row Luas Areal (Ha) -->
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">JUMLAH</div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="jmlMT1">MT.1 (Ha)</label>
-                                    <input id="jmlMT1" name="jmlMT1" value="<?= str_replace('.', ',', $dataDi->jmlMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); " readonly placeholder="MT.1 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_jmlMT1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="jmlMT2">MT.2 (Ha)</label>
-                                    <input id="jmlMT2" name="jmlMT2" value="<?= str_replace('.', ',', $dataDi->jmlMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT2" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" readonly placeholder="MT.2 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_jmlMT2"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="jmlMT3">MT.3 (Ha)</label>
-                                    <input id="jmlMT3" name="jmlMT3" value="<?= str_replace('.', ',', $dataDi->jmlMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT3" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" readonly placeholder="MT.3 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_jmlMT3"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="jmlTotalHa">Total (Ha)</label>
-                                    <input id="jmlTotalHa" value="<?= str_replace('.', ',', $dataDi->jmlTotalHa); ?>" name="jmlTotalHa" type="text" class="form-control kududisabled" placeholder="Total (Ha)" readonly>
-                                    <div class="invalid-feedback" id="pesan_jmlTotalHa"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2"> 
-                                <div class="form-group">
-                                    <label for="jmlTotalIp">Total IP (%)</label>
-                                    <input id="jmlTotalIp" value="<?= str_replace('.', ',', $dataDi->jmlTotalIp); ?>" name="jmlTotalIp" type="text" class="form-control kududisabled" placeholder="Total IP (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_jmlTotalIp"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">PRODUKTIVITAS IKAN
-                        </div></div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="produktivitasPadiMT1">MT.1 (Ton/Ha)</label>
-                                    <input id="produktivitasPadiMT1" name="produktivitasIkanMT1" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT1); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.1 (Ton/Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_produktivitasPadiMT1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="produktivitasPadiMT2">MT.2 (Ton/Ha)</label>
-                                    <input id="produktivitasPadiMT2" name="produktivitasIkanMT2" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.2 (Ton/Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_produktivitasPadiMT2">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="produktivitasPadiMT3">MT.3 (Ton/Ha)</label>
-                                    <input id="produktivitasPadiMT3" name="produktivitasIkanMT3" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanMT3); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); produktivitasPadi();" placeholder="MT.3 (Ton/Ha)" required>
-                                    <div class="invalid-feedback" id="pesan_produktivitasPadiMT3">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="produktivitasRata2">Rata2 (Ton/Ha)</label>
-                                    <input id="produktivitasRata2" name="produktivitasIkanRata2" value="<?= str_replace('.', ',', $dataDi->produktivitasIkanRata2); ?>" type="text" class="form-control text-right number reatamPadiTotalHa jmlMT1 laPermen" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); " readonly placeholder="Rata2 (Ton/Ha)">
-                                    <div class="invalid-feedback" id="pesan_produktivitasRata2">
-
-                                    </div>
-                                </div>
+                        <div class="modal-footer justify-content-between">
+                            <div class="row">
+                                <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
+                                <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
+                    <!-- form end -->
 
-                    <div class="modal-footer justify-content-between">
-                        <div class="row">
-                            <a href="<?= base_url(); ?>RealisasiTanam2D" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                            <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- form end -->
-
+                </div>
             </div>
-        </div>
 
-    </div>
-</section>
+        </div>
+    </section>
 
 
 
@@ -855,14 +855,14 @@
         },
         processResults: function (response) {
 
-           response.data.unshift({ id: '', text: 'Tampilkan semua' });
+         response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-           return {
-              results: response.data 
-          };
-      },
-      cache: true
-  }
+         return {
+          results: response.data 
+      };
+  },
+  cache: true
+}
 });
     <?php } ?>
 

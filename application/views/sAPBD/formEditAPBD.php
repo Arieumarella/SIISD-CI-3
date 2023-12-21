@@ -95,181 +95,181 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
-   <!-- width:99%; height:100vh; -->
-   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+ <!-- width:99%; height:100vh; -->
+ <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
-   <!-- <div class="wrapper"> -->
+ <!-- <div class="wrapper"> -->
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class=""> <!-- content-wrapper -->
-        <div class="" data-select2-id="28"> <!-- content-wrapper -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class=""> <!-- content-wrapper -->
+    <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-            <div class="row m-0" data-select2-id="27">
-              <!-- panel panel-default -->
-              <div class="col-lg-12 p-0" data-select2-id="26">
-                <form role="form" action="<?= base_url(); ?>SharingAPBD/SimpanDataEdit" method="POST" data-select2-id="25">
+        <div class="row m-0" data-select2-id="27">
+          <!-- panel panel-default -->
+          <div class="col-lg-12 p-0" data-select2-id="26">
+            <form role="form" action="<?= base_url(); ?>SharingAPBD/SimpanDataEdit" method="POST" data-select2-id="25">
 
-                    <input type="hidden" name="idEdit" value="<?= $id; ?>">
-                    
-                    <div class="content-header bg-warning">
-                        <div class="container-fluid">
-                          <div class="row m-0 p-0 text-left">
-                            <div class="col-sm-7">
-                              <h4 class="m-0">Form 5 : SHARING APBD</h4>
-                          </div>
+                <input type="hidden" name="idEdit" value="<?= $id; ?>">
+                
+                <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 5 : SHARING APBD</h4>
+                      </div>
 
-                          <div class="col-sm-5 text-right">
-                            <a href="<?= base_url(); ?>SharingAPBD" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                            <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
-                        </div>
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>SharingAPBD" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <section class="content">
-                <div class="container-fluid">
+        <section class="content">
+            <div class="container-fluid">
 
-                  <!-- box data teknis -->
-                  <div class="row">
-                    <div class="card-body p-0 ">
+              <!-- box data teknis -->
+              <div class="row">
+                <div class="card-body p-0 ">
 
-                      <!-- form start -->
+                  <!-- form start -->
 
-                      <div class="modal-body">
+                  <div class="modal-body">
 
-                        <?= $this->session->flashdata('psn'); ?>
+                    <?= $this->session->flashdata('psn'); ?>
 
-                        <div class="row">
-                            <form method="POST" action="<?= base_url(); ?>SharingAPBD/SimpanData">
+                    <div class="row">
+                        <form method="POST" action="<?= base_url(); ?>SharingAPBD/SimpanData">
 
-                                <div class="col-sm-3" data-select2-id="7">
+                            <div class="col-sm-3" data-select2-id="7">
 
-                                    <div class="form-group" data-select2-id="6">
-                                        <label for="prov">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="prov" name="provid" class="form-control select2" required>
-
-
-
-                                            <option  value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
+                                <div class="form-group" data-select2-id="6">
+                                    <label for="prov">Provinsi  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="prov" name="provid" class="form-control select2" required>
 
 
 
-
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_provid"></div>
-                                    </div>
+                                        <option  value="<?= $dataHeader->provid; ?>"><?= $dataHeader->provinsi; ?></option>
 
 
-                                </div> 
-
-                                <div class="col-sm-3" data-select2-id="45">
-
-                                    <div class="form-group" data-select2-id="44">
-                                        <label for="kabkota">Kab/Kota  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="kabkota" name="kotakabid" class="form-control select2">                                    
-
-                                            <option  value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
-
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_kotakabid"></div>
-                                    </div>
 
 
-                                </div> 
-
-                                <div class="col-sm-3">
-
-
-                                    <div class="form-group">
-                                        <label for="in_noDpa">No. DPA  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="in_noDpa" name="noDpa" value="<?= $dataHeader->noDpa; ?>" type="text" class="form-control" placeholder="No. DPA">
-                                        <div class="invalid-feedback" id="pesan_noDpa"></div>
-                                    </div>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_provid"></div>
+                                </div>
 
 
-                                </div> 
+                            </div> 
 
-                                <div class="col-sm-3">
+                            <div class="col-sm-3" data-select2-id="45">
 
+                                <div class="form-group" data-select2-id="44">
+                                    <label for="kabkota">Kab/Kota  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="kabkota" name="kotakabid" class="form-control select2">                                    
 
-                                    <div class="form-group">
-                                        <label for="in_tanggal">Tanggal  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="in_tanggal" name="tanggal" value="<?= $dataHeader->tanggal; ?>" type="text" class="form-control datepicker" placeholder="Tanggal" readonly="readonly" style="cursor: pointer; background: white;">
-                                        <div class="invalid-feedback" id="pesan_tanggal"></div>
-                                    </div>
+                                        <option  value="<?= $dataHeader->kotakabid; ?>"><?= $dataHeader->kemendagri; ?></option>
 
-
-                                </div> 
-
-
-                            </div>
-
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;"><center><b>Alokasi APBD (Rp)</b></center></div></div>
-
-                            <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 100vh; width:95vw; background-color:#efebe9; padding:2px;">
-                                <table class="table">
-                                    <thead id="thead_data">
-                                        <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
-                                            <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">No</th>
-                                            <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">Kegiatan</th>
-                                            <th style="border: thin solid #006666; " colspan="2" rowspan="1" class="text-center">Alokasi APBD (Rp)</th>
-                                        </tr>
-                                        <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">APBD Non DAK</th>
-                                            <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">DAK</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody id="tbody_label">
-                                        <?php $no=1; ?>
-                                        <?php foreach ($dataBody as $key => $value) { ?>
-                                            <tr id="tr_aLabel_1">
-                                                <td style="width:2%;"><?= $no; ?></td>
-
-                                                <td class="col-sm-3" style="min-width:200px;">
-                                                    <?= $value->label; ?>                        
-                                                    <input id="in_labelid" name="idLabel[]" value="<?= $value->id; ?>" type="hidden">
-                                                    <div class="invalid-feedback" id="pesan_labelid"></div>
-                                                </td>
-                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_kotakabid"></div>
+                                </div>
 
 
-                                                    <input id="in_apbdNonDak" name="apbdNonDak[]" value="<?= str_replace('.', ',',$value->apbdNonDak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="APBD Non DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
-                                                    <div class="invalid-feedback" id="pesan_apbdNonDak"></div>
-                                                </td> 
-                                                <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                            </div> 
+
+                            <div class="col-sm-3">
 
 
-                                                    <input id="in_dak" name="dak[]" value="<?= str_replace('.', ',',$value->dak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
-                                                    <div class="invalid-feedback" id="pesan_dak"></div>
-                                                </td>
-                                            </tr>
-                                            <?php $no++; ?>
-                                        <?php } ?>
+                                <div class="form-group">
+                                    <label for="in_noDpa">No. DPA  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <input id="in_noDpa" name="noDpa" value="<?= $dataHeader->noDpa; ?>" type="text" class="form-control" placeholder="No. DPA">
+                                    <div class="invalid-feedback" id="pesan_noDpa"></div>
+                                </div>
 
-                                    </tbody>
 
-                                </table>
-                            </div>                    
+                            </div> 
+
+                            <div class="col-sm-3">
+
+
+                                <div class="form-group">
+                                    <label for="in_tanggal">Tanggal  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <input id="in_tanggal" name="tanggal" value="<?= $dataHeader->tanggal; ?>" type="text" class="form-control datepicker" placeholder="Tanggal" readonly="readonly" style="cursor: pointer; background: white;">
+                                    <div class="invalid-feedback" id="pesan_tanggal"></div>
+                                </div>
+
+
+                            </div> 
+
+
                         </div>
 
-                        <div class="modal-footer justify-content-between">
-                            <div class="row">
-                              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
-                              <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
-                              <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/5" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
-                          </div>
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;"><center><b>Alokasi APBD (Rp)</b></center></div></div>
+
+                        <div class="card-body table-responsive p-0  tableFixHead divTable" style="position: relative; overflow-y: scroll; height: 100vh; width:95vw; background-color:#efebe9; padding:2px;">
+                            <table class="table">
+                                <thead id="thead_data">
+                                    <tr id="boxThField0" style="background-color:#18978F; color:#fff;">
+                                        <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">No</th>
+                                        <th style="border: thin solid #006666; " colspan="1" rowspan="2" class="text-center">Kegiatan</th>
+                                        <th style="border: thin solid #006666; " colspan="2" rowspan="1" class="text-center">Alokasi APBD (Rp)</th>
+                                    </tr>
+                                    <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
+                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">APBD Non DAK</th>
+                                        <th style="border: thin solid #006666; " colspan="1" rowspan="1" class="text-center">DAK</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tbody_label">
+                                    <?php $no=1; ?>
+                                    <?php foreach ($dataBody as $key => $value) { ?>
+                                        <tr id="tr_aLabel_1">
+                                            <td style="width:2%;"><?= $no; ?></td>
+
+                                            <td class="col-sm-3" style="min-width:200px;">
+                                                <?= $value->label; ?>                        
+                                                <input id="in_labelid" name="idLabel[]" value="<?= $value->id; ?>" type="hidden">
+                                                <div class="invalid-feedback" id="pesan_labelid"></div>
+                                            </td>
+                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                <input id="in_apbdNonDak" name="apbdNonDak[]" value="<?= str_replace('.', ',',$value->apbdNonDak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="APBD Non DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
+                                                <div class="invalid-feedback" id="pesan_apbdNonDak"></div>
+                                            </td> 
+                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+
+                                                <input id="in_dak" name="dak[]" value="<?= str_replace('.', ',',$value->dak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
+                                                <div class="invalid-feedback" id="pesan_dak"></div>
+                                            </td>
+                                        </tr>
+                                        <?php $no++; ?>
+                                    <?php } ?>
+
+                                </tbody>
+
+                            </table>
+                        </div>                    
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <div class="row">
+                          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button> -->
+                          <!-- <a href="https://emondak.pu.go.id/sistemisd/form5" class="btn btn-default" title="Kembali"><i class="fa fa-undo"></i> Kembali</a> -->
+                          <a href="<?= base_url(); ?>SharingAPBD" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                          <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
                       </div>
+                  </div>
 
-                  </form>
-                  <!-- form end -->
+              </form>
+              <!-- form end -->
 
-              </div>
           </div>
-
       </div>
-  </section>
+
+  </div>
+</section>
 
 
 

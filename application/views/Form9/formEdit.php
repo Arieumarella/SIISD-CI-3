@@ -92,70 +92,57 @@
         <div class="row m-0" data-select2-id="27">
           <!-- panel panel-default -->
           <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>Form9/SimpanData" method="POST" data-select2-id="25">
+            <form role="form" action="<?= base_url(); ?>Form9/SimpanDataEdit" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                      <h4 class="m-0">Form 9 : AREAL TERDAMPAK DAN IKSI</h4>
-                  </div>
+                <input type="hidden" name="idEdit" value="<?= $id; ?>">
 
-                  <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>Form9" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
-                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 9 : AREAL TERDAMPAK DAN IKSI</h4>
+                      </div>
+
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>Form9" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="content">
-        <div class="container-fluid">
+        <section class="content">
+            <div class="container-fluid">
 
-          <!-- box data teknis -->
-          <div class="row">
-            <div class="card-body p-0 ">
+              <!-- box data teknis -->
+              <div class="row">
+                <div class="card-body p-0 ">
 
-              <!-- form start -->
+                  <!-- form start -->
 
-              <div class="modal-body">
-                <div style="background-color:red; color:#fff;">
-                </div>
-
+                  <div class="modal-body">
+                    <div style="background-color:red; color:#fff;">
+                    </div>
 
 
-                <div class="row">
+
+                    <div class="row">
 
 
-                    <div class="col-sm-6"> 
-
-                        <?php if ($this->session->userdata('prive') == 'admin') { ?> 
-                            <div class="form-group" data-select2-id="32">
-                                <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                <select id="in_irigasiid" name="irigasiid" class="form-control select3" required>
-
-                                </select>
-                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                            </div>
-                        <?php }else{ ?>
+                        <div class="col-sm-6"> 
                             <div class="form-group" data-select2-id="32">
                                 <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
                                 <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
-                                    <option value="" selected disabled>- Pilih D.I -</option>
-                                    <?php foreach ($dataDi as $key => $value) { ?>
-                                        <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                            </div>
-                        <?php } ?>
+                                 <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>
+                             </select>
+                             <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                         </div>
+                     </div>
 
-                    </div>
-
-                    <div class="col-sm-4">
+                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                            <input id="in_laPermen" name="laPermen" value="" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
+                            <input id="in_laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen); ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
                             <div class="invalid-feedback" id="pesan_laPermen"></div>
                         </div>                      
                     </div> 
@@ -171,35 +158,35 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="in_areaTerdampakJarIrigasiB">Baik (Ha)</label>
-                            <input id="in_areaTerdampakJarIrigasiB" name="areaTerdampakJarIrigasiB"  value="" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Baik (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
+                            <input id="in_areaTerdampakJarIrigasiB" name="areaTerdampakJarIrigasiB"  value="<?= $dataDi->areaTerdampakJarIrigasiB; ?>" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Baik (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
                             <div class="invalid-feedback" id="pesan_areaTerdampakJarIrigasiB"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="in_areaTerdampakJarIrigasiRR">Rusak Ringan (Ha)</label>
-                            <input id="in_areaTerdampakJarIrigasiRR" name="areaTerdampakJarIrigasiRR"  value="" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Ringan (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
+                            <input id="in_areaTerdampakJarIrigasiRR" name="areaTerdampakJarIrigasiRR"  value="<?= $dataDi->areaTerdampakJarIrigasiRR; ?>" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Ringan (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
                             <div class="invalid-feedback" id="pesan_areaTerdampakJarIrigasiRR"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="in_areaTerdampakJarIrigasiRS">Rusak Sedang (Ha)</label>
-                            <input id="in_areaTerdampakJarIrigasiRS" name="areaTerdampakJarIrigasiRS"  value="" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Sedang (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
+                            <input id="in_areaTerdampakJarIrigasiRS" name="areaTerdampakJarIrigasiRS"  value="<?= $dataDi->areaTerdampakJarIrigasiRS; ?>" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Sedang (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
                             <div class="invalid-feedback" id="pesan_areaTerdampakJarIrigasiRS"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="in_areaTerdampakJarIrigasiRB">Rusak Berat (Ha)</label>
-                            <input id="in_areaTerdampakJarIrigasiRB" name="areaTerdampakJarIrigasiRB"  value="" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Berat (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
+                            <input id="in_areaTerdampakJarIrigasiRB" name="areaTerdampakJarIrigasiRB"  value="<?= $dataDi->areaTerdampakJarIrigasiRB; ?>" type="text" class="form-control text-right number areaTerdampakJarIrigasiT" placeholder="Rusak Berat (Ha)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); arealTerdampak()">
                             <div class="invalid-feedback" id="pesan_areaTerdampakJarIrigasiRB"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2"> 
                         <div class="form-group">
                             <label for="in_areaTerdampakJarIrigasiT">Total (Ha)</label>
-                            <input id="in_areaTerdampakJarIrigasiT_disabled" value="" name="areaTerdampakJarIrigasiT"  type="text" class="form-control kududisabled" placeholder="Total (Ha)" disabled="disabled">
+                            <input id="in_areaTerdampakJarIrigasiT_disabled" value="<?= $dataDi->areaTerdampakJarIrigasiT; ?>" name="areaTerdampakJarIrigasiT"  type="text" class="form-control kududisabled" placeholder="Total (Ha)" disabled="disabled">
                             <div class="invalid-feedback" id="pesan_areaTerdampakJarIrigasiT"></div>
                         </div>
 
@@ -216,49 +203,49 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase1">Prasarana Fisik (Maks 45%)</label>
-                            <input id="persentase1" name="iKSIPrasaranaFisik"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="45" placeholder="Prasarana Fisik (Maks 45%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(45, 'persentase1');">
+                            <input id="persentase1" name="iKSIPrasaranaFisik"  value="<?= $dataDi->iKSIPrasaranaFisik; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="45" placeholder="Prasarana Fisik (Maks 45%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(45, 'persentase1');">
                             <div class="invalid-feedback" id="pesan_iKSIPrasaranaFisik"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase2">Produktivitas (Maks 15%)</label>
-                            <input id="persentase2" name="iKSIProduktivitas"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="15" placeholder="Produktivitas (Maks 15%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(15, 'persentase2');">
+                            <input id="persentase2" name="iKSIProduktivitas"  value="<?= $dataDi->iKSIProduktivitas; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="15" placeholder="Produktivitas (Maks 15%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(15, 'persentase2');">
                             <div class="invalid-feedback" id="pesan_iKSIProduktivitas"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase3">Sarana Penujang (Maks 10%)</label>
-                            <input id="persentase3" name="iKSISaranaPenujang"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="10" placeholder="Sarana Penujang (Maks 10%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(10, 'persentase3');">
+                            <input id="persentase3" name="iKSISaranaPenujang"  value="<?= $dataDi->iKSISaranaPenujang; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="10" placeholder="Sarana Penujang (Maks 10%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(10, 'persentase3');">
                             <div class="invalid-feedback" id="pesan_iKSISaranaPenujang"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase4">Organisasi Personalia (Maks 15%)</label>
-                            <input id="persentase4" name="iKSIOrgPersonalia"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="15" placeholder="Organisasi Personalia (Maks 15%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(15, 'persentase4');">
+                            <input id="persentase4" name="iKSIOrgPersonalia"  value="<?= $dataDi->iKSIOrgPersonalia; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="15" placeholder="Organisasi Personalia (Maks 15%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(15, 'persentase4');">
                             <div class="invalid-feedback" id="pesan_iKSIOrgPersonalia"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase5">Dokumentasi (Maks 5%)</label>
-                            <input id="persentase5" name="iKSIDokumentasi"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="5" placeholder="Dokumentasi (Maks 5%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(5, 'persentase5');">
+                            <input id="persentase5" name="iKSIDokumentasi"  value="<?= $dataDi->iKSIDokumentasi; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="5" placeholder="Dokumentasi (Maks 5%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(5, 'persentase5');">
                             <div class="invalid-feedback" id="pesan_iKSIDokumentasi"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="persentase6">P3A/GP3A/IP3A (Maks 10%)</label>
-                            <input id="persentase6" name="iKSIPGI"  value="" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="10" placeholder="P3A/GP3A/IP3A (Maks 10%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(10, 'persentase6');">
+                            <input id="persentase6" name="iKSIPGI"  value="<?= $dataDi->iKSIPGI; ?>" type="text" class="form-control text-right number iKSIJumlah" nilaimaks="10" placeholder="P3A/GP3A/IP3A (Maks 10%)" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); indeksKondisi(10, 'persentase6');">
                             <div class="invalid-feedback" id="pesan_iKSIPGI"></div>
                         </div>                      
                     </div> 
                     <div class="col-sm-2"> 
                         <div class="form-group">
                             <label for="totalAll2">Jumlah (Maks 100%)</label>
-                            <input id="totalAll2" name="iKSIJumlah"  value="" type="text" class="form-control kududisabled" placeholder="Jumlah (Maks 100%)" disabled="disabled">
+                            <input id="totalAll2" name="iKSIJumlah"  value="<?= $dataDi->iKSIJumlah; ?>" type="text" class="form-control kududisabled" placeholder="Jumlah (Maks 100%)" disabled="disabled">
                             <div class="invalid-feedback" id="pesan_iKSIJumlah"></div>
                         </div>
 
@@ -275,7 +262,7 @@
                   <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button> -->
                   <!-- <a href="https://emondak.pu.go.id/sistemisd/form9" class="btn btn-default" title="Batal"><i class="fas fa-file"></i> Batal</a> -->
                   <a href="<?= base_url(); ?>/Form9" class="btn btn-default btn-sm" title="Batal"><i class="fas fa-file"></i> Batal</a>
-                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
+                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
               </div>
           </div>
 

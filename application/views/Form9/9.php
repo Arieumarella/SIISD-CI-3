@@ -123,7 +123,7 @@
 
 								<a href="<?= base_url(); ?>Form9/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
 
-								<!-- <a href="<?= base_url(); ?>Form9/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a> -->
+								<a href="<?= base_url(); ?>Form9/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a>
 
 							<?php } ?>
 
