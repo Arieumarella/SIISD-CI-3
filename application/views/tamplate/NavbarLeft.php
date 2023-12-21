@@ -66,7 +66,7 @@
         $uri1 = @$this->uri->segment(1);
 
 
-        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D', 'IndexKinerja4E', 'SharingAPBD', 'Kelembagaan', 'Form7'];
+        $arrayDataTeknisBase = ['FormTeknis', 'FormTeknis1B', 'FormTeknis1C', 'FormTeknis1D', 'FormTeknis1E', 'FormTeknis1F', 'RealisasiTanam2A', 'RealisasiTanam2B', 'RealisasiTanam2C', 'RealisasiTanam2D', 'RealisasiTanam2E', 'SdmOp3A', 'SdmOp3B', 'IndexKinerja4A', 'IndexKinerja4B', 'IndexKinerja4C', 'IndexKinerja4D', 'IndexKinerja4E', 'SharingAPBD', 'Kelembagaan', 'Form7', 'EPAKSI', 'Form9'];
 
         ?>
 
@@ -260,11 +260,12 @@
       </a>
     </li>                         
     <li class="nav-item">
-      <a href="https://emondak.pu.go.id/sistemisd/formteknis/index/8" class="nav-link ">
+      <a href="<?= base_url(); ?>EPAKSI" class="nav-link <?= $tittle == 'Form 8' ? 'active' : ''; ?>">
         <p>8 - e-PAKSI</p>
       </a>
     </li>                          
-    <li class="nav-item"><a href="https://emondak.pu.go.id/sistemisd/formteknis/index/9" class="nav-link ">
+
+    <li class="nav-item"><a href="<?= base_url(); ?>Form9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
       <p>9 - Areal Terdampak dan IKSI</p>
     </a>
   </li>            

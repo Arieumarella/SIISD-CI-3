@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No DIect script access allowed');
 
-class M_Form7 extends CI_Model {
+class M_Form9 extends CI_Model {
 
 	private $thang = '';
 
@@ -13,13 +13,13 @@ class M_Form7 extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f7 AS a
+		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f9 AS a
 		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 		WHERE 1=1 $cari AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM p_f7 AS a
+		$qry2 = "SELECT count(*) as jml_data FROM p_f9 AS a
 		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
 		WHERE 1=1 $cari AND a.ta=$ta";
 
@@ -75,7 +75,7 @@ class M_Form7 extends CI_Model {
 
 	public function getDataDiById($id='')
 	{
-		$qry = "SELECT b.nama, a.* FROM p_f7 AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
+		$qry = "SELECT b.nama, a.* FROM p_f9 AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
 		return $this->db->query($qry)->row();
 	}
 
@@ -83,8 +83,7 @@ class M_Form7 extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a
-		LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f7 WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN p_f9 as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' and d.ta='$thangX'";
 
 		return $this->db->query($qry)->result();
 

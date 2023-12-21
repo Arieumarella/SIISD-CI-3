@@ -10,7 +10,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class Form7 extends CI_Controller {
+class Form9 extends CI_Controller {
 
 	public function __construct() {
 		parent:: __construct();
@@ -28,7 +28,7 @@ class Form7 extends CI_Controller {
 		}
 
 		$this->load->model('M_dinamis');
-		$this->load->model('M_Form7');
+		$this->load->model('M_Form9');
 	}
 
 
@@ -36,12 +36,12 @@ class Form7 extends CI_Controller {
 	{
 
 		$tmp = array(
-			'tittle' => 'Form 7',
+			'tittle' => 'Form 9',
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
-			'content' => 'Form7/7'
+			'content' => 'Form9/9'
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
@@ -63,7 +63,7 @@ class Form7 extends CI_Controller {
 
 		$offset = ($halamanSaatIni - 1) * $jumlahDataPerHalaman;
 
-		$data = $this->M_Form7->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
+		$data = $this->M_Form9->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
@@ -78,7 +78,7 @@ class Form7 extends CI_Controller {
 		$kdprov = $this->input->post('kdprov');
 		$kdKab = $this->input->post('kdKab');
 
-		$data = $this->M_Form7->getDataDi($searchDi, $kdprov, $kdKab);
+		$data = $this->M_Form9->getDataDi($searchDi, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -102,18 +102,18 @@ class Form7 extends CI_Controller {
 		$kotakabid = $this->session->userdata('kotakabid');
 
 		$tmp = array(
-			'tittle' => 'Tambah Data Form 7',
+			'tittle' => 'Tambah Data Form 9',
 			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid]) : null,
 		);
 
-		$this->load->view('Form7/tambaData', $tmp);
+		$this->load->view('Form9/tambaData', $tmp);
 	}
 
 	public function getDiTambahData()
 	{
 		$searchDi = $this->input->post('searchDi');
 
-		$data = $this->M_Form7->getDataDiTambah($searchDi);
+		$data = $this->M_Form9->getDataDiTambah($searchDi);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -189,7 +189,7 @@ class Form7 extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/Form7/TambahData', 'refresh');
+		redirect('/Form9/TambahData', 'refresh');
 
 	}
 
@@ -198,10 +198,10 @@ class Form7 extends CI_Controller {
 	{
 		$tmp = array(
 			'tittle' => 'Detail Data Form 7',
-			'dataDi' => $this->M_Form7->getDataDiById($id)
+			'dataDi' => $this->M_Form9->getDataDiById($id)
 		);
 
-		$this->load->view('Form7/detail', $tmp);
+		$this->load->view('Form9/detail', $tmp);
 	}
 
 
@@ -234,11 +234,11 @@ class Form7 extends CI_Controller {
 	{
 		$tmp = array(
 			'tittle' => 'Edit Data Form 7',
-			'dataDi' => $this->M_Form7->getDataDiById($id),
+			'dataDi' => $this->M_Form9->getDataDiById($id),
 			'id' => $id
 		);
 
-		$this->load->view('Form7/formEdit', $tmp);
+		$this->load->view('Form9/formEdit', $tmp);
 	}
 
 	public function SimpanDataEdit()
@@ -306,7 +306,7 @@ class Form7 extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/Form7", 'refresh');
+		redirect("/Form9", 'refresh');
 
 	}
 
@@ -314,11 +314,11 @@ class Form7 extends CI_Controller {
 	public function formExcel()
 	{
 		$tmp = array(
-			'tittle' => 'Format Excel Form 7',
+			'tittle' => 'Format Excel 1F',
 			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc')
 		);
 
-		$this->load->view('Form7/excel', $tmp);
+		$this->load->view('Form9/excelF1', $tmp);
 	}
 
 
@@ -330,7 +330,7 @@ class Form7 extends CI_Controller {
 
 		$menitDetik = date('i').date('s');
 
-		copy('./assets/format/7.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+		copy('./assets/format/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
@@ -338,14 +338,13 @@ class Form7 extends CI_Controller {
 		$cek = $this->M_dinamis->getById('p_f7', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
-			$data = $this->M_Form7->getDataDiFull($thang, $kab);
+			$data = $this->M_Form9->getDataDiFull($thang, $kab);
 		}else{
 			$thang = $thang-1;
-			$data = $this->M_Form7->getDataDiFull((string)$thang, $kab);
+			$data = $this->M_Form9->getDataDiFull((string)$thang, $kab);
 		}
 
-
-		$indexLopp = 6;
+		$indexLopp = 5;
 		$nilaiAwal = 1;
 
 		foreach ($data as $key => $val) {
@@ -358,32 +357,18 @@ class Form7 extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->tkpaiInvAsetIrigasiThn);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->tkpaiInvAsetIrigasiPsen);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->tkpaiPerencanaanPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->tkpaiPerencanaanPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->tkpaiPelaksanaanPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->tkpaiPelaksanaanPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->tkpaiEvaluasiPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->tkpaiEvaluasiPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->tkpaiPethirHasilInventAIThn);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->tkpaiPethirHasilInventAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->keterangan);
 
-			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("K$indexLopp", '=T'.$indexLopp.'+AC'.$indexLopp);
-
-			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->P3ABhAktif);
-			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->GP3ABhAktif);
-			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->IP3ABhAktif);
-			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->P3ABhTidakAktif);
-			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->GP3ABhTidakAktif);
-			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->IP3ABhTidakAktif);
-
-			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=L'.$indexLopp.'+O'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=M'.$indexLopp.'+P'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=N'.$indexLopp.'+Q'.$indexLopp);
-
-			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->P3ABelumBhAktif);
-			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->GP3ABelumBhAktif);
-			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->IP3ABelumBhAktif);
-			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->P3ABelumBhTidakAktif);
-			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->GP3ABelumBhTidakAktif);
-			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->IP3ABelumBhTidakAktif);
-
-			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=U'.$indexLopp.'+X'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", '=V'.$indexLopp.'+Y'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", '=W'.$indexLopp.'+Z'.$indexLopp);
 
 			$nilaiAwal++;
 			$indexLopp++;
@@ -391,7 +376,7 @@ class Form7 extends CI_Controller {
 
 		ob_end_clean();
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="export 7.xlsx"');  
+		header('Content-Disposition: attachment; filename="export 1F.xlsx"');  
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
@@ -414,7 +399,7 @@ class Form7 extends CI_Controller {
 				Silakan Pilih Provinsi dan Kabupaten/kota Terlebih Dahulu.
 				</div>');
 
-			redirect("/Form7/formExcel", 'refresh');
+			redirect("/Form9/formExcel", 'refresh');
 		}
 
 		$nmProv = getProvByKotaKabId($kab);
@@ -432,19 +417,19 @@ class Form7 extends CI_Controller {
 				mkdir('assets/upload_file');
 			}
 
-			if (!file_exists('assets/upload_file/Form7')) {
-				mkdir('assets/upload_file/Form7');
+			if (!file_exists('assets/upload_file/F1')) {
+				mkdir('assets/upload_file/F1');
 			}
 
-			if (!file_exists("assets/upload_file/Form7/$nmProv")) {
-				mkdir("assets/upload_file/Form7/$nmProv");
+			if (!file_exists("assets/upload_file/F1/$nmProv")) {
+				mkdir("assets/upload_file/F1/$nmProv");
 			}
 
-			if (!file_exists("assets/upload_file/Form7/$nmProv/$nmKab")) {
-				mkdir("assets/upload_file/Form7/$nmProv/$nmKab");
+			if (!file_exists("assets/upload_file/F1/$nmProv/$nmKab")) {
+				mkdir("assets/upload_file/F1/$nmProv/$nmKab");
 			}
 
-			$path = "assets/upload_file/Form7/$nmProv/$nmKab/";
+			$path = "assets/upload_file/F1/$nmProv/$nmKab/";
 
 			$pathX = $_FILES['fileExcel']['name'];
 			$ext = pathinfo($pathX, PATHINFO_EXTENSION);
@@ -464,7 +449,7 @@ class Form7 extends CI_Controller {
 					Dokumen Gagal diUpload Karena $psnError
 					</div>");
 
-				redirect("/Form7/formExcel", 'refresh');
+				redirect("/Form9/formExcel", 'refresh');
 
 			}else{
 
@@ -473,7 +458,7 @@ class Form7 extends CI_Controller {
 				$fullPath = $upload_data['full_path'];
 				$kotakabidX = '';
 
-				$filePath = "assets/upload_file/Form7/$nmProv/$nmKab/$namaFile";
+				$filePath = "assets/upload_file/F1/$nmProv/$nmKab/$namaFile";
 
 				$spreadsheet = IOFactory::load($filePath);
 
@@ -481,10 +466,10 @@ class Form7 extends CI_Controller {
 				$ValA1 = $sheetX->getCell('A1')->getValue();
 				$ValB1 = $sheetX->getCell('B1')->getValue();
 				$ValC1 = $sheetX->getCell('C1')->getValue();
-				$AC5 = $sheetX->getCell('AC5')->getValue();
+				$S4 = $sheetX->getCell('S4')->getValue();
 
 
-				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $AC5 != '26') {
+				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $S4 != '16') {
 
 					$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -492,7 +477,7 @@ class Form7 extends CI_Controller {
 						Format Dokumen Tidak Sesuai.
 						</div>');
 
-					redirect("/Form7/formExcel", 'refresh');
+					redirect("/Form9/formExcel", 'refresh');
 
 				}
 
@@ -507,7 +492,7 @@ class Form7 extends CI_Controller {
 					$highestRow = $sheet->getHighestRow(); 
 					$highestColumn = $sheet->getHighestColumn(); 
 
-					for ($row = 6; $row <= $highestRow; $row++) { 
+					for ($row = 5; $row <= $highestRow; $row++) { 
 						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
@@ -518,45 +503,20 @@ class Form7 extends CI_Controller {
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 							'laPermen' => ubahKomaMenjadiTitik($rowData[0][7]),
-							
-							'P3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14]))+ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
-
-
-							'GP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15]))+ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
-
-
-							'IP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16]))+ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
-
-							'P3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][11]),
-							'GP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][12]),
-							'IP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][13]),
-							
-							'P3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][14]),
-							'GP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][15]),
-							'IP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][16]),
-							
-							'P3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14])),
-							'GP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15])),
-							'IP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16])),
-
-							'P3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][20]),
-							'GP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][21]),
-							'IP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][22]),
-							
-							'P3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][23]),
-							'GP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][24]),
-							'IP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][25]),
-
-							'P3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
-							'GP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
-							'IP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
-
-
+							'tkpaiInvAsetIrigasiThn' => ubahKomaMenjadiTitik($rowData[0][8]),
+							'tkpaiInvAsetIrigasiPsen' => ubahKomaMenjadiTitik($rowData[0][9]),
+							'tkpaiPerencanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][10]),
+							'tkpaiPerencanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][11]),
+							'tkpaiPelaksanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][12]),
+							'tkpaiPelaksanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][13]),
+							'tkpaiEvaluasiPAIThn' => ubahKomaMenjadiTitik($rowData[0][14]),
+							'tkpaiEvaluasiPAIPsen' => ubahKomaMenjadiTitik($rowData[0][15]),
+							'tkpaiPethirHasilInventAIThn' => ubahKomaMenjadiTitik($rowData[0][16]),
+							'tkpaiPethirHasilInventAIPsen' => ubahKomaMenjadiTitik($rowData[0][17]),
+							'keterangan' => ubahKomaMenjadiTitik($rowData[0][18]),
 							'uidIn' => $this->session->userdata('uid'),
 							'uidDt' => date('Y-m-d H:i:s')
 						);
-
-
 
 						$baseArray[] = $arrayRow;
 
@@ -583,7 +543,7 @@ class Form7 extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/Form7/formExcel", 'refresh');
+				redirect("/Form9/formExcel", 'refresh');
 
 			}
 
