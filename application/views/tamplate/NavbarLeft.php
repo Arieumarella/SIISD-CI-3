@@ -259,7 +259,7 @@
 
 
 <li class="nav-item">
-  <a href="#" class="nav-link">
+  <a href="<?= base_url(); ?>InfrastrukturPBanjir" class="nav-link <?= $tittle == 'Infrastruktur Pengendali Banjir' ? 'active' : ''; ?>">
     <i class="nav-icon fas fa-th"></i>
     <p>
       Infrastruktur<br/>Pengendalian Banjir

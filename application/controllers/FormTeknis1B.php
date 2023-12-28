@@ -438,7 +438,11 @@ class FormTeknis1B extends CI_Controller {
 			$indexLopp++;
 		}
 
-		ob_end_clean();
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment; filename="export 1b.xlsx"');  
 		header('Cache-Control: max-age=0');

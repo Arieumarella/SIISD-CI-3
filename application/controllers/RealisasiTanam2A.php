@@ -546,7 +546,12 @@ class RealisasiTanam2A extends CI_Controller {
 			$indexLopp++;
 		}
 
-		ob_end_clean();
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment; filename="export 2A.xlsx"');  
 		header('Cache-Control: max-age=0');

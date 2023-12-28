@@ -10,7 +10,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class EPAKSI extends CI_Controller {
+class InfrastrukturPBanjir extends CI_Controller {
 
 	public function __construct() {
 		parent:: __construct();
@@ -28,7 +28,7 @@ class EPAKSI extends CI_Controller {
 		}
 
 		$this->load->model('M_dinamis');
-		$this->load->model('M_Epaksi');
+		$this->load->model('M_InfrastrukturPBanjir');
 	}
 
 
@@ -36,12 +36,12 @@ class EPAKSI extends CI_Controller {
 	{
 
 		$tmp = array(
-			'tittle' => 'Form 8',
+			'tittle' => 'Infrastruktur Pengendali Banjir',
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
-			'content' => 'Form8/8'
+			'content' => 'Infrastruktur_pengendali_banjir/index'
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
@@ -63,7 +63,7 @@ class EPAKSI extends CI_Controller {
 
 		$offset = ($halamanSaatIni - 1) * $jumlahDataPerHalaman;
 
-		$data = $this->M_Epaksi->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
+		$data = $this->M_InfrastrukturPBanjir->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
@@ -78,7 +78,7 @@ class EPAKSI extends CI_Controller {
 		$kdprov = $this->input->post('kdprov');
 		$kdKab = $this->input->post('kdKab');
 
-		$data = $this->M_Epaksi->getDataDi($searchDi, $kdprov, $kdKab);
+		$data = $this->M_InfrastrukturPBanjir->getDataDi($searchDi, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -102,18 +102,18 @@ class EPAKSI extends CI_Controller {
 		$kotakabid = $this->session->userdata('kotakabid');
 
 		$tmp = array(
-			'tittle' => 'Tambah Data Form 8',
+			'tittle' => 'Tambah Data Form 7',
 			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid]) : null,
 		);
 
-		$this->load->view('Form8/tambaData', $tmp);
+		$this->load->view('Infrastruktur_pengendali_banjir/tambaData', $tmp);
 	}
 
 	public function getDiTambahData()
 	{
 		$searchDi = $this->input->post('searchDi');
 
-		$data = $this->M_Epaksi->getDataDiTambah($searchDi);
+		$data = $this->M_InfrastrukturPBanjir->getDataDiTambah($searchDi);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -126,6 +126,18 @@ class EPAKSI extends CI_Controller {
 		$irigasiid  = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 		
+		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
+		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
+		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
+		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
+		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
+		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
+		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
+		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
+		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
+		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
+		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
+		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
@@ -135,11 +147,32 @@ class EPAKSI extends CI_Controller {
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
 			'laPermen' => $laPermen,			
+			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'P3ABhAktif' => $P3ABhAktif, 
+			'GP3ABhAktif' => $GP3ABhAktif, 
+			'IP3ABhAktif' => $IP3ABhAktif, 
+			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
+			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
+			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
+			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
+			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
+			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
+			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
+			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
+			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
+			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
+			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
+			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_Epaksi->save($dataInsert, $irigasiid);
+		$pros = $this->M_dinamis->save('p_f7', $dataInsert);
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -156,7 +189,7 @@ class EPAKSI extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/EPAKSI', 'refresh');
+		redirect('/Infrastruktur_pengendali_banjir/TambahData', 'refresh');
 
 	}
 
@@ -164,12 +197,11 @@ class EPAKSI extends CI_Controller {
 	public function getDetailData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Detail Data Form 8',
-			'dataDi' => $this->M_Epaksi->getDataDiById($id),
-			'dataBody' => $this->M_Epaksi->getDataBody($id)
+			'tittle' => 'Detail Data Form 7',
+			'dataDi' => $this->M_InfrastrukturPBanjir->getDataDiById($id)
 		);
 
-		$this->load->view('Form8/detail', $tmp);
+		$this->load->view('Infrastruktur_pengendali_banjir/detail', $tmp);
 	}
 
 
@@ -177,8 +209,7 @@ class EPAKSI extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f8', ['id' => $id]);
-		$pros = $this->M_dinamis->delete('p_f8_pelaksana', ['idF8' => $id]);
+		$pros = $this->M_dinamis->delete('p_f7', ['id' => $id]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -202,13 +233,12 @@ class EPAKSI extends CI_Controller {
 	public function editData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Edit Data Form 8',
-			'dataDi' => $this->M_Epaksi->getDataDiById($id),
-			'dataBody' => $this->M_Epaksi->getDataBody($id),
+			'tittle' => 'Edit Data Form 7',
+			'dataDi' => $this->M_InfrastrukturPBanjir->getDataDiById($id),
 			'id' => $id
 		);
 
-		$this->load->view('Form8/formEdit', $tmp);
+		$this->load->view('Infrastruktur_pengendali_banjir/formEdit', $tmp);
 	}
 
 	public function SimpanDataEdit()
@@ -217,13 +247,49 @@ class EPAKSI extends CI_Controller {
 
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 		
+
+		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
+		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
+		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
+		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
+		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
+		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
+		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
+		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
+		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
+		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
+		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
+		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
+
 		$dataInsert = array(
-			'laPermen' => $laPermen,			
+			'laPermen' => $laPermen,
+			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'P3ABhAktif' => $P3ABhAktif, 
+			'GP3ABhAktif' => $GP3ABhAktif, 
+			'IP3ABhAktif' => $IP3ABhAktif, 
+			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
+			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
+			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
+			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
+			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
+			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
+			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
+			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
+			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
+			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
+			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
+			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
+			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
+			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
 			'uidInUp' => $this->session->userdata('uid'),
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_Epaksi->update($dataInsert, $idEdit);
+		$pros = $this->M_dinamis->update('p_f7', $dataInsert, ['id' => $idEdit]);
+
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -240,7 +306,7 @@ class EPAKSI extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/EPAKSI", 'refresh');
+		redirect("/Infrastruktur_pengendali_banjir", 'refresh');
 
 	}
 
@@ -248,11 +314,11 @@ class EPAKSI extends CI_Controller {
 	public function formExcel()
 	{
 		$tmp = array(
-			'tittle' => 'Format Excel 1F',
+			'tittle' => 'Format Excel Form 7',
 			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc')
 		);
 
-		$this->load->view('EPAKSI/excelF1', $tmp);
+		$this->load->view('Infrastruktur_pengendali_banjir/excel', $tmp);
 	}
 
 
@@ -264,7 +330,7 @@ class EPAKSI extends CI_Controller {
 
 		$menitDetik = date('i').date('s');
 
-		copy('./assets/format/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+		copy('./assets/format/7.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
@@ -272,13 +338,14 @@ class EPAKSI extends CI_Controller {
 		$cek = $this->M_dinamis->getById('p_f7', ['kotakabid' => $kab, 'ta' => $thang]);
 
 		if ($cek) {
-			$data = $this->M_Epaksi->getDataDiFull($thang, $kab);
+			$data = $this->M_InfrastrukturPBanjir->getDataDiFull($thang, $kab);
 		}else{
 			$thang = $thang-1;
-			$data = $this->M_Epaksi->getDataDiFull((string)$thang, $kab);
+			$data = $this->M_InfrastrukturPBanjir->getDataDiFull((string)$thang, $kab);
 		}
 
-		$indexLopp = 5;
+
+		$indexLopp = 6;
 		$nilaiAwal = 1;
 
 		foreach ($data as $key => $val) {
@@ -291,18 +358,32 @@ class EPAKSI extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
-			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->tkpaiInvAsetIrigasiThn);
-			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->tkpaiInvAsetIrigasiPsen);
-			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->tkpaiPerencanaanPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->tkpaiPerencanaanPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->tkpaiPelaksanaanPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->tkpaiPelaksanaanPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->tkpaiEvaluasiPAIThn);
-			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->tkpaiEvaluasiPAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->tkpaiPethirHasilInventAIThn);
-			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->tkpaiPethirHasilInventAIPsen);
-			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->keterangan);
 
+			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("K$indexLopp", '=T'.$indexLopp.'+AC'.$indexLopp);
+
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->P3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->GP3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->IP3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->P3ABhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->GP3ABhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->IP3ABhTidakAktif);
+
+			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=L'.$indexLopp.'+O'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=M'.$indexLopp.'+P'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=N'.$indexLopp.'+Q'.$indexLopp);
+
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->P3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->GP3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->IP3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->P3ABelumBhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->GP3ABelumBhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->IP3ABelumBhTidakAktif);
+
+			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=U'.$indexLopp.'+X'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", '=V'.$indexLopp.'+Y'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", '=W'.$indexLopp.'+Z'.$indexLopp);
 
 			$nilaiAwal++;
 			$indexLopp++;
@@ -315,7 +396,7 @@ class EPAKSI extends CI_Controller {
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="export 1F.xlsx"');  
+		header('Content-Disposition: attachment; filename="export 7.xlsx"');  
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
@@ -338,7 +419,7 @@ class EPAKSI extends CI_Controller {
 				Silakan Pilih Provinsi dan Kabupaten/kota Terlebih Dahulu.
 				</div>');
 
-			redirect("/EPAKSI/formExcel", 'refresh');
+			redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
 		}
 
 		$nmProv = getProvByKotaKabId($kab);
@@ -356,19 +437,19 @@ class EPAKSI extends CI_Controller {
 				mkdir('assets/upload_file');
 			}
 
-			if (!file_exists('assets/upload_file/F1')) {
-				mkdir('assets/upload_file/F1');
+			if (!file_exists('assets/upload_file/Infrastruktur_pengendali_banjir')) {
+				mkdir('assets/upload_file/Infrastruktur_pengendali_banjir');
 			}
 
-			if (!file_exists("assets/upload_file/F1/$nmProv")) {
-				mkdir("assets/upload_file/F1/$nmProv");
+			if (!file_exists("assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv")) {
+				mkdir("assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv");
 			}
 
-			if (!file_exists("assets/upload_file/F1/$nmProv/$nmKab")) {
-				mkdir("assets/upload_file/F1/$nmProv/$nmKab");
+			if (!file_exists("assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv/$nmKab")) {
+				mkdir("assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv/$nmKab");
 			}
 
-			$path = "assets/upload_file/F1/$nmProv/$nmKab/";
+			$path = "assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv/$nmKab/";
 
 			$pathX = $_FILES['fileExcel']['name'];
 			$ext = pathinfo($pathX, PATHINFO_EXTENSION);
@@ -388,7 +469,7 @@ class EPAKSI extends CI_Controller {
 					Dokumen Gagal diUpload Karena $psnError
 					</div>");
 
-				redirect("/EPAKSI/formExcel", 'refresh');
+				redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
 
 			}else{
 
@@ -397,7 +478,7 @@ class EPAKSI extends CI_Controller {
 				$fullPath = $upload_data['full_path'];
 				$kotakabidX = '';
 
-				$filePath = "assets/upload_file/F1/$nmProv/$nmKab/$namaFile";
+				$filePath = "assets/upload_file/Infrastruktur_pengendali_banjir/$nmProv/$nmKab/$namaFile";
 
 				$spreadsheet = IOFactory::load($filePath);
 
@@ -405,10 +486,10 @@ class EPAKSI extends CI_Controller {
 				$ValA1 = $sheetX->getCell('A1')->getValue();
 				$ValB1 = $sheetX->getCell('B1')->getValue();
 				$ValC1 = $sheetX->getCell('C1')->getValue();
-				$S4 = $sheetX->getCell('S4')->getValue();
+				$AC5 = $sheetX->getCell('AC5')->getValue();
 
 
-				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $S4 != '16') {
+				if ($ValA1 != 'provid' or $ValB1 != 'kotakabid' or $ValC1 != 'irigasiid' or $AC5 != '26') {
 
 					$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -416,7 +497,7 @@ class EPAKSI extends CI_Controller {
 						Format Dokumen Tidak Sesuai.
 						</div>');
 
-					redirect("/EPAKSI/formExcel", 'refresh');
+					redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
 
 				}
 
@@ -431,7 +512,7 @@ class EPAKSI extends CI_Controller {
 					$highestRow = $sheet->getHighestRow(); 
 					$highestColumn = $sheet->getHighestColumn(); 
 
-					for ($row = 5; $row <= $highestRow; $row++) { 
+					for ($row = 6; $row <= $highestRow; $row++) { 
 						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
@@ -442,20 +523,45 @@ class EPAKSI extends CI_Controller {
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 							'laPermen' => ubahKomaMenjadiTitik($rowData[0][7]),
-							'tkpaiInvAsetIrigasiThn' => ubahKomaMenjadiTitik($rowData[0][8]),
-							'tkpaiInvAsetIrigasiPsen' => ubahKomaMenjadiTitik($rowData[0][9]),
-							'tkpaiPerencanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][10]),
-							'tkpaiPerencanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][11]),
-							'tkpaiPelaksanaanPAIThn' => ubahKomaMenjadiTitik($rowData[0][12]),
-							'tkpaiPelaksanaanPAIPsen' => ubahKomaMenjadiTitik($rowData[0][13]),
-							'tkpaiEvaluasiPAIThn' => ubahKomaMenjadiTitik($rowData[0][14]),
-							'tkpaiEvaluasiPAIPsen' => ubahKomaMenjadiTitik($rowData[0][15]),
-							'tkpaiPethirHasilInventAIThn' => ubahKomaMenjadiTitik($rowData[0][16]),
-							'tkpaiPethirHasilInventAIPsen' => ubahKomaMenjadiTitik($rowData[0][17]),
-							'keterangan' => ubahKomaMenjadiTitik($rowData[0][18]),
+							
+							'P3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14]))+ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
+
+
+							'GP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15]))+ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
+
+
+							'IP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16]))+ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
+
+							'P3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][11]),
+							'GP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][12]),
+							'IP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][13]),
+							
+							'P3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][14]),
+							'GP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][15]),
+							'IP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][16]),
+							
+							'P3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14])),
+							'GP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15])),
+							'IP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16])),
+
+							'P3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][20]),
+							'GP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][21]),
+							'IP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][22]),
+							
+							'P3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][23]),
+							'GP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][24]),
+							'IP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][25]),
+
+							'P3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
+							'GP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
+							'IP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
+
+
 							'uidIn' => $this->session->userdata('uid'),
 							'uidDt' => date('Y-m-d H:i:s')
 						);
+
+
 
 						$baseArray[] = $arrayRow;
 
@@ -482,7 +588,7 @@ class EPAKSI extends CI_Controller {
 						</div>');
 				}
 
-				redirect("/EPAKSI/formExcel", 'refresh');
+				redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
 
 			}
 
