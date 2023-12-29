@@ -113,7 +113,11 @@
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
 
-							<button type="submit" onclick="rekapform(this)" class="btn btn-info mr-1" title="Unduh"><i class="fas fa-file-excel"></i> Unduh</button>
+							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+
+								<a href="<?= base_url(); ?>SdmOp3B/downloadTabel" class="btn btn-info mr-1" style="margin-left: 50px;"><i class="fas fa-file-excel"></i> Unduh</a>
+
+							<?php } ?>
 
 							<!-- ---------------- -->
 

@@ -926,8 +926,6 @@ class RealisasiTanam2B extends CI_Controller {
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
 		
-
-		
 	}
 
 
