@@ -848,7 +848,7 @@ class RealisasiTanam2A extends CI_Controller {
 				Roll Anda Tidak Dibolehkan.
 				</div>');
 
-			redirect("/FormTeknis", 'refresh');
+			redirect("/RealisasiTanam2A", 'refresh');
 			return;
 		}
 

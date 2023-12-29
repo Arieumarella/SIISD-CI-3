@@ -1101,5 +1101,156 @@ private function hitungTotalA($arrayAll=[], $kondisi)
 }
 
 
+public function downloadTabel()
+{
+	$prive = $this->session->userdata('prive');
+	$thang = $this->session->userdata('thang');
+
+	if ($prive != 'admin' and $prive != 'pemda') {
+
+		$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+			Roll Anda Tidak Dibolehkan.
+			</div>');
+
+		redirect("/IndexKinerja4B", 'refresh');
+		return;
+	}
+
+
+	$data = $this->M_IndexKinerja4B->getDataDownload($thang, $prive);
+
+	$menitDetik = date('i').date('s');
+
+	copy('./assets/format/downladBase/4B.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+	$path = "./assets/format/tmp/$menitDetik.xlsx";
+	$spreadsheet = IOFactory::load($path);
+	$indexLopp = 6;
+	$nilaiAwal = 1;
+
+	foreach ($data as $key => $val) {
+
+		$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
+		$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
+		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+		$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
+
+		$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->saluranPrimerB);
+		$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", "$val->saluranPrimerBR");
+		$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", "$val->saluranPrimerRS");		
+		$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->saluranPrimerRB);
+		$spreadsheet->getActiveSheet()->setCellValue("L$indexLopp", '=IF(COUNT(M'.$indexLopp.')<>0,IF(M'.$indexLopp.'>40,"RB",IF(M'.$indexLopp.'>=21,"RS",IF(M'.$indexLopp.'>=10,"RR",IF(M'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("M$indexLopp", '=IFERROR(((H'.$indexLopp.'*1)+(I'.$indexLopp.'*20)+(J'.$indexLopp.'*40)+(K'.$indexLopp.'*50))/SUM(H'.$indexLopp.':K'.$indexLopp.'),0)');
+
+		$spreadsheet->getActiveSheet()->setCellValue("N$indexLopp", "$val->saluranSekunderB");
+		$spreadsheet->getActiveSheet()->setCellValue("O$indexLopp", "$val->saluranSekunderBR");
+		$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->saluranSekunderRS);
+		$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->saluranSekunderRB);
+		$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=IF(COUNT(S'.$indexLopp.')<>0,IF(S'.$indexLopp.'>40,"RB",IF(S'.$indexLopp.'>=21,"RS",IF(S'.$indexLopp.'>=10,"RR",IF(S'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=IFERROR(((N'.$indexLopp.'*1)+(O'.$indexLopp.'*20)+(P'.$indexLopp.'*40)+(Q'.$indexLopp.'*50))/SUM(N'.$indexLopp.':Q'.$indexLopp.'),0)');
+
+		$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", "$val->saluranTersierB");
+		$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->saluranTersierBR);
+		$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->saluranTersierRS);
+		$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->saluranTersierRB);
+		$spreadsheet->getActiveSheet()->setCellValue("X$indexLopp", '=IF(COUNT(Y'.$indexLopp.')<>0,IF(Y'.$indexLopp.'>40,"RB",IF(Y'.$indexLopp.'>=21,"RS",IF(Y'.$indexLopp.'>=10,"RR",IF(Y'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("Y$indexLopp", '=IFERROR(((T'.$indexLopp.'*1)+(U'.$indexLopp.'*20)+(V'.$indexLopp.'*40)+(W'.$indexLopp.'*50))/SUM(T'.$indexLopp.':W'.$indexLopp.'),0)');
+
+		$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->saluranPembuangB);
+		$spreadsheet->getActiveSheet()->getCell("AA$indexLopp")->setValue($val->saluranPembuangBR);
+		$spreadsheet->getActiveSheet()->getCell("AB$indexLopp")->setValue($val->saluranPembuangRS);
+		$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", "$val->saluranPembuangRB");
+		$spreadsheet->getActiveSheet()->setCellValue("AD$indexLopp", '=IF(COUNT(AE'.$indexLopp.')<>0,IF(AE'.$indexLopp.'>40,"RB",IF(AE'.$indexLopp.'>=21,"RS",IF(AE'.$indexLopp.'>=10,"RR",IF(AE'.$indexLopp.'>0,"B","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->setCellValue("AE$indexLopp", '=IFERROR(((Z'.$indexLopp.'*1)+(AA'.$indexLopp.'*20)+(AB'.$indexLopp.'*40)+(AC'.$indexLopp.'*50))/SUM(Z'.$indexLopp.':AC'.$indexLopp.'),0)');
+
+
+		$spreadsheet->getActiveSheet()->setCellValue("AF$indexLopp", '=IF(COUNT(AG'.$indexLopp.')<>0,IF(AG'.$indexLopp.'>90,"B",IF(AG'.$indexLopp.'>=80,"RR",IF(AG'.$indexLopp.'>=60,"RS",IF(AG'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AG$indexLopp")->setValue($val->bppPrimerB);
+
+
+
+
+		$spreadsheet->getActiveSheet()->setCellValue("AH$indexLopp", '=IF(COUNT(AI'.$indexLopp.')<>0,IF(AI'.$indexLopp.'>90,"B",IF(AI'.$indexLopp.'>=80,"RR",IF(AI'.$indexLopp.'>=60,"RS",IF(AI'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->bppSekunderB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AJ$indexLopp", '=IF(COUNT(AK'.$indexLopp.')<>0,IF(AK'.$indexLopp.'>90,"B",IF(AK'.$indexLopp.'>=80,"RR",IF(AK'.$indexLopp.'>=60,"RS",IF(AK'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AK$indexLopp")->setValue($val->bppTersierB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AL$indexLopp", '=IF(COUNT(AM'.$indexLopp.')<>0,IF(AM'.$indexLopp.'>90,"B",IF(AM'.$indexLopp.'>=80,"RR",IF(AM'.$indexLopp.'>=60,"RS",IF(AM'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AM$indexLopp")->setValue($val->bppPembuangB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AN$indexLopp", '=IF(COUNT(AO'.$indexLopp.')<>0,IF(AO'.$indexLopp.'>90,"B",IF(AO'.$indexLopp.'>=80,"RR",IF(AO'.$indexLopp.'>=60,"RS",IF(AO'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AO$indexLopp")->setValue($val->bppBendungB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AP$indexLopp", '=IF(COUNT(AQ'.$indexLopp.')<>0,IF(AQ'.$indexLopp.'>90,"B",IF(AQ'.$indexLopp.'>=80,"RR",IF(AQ'.$indexLopp.'>=60,"RS",IF(AQ'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AQ$indexLopp")->setValue($val->blinTanggulB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AR$indexLopp", '=IF(COUNT(AS'.$indexLopp.')<>0,IF(AS'.$indexLopp.'>90,"B",IF(AS'.$indexLopp.'>=80,"RR",IF(AS'.$indexLopp.'>=60,"RS",IF(AS'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AS$indexLopp")->setValue($val->blinPolderB);
+
+
+
+		$spreadsheet->getActiveSheet()->setCellValue("AT$indexLopp", '=IF(COUNT(AU'.$indexLopp.')<>0,IF(AU'.$indexLopp.'>90,"B",IF(AU'.$indexLopp.'>=80,"RR",IF(AU'.$indexLopp.'>=60,"RS",IF(AU'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AU$indexLopp")->setValue($val->balengJalanInspeksiB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AV$indexLopp", '=IF(COUNT(AW'.$indexLopp.')<>0,IF(AW'.$indexLopp.'>90,"B",IF(AW'.$indexLopp.'>=80,"RR",IF(AW'.$indexLopp.'>=60,"RS",IF(AW'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AW$indexLopp")->setValue($val->balengJembatanB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AX$indexLopp", '=IF(COUNT(AY'.$indexLopp.')<>0,IF(AY'.$indexLopp.'>90,"B",IF(AY'.$indexLopp.'>=80,"RR",IF(AY'.$indexLopp.'>=60,"RS",IF(AY'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("AY$indexLopp")->setValue($val->balengGorongB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("AZ$indexLopp", '=IF(COUNT(BA'.$indexLopp.')<>0,IF(BA'.$indexLopp.'>90,"B",IF(BA'.$indexLopp.'>=80,"RR",IF(BA'.$indexLopp.'>=60,"RS",IF(BA'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BA$indexLopp")->setValue($val->balengDermagaB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("BB$indexLopp", '=IF(COUNT(BC'.$indexLopp.')<>0,IF(BC'.$indexLopp.'>90,"B",IF(BC'.$indexLopp.'>=80,"RR",IF(BC'.$indexLopp.'>=60,"RS",IF(BC'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BC$indexLopp")->setValue($val->balengKantorPengamatB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("BD$indexLopp", '=IF(COUNT(BE'.$indexLopp.')<>0,IF(BE'.$indexLopp.'>90,"B",IF(BE'.$indexLopp.'>=80,"RR",IF(BE'.$indexLopp.'>=60,"RS",IF(BE'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BE$indexLopp")->setValue($val->balengGudangB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("BF$indexLopp", '=IF(COUNT(BG'.$indexLopp.')<>0,IF(BG'.$indexLopp.'>90,"B",IF(BG'.$indexLopp.'>=80,"RR",IF(BG'.$indexLopp.'>=60,"RS",IF(BG'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BG$indexLopp")->setValue($val->balengRumahJagaB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("BH$indexLopp", '=IF(COUNT(BI'.$indexLopp.')<>0,IF(BI'.$indexLopp.'>90,"B",IF(BI'.$indexLopp.'>=80,"RR",IF(BI'.$indexLopp.'>=60,"RS",IF(BI'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BI$indexLopp")->setValue($val->balengSanggarTaniB);
+
+
+		$spreadsheet->getActiveSheet()->setCellValue("BJ$indexLopp", '=IF(COUNT(BK'.$indexLopp.')<>0,IF(BK'.$indexLopp.'>90,"B",IF(BK'.$indexLopp.'>=80,"RR",IF(BK'.$indexLopp.'>=60,"RS",IF(BK'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BK$indexLopp")->setValue($val->saranaPintuAirB);
+
+		$spreadsheet->getActiveSheet()->setCellValue("BL$indexLopp", '=IF(COUNT(BM'.$indexLopp.')<>0,IF(BM'.$indexLopp.'>90,"B",IF(BM'.$indexLopp.'>=80,"RR",IF(BM'.$indexLopp.'>=60,"RS",IF(BM'.$indexLopp.'>0,"RB","Null")))),"Null")');
+		$spreadsheet->getActiveSheet()->getCell("BM$indexLopp")->setValue($val->saranaAlatUkurB);
+
+
+
+		$spreadsheet->getActiveSheet()->setCellValue("BN$indexLopp", '=IF(COUNT(BO'.$indexLopp.')<>0,IF(BO'.$indexLopp.'>90,"B",IF(BO'.$indexLopp.'>=80,"RR",IF(BO'.$indexLopp.'>=60,"RS",IF(BO'.$indexLopp.'>0,"RB","Null")))),"Null")');
+
+		$spreadsheet->getActiveSheet()->setCellValue("BO$indexLopp", '=IFERROR((SUM(H'.$indexLopp.':BM'.$indexLopp.')-SUM(H'.$indexLopp.':K'.$indexLopp.',N'.$indexLopp.':Q'.$indexLopp.',T'.$indexLopp.':W'.$indexLopp.',Z'.$indexLopp.':AC'.$indexLopp.'))/((COUNTIF(M'.$indexLopp.',">0")+(COUNTIF(S'.$indexLopp.',">0")+(COUNTIF(Y'.$indexLopp.',">0")+(COUNTIF(AE'.$indexLopp.',">0")+(COUNTIF(AF'.$indexLopp.':BM'.$indexLopp.',">0"))))))),0)');
+
+
+		$spreadsheet->getActiveSheet()->getCell("CR$indexLopp")->setValue($val->keterangan);
+
+		$nilaiAwal++;
+		$indexLopp++;
+	}
+
+
+	if (ob_get_contents()) {
+		ob_end_clean();
+	}
+
+
+	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	header('Content-Disposition: attachment; filename="4B.xlsx"');  
+	header('Cache-Control: max-age=0');
+	$writer = new Xlsx($spreadsheet);
+	$writer->save('php://output');
+	unlink("./assets/format/tmp/$menitDetik.xlsx");
+
+}
+
+
 
 }

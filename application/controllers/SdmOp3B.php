@@ -268,7 +268,7 @@ class SdmOp3B extends CI_Controller {
 				Roll Anda Tidak Dibolehkan.
 				</div>');
 
-			redirect("/FormTeknis", 'refresh');
+			redirect("/SdmOp3B", 'refresh');
 			return;
 		}
 

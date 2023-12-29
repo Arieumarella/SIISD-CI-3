@@ -706,7 +706,7 @@ class FormTeknis1D extends CI_Controller {
 				Roll Anda Tidak Dibolehkan.
 				</div>');
 
-			redirect("/FormTeknis", 'refresh');
+			redirect("/FormTeknis1D", 'refresh');
 			return;
 		}
 
