@@ -536,4 +536,75 @@ class FormTeknis1F extends CI_Controller {
 
 
 
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/FormTeknis", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_FormTeknis1F->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 5;
+		$nilaiAwal = 1;
+		
+		foreach ($data as $key => $val) {
+			
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->tkpaiInvAsetIrigasiThn);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->tkpaiInvAsetIrigasiPsen);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->tkpaiPerencanaanPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->tkpaiPerencanaanPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->tkpaiPelaksanaanPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->tkpaiPelaksanaanPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->tkpaiEvaluasiPAIThn);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->tkpaiEvaluasiPAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->tkpaiPethirHasilInventAIThn);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->tkpaiPethirHasilInventAIPsen);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->keterangan);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="F1.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+
+		
+	}
+
+
+
 }

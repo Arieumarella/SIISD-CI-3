@@ -831,5 +831,101 @@ class RealisasiTanam2C extends CI_Controller {
 	}
 
 
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/FormTeknis", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_RealisasiTanam2C->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/C2.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 6;
+		$nilaiAwal = 1;
+		
+		foreach ($data as $key => $val) {
+
+			if ($val->laPermen != null) {
+				$celValue = "F";				
+			}else{
+				$celValue = "G";
+			}
+
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->polatanamPadi3);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->polatanamPadi2Plw);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->polatanamPadiPlw2);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->polatanamPadi2);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->polatanamPadiPlw);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->polatanamPadi);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->reatamPadiMT1);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->reatamPadiMT2);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->reatamPadiMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("Q$indexLopp", "=SUM(N$indexLopp:P$indexLopp)");
+			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", "=Q$indexLopp/$celValue$indexLopp*100");		
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->reatamPalawijaMT1);
+			$spreadsheet->getActiveSheet()->getCell("T$indexLopp")->setValue($val->reatamPalawijaMT2);
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->reatamPalawijaMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("V$indexLopp", "=SUM(S$indexLopp:U$indexLopp)");
+			$spreadsheet->getActiveSheet()->setCellValue("W$indexLopp", "=V$indexLopp/$celValue$indexLopp*100");
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->reatamTebuMT1);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->reatamTebuMT2);
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->reatamTebuMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", "=SUM(X$indexLopp:Z$indexLopp)");
+			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", "=AA$indexLopp/$celValue$indexLopp*100");
+			$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->reatamLainnyaMT1);
+			$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->reatamLainnyaMT2);
+			$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->reatamLainnyaMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("AF$indexLopp", "=SUM(AC$indexLopp:AE$indexLopp)");
+			$spreadsheet->getActiveSheet()->setCellValue("AG$indexLopp", "=AF$indexLopp/$celValue$indexLopp*100");
+			$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->jmlMT1);
+			$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->jmlMT2);
+			$spreadsheet->getActiveSheet()->getCell("AJ$indexLopp")->setValue($val->jmlMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("AK$indexLopp", "=SUM(AH$indexLopp:AJ$indexLopp)");
+			$spreadsheet->getActiveSheet()->setCellValue("AL$indexLopp", "=AK$indexLopp/$celValue$indexLopp*100");
+			$spreadsheet->getActiveSheet()->getCell("AM$indexLopp")->setValue($val->produktivitasPadiMT1);
+			$spreadsheet->getActiveSheet()->getCell("AN$indexLopp")->setValue($val->produktivitasPadiMT2);
+			$spreadsheet->getActiveSheet()->getCell("AO$indexLopp")->setValue($val->produktivitasPadiMT3);
+			$spreadsheet->getActiveSheet()->setCellValue("AP$indexLopp", '=AVERAGEIFS(AM'.$indexLopp.':AO'.$indexLopp.', AM'.$indexLopp.':AO'.$indexLopp.',">0",AM'.$indexLopp.':AO'.$indexLopp.',"<>")');
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="C2.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+	}
+
 
 }

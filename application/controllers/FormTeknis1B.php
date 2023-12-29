@@ -643,4 +643,93 @@ class FormTeknis1B extends CI_Controller {
 
 
 
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/FormTeknis", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_formTeknis1B->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/B1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 4;
+		$nilaiAwal = 1;
+		
+		foreach ($data as $key => $val) {
+			
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laBaku);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->laPotensial);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laFungsional);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->jenisRawa);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->sPrimer);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->sSekunder);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->sTersier);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->sPembuang);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->bpPrimer);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->bpSekunder);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->bpTersier);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->bpPembuang);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->bpBendung);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->blTanggul);
+			$spreadsheet->getActiveSheet()->getCell("T$indexLopp")->setValue($val->blPolder);
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->jInspeksi);
+			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->jJembatan);
+			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->jGorong);
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->jDermaga);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->jPengamat);
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->jGudang);
+			$spreadsheet->getActiveSheet()->getCell("AA$indexLopp")->setValue($val->jRumahJaga);
+			$spreadsheet->getActiveSheet()->getCell("AB$indexLopp")->setValue($val->jSanggarTani);
+			$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->saranaPintuAir);
+			$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->saranaAlatUkur);
+			$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->dokPeta);
+			$spreadsheet->getActiveSheet()->getCell("AF$indexLopp")->setValue($val->dokSkemaJaringan);
+			$spreadsheet->getActiveSheet()->getCell("AG$indexLopp")->setValue($val->dokGambarKonstruksi);
+			$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->dokBukuDataDI);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="B1.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+
+		
+	}
+
+
+
 }

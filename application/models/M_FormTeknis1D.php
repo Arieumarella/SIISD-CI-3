@@ -91,4 +91,32 @@ class M_formTeknis1D extends CI_Model {
 
 
 
+	public function getDataDownload($ta, $prive)
+	{
+
+		if ($prive == 'admin') {
+
+			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1d AS a
+			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN m_prov as d on a.provid=d.provid
+			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+			WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+
+		}else if($prive == 'pemda'){
+
+			$kotakabid = $this->session->userdata('kotakabid');
+
+			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1d AS a
+			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN m_prov as d on a.provid=d.provid
+			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+			WHERE 1=1 $cari AND a.ta=$ta AND a.kotakabid='$kotakabid' ORDER BY d.provinsi, c.kemendagri";
+
+		}
+
+		return $this->db->query($qry)->result();
+	}
+
+
+
 }

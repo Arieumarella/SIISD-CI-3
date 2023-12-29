@@ -61,6 +61,7 @@ class Login extends CI_Controller {
 
 		// Set privilege
 		$prive = '';
+		$is_provinsi = '';
 
 		if (substr($cek->uid, 0, 1) == 'K') {
 			$prive = 'pemda';
@@ -72,7 +73,9 @@ class Login extends CI_Controller {
 
 
 		if (substr($cek->uid, 0, 1) == 'P' and substr($cek->idpengguna, 0, 9) == 'dinasprov') {
-			$prive = 'provinsi';
+			$is_provinsi = 'provinsi';
+			$prive = 'pemda';
+
 		}
 
 		if ($cek->idpengguna == 'admin') {
@@ -97,6 +100,7 @@ class Login extends CI_Controller {
 			'in_user' => $cek->in_user,
 			'sts_login' => true,
 			'prive' => $prive,
+			'is_provinsi' => $is_provinsi,
 			'thang' => '2023'
 		);
 
