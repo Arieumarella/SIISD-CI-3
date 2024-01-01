@@ -40,7 +40,7 @@ class IndexKinerja4C extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_IndexKinerja4C->getProvBalai(),
 			'content' => 'IndexKinerja/4C'
 		);
 
@@ -89,7 +89,11 @@ class IndexKinerja4C extends CI_Controller {
 	{
 		$prov = $this->input->post('prov');
 
-		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		if ($this->session->userdata('prive') != 'balai') {
+			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		}else{
+			$data = $this->M_IndexKinerja4C->getkabKota($prov);
+		}
 
 		echo json_encode($data);
 

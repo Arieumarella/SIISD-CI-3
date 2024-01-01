@@ -13,6 +13,12 @@ class M_Epaksi extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
+		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+			$stringCari = getWhereBalai();
+			$cari .= " AND kotakabid IN $stringCari";
+		}
+
+
 		$tahunAwal = intval($ta);
 		$data5Tahun = array();
 
@@ -146,6 +152,26 @@ class M_Epaksi extends CI_Model {
 		return $dataArray = ($data == true AND $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
 
 
+	}
+
+	public function getProvBalai()
+	{
+		$stringCari = getWhereBalai();
+
+		$qry = "SELECT provid_siisd AS provid, nmlokasi AS provinsi FROM tkabkota_emon WHERE kotakabid_siisd IN $stringCari GROUP BY provid_siisd";
+
+		return $this->db->query($qry)->result();
+	}
+
+
+	public function getkabKota($prov='')
+	{	
+		$nama = $this->session->userdata('nama');
+		$substring_to_remove = 'BALAI ';
+		$nama = str_replace($substring_to_remove, '', $nama);
+		$qry = "SELECT kotakabid, Pemda as kemendagri FROM t_kewenangan_balai where LEFT(kotakabid,2)='$prov' AND nm_balai='$nama'";
+
+		return $this->db->query($qry)->result();
 	}
 
 
@@ -314,6 +340,252 @@ class M_Epaksi extends CI_Model {
 	public function getDataBody($id='')
 	{
 		$qry = "SELECT * FROM p_f8_pelaksana WHERE idF8='$id'";
+		return $this->db->query($qry)->result();
+	}
+
+
+
+	public function getDataDownload($ta, $prive)
+	{
+
+		$tahunAwal = intval($ta);
+		$data5Tahun = array();
+
+		for ($i = 0; $i < 5; $i++) {
+			$tahun = $tahunAwal - $i;
+			$data5Tahun[] = $tahun;
+		}
+
+		if ($prive == 'admin') {
+
+			$qry = "SELECT 
+			provinsi,
+			kemendagri,
+			nama,
+			a.*,  
+			tahunPlaksana1,
+			stKontrak1,
+			namaKonsultan1,
+			nomorKontrak1,
+			tanggalKontrak1,
+			lamaPelaksanaan1,
+			tahunPlaksana2,
+			stKontrak2,
+			namaKonsultan2,
+			nomorKontrak2,
+			tanggalKontrak2,
+			lamaPelaksanaan2,
+			tahunPlaksana3,
+			stKontrak3,
+			namaKonsultan3,
+			nomorKontrak3,
+			tanggalKontrak3,
+			lamaPelaksanaan3,
+			tahunPlaksana4,
+			stKontrak4,
+			namaKonsultan4,
+			nomorKontrak4,
+			tanggalKontrak4,
+			lamaPelaksanaan4,
+			tahunPlaksana5,
+			stKontrak5,
+			namaKonsultan5,
+			nomorKontrak5,
+			tanggalKontrak5,
+			lamaPelaksanaan5
+
+			FROM (SELECT * FROM p_f8 WHERE ta='$ta') AS a
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana1,
+				stKontrak AS stKontrak1,
+				namaKonsultan AS namaKonsultan1,
+				nomorKontrak AS nomorKontrak1,
+				tanggalKontrak AS tanggalKontrak1,
+				lamaPelaksanaan AS lamaPelaksanaan1
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[4]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[4]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS b ON a.id=b.idF8 AND a.irigasiid=b.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana2,
+				stKontrak AS stKontrak2,
+				namaKonsultan AS namaKonsultan2,
+				nomorKontrak AS nomorKontrak2,
+				tanggalKontrak AS tanggalKontrak2,
+				lamaPelaksanaan AS lamaPelaksanaan2
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[3]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[3]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx))
+			AS c ON a.id=c.idF8 AND a.irigasiid=c.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana3,
+				stKontrak AS stKontrak3,
+				namaKonsultan AS namaKonsultan3,
+				nomorKontrak AS nomorKontrak3,
+				tanggalKontrak AS tanggalKontrak3,
+				lamaPelaksanaan AS lamaPelaksanaan3
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[2]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[2]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS d ON a.id=d.idF8 AND a.irigasiid=d.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana4,
+				stKontrak AS stKontrak4,
+				namaKonsultan AS namaKonsultan4,
+				nomorKontrak AS nomorKontrak4,
+				tanggalKontrak AS tanggalKontrak4,
+				lamaPelaksanaan AS lamaPelaksanaan4
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[1]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[1]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS e ON a.id=e.idF8 AND a.irigasiid=e.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana5,
+				stKontrak AS stKontrak5,
+				namaKonsultan AS namaKonsultan5,
+				nomorKontrak AS nomorKontrak5,
+				tanggalKontrak AS tanggalKontrak5,
+				lamaPelaksanaan AS lamaPelaksanaan5
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[0]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[0]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS h ON a.id=h.idF8 AND a.irigasiid=h.irigasiid
+
+			LEFT JOIN
+			m_prov AS f ON a.provid=f.provid
+			LEFT JOIN 
+			m_kotakab AS g ON a.kotakabid=g.kotakabid
+			LEFT join
+			m_irigasi AS i ON a.irigasiid=i.irigasiid ";
+
+		}else if($prive == 'pemda'){
+
+			$kotakabid = $this->session->userdata('kotakabid');
+
+			$qry = "SELECT 
+			provinsi,
+			kemendagri,
+			nama,
+			a.*,  
+			tahunPlaksana1,
+			stKontrak1,
+			namaKonsultan1,
+			nomorKontrak1,
+			tanggalKontrak1,
+			lamaPelaksanaan1,
+			tahunPlaksana2,
+			stKontrak2,
+			namaKonsultan2,
+			nomorKontrak2,
+			tanggalKontrak2,
+			lamaPelaksanaan2,
+			tahunPlaksana3,
+			stKontrak3,
+			namaKonsultan3,
+			nomorKontrak3,
+			tanggalKontrak3,
+			lamaPelaksanaan3,
+			tahunPlaksana4,
+			stKontrak4,
+			namaKonsultan4,
+			nomorKontrak4,
+			tanggalKontrak4,
+			lamaPelaksanaan4,
+			tahunPlaksana5,
+			stKontrak5,
+			namaKonsultan5,
+			nomorKontrak5,
+			tanggalKontrak5,
+			lamaPelaksanaan5
+
+			FROM (SELECT * FROM p_f8 WHERE ta='$ta'  AND kotakabid='$kotakabid' ) AS a
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana1,
+				stKontrak AS stKontrak1,
+				namaKonsultan AS namaKonsultan1,
+				nomorKontrak AS nomorKontrak1,
+				tanggalKontrak AS tanggalKontrak1,
+				lamaPelaksanaan AS lamaPelaksanaan1
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[4]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[4]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS b ON a.id=b.idF8 AND a.irigasiid=b.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana2,
+				stKontrak AS stKontrak2,
+				namaKonsultan AS namaKonsultan2,
+				nomorKontrak AS nomorKontrak2,
+				tanggalKontrak AS tanggalKontrak2,
+				lamaPelaksanaan AS lamaPelaksanaan2
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[3]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[3]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx))
+			AS c ON a.id=c.idF8 AND a.irigasiid=c.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana3,
+				stKontrak AS stKontrak3,
+				namaKonsultan AS namaKonsultan3,
+				nomorKontrak AS nomorKontrak3,
+				tanggalKontrak AS tanggalKontrak3,
+				lamaPelaksanaan AS lamaPelaksanaan3
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[2]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[2]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS d ON a.id=d.idF8 AND a.irigasiid=d.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana4,
+				stKontrak AS stKontrak4,
+				namaKonsultan AS namaKonsultan4,
+				nomorKontrak AS nomorKontrak4,
+				tanggalKontrak AS tanggalKontrak4,
+				lamaPelaksanaan AS lamaPelaksanaan4
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[1]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[1]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS e ON a.id=e.idF8 AND a.irigasiid=e.irigasiid
+
+			LEFT JOIN (SELECT 
+				aa.irigasiid,
+				aa.idF8,
+				tahunPlaksana AS tahunPlaksana5,
+				stKontrak AS stKontrak5,
+				namaKonsultan AS namaKonsultan5,
+				nomorKontrak AS nomorKontrak5,
+				tanggalKontrak AS tanggalKontrak5,
+				lamaPelaksanaan AS lamaPelaksanaan5
+				FROM ((SELECT * FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[0]' and ta='$ta') AS aa
+					INNER JOIN
+					(SELECT irigasiid,MAx(id) AS idx FROM p_f8_pelaksana WHERE tahunPlaksana='$data5Tahun[0]' and ta='$ta' GROUP By irigasiid,idF8) AS bb ON aa.irigasiid=bb.irigasiid AND aa.id=bb.idx)) AS h ON a.id=h.idF8 AND a.irigasiid=h.irigasiid
+
+			LEFT JOIN
+			m_prov AS f ON a.provid=f.provid
+			LEFT JOIN 
+			m_kotakab AS g ON a.kotakabid=g.kotakabid
+			LEFT join
+			m_irigasi AS i ON a.irigasiid=i.irigasiid ";
+
+		}
+
 		return $this->db->query($qry)->result();
 	}
 

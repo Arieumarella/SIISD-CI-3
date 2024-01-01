@@ -113,13 +113,13 @@
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
 
-							<button type="submit" onclick="rekapform(this)" class="btn btn-info mr-1" title="Unduh"><i class="fas fa-file-excel"></i> Unduh</button>
+							<!-- <button type="submit" onclick="rekapform(this)" class="btn btn-info mr-1" title="Unduh"><i class="fas fa-file-excel"></i> Unduh</button> -->
 
 							<!-- ---------------- -->
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'provinsi') { ?>
 
-								<a href="<?= base_url(); ?>SharingAPBD/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
+								<a href="<?= base_url(); ?>SharingAPBD/TambahData" class="btn btn-primary mr-1" style="margin-left: 50px;" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
 
 							<?php } ?>
 

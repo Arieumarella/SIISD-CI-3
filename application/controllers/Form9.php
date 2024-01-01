@@ -40,7 +40,7 @@ class Form9 extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_Form9->getProvBalai(),
 			'content' => 'Form9/9'
 		);
 
@@ -89,7 +89,11 @@ class Form9 extends CI_Controller {
 	{
 		$prov = $this->input->post('prov');
 
-		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		if ($this->session->userdata('prive') != 'balai') {
+			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		}else{
+			$data = $this->M_Form9->getkabKota($prov);
+		}
 
 		echo json_encode($data);
 
@@ -575,6 +579,80 @@ class Form9 extends CI_Controller {
 
 		}
 
+	}
+
+
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/Form9", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_Form9->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/9.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 5;
+		$nilaiAwal = 1;
+		
+		foreach ($data as $key => $val) {
+			
+			
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->areaTerdampakJarIrigasiB);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->areaTerdampakJarIrigasiRR);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->areaTerdampakJarIrigasiRS);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->areaTerdampakJarIrigasiRB);
+			$spreadsheet->getActiveSheet()->setCellValue("M$indexLopp", '=SUM(I'.$indexLopp.':L'.$indexLopp.')');
+			
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->iKSIPrasaranaFisik);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->iKSIProduktivitas);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->iKSISaranaPenujang);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->iKSIOrgPersonalia);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->iKSIDokumentasi);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->iKSIPGI);
+			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=SUM(N'.$indexLopp.':S'.$indexLopp.')');
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="9.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+
+		
 	}
 
 

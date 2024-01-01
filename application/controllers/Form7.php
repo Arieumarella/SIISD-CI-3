@@ -40,7 +40,7 @@ class Form7 extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_Form7->getProvBalai(),
 			'content' => 'Form7/7'
 		);
 
@@ -89,7 +89,11 @@ class Form7 extends CI_Controller {
 	{
 		$prov = $this->input->post('prov');
 
-		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		if ($this->session->userdata('prive') != 'balai') {
+			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		}else{
+			$data = $this->M_Form7->getkabKota($prov);
+		}
 
 		echo json_encode($data);
 
@@ -595,6 +599,91 @@ class Form7 extends CI_Controller {
 
 		}
 
+	}
+
+
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/Form7", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_Form7->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/7.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 6;
+		$nilaiAwal = 1;
+		
+		foreach ($data as $key => $val) {
+			
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+
+			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("K$indexLopp", '=T'.$indexLopp.'+AC'.$indexLopp);
+
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->P3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->GP3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->IP3ABhAktif);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->P3ABhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->GP3ABhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->IP3ABhTidakAktif);
+
+			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=L'.$indexLopp.'+O'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=M'.$indexLopp.'+P'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=N'.$indexLopp.'+Q'.$indexLopp);
+
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->P3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->GP3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->IP3ABelumBhAktif);
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->P3ABelumBhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->GP3ABelumBhTidakAktif);
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->IP3ABelumBhTidakAktif);
+
+			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=U'.$indexLopp.'+X'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", '=V'.$indexLopp.'+Y'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", '=W'.$indexLopp.'+Z'.$indexLopp);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="7.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+
+		
 	}
 
 

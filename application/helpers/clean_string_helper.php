@@ -46,6 +46,37 @@ function getKabKota($kotakabid)
 	return $CI->db->query($qry)->row()->kemendagri;
 }
 
+function getWhereBalai()
+{
+	$CI =& get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$where='(';
+
+	foreach ($data as $key => $value) {
+		$where .= $value->kotakabid;
+
+		if ($value != end($data)) {
+			$where .= ',';
+		}
+
+	}
+
+	$where .= ')';
+
+	return $where;
+
+}
+
+
 function getProvIdByKotakabid($kotakabid)
 {
 	$kotakabid = substr($kotakabid, 0, 2);

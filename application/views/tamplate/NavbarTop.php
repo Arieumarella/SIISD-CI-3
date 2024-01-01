@@ -22,7 +22,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <a href="/pengguna/detail/aqdmin" class="dropdown-item">
-          <i class="fas fa-user mr-2"></i> Admin
+          <i class="fas fa-user mr-2"></i> <?= $this->session->userdata('nama'); ?>
         </a>
         <div class="dropdown-divider"></div>
         <a href="<?= base_url(); ?>Login/Logout" class="dropdown-item">

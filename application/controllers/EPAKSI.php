@@ -40,7 +40,7 @@ class EPAKSI extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_Epaksi->getProvBalai(),
 			'content' => 'Form8/8'
 		);
 
@@ -89,7 +89,11 @@ class EPAKSI extends CI_Controller {
 	{
 		$prov = $this->input->post('prov');
 
-		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		if ($this->session->userdata('prive') != 'balai') {
+			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
+		}else{
+			$data = $this->M_Epaksi->getkabKota($prov);
+		}
 
 		echo json_encode($data);
 
@@ -491,6 +495,111 @@ class EPAKSI extends CI_Controller {
 
 	}
 
+
+
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+			
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/EPAKSI", 'refresh');
+			return;
+		}
+
+		
+		$data = $this->M_Epaksi->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/epaksi.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 6;
+		$nilaiAwal = 1;
+
+		$ta = $this->session->userdata('thang');
+		$tahunAwal = intval($ta);
+		$data5Tahun = array();
+
+		for ($i = 0; $i < 5; $i++) {
+			$tahun = $tahunAwal - $i;
+			$data5Tahun[] = $tahun;
+		}
+
+
+		$spreadsheet->getActiveSheet()->getCell("F2")->setValue($data5Tahun[4]);
+		$spreadsheet->getActiveSheet()->getCell("L2")->setValue($data5Tahun[3]);
+		$spreadsheet->getActiveSheet()->getCell("R2")->setValue($data5Tahun[2]);
+		$spreadsheet->getActiveSheet()->getCell("X2")->setValue($data5Tahun[1]);
+		$spreadsheet->getActiveSheet()->getCell("AD2")->setValue($data5Tahun[0]);
+		
+		foreach ($data as $key => $val) {
+			
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->tahunPlaksana1);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->stKontrak1 == 'k' ? 'Kontraktual' : 'Swakelola');
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->namaKonsultan1);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->nomorKontrak1);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->tanggalKontrak1);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->lamaPelaksanaan1);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->tahunPlaksana2);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->stKontrak2 == 'k' ? 'Kontraktual' : 'Swakelola');
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->namaKonsultan2);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->nomorKontrak2);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->tanggalKontrak2);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->lamaPelaksanaan2);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->tahunPlaksana3);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->stKontrak3 == 'k' ? 'Kontraktual' : 'Swakelola');
+			$spreadsheet->getActiveSheet()->getCell("T$indexLopp")->setValue($val->namaKonsultan3);
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->nomorKontrak3);
+			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->tanggalKontrak3);
+			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->lamaPelaksanaan3);
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->tahunPlaksana4);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->stKontrak4 == 'k' ? 'Kontraktual' : 'Swakelola');
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->namaKonsultan4);
+			$spreadsheet->getActiveSheet()->getCell("AA$indexLopp")->setValue($val->nomorKontrak4);
+			$spreadsheet->getActiveSheet()->getCell("AB$indexLopp")->setValue($val->tanggalKontrak4);
+			$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->lamaPelaksanaan4);
+			$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->tahunPlaksana5);
+			$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->stKontrak5 == 'k' ? 'Kontraktual' : 'Swakelola');
+			$spreadsheet->getActiveSheet()->getCell("AF$indexLopp")->setValue($val->namaKonsultan5);
+			$spreadsheet->getActiveSheet()->getCell("AG$indexLopp")->setValue($val->nomorKontrak5);
+			$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->tanggalKontrak5);
+			$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->lamaPelaksanaan5);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+		
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="epaksi.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
+		
+
+		
+	}
 
 
 }

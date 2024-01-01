@@ -13,6 +13,11 @@ class M_IndexKinerja4E extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
+		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+			$stringCari = getWhereBalai();
+			$cari .= " AND a.kotakabid IN $stringCari";
+		}
+
 		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f4e AS a
 		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
@@ -30,6 +35,27 @@ class M_IndexKinerja4E extends CI_Model {
 		return $dataArray = ($data == true AND $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
 
 
+	}
+
+
+	public function getProvBalai()
+	{
+		$stringCari = getWhereBalai();
+
+		$qry = "SELECT provid_siisd AS provid, nmlokasi AS provinsi FROM tkabkota_emon WHERE kotakabid_siisd IN $stringCari GROUP BY provid_siisd";
+
+		return $this->db->query($qry)->result();
+	}
+
+
+	public function getkabKota($prov='')
+	{	
+		$nama = $this->session->userdata('nama');
+		$substring_to_remove = 'BALAI ';
+		$nama = str_replace($substring_to_remove, '', $nama);
+		$qry = "SELECT kotakabid, Pemda as kemendagri FROM t_kewenangan_balai where LEFT(kotakabid,2)='$prov' AND nm_balai='$nama'";
+
+		return $this->db->query($qry)->result();
 	}
 
 
