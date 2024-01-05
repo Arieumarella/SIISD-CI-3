@@ -303,7 +303,7 @@ class M_Epaksi extends CI_Model {
 			
 			$dataInsert = array(
 
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF8' => $idEdit,
 				'irigasiid' => $irigasiid,
 				'tahunPlaksana' => $value,

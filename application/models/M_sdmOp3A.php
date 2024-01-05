@@ -107,7 +107,7 @@ class M_sdmOp3A extends CI_Model {
 		foreach ($labelid as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF3a' => $idX,
 				'idTbl2' => $idTempat[$nomorindexArray],
 				'labelid' => $labelid[$key],

@@ -97,7 +97,7 @@ class Kelembagaan extends CI_Controller {
 		$kotakabid = ubahKomaMenjadiTitik($this->input->post('kotakabid'));
 		
 		$dataInsertAwal = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $provid,
 			'kotakabid' => $kotakabid,
 			'uidIn' => $this->session->userdata('uid'),

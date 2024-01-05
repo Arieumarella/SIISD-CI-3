@@ -15,7 +15,7 @@ class M_formTeknis1F extends CI_Model {
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND b.kotakabid IN $stringCari";
 		}
 
 		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1f AS a

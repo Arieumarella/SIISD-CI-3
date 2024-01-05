@@ -320,6 +320,8 @@
 		</div>
 	</section>
 
+
+
 	<!-- khusu form 8 ------------------------------------------------------------------- -->
 
 </div>
@@ -327,6 +329,8 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+
+
 
 		var halamanSaatIni = '1',
 		search = '',
@@ -386,12 +390,26 @@
 
 			let tableConten = ``,
 			warnaAwal = `#F7ECDE`,
+			tolltip = '',
 			no = 1;
 
 
 			$.each(data, function(key, value) {
-				console.log(value)
-				tableConten += `<tr style="background-color:${warnaAwal};">
+				
+				if (value.polatanamPadi3 != 'V' && value.polatanamPadi2Plw != 'V' && value.polatanamPadiPlw2 != 'V' && value.polatanamPadi2 != 'V' && value.polatanamPadiPlw != 'V' && value.polatanamPadi != 'V') {
+
+					warnaAwal = `#eb8080`;
+					tolltip = `data-toggle="tooltip" data-placement="top" title="Pola Tanam Tidak terchecklist"`;
+				}
+
+
+				if (parseFloat(value.reatamPadiTotalHaIp) > 300 || parseFloat(value.reatamPalawijaTotalHaIp) > 300 || parseFloat(value.reatamTebuTotalHaIp) > 300 || parseFloat(value.reatamLainnyaTotalHaIp) > 300 || parseFloat(value.jmlTotalIp) > 300) { 
+
+					warnaAwal = `#eb8080`;
+					tolltip = `data-toggle="tooltip" data-placement="top" title="Ada Jumlah IP Melebihi 300%"`;
+				}
+
+				tableConten += `<tr class="showTooltip" style="background-color:${warnaAwal};" ${tolltip}>
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
@@ -437,9 +455,11 @@
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
 				no++;
+				tolltip='';
 			});
 
 $('#tbody_data').html(tableConten);
+$('.showTooltip').tooltip('update');
 
 }
 

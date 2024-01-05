@@ -282,7 +282,7 @@ class IndexKinerja4A extends CI_Controller {
 		$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
 		$dataInsert = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $dataM_irigasi->provid,
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
@@ -644,7 +644,7 @@ public function SimpanDataEdit()
 
 
 	$dataInsert = array(
-		'ta' => date('Y'),
+		'ta' => $this->session->userdata('thang'),
 		'laPermen' => $laPermen,
 		'sawahFungsional' => $sawahFungsional,
 		'buBendungA' => $this->getDataKondisi($buBendungB), 
@@ -1126,7 +1126,7 @@ public function prosesUploadExcel()
 
 
 					$arrayRow = array(
-						'ta' => date('Y'),
+						'ta' => $this->session->userdata('thang'),
 						'provid' => ubahKomaMenjadiTitik($rowData[0][0]),
 						'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 						'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),

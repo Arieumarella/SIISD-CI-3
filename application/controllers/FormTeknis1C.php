@@ -175,7 +175,7 @@ class FormTeknis1C extends CI_Controller {
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
 		$dataInsert = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $dataM_irigasi->provid,
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
@@ -642,7 +642,7 @@ class FormTeknis1C extends CI_Controller {
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
 
 						$arrayRow = array(
-							'ta' => date('Y'),
+							'ta' => $this->session->userdata('thang'),
 							'provid' => ubahKomaMenjadiTitik($rowData[0][0]),
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),

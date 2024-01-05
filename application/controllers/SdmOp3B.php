@@ -126,7 +126,7 @@ class SdmOp3B extends CI_Controller {
 		$alokasiApbn = ubahKomaMenjadiTitik($this->input->post('alokasiApbn'));
 
 		$dataInsert3d = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $provid,
 			'kotakabid' => $kotakabid,
 			'jmlDI' => $jmlDI,

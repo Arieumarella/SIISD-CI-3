@@ -201,7 +201,7 @@ class RealisasiTanam2A extends CI_Controller {
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
 		$dataInsert = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $dataM_irigasi->provid,
 			'kotakabid' => $dataM_irigasi->kotakabid,
 			'irigasiid' => $irigasiid,
@@ -571,6 +571,7 @@ class RealisasiTanam2A extends CI_Controller {
 
 		$prov = ($this->session->userdata('prive') == 'admin') ? $this->input->post('prov-upload') : $this->session->userdata('provid'); 
 		$kab = ($this->session->userdata('prive') == 'admin') ? $this->input->post('kab-upload') : $this->session->userdata('kotakabid');
+		$kondisiDatakosong = 0;
 
 		if ($kab == null or $kab == '') {
 
@@ -749,13 +750,16 @@ class RealisasiTanam2A extends CI_Controller {
 							return;
 						}
 
+
 						$arrayRow = array(
-							'ta' => date('Y'),
+							'ta' => $this->session->userdata('thang'),
 							'provid' => ubahKomaMenjadiTitik($rowData[0][0]),
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 							'laPermen' => ubahKomaMenjadiTitik($rowData[0][5]),
 							'sawahFungsional' => ubahKomaMenjadiTitik($rowData[0][6]),
+
+
 							
 							'polatanamPadi3' => ubahKomaMenjadiTitik($rowData[0][7]),
 							'polatanamPadi2Plw' => ubahKomaMenjadiTitik($rowData[0][8]),
@@ -845,7 +849,7 @@ class RealisasiTanam2A extends CI_Controller {
 		$thang = $this->session->userdata('thang');
 
 		if ($prive != 'admin' and $prive != 'pemda') {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
@@ -856,7 +860,7 @@ class RealisasiTanam2A extends CI_Controller {
 			return;
 		}
 
-		
+
 		$data = $this->M_RealisasiTanam2A->getDataDownload($thang, $prive);
 
 		$menitDetik = date('i').date('s');
@@ -867,7 +871,7 @@ class RealisasiTanam2A extends CI_Controller {
 		$spreadsheet = IOFactory::load($path);
 		$indexLopp = 6;
 		$nilaiAwal = 1;
-		
+
 		foreach ($data as $key => $val) {
 
 			if ($val->laPermen != null) {
@@ -920,7 +924,7 @@ class RealisasiTanam2A extends CI_Controller {
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
@@ -932,9 +936,9 @@ class RealisasiTanam2A extends CI_Controller {
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-		
 
-		
+
+
 	}
 
 

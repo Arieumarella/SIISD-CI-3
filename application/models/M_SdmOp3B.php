@@ -116,7 +116,7 @@ class M_sdmOp3B extends CI_Model {
 		foreach ($labelid as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF3b' => $idX,
 				'idTbl2' => $idTempat[$nomorindexArray],
 				'labelid' => $labelid[$key],
@@ -178,7 +178,7 @@ class M_sdmOp3B extends CI_Model {
 		foreach ($labelid as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF3b' => $idEdit,
 				'idTbl2' => $idTempat[$nomorindexArray],
 				'labelid' => $labelid[$key],

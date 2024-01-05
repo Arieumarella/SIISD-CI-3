@@ -69,7 +69,7 @@ class M_SharingAPBD extends CI_Model {
 		foreach ($idLabel as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,
 				'labelid' => $val,
 				'apbdNonDak' => ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key]),
@@ -119,7 +119,7 @@ class M_SharingAPBD extends CI_Model {
 		foreach ($idLabel as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,
 				'labelid' => $val,
 				'apbdNonDak' => ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key]),

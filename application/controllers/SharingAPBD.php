@@ -100,7 +100,7 @@ class SharingAPBD extends CI_Controller {
 		
 
 		$dataInsertAwal = array(
-			'ta' => date('Y'),
+			'ta' => $this->session->userdata('thang'),
 			'provid' => $provid,
 			'kotakabid' => $kotakabid,
 			'noDpa' => $noDpa,

@@ -69,7 +69,7 @@ class M_Kelembagaan extends CI_Model {
 		foreach ($idLabel as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF6' => $idX,
 				'labelid' => $val,
 				'stKelengkapan' => clean($this->input->post('stKelengkapan')[$key]),
@@ -121,7 +121,7 @@ class M_Kelembagaan extends CI_Model {
 		foreach ($idLabel as $key => $val) {
 			
 			$dataInsert2 = array(
-				'ta' => date('Y'),
+				'ta' => $this->session->userdata('thang'),
 				'idF6' => $idX,
 				'labelid' => $val,
 				'stKelengkapan' => $this->input->post('stKelengkapan')[$key],

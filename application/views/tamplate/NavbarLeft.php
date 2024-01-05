@@ -268,6 +268,15 @@
 </li>
 
 <li class="nav-item">
+  <a href="<?= base_url(); ?>Pengusulan" class="nav-link <?= $tittle == 'Pengusulan' ? 'active' : ''; ?>">
+    <i class="nav-icon fa fa-list-alt"></i>
+    <p>
+      Pengusulan Pekerjaan
+    </p>
+  </a>
+</li>
+
+<li class="nav-item">
   <a href="#" class="nav-link ">
     <i class="nav-icon fa fa-history"></i>
     <p> Riwayat Penanganan </p>

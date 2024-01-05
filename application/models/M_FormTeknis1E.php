@@ -9,24 +9,25 @@ class M_formTeknis1E extends CI_Model {
 	{
 
 		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari .= ($provid != null) ? " AND b.provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND b.kotakabid='$kotakabid'" : '';
+		$cari .= " AND kategori='DIP'";
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND b.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1e AS a
-		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
-		LEFT JOIN m_prov as d on a.provid=d.provid
-		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_irigasi AS b
+		LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
+		LEFT JOIN m_prov as d on b.provid=d.provid
+		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
+		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM p_f1e AS a
-		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
-		WHERE 1=1 $cari AND a.ta=$ta";
+		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi AS b
+		LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
+		WHERE 1=1 $cari ";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();
