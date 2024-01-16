@@ -246,6 +246,10 @@ class RealisasiTanam2D extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+
+		$thang = $this->session->userdata('thang');
+
+		$this->M_dinamis->delete('p_f2d', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f2d', $dataInsert);
 
 		if ($pros == true) {
@@ -283,7 +287,7 @@ class RealisasiTanam2D extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f2d', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f2d', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -390,7 +394,14 @@ class RealisasiTanam2D extends CI_Controller {
 		}
 
 
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $id2A]);
+
+
 		$dataInsert = array(
+			'ta' => $this->session->userdata('thang'),
+			'provid' => $dataM_irigasi->provid,
+			'kotakabid' => $dataM_irigasi->kotakabid,
+			'irigasiid' => $id2A,
 			'laPermen' => $laPermen,
 			'sawahFungsional' => $sawahFungsional,
 			'polatambakIkan3' => $polatambakIkan3,
@@ -433,8 +444,11 @@ class RealisasiTanam2D extends CI_Controller {
 		);
 
 
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->update('p_f2d', $dataInsert, ['id' => $id2A]);
+
+		$this->M_dinamis->delete('p_f2d', ['irigasiid' => $id2A, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f2d', $dataInsert);
 
 
 		if ($pros == true) {

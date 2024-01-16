@@ -8,9 +8,10 @@ class M_RealisasiTanam2D extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
+		$cari = ($search != null) ? " AND a.irigasiid='$search'" : '';
 		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari .= " AND kategori='DIT'";
 		$ta = $this->session->userdata('thang');
 
 
@@ -19,15 +20,15 @@ class M_RealisasiTanam2D extends CI_Model {
 			$cari .= " AND a.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2d AS a
-		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+		$qry = "SELECT d.provinsi, a.irigasiid as irigasiidX, c.kemendagri, a.nama, b.* FROM m_irigasi AS a
+		LEFT JOIN (SELECT * FROM p_f2d WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM p_f2d AS a
-		LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
-		WHERE 1=1 $cari AND a.ta=$ta";
+		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi AS a
+		LEFT JOIN (SELECT * FROM p_f2d WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
+		WHERE 1=1 $cari";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();
@@ -101,7 +102,10 @@ class M_RealisasiTanam2D extends CI_Model {
 
 	public function getDataDiById($id='')
 	{
-		$qry = "SELECT b.nama, a.* FROM p_f2d AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
+		
+		$thang = $this->session->userdata('thang');
+
+		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi AS a LEFT JOIN (SELECT * FROM p_f2d WHERE ta='$thang') AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
 		return $this->db->query($qry)->row();
 	}
 

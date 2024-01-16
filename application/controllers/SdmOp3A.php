@@ -118,6 +118,8 @@ class SdmOp3A extends CI_Controller {
 	public function SimpanData()
 	{
 
+
+
 		$provid = ubahKomaMenjadiTitik($this->input->post('provid'));
 		$kotakabid = ubahKomaMenjadiTitik($this->input->post('kotakabid'));
 		$jmlDI = ubahKomaMenjadiTitik($this->input->post('jmlDI'));

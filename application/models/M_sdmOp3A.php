@@ -66,9 +66,7 @@ class M_sdmOp3A extends CI_Model {
 
 	public function getDataBodyDetail($id='')
 	{
-		$qry = "SELECT c.nama, c.alamat, d.label, a.* FROM (SELECT * FROM p_f3a_detail WHERE idF3a='$id') AS a
-		LEFT JOIN p_f3_tempat AS c ON a.idTbl2=c.id
-		LEFT JOIN m_label AS d ON a.labelid=d.id";
+		$qry = "SELECT * FROM p_f3a_detail WHERE idF3a='$id'";
 
 		return $this->db->query($qry)->result();
 	}
@@ -76,72 +74,58 @@ class M_sdmOp3A extends CI_Model {
 
 	public function simpanData($dataInsert3a)
 	{
+		$thang = $this->session->userdata('thang');
+
 		$this->db->trans_start();
+
+		$this->db->where(['kotakabid' => $this->input->post('kotakabid'), 'ta' => $thang]);
+		$this->db->delete('p_f3a');
 
 		$this->db->insert('p_f3a', $dataInsert3a);
 		$idX = $this->db->insert_id();
 
-		$idTempat = $this->input->post('idTempat');
-		$nama = $this->input->post('nama');
-		$alamat = $this->input->post('alamat');
-		$labelid = $this->input->post('labelid');
-		$jmlOrg = $this->input->post('jmlOrg');
-		$stPnsOrg = $this->input->post('stPnsOrg');
-		$stNonPnsOrg = $this->input->post('stNonPnsOrg');
-		$pendS1Org = $this->input->post('pendS1Org');
-		$pendD3Org = $this->input->post('pendD3Org');
-		$pendSltaOrg = $this->input->post('pendSltaOrg');
-		$pendSltpOrg = $this->input->post('pendSltpOrg');
-		$pendSdOrg = $this->input->post('pendSdOrg');
-		$usiaAtas59 = $this->input->post('usiaAtas59');
-		$usiaAntara40d59 = $this->input->post('usiaAntara40d59');
-		$usiaKurang40 = $this->input->post('usiaKurang40');
-		$kebutuhan = $this->input->post('kebutuhan');
-		$kekurangan = $this->input->post('kekurangan');
-		$keterangan = clean($this->input->post('keterangan'));
-		$baseArray = [];
+		
+		$uptd = $this->input->post('uptd');
+		$nilaiIndex = 0;
 
-		$nomorLoop = 1;
-		$nomorindexArray = 0;
 
-		foreach ($labelid as $key => $val) {
-			
-			$dataInsert2 = array(
-				'ta' => $this->session->userdata('thang'),
-				'idF3a' => $idX,
-				'idTbl2' => $idTempat[$nomorindexArray],
-				'labelid' => $labelid[$key],
-				'jmlDI' => 0,
-				'jmlOrg' => $jmlOrg[$key],
-				'stPnsOrg' => $stPnsOrg[$key],
-				'stNonPnsOrg' => $stNonPnsOrg[$key],
-				'pendS1Org' => $pendS1Org[$key],
-				'pendD3Org' => $pendD3Org[$key],
-				'pendSltaOrg' => $pendSltaOrg[$key],
-				'pendSltpOrg' =>  $pendSltpOrg[$key],
-				'pendSdOrg' => $pendSdOrg[$key],
-				'usiaAtas59' => $usiaAtas59[$key],
-				'usiaAntara40d59' => $usiaAntara40d59[$key],
-				'usiaKurang40' => $usiaKurang40[$key],
-				'kebutuhan' => $kebutuhan[$key],
-				'kekurangan' => $kekurangan[$key],
-				'keterangan' => $keterangan[$key],
-				'uidIn' => $this->session->userdata('uid'),
-				'uidDt' => date('Y-m-d H:i:s')
-			);
+		foreach ($uptd as $key => $val) {
 
-			$baseArray[] = $dataInsert2;
+			for ($i = 1; $i <= 8; $i++) {
 
-			if ($nomorLoop == '6') {
-				$nomorLoop=1;
-				$nomorindexArray++;
-			}else{
-				$nomorLoop++;
+				$dataInsert = array(
+
+					'ta' => $this->session->userdata('thang'),
+					'idF3a' => $idX,
+					'uptd' => clean($this->input->post('uptd')[$key]),
+					'nm_kantor' => clean($this->input->post('nama')[$key]),
+					'alamat' => clean($this->input->post('alamat')[$key]),
+					'nm_lable' => clean($this->input->post('nm_label')[$nilaiIndex]),
+					'jmlOrg' => clean($this->input->post('jmlOrg')[$nilaiIndex]),
+					'stPnsOrg' => clean($this->input->post('stPnsOrg')[$nilaiIndex]),
+					'stNonPnsOrg' => clean($this->input->post('stNonPnsOrg')[$nilaiIndex]),
+					'pendS1Org' => clean($this->input->post('pendS1Org')[$nilaiIndex]),
+					'pendD3Org' => clean($this->input->post('pendD3Org')[$nilaiIndex]),
+					'pendSltaOrg' => clean($this->input->post('pendSltaOrg')[$nilaiIndex]),
+					'pendSltpOrg' => clean($this->input->post('pendSltpOrg')[$nilaiIndex]),
+					'pendSdOrg' => clean($this->input->post('pendSdOrg')[$nilaiIndex]),
+					'usiaAtas59' => clean($this->input->post('usiaAtas59')[$nilaiIndex]),
+					'usiaAntara40d59' => clean($this->input->post('usiaAntara40d59')[$nilaiIndex]),
+					'usiaKurang40' => clean($this->input->post('usiaKurang40')[$nilaiIndex]),
+					'kebutuhan' => clean($this->input->post('kebutuhan')[$nilaiIndex]),
+					'kekurangan' => clean($this->input->post('kekurangan')[$nilaiIndex]),
+					'keterangan' => clean($this->input->post('keterangan')[$nilaiIndex]),
+					'uidIn' => $this->session->userdata('uid'),
+					'uidDt' => date('Y-m-d H:i:s')
+
+				);
+
+				$nilaiIndex++;
+				$this->db->insert('p_f3a_detail', $dataInsert);
 			}
 
 		}
 
-		$this->db->insert_batch('p_f3a_detail', $baseArray); 
 
 		$this->db->trans_complete();
 

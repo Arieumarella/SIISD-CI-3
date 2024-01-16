@@ -134,7 +134,7 @@
                             <div class="form-group" data-select2-id="32">
                                 <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
                                 <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
-                                    <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>                                    
+                                    <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option>                                    
                                 </select>
                                 <div class="invalid-feedback" id="pesan_irigasiid"></div>
                             </div>

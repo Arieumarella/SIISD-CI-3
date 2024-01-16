@@ -411,44 +411,44 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2E/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${value.sawahFungsional}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2E/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"> ${ (value.polatanamPadi3 == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
 				<td id="laFungsional_50581" style="border: thin solid #006666;" class="text-center">${ (value.polatanamPadi2Plw == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
 				<td id="sumberAir_50581" style="border: thin solid #006666;" class="text-center">${ (value.polatanamPadiPlw2 == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
 				<td id="buBendung_50581" style="border: thin solid #006666;" class="text-center">${ (value.polatanamPadi2 == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
 				<td id="buPengambilanBebas_50581" style="border: thin solid #006666;" class="text-center">${ (value.polatanamPadiPlw == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
 				<td id="buStasiunPompa_50581" style="border: thin solid #006666;" class="text-center">${ (value.polatanamPadi == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666;" class="number">${value.reatamPadiMT1}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${value.reatamPadiMT2}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666;" class="number">${value.reatamPadiMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPadiTotalHa}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPadiTotalHaIp}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPalawijaMT1}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPalawijaMT2}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPalawijaMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPalawijaTotalHa}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamPalawijaTotalHaIp}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamTebuMT1}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamTebuMT2}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamTebuMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamTebuTotalHa}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamTebuTotalHaIp}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamLainnyaMT1}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamLainnyaMT2}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamLainnyaMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamLainnyaTotalHa}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.reatamLainnyaTotalHaIp}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.jmlMT1}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.jmlMT2}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.jmlMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.jmlTotalHa}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.jmlTotalIp}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.produktivitasPadiMT1}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.produktivitasPadiMT2}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.produktivitasPadiMT3}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.produktivitasRata2}</td>
+				<td id="buEmbung_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPadiMT1)}</td>
+				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.reatamPadiMT2)}</td>
+				<td id="sPrimer_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPadiMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPadiTotalHa)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPadiTotalHaIp)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPalawijaMT1)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPalawijaMT2)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPalawijaMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPalawijaTotalHa)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamPalawijaTotalHaIp)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamTebuMT1)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamTebuMT2)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamTebuMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamTebuTotalHa)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamTebuTotalHaIp)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamLainnyaMT1)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamLainnyaMT2)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamLainnyaMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamLainnyaTotalHa)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.reatamLainnyaTotalHaIp)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlMT1)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlMT2)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlTotalHa)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlTotalIp)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.produktivitasPadiMT1)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.produktivitasPadiMT2)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.produktivitasPadiMT3)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.produktivitasRata2)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

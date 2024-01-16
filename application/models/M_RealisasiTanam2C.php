@@ -19,7 +19,7 @@ class M_RealisasiTanam2C extends CI_Model {
 			$cari .= " AND a.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, nama, a.* FROM m_irigasi AS b
+		$qry = "SELECT d.provinsi, b.irigasiid as irigasiidX, c.kemendagri, nama, a.* FROM m_irigasi AS b
 		LEFT JOIN (SELECT * FROM p_f2c WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
@@ -102,7 +102,9 @@ class M_RealisasiTanam2C extends CI_Model {
 
 	public function getDataDiById($id='')
 	{
-		$qry = "SELECT b.nama, a.* FROM p_f2c AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
+		$thang = $this->session->userdata('thang');
+
+		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi  AS a LEFT JOIN (SELECT * FROM p_f2c WHERE ta='$thang') AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
 		return $this->db->query($qry)->row();
 	}
 

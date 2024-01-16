@@ -318,22 +318,22 @@
 				console.log(value)
 				tableConten += `<tr style="background-color:${warnaAwal};">
 				<td style="border: thin solid #006666;" align="center">${no}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1F/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${value.tkpaiInvAsetIrigasiThn}</td>
-				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${value.tkpaiInvAsetIrigasiPsen}</td>
-				<td id="laFungsional_50581" style="border: thin solid #006666;" class="number">${value.tkpaiPerencanaanPAIThn}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1F/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiInvAsetIrigasiThn)}</td>
+				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiInvAsetIrigasiPsen)}</td>
+				<td id="laFungsional_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiPerencanaanPAIThn)}</td>
 
-				<td id="sumberAir_50581" style="border: thin solid #006666;" class="options">${value.tkpaiPerencanaanPAIPsen}</td>
-				<td id="buBendung_50581" style="border: thin solid #006666;" class="number">${value.tkpaiPelaksanaanPAIThn}</td>
-				<td id="buPengambilanBebas_50581" style="border: thin solid #006666;" class="number">${value.tkpaiPelaksanaanPAIPsen}</td>
-				<td id="buStasiunPompa_50581" style="border: thin solid #006666;" class="number">${value.tkpaiEvaluasiPAIThn}</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666;" class="number">${value.tkpaiEvaluasiPAIPsen}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${value.tkpaiPethirHasilInventAIThn}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666;" class="number">${value.tkpaiPethirHasilInventAIPsen}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.keterangan}</td>
+				<td id="sumberAir_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.tkpaiPerencanaanPAIPsen)}</td>
+				<td id="buBendung_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiPelaksanaanPAIThn)}</td>
+				<td id="buPengambilanBebas_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiPelaksanaanPAIPsen)}</td>
+				<td id="buStasiunPompa_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiEvaluasiPAIThn)}</td>
+				<td id="buEmbung_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiEvaluasiPAIPsen)}</td>
+				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.tkpaiPethirHasilInventAIThn)}</td>
+				<td id="sPrimer_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tkpaiPethirHasilInventAIPsen)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

@@ -19,7 +19,7 @@ class M_formTeknis1E extends CI_Model {
 			$cari .= " AND b.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_irigasi AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.nama, a.* FROM m_irigasi AS b
 		LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
@@ -102,7 +102,11 @@ class M_formTeknis1E extends CI_Model {
 
 	public function getDataDiById($id='')
 	{
-		$qry = "SELECT b.nama, a.* FROM p_f1e AS a LEFT JOIN m_irigasi AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
+
+		$thang = $this->session->userdata('thang');
+
+		$qry = "SELECT b.irigasiid as irigasiidX, b.nama, a.* FROM m_irigasi AS b 
+		LEFT JOIN (SELECT * FROM p_f1e WHERE ta='$thang') AS a on a.irigasiid=b.irigasiid WHERE b.irigasiid='$id'";
 		return $this->db->query($qry)->row();
 	}
 

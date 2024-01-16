@@ -140,6 +140,7 @@ class FormTeknis1F extends CI_Controller {
 		$tkpaiEvaluasiPAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiEvaluasiPAIPsen'));
 		$tkpaiPethirHasilInventAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIThn'));
 		$tkpaiPethirHasilInventAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIPsen'));
+		$thang = $this->session->userdata('thang');
 		$keterangan = clean($this->input->post('keterangan'));
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
@@ -165,6 +166,7 @@ class FormTeknis1F extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+		$this->M_dinamis->delete('p_f1f', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f1f', $dataInsert);
 
 		if ($pros == true) {
@@ -201,8 +203,9 @@ class FormTeknis1F extends CI_Controller {
 	public function delete()
 	{
 		$id = $this->input->post('id');
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->delete('p_f1f', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f1f', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -250,9 +253,15 @@ class FormTeknis1F extends CI_Controller {
 		$tkpaiPethirHasilInventAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIThn'));
 		$tkpaiPethirHasilInventAIPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiPethirHasilInventAIPsen'));
 		$keterangan = clean($this->input->post('keterangan'));
+		$thang = $this->session->userdata('thang');
 
+		$dataMIrigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $id1B]);
 
 		$dataInsert = array(
+			'provid' => $dataMIrigasi->provid,
+			'kotakabid' => $dataMIrigasi->kotakabid,
+			'ta' => $this->session->userdata('thang'),
+			'irigasiid' => $id1B,
 			'laPermen' => $laPermen,
 			'tkpaiInvAsetIrigasiThn' => $tkpaiInvAsetIrigasiThn,
 			'tkpaiInvAsetIrigasiPsen' => $tkpaiInvAsetIrigasiPsen,
@@ -269,8 +278,8 @@ class FormTeknis1F extends CI_Controller {
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f1f', $dataInsert, ['id' => $id1B]);
-
+		$this->M_dinamis->delete('p_f1f', ['irigasiid' => $id1B, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f1f', $dataInsert);
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">

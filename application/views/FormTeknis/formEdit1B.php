@@ -135,7 +135,7 @@
                                     <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
                                     <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
 
-                                        <option value="<?= $id; ?>"><?= $dataDi->nama; ?></option>
+                                        <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option>
 
                                     </select>
                                     <div class="invalid-feedback" id="pesan_irigasiid"></div>
@@ -461,20 +461,20 @@
                         <div class="modal-footer justify-content-between">
                             <div class="row">
                                 <a href="<?= base_url(); ?>FormTeknis1B/getDetailData1B/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
-                          </div>
-                      </div>
+                                <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
+                            </div>
+                        </div>
 
 
-                      <!-- form end -->
+                        <!-- form end -->
 
-                  </div>
-              </div>
+                    </div>
+                </div>
 
-          </div>
-      </section>
+            </div>
+        </section>
 
-  </form>
+    </form>
 
 </div>
 </div>

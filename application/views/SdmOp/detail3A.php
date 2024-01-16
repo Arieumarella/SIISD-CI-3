@@ -222,12 +222,12 @@
                             ?>
                             <?php foreach ($dataBody as $key => $value) { ?>
 
-                                <?php if ($kondisiTempat != $value->nama) { ?>
+                                <?php if ($kondisiTempat != $value->nm_kantor) { ?>
 
                                     <!-- Item -->
                                     <tr>
                                         <td><?= $nomorTempat; ?></td>
-                                        <td style="min-width:260px;"><?= $value->nama; ?><br><small><?= $value->alamat; ?></small></td>
+                                        <td style="min-width:260px;"><?= $value->nm_kantor; ?><br><small><?= $value->alamat; ?></small></td>
                                         <td style="background-color:#000;"></td>
                                         <td style="background-color:#000;"></td>
                                         <td style="background-color:#000;"></td>
@@ -244,13 +244,13 @@
                                         <td style="min-width:150px; background-color:#000;"></td>
                                     </tr>
                                     <!-- End Item -->
-                                    <?php $kondisiTempat = $value->nama; $nomorTempat++; $nomorDetail=1; ?>
+                                    <?php $kondisiTempat = $value->nm_kantor; $nomorTempat++; $nomorDetail=1; ?>
                                 <?php } ?>
 
 
                                 <!-- Putih -->
                                 <tr>
-                                    <td><?= $nomorDetail;  ?></td><td class=""><?= $value->label; ?></td>
+                                    <td><?= $nomorDetail;  ?></td><td class=""><?= $value->nm_lable; ?></td>
                                     <td class=""><?= $value->jmlOrg; ?></td>
                                     <td class=""><?= $value->stPnsOrg; ?></td>
                                     <td class=""><?= $value->stNonPnsOrg; ?></td>

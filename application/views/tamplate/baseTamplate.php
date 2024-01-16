@@ -176,8 +176,21 @@
  <script src="<?= base_url(); ?>assets/admin/Ite/plugins/select2-4.0.8/dist/js/select2.full.min.js" type="text/javascript"></script>
  <script src="<?= base_url(); ?>assets/admin/Ite/plugins/sweetalert2/sweetalert2.min.js" type="text/javascript"></script>
 
-
  <script type="text/javascript">
+   function cleanStr(str=null) {
+
+    if (str == null) {
+      return '';
+    }
+
+    return str;
+
+
+  }
+</script>
+
+
+<script type="text/javascript">
   $(document).ready(function() { 
 
 

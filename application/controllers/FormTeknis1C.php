@@ -171,6 +171,7 @@ class FormTeknis1C extends CI_Controller {
 		$dokSkemaJaringan = ubahKomaMenjadiTitik($this->input->post('dokSkemaJaringan'));
 		$dokGambarKonstruksi = ubahKomaMenjadiTitik($this->input->post('dokGambarKonstruksi'));
 		$dokBukuDataDI = ubahKomaMenjadiTitik($this->input->post('dokBukuDataDI'));
+		$thang = $this->session->userdata('thang');
 
 		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
@@ -226,6 +227,7 @@ class FormTeknis1C extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+		$this->M_dinamis->delete('p_f1c', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f1c', $dataInsert);
 
 		if ($pros == true) {
@@ -262,8 +264,9 @@ class FormTeknis1C extends CI_Controller {
 	public function delete()
 	{
 		$id = $this->input->post('id');
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->delete('p_f1c', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f1c', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -342,9 +345,16 @@ class FormTeknis1C extends CI_Controller {
 		$dokSkemaJaringan = ubahKomaMenjadiTitik($this->input->post('dokSkemaJaringan'));
 		$dokGambarKonstruksi = ubahKomaMenjadiTitik($this->input->post('dokGambarKonstruksi'));
 		$dokBukuDataDI = ubahKomaMenjadiTitik($this->input->post('dokBukuDataDI'));
+		$thang = $this->session->userdata('thang');
+
+		$dataMIrigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $id1B]);
 
 
 		$dataInsert = array(
+			'provid' => $dataMIrigasi->provid,
+			'kotakabid' => $dataMIrigasi->kotakabid,
+			'ta' => $thang,
+			'irigasiid' => $id1B,
 			'laPermen' => $laPermen,
 			'laBaku' => $laBaku,
 			'laPotensial' => $laPotensial,
@@ -388,12 +398,13 @@ class FormTeknis1C extends CI_Controller {
 			'dokSkemaJaringan' => $dokSkemaJaringan,
 			'dokGambarKonstruksi' => $dokGambarKonstruksi,
 			'dokBukuDataDI' => $dokBukuDataDI,
-			'uidInUp' => $this->session->userdata('uid'),
-			'uidDtUp' => date('Y-m-d H:i:s')
+			'uidIn' => $this->session->userdata('uid'),
+			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f1c', $dataInsert, ['id' => $id1B]);
 
+		$this->M_dinamis->delete('p_f1c', ['irigasiid' => $id1B, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f1c', $dataInsert);
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
