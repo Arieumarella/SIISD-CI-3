@@ -509,107 +509,115 @@
 
 			let tableConten = ``,
 			warnaAwal = `#F7ECDE`,
+			tolltip ='',
 			no = 1;
 
 
 			$.each(data, function(key, value) {
-				console.log(value)
-				tableConten += `<tr style="background-color:${warnaAwal};">
+				
+				if (value.buBendungA == null && value.buBendung != null) {
+
+					warnaAwal = `#eb8080`;
+					tolltip = `data-toggle="tooltip" data-placement="top" title="Data Bendung kosong, sedangkan data bendung ada pada Form 1A"`;
+				}
+
+
+				tableConten += `<tr style="background-color:${warnaAwal};" ${tolltip}>
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4A/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${value.sawahFungsional}</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666;" class="">${value.buBendungA}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${value.buBendungB}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666;" class="">${value.buPengambilanBebasA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.buPengambilanBebasB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.buStasiunPompaA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.buStasiunPompaB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.buEmbungA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.buEmbungB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPrimerB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPrimerBR}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPrimerRS}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPrimerRB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saluranPrimerRerata}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPrimerNilai}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranSekunderB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranSekunderBR}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranSekunderRS}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranSekunderRB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saluranSekunderRerata}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranSekunderNilai}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranTersierB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranTersierBR}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranTersierRS}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranTersierRB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saluranTersierRerata}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranTersierNilai}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPembuangB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPembuangBR}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPembuangRS}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPembuangRB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saluranPembuangRerata}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saluranPembuangNilai}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bppBagiA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bppBagiB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bppBagiSadapA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bppBagiSadapB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bppSadapA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bppSadapB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bppBangunanPengukurA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bppBangunanPengukurB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaGorongA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaGorongB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaSiponA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaSiponB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaTalangA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaTalangB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaTerjunanA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaTerjunanB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaGotMiringA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaGotMiringB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaFlumA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaFlumB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.bPembawaTerawanganA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.bPembawaTerawanganB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinKantongA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinKantongB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinPelimpahA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinPelimpahB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinPengurasA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinPengurasB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinSaluranGendongA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinSaluranGendongB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinKribA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinKribB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinPerkuatanTebingA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinPerkuatanTebingB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.blinTanggungA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.blinTanggungB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengJalanInspeksiA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengJalanInspeksiB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengJembatanA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengJembatanB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengKantorPengamatA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengKantorPengamatB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengGudangA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengGudangB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengRumahJagaA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengRumahJagaB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengRumahA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengRumahB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.balengSanggarTaniA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.balengSanggarTaniB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saranaPintuAirA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saranaPintuAirB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.saranaAlatUkurA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.saranaAlatUkurB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.rataJaringanA}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${value.rataJaringanB}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${value.keterangan}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4A/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
+				<td id="buEmbung_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buBendungA)}</td>
+				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.buBendungB)}</td>
+				<td id="sPrimer_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buPengambilanBebasA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buPengambilanBebasB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buStasiunPompaA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buStasiunPompaB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buEmbungA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buEmbungB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerBR)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRS)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPrimerRerata)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerNilai)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderBR)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRS)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranSekunderRerata)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderNilai)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierBR)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRS)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranTersierRerata)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierNilai)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangBR)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRS)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPembuangRerata)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangNilai)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiSadapA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiSadapB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppSadapA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppSadapB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBangunanPengukurA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBangunanPengukurB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGorongA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGorongB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaSiponA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaSiponB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTalangA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTalangB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerjunanA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTerjunanB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGotMiringA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGotMiringB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaFlumA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaFlumB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerawanganA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTerawanganB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKantongA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinKantongB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelimpahA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpahB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPengurasA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPengurasB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinSaluranGendongA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinSaluranGendongB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKribA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinKribB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPerkuatanTebingA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebingB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinTanggungA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinTanggungB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJalanInspeksiA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJalanInspeksiB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJembatanA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJembatanB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengKantorPengamatA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengKantorPengamatB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengGudangA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengGudangB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahJagaA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahJagaB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengSanggarTaniA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengSanggarTaniB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaPintuAirA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAirB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaAlatUkurA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaAlatUkurB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.rataJaringanA)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.rataJaringanB)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

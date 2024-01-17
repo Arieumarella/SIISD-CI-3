@@ -286,9 +286,9 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}SdmOp3B/getDetailData/${value.id}">${value.kemendagri}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.jmlDI}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${value.luasDI}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${value.alokasiApbn}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlDI)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.luasDI)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.alokasiApbn)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

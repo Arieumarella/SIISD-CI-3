@@ -183,8 +183,19 @@
       return '';
     }
 
-    return str;
+    strx = str.toString();
 
+    if (!isNaN(strx)) {
+
+      if (strx.indexOf('.') > -1) {
+
+        let angka = parseFloat(str).toFixed(2);
+        return angka;
+      }
+
+    }
+
+    return str;
 
   }
 </script>

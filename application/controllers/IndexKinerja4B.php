@@ -304,6 +304,10 @@ class IndexKinerja4B extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+
+		$thang = $this->session->userdata('thang');
+
+		$this->M_dinamis->delete('p_f4b', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f4b', $dataInsert);
 
 		if ($pros == true) {
@@ -388,8 +392,9 @@ class IndexKinerja4B extends CI_Controller {
 	public function delete()
 	{
 		$id = $this->input->post('id');
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->delete('p_f4b', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f4b', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -524,9 +529,13 @@ class IndexKinerja4B extends CI_Controller {
 		$dataKoonisi = $this->hitungTotalA($arrayX, 1);
 		$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),
+			'provid' => $dataM_irigasi->provid,
+			'kotakabid' => $dataM_irigasi->kotakabid,
+			'irigasiid' => $irigasiid,
 			'laPermen' => $laPermen,
 			'sawahFungsional' => $sawahFungsional,
 			'saluranPrimerB' => $saluranPrimerB,
@@ -595,9 +604,10 @@ class IndexKinerja4B extends CI_Controller {
 		);
 
 
+		$thang = $this->session->userdata('thang');
 
-
-		$pros = $this->M_dinamis->update('p_f4b', $dataInsert, ['id' => $irigasiid]);
+		$this->M_dinamis->delete('p_f4b', ['irigasiid' => $irigasiid, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f4b', $dataInsert);
 
 
 		if ($pros == true) {

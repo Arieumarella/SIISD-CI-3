@@ -17,9 +17,13 @@ class M_sdmOp3A extends CI_Model {
 			$cari .= " AND a.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
+		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM p_f3a AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
+		LEFT JOIN 
+		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+			LEFT JOIN
+			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		WHERE 1=1 $cari AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
 		$qry2 = "SELECT count(*) as jml_data FROM p_f3a AS a WHERE 1=1 $cari AND a.ta=$ta";
@@ -57,9 +61,18 @@ class M_sdmOp3A extends CI_Model {
 
 	public function getDataHeader($id='')
 	{
-		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
+
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM p_f3a AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
-		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid WHERE a.id='$id'";
+		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid 
+		LEFT JOIN 
+		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+			LEFT JOIN
+			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
+		WHERE a.id='$id'
+		";
 
 		return $this->db->query($qry)->row();
 	}

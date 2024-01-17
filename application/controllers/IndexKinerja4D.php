@@ -255,6 +255,7 @@ class IndexKinerja4D extends CI_Controller {
 		$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
 
+
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),
 			'provid' => $dataM_irigasi->provid,
@@ -343,6 +344,8 @@ class IndexKinerja4D extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+$thang = $this->session->userdata('thang');
+$this->M_dinamis->delete('p_f4d', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 $pros = $this->M_dinamis->save('p_f4d', $dataInsert);
 
 if ($pros == true) {
@@ -427,8 +430,9 @@ public function getDetailData($id=null)
 public function delete()
 {
 	$id = $this->input->post('id');
+	$thang = $this->session->userdata('thang');
 
-	$pros = $this->M_dinamis->delete('p_f4d', ['id' => $id]);
+	$pros = $this->M_dinamis->delete('p_f4d', ['irigasiid' => $id, 'ta' => $thang]);
 
 	if ($pros) {
 		$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -586,8 +590,13 @@ public function SimpanDataEdit()
 	$dataKoonisi = $this->hitungTotalA($arrayX, 1);
 	$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
+	$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+
 	$dataInsert = array(
 		'ta' => $this->session->userdata('thang'),
+		'provid' => $dataM_irigasi->provid,
+		'kotakabid' => $dataM_irigasi->kotakabid,
+		'irigasiid' => $irigasiid,
 		'laPermen' => $laPermen,
 		'sawahFungsional' => $sawahFungsional,
 		'buPengambilanAirTawarA' => $this->getDataKondisi($buPengambilanAirTawarB),
@@ -671,7 +680,10 @@ public function SimpanDataEdit()
 		'uidDtUp' => date('Y-m-d H:i:s')
 	);
 
-$pros = $this->M_dinamis->update('p_f4d', $dataInsert, ['id' => $irigasiid]);
+
+$thang = $this->session->userdata('thang');
+$this->M_dinamis->delete('p_f4d', ['irigasiid' => $irigasiid, 'ta' => $thang]);
+$pros = $this->M_dinamis->save('p_f4d', $dataInsert);
 
 
 if ($pros == true) {

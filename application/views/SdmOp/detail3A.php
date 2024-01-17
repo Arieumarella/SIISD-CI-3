@@ -169,7 +169,7 @@
                                 <div class="row p-0 m-0">
                                     <label id="label_irigasiid" class="ml-2 col-sm-5 p-0 m-0 labelTh" idinput="isi_irigasiid" style="background-color:#e6e6e6;">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)</label>
                                     <div class="col-sm-6 pr-2 m-0 row">
-                                        <div class="" id="isi_irigasiid"><?= $dataHeader->luasDI; ?></div>
+                                        <div class="" id="isi_irigasiid"><?= $dataHeader->dak; ?></div>
                                     </div>
                                 </div>
                             </div>
