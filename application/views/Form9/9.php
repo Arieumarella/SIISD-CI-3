@@ -324,20 +324,20 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form9/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.areaTerdampakJarIrigasiB}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.areaTerdampakJarIrigasiRR}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.areaTerdampakJarIrigasiRS}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.areaTerdampakJarIrigasiRB}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.areaTerdampakJarIrigasiT}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIPrasaranaFisik}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIProduktivitas}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSISaranaPenujang}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIOrgPersonalia}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIDokumentasi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIPGI}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.iKSIJumlah}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form9/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.areaTerdampakJarIrigasiB)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.areaTerdampakJarIrigasiRR)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.areaTerdampakJarIrigasiRS)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.areaTerdampakJarIrigasiRB)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.areaTerdampakJarIrigasiT)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIPrasaranaFisik)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIProduktivitas)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSISaranaPenujang)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIOrgPersonalia)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIDokumentasi)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIPGI)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.iKSIJumlah)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

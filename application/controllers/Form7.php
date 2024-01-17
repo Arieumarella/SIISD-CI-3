@@ -176,6 +176,8 @@ class Form7 extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+		$thang = $this->session->userdata('thang');
+		$this->M_dinamis->delete('p_f7', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f7', $dataInsert);
 
 		if ($pros == true) {
@@ -212,8 +214,9 @@ class Form7 extends CI_Controller {
 	public function delete()
 	{
 		$id = $this->input->post('id');
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->delete('p_f7', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f7', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -250,8 +253,6 @@ class Form7 extends CI_Controller {
 		$idEdit = ubahKomaMenjadiTitik($this->input->post('idEdit'));
 
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
-		
-
 		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
 		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
 		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
@@ -265,7 +266,13 @@ class Form7 extends CI_Controller {
 		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
 		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
 
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $idEdit]);
+
 		$dataInsert = array(
+			'ta' => $this->session->userdata('thang'),
+			'provid' => $dataM_irigasi->provid,
+			'kotakabid' => $dataM_irigasi->kotakabid,
+			'irigasiid' => $idEdit,
 			'laPermen' => $laPermen,
 			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
 			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
@@ -292,7 +299,10 @@ class Form7 extends CI_Controller {
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f7', $dataInsert, ['id' => $idEdit]);
+
+		$thang = $this->session->userdata('thang');
+		$this->M_dinamis->delete('p_f7', ['irigasiid' => $idEdit, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f7', $dataInsert);
 
 
 		if ($pros == true) {

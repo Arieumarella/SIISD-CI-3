@@ -109,6 +109,7 @@ class SharingAPBD extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+
 		$pros = $this->M_SharingAPBD->simpanData($dataInsertAwal);
 
 		

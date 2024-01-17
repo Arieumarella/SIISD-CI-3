@@ -185,6 +185,8 @@ class Form9 extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+		$thang = $this->session->userdata('thang');
+		$this->M_dinamis->delete('p_f9', ['irigasiid' => $irigasiid, 'ta' => $thang]);
 		$pros = $this->M_dinamis->save('p_f9', $dataInsert);
 
 		if ($pros == true) {
@@ -221,8 +223,9 @@ class Form9 extends CI_Controller {
 	public function delete()
 	{
 		$id = $this->input->post('id');
+		$thang = $this->session->userdata('thang');
 
-		$pros = $this->M_dinamis->delete('p_f9', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_f9', ['irigasiid' => $id, 'ta' => $thang]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -289,7 +292,13 @@ class Form9 extends CI_Controller {
 		}
 
 
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $idEdit]);
+
 		$dataInsert = array(
+			'ta' => $this->session->userdata('thang'),
+			'provid' => $dataM_irigasi->provid,
+			'kotakabid' => $dataM_irigasi->kotakabid,
+			'irigasiid' => $idEdit,
 			'laPermen' => $laPermen,			
 			'areaTerdampakJarIrigasiB' => $areaTerdampakJarIrigasiB,
 			'areaTerdampakJarIrigasiRR' => $areaTerdampakJarIrigasiRR,
@@ -307,7 +316,9 @@ class Form9 extends CI_Controller {
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f9', $dataInsert, ['id' => $idEdit]);
+		$thang = $this->session->userdata('thang');
+		$this->M_dinamis->delete('p_f9', ['irigasiid' => $idEdit, 'ta' => $thang]);
+		$pros = $this->M_dinamis->save('p_f9', $dataInsert);
 
 
 		if ($pros == true) {

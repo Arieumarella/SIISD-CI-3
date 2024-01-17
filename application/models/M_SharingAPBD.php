@@ -56,6 +56,12 @@ class M_SharingAPBD extends CI_Model {
 	{
 		$this->db->trans_start();
 
+		$kotakabidX = ubahKomaMenjadiTitik($this->input->post('kotakabid'));
+		$thang = $this->session->userdata('thang');
+
+		$this->db->where(['kotakabid' => $kotakabidX, 'ta' => $thang]);
+		$this->db->delete('p_f5');
+
 		$this->db->insert('p_f5', $dataAwal);
 		$idX = $this->db->insert_id();
 

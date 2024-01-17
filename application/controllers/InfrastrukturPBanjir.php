@@ -197,7 +197,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 	public function getDetailData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Detail Data Form 7',
+			'tittle' => 'Bangunan Pengendali Banjir',
 			'dataDi' => $this->M_InfrastrukturPBanjir->getDataDiById($id)
 		);
 

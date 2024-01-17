@@ -345,29 +345,29 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form7/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3Ajml}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3Ajml}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3Ajml}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABhJumlah}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABhJumlah}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABhJumlah}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABelumBhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABelumBhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABelumBhAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABelumBhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABelumBhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABelumBhTidakAktif}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.P3ABelumBhJumlah}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.GP3ABelumBhJumlah}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.IP3ABelumBhJumlah}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form7/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3Ajml)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3Ajml)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3Ajml)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhJumlah)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhJumlah)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhJumlah)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABelumBhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABelumBhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABelumBhAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABelumBhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABelumBhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABelumBhTidakAktif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABelumBhJumlah)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABelumBhJumlah)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABelumBhJumlah)}</td>
 				
 				</tr>`;
 
