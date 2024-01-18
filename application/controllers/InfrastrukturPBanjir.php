@@ -54,16 +54,16 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
 		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
-		$kotakabid = ($this->input->post('kotakabid') != '') ? $this->input->post('kotakabid') : null;
+		$das = ($this->input->post('das') != '') ? $this->input->post('das') : null;
 
 		if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'provinsi') {
-			$kotakabid = $this->session->userdata('kotakabid');
+			$das = $this->session->userdata('das');
 		}
 
 
 		$offset = ($halamanSaatIni - 1) * $jumlahDataPerHalaman;
 
-		$data = $this->M_InfrastrukturPBanjir->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
+		$data = $this->M_InfrastrukturPBanjir->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $das);
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
@@ -74,11 +74,11 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 	public function getDi()
 	{
-		$searchDi = $this->input->post('searchDi');
+		$ws = $this->input->post('ws');
 		$kdprov = $this->input->post('kdprov');
 		$kdKab = $this->input->post('kdKab');
 
-		$data = $this->M_InfrastrukturPBanjir->getDataDi($searchDi, $kdprov, $kdKab);
+		$data = $this->M_InfrastrukturPBanjir->getDataWS($ws, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -96,6 +96,17 @@ class InfrastrukturPBanjir extends CI_Controller {
 	}
 
 
+	public function getDataDasById()
+	{
+		$ws = $this->input->post('ws');
+		$data = $this->M_InfrastrukturPBanjir->getDataDasById($ws);
+
+		echo json_encode($data);
+
+
+	}
+
+
 	public function TambahData()
 	{
 
@@ -103,7 +114,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data Form 7',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid]) : null,
+			'dataWS' => ($this->session->userdata('prive') != 'admin') ? $this->M_InfrastrukturPBanjir->getDataWsByKotakab($kotakabid) : $this->M_InfrastrukturPBanjir->getDataWsAll(),
 		);
 
 		$this->load->view('Infrastruktur_pengendali_banjir/tambaData', $tmp);
@@ -123,56 +134,46 @@ class InfrastrukturPBanjir extends CI_Controller {
 	public function SimpanData()
 	{
 
-		$irigasiid  = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
-		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
-		
-		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
-		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
-		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
-		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
-		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
-		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
-		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
-		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
-		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
-		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
-		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
-		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
+		$ws = ubahKomaMenjadiTitik($this->input->post('ws'));
+		$das = ubahKomaMenjadiTitik($this->input->post('das'));
+		$laDas = ubahKomaMenjadiTitik($this->input->post('laDas'));
+		$administartif = ubahKomaMenjadiTitik($this->input->post('administartif'));
+		$bendungan = ubahKomaMenjadiTitik($this->input->post('bendungan'));
+		$bendung = ubahKomaMenjadiTitik($this->input->post('bendung'));
+		$tanggulSungai = ubahKomaMenjadiTitik($this->input->post('tanggulSungai'));
+		$kolamRetensi = ubahKomaMenjadiTitik($this->input->post('kolamRetensi'));
+		$perkuatanTebingSungai = ubahKomaMenjadiTitik($this->input->post('perkuatanTebingSungai'));
+		$sudetanKanalBanjir = ubahKomaMenjadiTitik($this->input->post('sudetanKanalBanjir'));
+		$checkDam = ubahKomaMenjadiTitik($this->input->post('checkDam'));
+		$Groundsill = ubahKomaMenjadiTitik($this->input->post('Groundsill'));
+		$bukuRencana = ubahKomaMenjadiTitik($this->input->post('bukuRencana'));
+		$skemaSistem = ubahKomaMenjadiTitik($this->input->post('skemaSistem'));
+		$petaGambar = ubahKomaMenjadiTitik($this->input->post('petaGambar'));
+		$bukuDataAset = ubahKomaMenjadiTitik($this->input->post('bukuDataAset'));
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
-
-		$dataInsert = array(
+		$dataInsert =  array(
 			'ta' => $this->session->userdata('thang'),
-			'provid' => $dataM_irigasi->provid,
-			'kotakabid' => $dataM_irigasi->kotakabid,
-			'irigasiid' => $irigasiid,
-			'laPermen' => $laPermen,			
-			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
-			'P3ABhAktif' => $P3ABhAktif, 
-			'GP3ABhAktif' => $GP3ABhAktif, 
-			'IP3ABhAktif' => $IP3ABhAktif, 
-			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
-			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
-			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
-			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
-			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
-			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
-			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
-			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
-			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
-			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
-			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
-			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
+			'wsid' => $ws,
+			'dasid' => $das,
+			'dasluas' => $laDas,
+			'wilayahAdministratif' => $administartif,
+			'bendungan' => $bendungan,
+			'bendung' => $bendung,
+			'tanggulSungai' =>  $tanggulSungai,
+			'kolamRetensi' => $kolamRetensi,
+			'perkuatanTebingSungai' => $perkuatanTebingSungai,
+			'sudetanKanalBanjir' => $sudetanKanalBanjir ,
+			'checkDam' => $checkDam,
+			'Groundsill' => $Groundsill,
+			'bukuRencana' => $bukuRencana,
+			'skemaSistem' => $skemaSistem,
+			'petaGambar' => $petaGambar,
+			'bukuDataAset' => $bukuDataAset,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->save('p_f7', $dataInsert);
+		$pros = $this->M_dinamis->save('p_bangunan_pengendali_banjir', $dataInsert);
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -189,7 +190,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/Infrastruktur_pengendali_banjir/TambahData', 'refresh');
+		redirect('/InfrastrukturPBanjir', 'refresh');
 
 	}
 
@@ -209,7 +210,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$pros = $this->M_dinamis->delete('p_f7', ['id' => $id]);
+		$pros = $this->M_dinamis->delete('p_bangunan_pengendali_banjir', ['id' => $id]);
 
 		if ($pros) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -233,7 +234,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 	public function editData($id=null)
 	{
 		$tmp = array(
-			'tittle' => 'Edit Data Form 7',
+			'tittle' => 'Edit Data Bangunan Pengendali Banjir',
 			'dataDi' => $this->M_InfrastrukturPBanjir->getDataDiById($id),
 			'id' => $id
 		);
@@ -245,50 +246,45 @@ class InfrastrukturPBanjir extends CI_Controller {
 	{
 		$idEdit = ubahKomaMenjadiTitik($this->input->post('idEdit'));
 
-		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
-		
+		$ws = ubahKomaMenjadiTitik($this->input->post('ws'));
+		$das = ubahKomaMenjadiTitik($this->input->post('das'));
+		$laDas = ubahKomaMenjadiTitik($this->input->post('laDas'));
+		$administartif = ubahKomaMenjadiTitik($this->input->post('administartif'));
+		$bendungan = ubahKomaMenjadiTitik($this->input->post('bendungan'));
+		$bendung = ubahKomaMenjadiTitik($this->input->post('bendung'));
+		$tanggulSungai = ubahKomaMenjadiTitik($this->input->post('tanggulSungai'));
+		$kolamRetensi = ubahKomaMenjadiTitik($this->input->post('kolamRetensi'));
+		$perkuatanTebingSungai = ubahKomaMenjadiTitik($this->input->post('perkuatanTebingSungai'));
+		$sudetanKanalBanjir = ubahKomaMenjadiTitik($this->input->post('sudetanKanalBanjir'));
+		$checkDam = ubahKomaMenjadiTitik($this->input->post('checkDam'));
+		$Groundsill = ubahKomaMenjadiTitik($this->input->post('Groundsill'));
+		$bukuRencana = ubahKomaMenjadiTitik($this->input->post('bukuRencana'));
+		$skemaSistem = ubahKomaMenjadiTitik($this->input->post('skemaSistem'));
+		$petaGambar = ubahKomaMenjadiTitik($this->input->post('petaGambar'));
+		$bukuDataAset = ubahKomaMenjadiTitik($this->input->post('bukuDataAset'));
 
-		$P3ABhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhAktif'));
-		$GP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhAktif'));
-		$IP3ABhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhAktif'));
-		$P3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABhTidakAktif'));
-		$GP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABhTidakAktif'));
-		$IP3ABhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABhTidakAktif'));
-		$P3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhAktif'));
-		$GP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhAktif'));
-		$IP3ABelumBhAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhAktif'));
-		$P3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('P3ABelumBhTidakAktif'));
-		$GP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('GP3ABelumBhTidakAktif'));
-		$IP3ABelumBhTidakAktif = ubahKomaMenjadiTitik($this->input->post('IP3ABelumBhTidakAktif'));
-
-		$dataInsert = array(
-			'laPermen' => $laPermen,
-			'P3Ajml' => $P3ABhAktif+$P3ABhTidakAktif+$P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3Ajml' => $GP3ABhAktif+$GP3ABhTidakAktif+$GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3Ajml' => $IP3ABhAktif+$IP3ABhTidakAktif+$IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
-			'P3ABhAktif' => $P3ABhAktif, 
-			'GP3ABhAktif' => $GP3ABhAktif, 
-			'IP3ABhAktif' => $IP3ABhAktif, 
-			'P3ABhTidakAktif' => $P3ABhTidakAktif, 
-			'GP3ABhTidakAktif' => $GP3ABhTidakAktif, 
-			'IP3ABhTidakAktif' => $IP3ABhTidakAktif, 			
-			'P3ABhJumlah' => $P3ABhAktif+$P3ABhTidakAktif, 
-			'GP3ABhJumlah' => $GP3ABhAktif+$GP3ABhTidakAktif, 
-			'IP3ABhJumlah' => $IP3ABhAktif+$IP3ABhTidakAktif,
-			'P3ABelumBhAktif' => $P3ABelumBhAktif, 
-			'GP3ABelumBhAktif' => $GP3ABelumBhAktif, 
-			'IP3ABelumBhAktif' => $IP3ABelumBhAktif, 
-			'P3ABelumBhTidakAktif' => $P3ABelumBhTidakAktif, 
-			'GP3ABelumBhTidakAktif' => $GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhTidakAktif' => $IP3ABelumBhTidakAktif, 
-			'P3ABelumBhJumlah' => $P3ABelumBhAktif+$P3ABelumBhTidakAktif, 
-			'GP3ABelumBhJumlah' => $GP3ABelumBhAktif+$GP3ABelumBhTidakAktif, 
-			'IP3ABelumBhJumlah' => $IP3ABelumBhAktif+$IP3ABelumBhTidakAktif,
-			'uidInUp' => $this->session->userdata('uid'),
-			'uidDtUp' => date('Y-m-d H:i:s')
+		$dataInsert =  array(
+			'ta' => $this->session->userdata('thang'),
+			'dasluas' => $laDas,
+			'wilayahAdministratif' => $administartif,
+			'bendungan' => $bendungan,
+			'bendung' => $bendung,
+			'tanggulSungai' =>  $tanggulSungai,
+			'kolamRetensi' => $kolamRetensi,
+			'perkuatanTebingSungai' => $perkuatanTebingSungai,
+			'sudetanKanalBanjir' => $sudetanKanalBanjir ,
+			'checkDam' => $checkDam,
+			'Groundsill' => $Groundsill,
+			'bukuRencana' => $bukuRencana,
+			'skemaSistem' => $skemaSistem,
+			'petaGambar' => $petaGambar,
+			'bukuDataAset' => $bukuDataAset,
+			'uidIn' => $this->session->userdata('uid'),
+			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->update('p_f7', $dataInsert, ['id' => $idEdit]);
+
+		$pros = $this->M_dinamis->update('p_bangunan_pengendali_banjir', $dataInsert, ['id' => $idEdit]);
 
 
 		if ($pros == true) {
@@ -306,7 +302,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 				</div>');
 		}
 
-		redirect("/Infrastruktur_pengendali_banjir", 'refresh');
+		redirect("/InfrastrukturPBanjir", 'refresh');
 
 	}
 
@@ -594,6 +590,75 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 
 		}
+
+	}
+
+
+	public function downloadTabel()
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($prive != 'admin' and $prive != 'pemda') {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Roll Anda Tidak Dibolehkan.
+				</div>');
+
+			redirect("/IndexKinerja4E", 'refresh');
+			return;
+		}
+
+
+		$data = $this->M_InfrastrukturPBanjir->getDataDownload($thang, $prive);
+
+		$menitDetik = date('i').date('s');
+
+		copy('./assets/format/downladBase/pengendaliBanjir.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 4;
+		$nilaiAwal = 1;
+
+		foreach ($data as $key => $val) {
+
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->nm_ws);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->nm_das);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->dasluas);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->wilayahAdministratif);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->bendungan);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->bendung);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->tanggulSungai);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->kolamRetensi);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->perkuatanTebingSungai);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->sudetanKanalBanjir);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->checkDam);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->Groundsill);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->bukuRencana);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->skemaSistem);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->petaGambar);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->bukuDataAset);			
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="Bangunan Pengendali Banjir.xlsx"');  
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
 
 	}
 

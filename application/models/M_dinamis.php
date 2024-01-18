@@ -173,6 +173,22 @@ public function SimpanLog($dataInsert)
 }
 
 
+public function getWs()
+{
+    $qry = "SELECT * FROM m_ws GROUP BY nm_ws";
+    return $this->db->query($qry)->result();
+
+}
+
+
+public function getDas()
+{
+    $qry = "SELECT * FROM m_das GROUP BY nm_das";
+    return $this->db->query($qry)->result();
+
+}
+
+
 }
 
 /* End of file M_dinamis.php */

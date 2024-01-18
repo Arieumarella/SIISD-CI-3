@@ -122,4 +122,85 @@ class wsGeneret extends CI_Controller {
 		echo 'Selesai';
 	}
 
+
+	public function generetIdws()
+	{
+		$data = $this->M_dinamis->getWs();
+
+		foreach ($data as $key => $val) {
+			
+			$dataInsert = array(
+
+				'nm_ws' => $val->nm_ws
+
+			);
+
+			$this->M_dinamis->save('base_ws', $dataInsert);
+		}
+
+		echo 'Selesai';
+	}
+
+
+	public function GeneretIdWs2()
+	{
+		$data = $this->M_dinamis->getWs();
+
+		foreach ($data as $key => $val) {
+
+			$dataByNmWs = $this->M_dinamis->getById('base_ws', ['nm_ws' => $val->nm_ws]);
+			
+			$dataInsert = array(
+
+				'id_ws' => $dataByNmWs->id
+
+			);
+
+			$this->M_dinamis->update('m_ws', $dataInsert, ['nm_ws' => $val->nm_ws]);
+		}
+
+		echo 'Selesai';
+	}
+
+
+
+	public function generetIdDas()
+	{
+		$data = $this->M_dinamis->getDas();
+
+		foreach ($data as $key => $val) {
+			
+			$dataInsert = array(
+
+				'nm_das' => $val->nm_das
+
+			);
+
+			$this->M_dinamis->save('base_das', $dataInsert);
+		}
+
+		echo 'Selesai';
+	}
+
+
+	public function GeneretIdDas2()
+	{
+		$data = $this->M_dinamis->getDas();
+
+		foreach ($data as $key => $val) {
+
+			$dataByNmWs = $this->M_dinamis->getById('base_das', ['nm_das' => $val->nm_das]);
+			
+			$dataInsert = array(
+
+				'id_das' => $dataByNmWs->id
+
+			);
+
+			$this->M_dinamis->update('m_das', $dataInsert, ['nm_das' => $val->nm_das]);
+		}
+
+		echo 'Selesai';
+	}
+
 }

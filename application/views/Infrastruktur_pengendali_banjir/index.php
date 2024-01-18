@@ -54,7 +54,7 @@
 
 						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
-							<div class="col-lg-2 col-sm-12 p-0 mr-1">
+							<!-- <div class="col-lg-2 col-sm-12 p-0 mr-1">
 								<select id="prov" name="prov" class="form-control select2 p-0" >
 									<option value="" selected disabled >- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
@@ -67,7 +67,11 @@
 								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
 
 								</select>
-							</div>
+							</div> -->
+
+
+							<input type="hidden" id="prov" name="prov">
+							<input type="hidden" id="kabkota" name="kabkota">
 
 						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
 
@@ -76,20 +80,11 @@
 
 						<?php }else if ($this->session->userdata('prive') == 'balai') { ?>
 
-							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
-									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
-									<?php } ?>
-								</select>
-							</div>
+							
+							
+							<input type="hidden" id="prov" name="prov">
+							<input type="hidden" id="kabkota" name="kabkota">
 
-							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
-
-								</select>
-							</div>
 
 						<?php }else{ ?>
 
@@ -97,33 +92,44 @@
 							<input type="hidden" id="kabkota" name="kabkota">
 
 						<?php } ?>
+						<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai') { ?>
+							<div class="col-sm-12 col-lg-3 p-0 mr-2">
+								<div class="input-group input-group-sm">
+									<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
 
-						<div class="col-sm-12 col-lg-3 p-0">
-							<div class="input-group input-group-sm">
-
-								<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
-
-								</select>
-
-								<span class="input-group-append ml-1">
-									<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
-								</span>
-
+									</select>
+								</div>
 							</div>
-						</div>
+
+							<div class="col-sm-12 col-lg-3 p-0">
+								<div class="input-group input-group-sm">
+
+
+
+									<select id="das" name="nm_das" class="form-control select2 p-0 " >
+										<option value="" selected disabled>- Pilih DAS -</option>
+									</select>
+
+									<span class="input-group-append ml-1">
+										<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
+									</span>
+
+								</div>
+							</div>
+						<?php } ?>
 						<div class="row col-sm-12  col-lg-4 p-0 ml-1">
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
 
-							<button type="submit" onclick="rekapform(this)" class="btn btn-info mr-1" title="Unduh"><i class="fas fa-file-excel"></i> Unduh</button>
+							<a href="<?= base_url(); ?>InfrastrukturPBanjir/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
 
 							<!-- ---------------- -->
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'provinsi') { ?>
 
-								<a href="<?= base_url(); ?>Form7/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
+								<a href="<?= base_url(); ?>InfrastrukturPBanjir/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
 
-								<a href="<?= base_url(); ?>Form7/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a>
+								<!-- <a href="<?= base_url(); ?>InfrastrukturPBanjir/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a> -->
 
 							<?php } ?>
 
@@ -148,8 +154,6 @@
 						<thead id="thead_data">
 							<tr id="boxThField0" style="background-color:#18978F; color:#fff;">
 								<th style="border: thin solid #006666;" colspan="1" rowspan="2">No</th>
-								<th style="border: thin solid #006666;" colspan="1" rowspan="2">Provinsi</th>
-								<th style="border: thin solid #006666;" colspan="1" rowspan="2">Kab/Kota</th>
 								<th style="border: thin solid #006666;" colspan="1" rowspan="2">Wilayah Sungai</th>
 								<th style="border: thin solid #006666;" colspan="1" rowspan="2">Daerah Aliran Sungai</th>
 								<th style="border: thin solid #006666;" colspan="1" rowspan="2">Luas Das (Ha)</th>
@@ -191,8 +195,6 @@
 								<th style="border: thin solid #006666;">15</th>
 								<th style="border: thin solid #006666;">16</th>
 								<th style="border: thin solid #006666;">17</th>
-								<th style="border: thin solid #006666;">18</th>
-								<th style="border: thin solid #006666;">19</th>
 							</tr>
 
 
@@ -251,7 +253,7 @@
 		provid = '',
 		kotakabid = '';
 
-		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
+		getDataTabel = async function (page=null, providX=null, das=null) {
 			try{
 
 				if (page != null) {
@@ -264,8 +266,8 @@
 					provid = await providX
 				}
 
-				if (kotakabidX != null && kotakabidX != '') {
-					kotakabid = await kotakabidX
+				if (das != null && das != '') {
+					das = await das
 				}
 
 				$('#tbody_data').empty();
@@ -275,7 +277,7 @@
 
 				var perhalaman = $("#rowpage").val();
 
-				ajaxUntukSemua(base_url()+'Form7/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid}, function(data) {
+				ajaxUntukSemua(base_url()+'InfrastrukturPBanjir/getDataTable', {perhalaman, halamanSaatIni, search, provid, das}, function(data) {
 
           // Set Data Body
 					setTabelKonten(data.data)
@@ -311,24 +313,22 @@
 				console.log(value)
 				tableConten += `<tr style="background-color:${warnaAwal};">
 				<td style="border: thin solid #006666;" align="center">${no}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}InfrastrukturPBanjir/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3Ajml)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3Ajml)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3Ajml)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhTidakAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhTidakAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhTidakAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABhJumlah)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABhJumlah)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.IP3ABhJumlah)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.P3ABelumBhAktif)}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.GP3ABelumBhAktif)}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}InfrastrukturPBanjir/getDetailData/${value.id}">${value.nm_ws}</a></td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.nm_das)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dasluas)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.wilayahAdministratif)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bendungan)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bendung)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.tanggulSungai)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.kolamRetensi)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.perkuatanTebingSungai)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sudetanKanalBanjir)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.checkDam)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.Groundsill)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bukuRencana)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.skemaSistem)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.petaGambar)}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bukuDataAset)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
@@ -388,10 +388,10 @@
 		cari = function () {
 
 			provid = $('#prov').val();
-			kotakabid = $('#kabkota').val();
+			das = $('#das').val();
 			search = $('#in_irigasiid').val();
 
-			getDataTabel(null, provid, kotakabid)
+			getDataTabel(null, provid, das, search)
 
 
 		}
@@ -404,21 +404,18 @@
 		});
 
 
-		$('#prov').change(function() {
-			var prov = $(this).val();
+		$('#in_irigasiid').change(function() {
+			var ws = $(this).val();
 
-			$('.select2_Irigasi').val(null).trigger('change');
+			ajaxUntukSemua(base_url()+'InfrastrukturPBanjir/getDataDasById', {ws}, function(data) {
 
-
-			ajaxUntukSemua(base_url()+'Form7/getDataKabKota', {prov}, function(data) {
-
-				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+				let opt = `<option value="" selected disabled>- Plih DAS -</option>`;
 
 				$.each(data, function(key, value) {
-					opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+					opt += `<option value="${value.id_das}" >${value.nm_das}</option>`;
 				})
 
-				$('#kabkota').html(opt);
+				$('#das').html(opt);
 
 			}, function(error) {
 				console.log('Kesalahan:', error);
@@ -433,7 +430,6 @@
 
 
 		$('.select2').select2({
-			placeholder: '-Pilih Provinsi-',
 			theme: 'default',
 
 		})
@@ -446,16 +442,16 @@
 
 
 		$('.select2_Irigasi').select2({
-			placeholder: '-Tentukan Daerah Irigasi-',
+			placeholder: '-Tentukan WS-',
 			theme: 'default',
 			ajax: {
-				url: base_url() + "Form7/getDi",
+				url: base_url() + "InfrastrukturPBanjir/getDi",
 				dataType: 'json',
 				type: 'post',
 				delay: 250,
 				data: function (params) {
 					var query = {
-						searchDi: params.term,
+						ws: params.term,
 						kdprov: $('#prov').val(),
 						kdKab: $('#kabkota').val()
 					};

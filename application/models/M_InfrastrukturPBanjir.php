@@ -5,22 +5,24 @@ class M_InfrastrukturPBanjir extends CI_Model {
 
 	private $thang = '';
 
-	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
+	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $das, $wsid=null, $dasid=null)
 	{
-
-		$cari = ($search != null) ? " AND bairigasiid='$search'" : '';
+		$cari = '';
 		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari .= ($das != null) ? " AND a.dasid='$das'" : '';
+		$cari .= ($search != null) ? " AND a.wsid='$search'" : '';
+		$cari .= ($dasid != null) ? " AND a.dasid='$dasid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi  AS a
-		LEFT JOIN (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
+		$qry = "SELECT d.provinsi, nm_ws, nm_das, c.kemendagri,  a.* FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta)  AS a
+		LEFT JOIN base_ws AS b ON a.wsid=b.id
+		LEFT JOIN base_das as e ON a.dasid=e.id
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi AS a
-		LEFT JOIN  (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta) AS a
+
 		WHERE 1=1 $cari";
 
 		$data =  $this->db->query($qry)->result();
@@ -55,6 +57,49 @@ class M_InfrastrukturPBanjir extends CI_Model {
 	}
 
 
+	public function getDataWsByKotakab($kotakabid='')
+	{
+		$qry = "SELECT * FROM m_ws WHERE kotakabid='$kotakabid' GROUP BY id_ws";
+		return $this->db->query($qry)->result();
+	}
+
+
+	public function getDataDasById($ws='')
+	{
+		$qry = "SELECT * FROM m_das WHERE id_ws='$ws' GROUP BY id_das";
+		return $this->db->query($qry)->result();
+	}
+
+	public function getDataWsAll()
+	{
+		$qry = "SELECT * FROM m_ws GROUP BY id_ws";
+		return $this->db->query($qry)->result();
+	}
+
+
+	public function getDataWS($ws, $kdprov, $kdKab)
+	{
+		$cari = '';
+
+		if ($ws != null or $ws != '') {
+			$cari .= " AND nm_ws LIKE '%$ws%'";
+		}
+
+		if ($kdprov != '') {
+			$cari .= " AND LEFT(kotakabid,2)='$kdprov'";
+		}
+
+
+		if ($kdKab != '') {
+			$cari .= " AND kotakabid='$kdKab'";
+		}
+
+		$qry = "SELECT id_ws as id, nm_ws as text FROM m_ws WHERE 1=1 $cari GROUP BY id_ws LIMIT 80 ";
+
+		return $this->db->query($qry)->result();
+	}
+
+
 	public function getDataDiTambah($searchDi)
 	{
 		if ($searchDi != null or $searchDi != '') {
@@ -77,7 +122,10 @@ class M_InfrastrukturPBanjir extends CI_Model {
 	{
 		$thang = $this->session->userdata('thang');
 
-		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi  AS a LEFT JOIN (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$thang) AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
+		$qry = "SELECT nm_ws, nm_das, a.* FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE id='$id') as a
+		LEFT JOIN m_das as b on a.wsid=b.id_ws AND a.dasid=b.id_das
+		LEFT JOIN base_ws as c on a.wsid=c.id
+		";
 		return $this->db->query($qry)->row();
 	}
 
@@ -90,6 +138,17 @@ class M_InfrastrukturPBanjir extends CI_Model {
 
 		return $this->db->query($qry)->result();
 
+	}
+
+	public function getDataDownload()
+	{
+		$thang = $this->session->userdata('thang');
+
+		$qry = "SELECT nm_ws, nm_das, a.* FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$thang) as a 
+		LEFT JOIN base_ws AS b ON a.wsid=b.id
+		LEFT JOIN base_das as e ON a.dasid=e.id";
+
+		return $this->db->query($qry)->result();
 	}
 
 
