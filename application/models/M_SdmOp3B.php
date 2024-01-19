@@ -57,17 +57,23 @@ class M_sdmOp3B extends CI_Model {
 
 	public function getDataHeader($id='')
 	{
-		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3b AS a
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT b.provinsi, c.kemendagri,dak, a.* FROM p_f3b AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
-		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid WHERE a.id='$id'";
+		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
+		LEFT JOIN 
+		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+			LEFT JOIN
+			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
+		WHERE a.id='$id'";
 
 		return $this->db->query($qry)->row();
 	}
 
 	public function getDataBodyDetail($id='')
 	{
-		$qry = "SELECT c.nama, c.id as idTempat, c.alamat, e.kategori, d.label, a.* FROM (SELECT * FROM p_f3b_detail WHERE idF3b='$id') AS a
-		LEFT JOIN p_f3_tempat AS c ON a.idTbl2=c.id
+		$qry = "SELECT e.kategori, d.label, a.* FROM (SELECT * FROM p_f3b_detail WHERE idF3b='$id') AS a
 		LEFT JOIN m_label AS d ON a.labelid=d.id
 		LEFT JOIN m_label_kategori AS e ON d.idLabelKategori=e.id";
 
@@ -95,9 +101,14 @@ class M_sdmOp3B extends CI_Model {
 	}
 
 
-	public function simpanData($dataInsert3a)
+	public function simpanData($dataInsert3a, $kotakabid=null)
 	{
 		$this->db->trans_start();
+
+		$thang = $this->session->userdata('thang');
+
+		$this->db->where(['kotakabid' => $kotakabid, 'ta' => $thang]);
+		$this->db->delete('p_f3b');
 
 		$this->db->insert('p_f3b', $dataInsert3a);
 		$idX = $this->db->insert_id();
@@ -108,17 +119,24 @@ class M_sdmOp3B extends CI_Model {
 		$jmlOrg = $this->input->post('jmlOrg');
 		$stKondisi = $this->input->post('stKondisi');
 		$keterangan = clean($this->input->post('keterangan'));
+		$uptd = clean($this->input->post('uptd'));
+		$nama = clean($this->input->post('nama'));
+		$alamat = clean($this->input->post('alamat'));
 		$baseArray = [];
 
 		$nomorLoop = 1;
+		
 		$nomorindexArray = 0;
+		$lopUptd = '';
 
 		foreach ($labelid as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF3b' => $idX,
-				'idTbl2' => $idTempat[$nomorindexArray],
+				'upt' => $uptd[$nomorindexArray],
+				'nm_kantor' => $nama[$nomorindexArray],
+				'alamat' => $alamat[$nomorindexArray],
 				'labelid' => $labelid[$key],
 				'stPenunjang' => $stPenunjang[$key],
 				'jmlOrg' => $jmlOrg[$key],
@@ -128,6 +146,8 @@ class M_sdmOp3B extends CI_Model {
 				'uidDt' => date('Y-m-d H:i:s')
 			);
 
+
+
 			$baseArray[] = $dataInsert2;
 
 			if ($nomorLoop == '22') {
@@ -136,6 +156,7 @@ class M_sdmOp3B extends CI_Model {
 			}else{
 				$nomorLoop++;
 			}
+			
 
 		}
 
@@ -170,6 +191,12 @@ class M_sdmOp3B extends CI_Model {
 		$jmlOrg = $this->input->post('jmlOrg');
 		$stKondisi = $this->input->post('stKondisi');
 		$keterangan = clean($this->input->post('keterangan'));
+		$uptd = clean($this->input->post('uptd'));
+		$nama = clean($this->input->post('nama'));
+		$alamat = clean($this->input->post('alamat'));
+		
+
+
 		$baseArray = [];
 
 		$nomorLoop = 1;
@@ -180,7 +207,9 @@ class M_sdmOp3B extends CI_Model {
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF3b' => $idEdit,
-				'idTbl2' => $idTempat[$nomorindexArray],
+				'upt' => $uptd[$nomorindexArray],
+				'nm_kantor' => $nama[$nomorindexArray],
+				'alamat' => $alamat[$nomorindexArray],
 				'labelid' => $labelid[$key],
 				'stPenunjang' => $stPenunjang[$key],
 				'jmlOrg' => $jmlOrg[$key],

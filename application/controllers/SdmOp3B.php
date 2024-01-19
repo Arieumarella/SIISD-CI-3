@@ -125,18 +125,19 @@ class SdmOp3B extends CI_Controller {
 		$luasDI = ubahKomaMenjadiTitik($this->input->post('luasDI'));
 		$alokasiApbn = ubahKomaMenjadiTitik($this->input->post('alokasiApbn'));
 
+		$labelid = $this->input->post('labelid');
+
 		$dataInsert3d = array(
 			'ta' => $this->session->userdata('thang'),
 			'provid' => $provid,
 			'kotakabid' => $kotakabid,
 			'jmlDI' => $jmlDI,
 			'luasDI' => $luasDI,
-			'alokasiApbn' => $alokasiApbn,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_SdmOp3B->simpanData($dataInsert3d);
+		$pros = $this->M_SdmOp3B->simpanData($dataInsert3d, $kotakabid);
 
 		
 
@@ -230,7 +231,6 @@ class SdmOp3B extends CI_Controller {
 		$dataUpdate3b = array(
 			'jmlDI' => $jmlDI,
 			'luasDI' => $luasDI,
-			'alokasiApbn' => $alokasiApbn,
 			'uidInUp' => $this->session->userdata('uid'),
 			'uidDtUp' => date('Y-m-d H:i:s')
 		);

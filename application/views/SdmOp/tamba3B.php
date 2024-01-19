@@ -203,12 +203,12 @@
                                         </div>
                                     </div> 
 
-                                    <div class="col-sm-12 col-lg-3" > 
+                                    <!-- <div class="col-sm-12 col-lg-3" > 
                                         <div class="form-group" >
                                             <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <input id="alokasiApbn" name="alokasiApbn" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
+                                            <input id="alokasiApbn" name="alokasiApbn" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" disabled placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
                                         </div>
-                                    </div> 
+                                    </div> --> 
 
                                 </div>
 
@@ -234,130 +234,126 @@
                                                 <tbody id="bosTempatisiPerkakas-0">
                                                     <tr class="bg-warning">
                                                         <td>I<br></td>
-                                                        <td colspan="15">
-                                                            <div class="row col-sm-12" >
-                                                                <div class="col-sm-3" >
-                                                                    <div class="form-group" >
-                                                                        <label for="in_idTempat">Kantor UPTD/Pengamat</label>
-                                                                        <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
-                                                                            <option selected="" value="">-pilih-</option>
-                                                                            <?php foreach ($dataKantor as $key => $value) { ?>
-                                                                                <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                        <div class="invalid-feedback" id="pesan_idTempat"></div>
-                                                                    </div>
+                                                        <td colspan="15"><div class="row col-sm-12">
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label for="in_idTempat-1">Kantor UPTD/Pengamat</label>
+                                                                    <input id="in_alamat-1" name="uptd[]" value="" type="text" class="form-control grupTempatF dampak_idTempat"  placeholder="Kantor UPTD/Pengamat" noklaster="" required>
+                                                                    <div class="invalid-feedback" id="pesan_idTempat"></div>
                                                                 </div>
-                                                                <div class="col-sm-3">
-                                                                    <div class="form-group">
-                                                                        <label for="in_nama-1">Nama Kantor</label>
-                                                                        <input id="in_nama-1" name="nama[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" noklaster="0" placeholder="Nama Kantor" disabled="">
-                                                                        <div class="invalid-feedback" id="pesan_nama"></div>
-                                                                    </div>
+                                                            </div> 
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label for="in_nama-1">Nama Kantor</label>
+                                                                    <input id="in_nama-1" name="nama[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0"  placeholder="Nama Kantor" required>
+                                                                    <div class="invalid-feedback" id="pesan_nama"></div>
                                                                 </div>
-                                                                <div class="col-sm-3">
-                                                                    <div class="form-group">
-                                                                        <label for="in_alamat-1">Alamat</label>
-                                                                        <input id="in_alamat-1" name="alamat[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" placeholder="Alamat" noklaster="" disabled="">
-                                                                        <div class="invalid-feedback" id="pesan_alamat"></div>
-                                                                    </div>
+                                                            </div> 
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label for="in_alamat-1">Alamat</label>
+                                                                    <input id="in_alamat-1" name="alamat[]" value="" type="text" class="form-control grupTempatF dampak_idTempat"  placeholder="Alamat" noklaster="" required>
+                                                                    <div class="invalid-feedback" id="pesan_alamat"></div>
                                                                 </div>
-                                                            </div>
+                                                            </div> 
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <?php 
+
+                                                $kategoriSaatIni = '';
+                                                $nomorJudul = 1;
+
+
+                                                ?>
+
+                                                <?php foreach ($dataTable as $key => $val) { ?>
+
+                                                    <?php if ($kategoriSaatIni != $val->kategori) { ?>
+                                                        <!-- Judul -->
+                                                        <tr style="background-color:#CCC;">
+                                                            <td><?= $nomorJudul; ?></td>
+                                                            <td colspan="5"><b><?= $val->kategori; ?></b></td>
+                                                        </tr>
+                                                        <!-- End Judul -->
+                                                        <?php 
+
+                                                        $kategoriSaatIni = $val->kategori;
+                                                        $nomorJudul++;
+
+                                                        ?>
+                                                    <?php } ?>
+
+
+                                                    <tr id="tr_aLabel_19">
+                                                        <td style="width:2%;"></td>
+                                                        <td class="col-sm-3" style="min-width:200px;">
+                                                            - <?= $val->label; ?>                        
+                                                            <input id="in_labelid" name="labelid[]" value="<?= $val->id; ?>" class="form-control grupTempat" type="hidden">
+                                                            <div class="invalid-feedback" id="pesan_labelid"></div>
+                                                        </td>
+
+                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+
+                                                            <select id="in_stPenunjang" name="stPenunjang[]"  class="form-control select2">
+                                                                <option selected="" value="" >-pilih-</option>
+                                                                <option value="Ada">Ada</option>
+                                                                <option value="Tidak Ada">Tidak Ada</option>
+                                                            </select>
+                                                            <div class="invalid-feedback" id="pesan_stPenunjang"></div>
+
+                                                        </td>
+                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text"  class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
+                                                            <div class="invalid-feedback" id="pesan_jmlOrg"></div>
+                                                        </td>
+                                                        <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
+                                                            <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2" >
+                                                                <option selected="" value="" >-pilih-</option>
+                                                                <option class="in_stKondisi_option" value="Layak" >Layak</option>
+                                                                <option class="in_stKondisi_option" value="Tidak Layak" >Tidak Layak</option>
+                                                            </select>
+                                                            <div class="invalid-feedback" id="pesan_stKondisi"></div>
+                                                        </td>
+                                                        <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
+                                                            <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
+                                                            <div class="invalid-feedback" id="pesan_keterangan"></div>
                                                         </td>
                                                     </tr>
-
-                                                    <?php 
-
-                                                    $kategoriSaatIni = '';
-                                                    $nomorJudul = 1;
-
-                                                    ?>
-
-                                                    <?php foreach ($dataTable as $key => $val) { ?>
-
-                                                        <?php if ($kategoriSaatIni != $val->kategori) { ?>
-                                                            <!-- Judul -->
-                                                            <tr style="background-color:#CCC;">
-                                                                <td><?= $nomorJudul; ?></td>
-                                                                <td colspan="5"><b><?= $val->kategori; ?></b></td>
-                                                            </tr>
-                                                            <!-- End Judul -->
-                                                            <?php 
-
-                                                            $kategoriSaatIni = $val->kategori;
-                                                            $nomorJudul++;
-
-                                                            ?>
-                                                        <?php } ?>
-
-                                                        <tr id="tr_aLabel_19">
-                                                            <td style="width:2%;"></td>
-                                                            <td class="col-sm-3" style="min-width:200px;">
-                                                                - <?= $val->label; ?>                        
-                                                                <input id="in_labelid" name="labelid[]" value="<?= $val->id; ?>" class="form-control grupTempat" type="hidden">
-                                                                <div class="invalid-feedback" id="pesan_labelid"></div>
-                                                            </td>
-
-                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-
-                                                                <select id="in_stPenunjang" name="stPenunjang[]" required class="form-control select2">
-                                                                    <option selected="" value="" >-pilih-</option>
-                                                                    <option value="Ada">Ada</option>
-                                                                    <option value="Tidak Ada">Tidak Ada</option>
-                                                                </select>
-                                                                <div class="invalid-feedback" id="pesan_stPenunjang"></div>
-
-                                                            </td>
-                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                                <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
-                                                                <div class="invalid-feedback" id="pesan_jmlOrg"></div>
-                                                            </td>
-                                                            <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-                                                                <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2" required>
-                                                                    <option selected="" value="" >-pilih-</option>
-                                                                    <option class="in_stKondisi_option" value="Layak" >Layak</option>
-                                                                    <option class="in_stKondisi_option" value="Tidak Layak" >Tidak Layak</option>
-                                                                </select>
-                                                                <div class="invalid-feedback" id="pesan_stKondisi"></div>
-                                                            </td>
-                                                            <td class="col-sm-3" style="min-width:250px; max-width:30%; ">
-                                                                <input id="in_keterangan" name="keterangan[]" value="" type="text" class="form-control grupTempat" placeholder="Keterangan">
-                                                                <div class="invalid-feedback" id="pesan_keterangan"></div>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
+                                                <?php } ?>
                                             </tbody>
+                                        </tbody>
 
 
-                                        </table>
-                                        <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
-                                    </div>
+                                    </table>
+                                    <div class="row col-sm-12 text-right" id="btnTambahLokasi"><buttom class="btn btn-danger btn-sm col-12 mt-3" onclick="tempatIsian()">Tambah kolom</buttom></div>
                                 </div>
-                                <!-- End Tabel Akhir -->
-
-
                             </div>
+                            <!-- End Tabel Akhir -->
 
-                            <div class="modal-footer justify-content-between">
-                                <div class="row">
-                                  <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
-                              </div>
+
+                        </div>
+
+                        <div class="modal-footer justify-content-between">
+                            <div class="row">
+                              <a href="<?= base_url(); ?>SdmOp3B" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
                           </div>
-
-
-                          <!-- form end -->
-
                       </div>
+
+
+                      <!-- form end -->
+
                   </div>
-
               </div>
-          </section>
 
-      </form>
+          </div>
+      </section>
 
-  </div>
+  </form>
+
+</div>
 </div>
 
 
@@ -405,6 +401,8 @@
         $(`#bosTempatisiPerkakas-${index}`).remove();
     }
 
+    
+
 
     tempatIsian = async function () {
         try {
@@ -415,45 +413,39 @@
          let html = `<tbody id="bosTempatisiPerkakas-${indexKuning}">
          <tr class="bg-warning">
          <td>${indexKuning}<br><buttom class="btn btn-danger btn-sm" onclick="tempatIsianHapus(${indexKuning})">X</buttom></td>
-         <td colspan="15">
-         <div class="row col-sm-12" >
-         <div class="col-sm-3" >
-         <div class="form-group" >
-         <label for="in_idTempat">Kantor UPTD/Pengamat</label>
-         <select id="in_idTempat" name="idTempat[]" class="form-control grupTempatF select2" required>
-         <option selected="" value="">-pilih-</option>
-         <?php foreach ($dataKantor as $key => $value) { ?>
-            <option value="<?= $value->id; ?>"><?= $value->nama; ?></option>
-        <?php } ?>
-        </select>
-        <div class="invalid-feedback" id="pesan_idTempat"></div>
-        </div>
-        </div>
-        <div class="col-sm-3">
-        <div class="form-group">
-        <label for="in_nama-${indexKuning}">Nama Kantor</label>
-        <input id="in_nama-${indexKuning}" name="nama[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" noklaster="0" placeholder="Nama Kantor" disabled="">
-        <div class="invalid-feedback" id="pesan_nama"></div>
-        </div>
-        </div>
-        <div class="col-sm-3">
-        <div class="form-group">
-        <label for="in_alamat-${indexKuning}">Alamat</label>
-        <input id="in_alamat-${indexKuning}" name="alamat[]" value="" type="text" required class="form-control grupTempatF dampak_idTempat" placeholder="Alamat" noklaster="" disabled="">
-        <div class="invalid-feedback" id="pesan_alamat"></div>
-        </div>
-        </div>
-        </div>
-        </td>
-        </tr>
-        <?php 
+         <td colspan="15"><div class="row col-sm-12">
+         <div class="col-sm-3">
+         <div class="form-group">
+         <label for="in_idTempat-1">Kantor UPTD/Pengamat</label>
+         <input id="in_alamat-1" name="uptd[]" value="" type="text" class="form-control grupTempatF dampak_idTempat"  placeholder="Kantor UPTD/Pengamat" noklaster="" required>
+         <div class="invalid-feedback" id="pesan_idTempat"></div>
+         </div>
+         </div> 
+         <div class="col-sm-3">
+         <div class="form-group">
+         <label for="in_nama-1">Nama Kantor</label>
+         <input id="in_nama-1" name="nama[]" value="" type="text" class="form-control grupTempatF dampak_idTempat" noklaster="0"  placeholder="Nama Kantor" required>
+         <div class="invalid-feedback" id="pesan_nama"></div>
+         </div>
+         </div> 
+         <div class="col-sm-3">
+         <div class="form-group">
+         <label for="in_alamat-1">Alamat</label>
+         <input id="in_alamat-1" name="alamat[]" value="" type="text" class="form-control grupTempatF dampak_idTempat"  placeholder="Alamat" noklaster="" required>
+         <div class="invalid-feedback" id="pesan_alamat"></div>
+         </div>
+         </div> 
+         </div>
+         </td>
+         </tr>
+         <?php 
 
-        $kategoriSaatIni = '';
-        $nomorJudul = 1;
+         $kategoriSaatIni = '';
+         $nomorJudul = 1;
 
-        ?>
+         ?>
 
-        <?php foreach ($dataTable as $key => $val) { ?>
+         <?php foreach ($dataTable as $key => $val) { ?>
             <?php if ($kategoriSaatIni != $val->kategori) { ?>
                 <!-- Judul -->
                 <tr style="background-color:#CCC;">
