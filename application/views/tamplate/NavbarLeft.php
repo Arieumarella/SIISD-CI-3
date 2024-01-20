@@ -58,7 +58,7 @@
             </p>
           </a>
         </li> -->
-
+        
         <?php 
 
 
@@ -266,6 +266,17 @@
     </p>
   </a>
 </li>
+
+
+<li class="nav-item">
+  <a href="<?= base_url(); ?>VerifDataTeknis" class="nav-link <?= $tittle == 'Verifikasi Data Teknis' ? 'active' : ''; ?>">
+    <i class="nav-icon fa fa-check"></i>
+    <p>
+      Verifikasi Data Teknis
+    </p>
+  </a>
+</li>
+
 
 <li class="nav-item">
   <a href="<?= base_url(); ?>Pengusulan" class="nav-link <?= $tittle == 'Pengusulan' ? 'active' : ''; ?>">

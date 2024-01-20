@@ -740,25 +740,28 @@ class FormTeknis1C extends CI_Controller {
 	}
 
 
-	public function downloadTabel()
+	public function downloadTabel($kotakabid=null)
 	{
 		$prive = $this->session->userdata('prive');
 		$thang = $this->session->userdata('thang');
 
-		if ($prive != 'admin' and $prive != 'pemda') {
+		if ($kotakabid == null) {
 			
-			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-				Roll Anda Tidak Dibolehkan.
-				</div>');
+			if ($prive != 'admin' and $prive != 'pemda') {
 
-			redirect("/FormTeknis1C", 'refresh');
-			return;
+				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+					Roll Anda Tidak Dibolehkan.
+					</div>');
+
+				redirect("/FormTeknis1C", 'refresh');
+				return;
+			}
+
 		}
-
 		
-		$data = $this->M_formTeknis1C->getDataDownload($thang, $prive);
+		$data = $this->M_formTeknis1C->getDataDownload($thang, $prive, $kotakabid);
 
 		$menitDetik = date('i').date('s');
 

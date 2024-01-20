@@ -121,28 +121,43 @@ class M_RealisasiTanam2A extends CI_Model {
 	}
 
 
-	public function getDataDownload($ta, $prive)
+	public function getDataDownload($ta, $prive, $kotakabidx=null)
 	{
 
-		if ($prive == 'admin') {
+		if ($kotakabidx == null) {
+			
+			if ($prive == 'admin') {
+
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2a AS a
+				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+
+			}else if($prive == 'pemda'){
+
+				$kotakabid = $this->session->userdata('kotakabid');
+
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2a AS a
+				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+
+			}
+
+
+		}else{
 
 			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2a AS a
 			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on a.provid=d.provid
 			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-			WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
-
-		}else if($prive == 'pemda'){
-
-			$kotakabid = $this->session->userdata('kotakabid');
-
-			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2a AS a
-			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
-			LEFT JOIN m_prov as d on a.provid=d.provid
-			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-			WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
-
+			WHERE 1=1 AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+			
 		}
+
+		
 
 		return $this->db->query($qry)->result();
 	}

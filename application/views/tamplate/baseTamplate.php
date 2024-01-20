@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/admin/Ite/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Toastr  -->
+  <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/admin/toastr/toastr.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/admin/Ite/plugins/datatables/dataTables.bootstrap4.css">
   <!-- Theme style -->
@@ -169,6 +171,10 @@
  <script type="text/javascript" src="<?= base_url(); ?>assets/admin/Ite/dist/js/adminlte.min.js"></script>
  <!-- AdminLTE for demo purposes -->
  <script type="text/javascript" src="<?= base_url(); ?>assets/admin/Ite/dist/js/demo.js"></script>
+ <!-- Tooltip -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <!-- Toastr -->
+ <script type="text/javascript" src="<?= base_url(); ?>assets/admin/toastr/toastr.min.js"></script>
  <!-- page script -->
 
  <script src="<?= base_url(); ?>assets/admin/Ite/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" type="text/javascript"></script>
@@ -204,17 +210,37 @@
 <script type="text/javascript">
   $(document).ready(function() { 
 
+   $('[data-toggle="tooltip"]').tooltip();
 
-    $('#in_kuTaAktifX').change(function() {
-      let tahun = $(this).val();
+   toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
-      window.location.href = base_url()+'Dashboard/setTahun/'+tahun;
 
+  $('#in_kuTaAktifX').change(function() {
+    let tahun = $(this).val();
 
-    });
+    window.location.href = base_url()+'Dashboard/setTahun/'+tahun;
 
 
   });
+
+
+});
 </script>
 
 
