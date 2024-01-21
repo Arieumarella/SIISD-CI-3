@@ -267,6 +267,18 @@
   </a>
 </li>
 
+<?php if ($this->session->userdata('prive') == 'admin') { ?>
+
+  <li class="nav-item">
+    <a href="<?= base_url(); ?>dataSandingan" class="nav-link <?= $tittle == 'Data Teknis Sandingan' ? 'active' : ''; ?>">
+      <i class="nav-icon fa fa-database"></i>
+      <p>
+        Data Teknis Sandingan
+      </p>
+    </a>
+  </li>
+
+<?php } ?>
 
 <li class="nav-item">
   <a href="<?= base_url(); ?>VerifDataTeknis" class="nav-link <?= $tittle == 'Verifikasi Data Teknis' ? 'active' : ''; ?>">
@@ -278,14 +290,14 @@
 </li>
 
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a href="<?= base_url(); ?>Pengusulan" class="nav-link <?= $tittle == 'Pengusulan' ? 'active' : ''; ?>">
     <i class="nav-icon fa fa-list-alt"></i>
     <p>
       Pengusulan Pekerjaan
     </p>
   </a>
-</li>
+</li> -->
 
 <li class="nav-item">
   <a href="#" class="nav-link ">
