@@ -107,7 +107,7 @@ class FormTeknis1F extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data 1F',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DI']) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DI', 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('FormTeknis/tambaF1', $tmp);
@@ -143,7 +143,7 @@ class FormTeknis1F extends CI_Controller {
 		$thang = $this->session->userdata('thang');
 		$keterangan = clean($this->input->post('keterangan'));
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),
@@ -255,7 +255,7 @@ class FormTeknis1F extends CI_Controller {
 		$keterangan = clean($this->input->post('keterangan'));
 		$thang = $this->session->userdata('thang');
 
-		$dataMIrigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $id1B]);
+		$dataMIrigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $id1B, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'provid' => $dataMIrigasi->provid,

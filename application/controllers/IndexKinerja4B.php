@@ -107,7 +107,7 @@ class IndexKinerja4B extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data 4B',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIR']) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIR', 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('IndexKinerja/tamba4B', $tmp);
@@ -195,7 +195,7 @@ class IndexKinerja4B extends CI_Controller {
 		$keterangan = clean($this->input->post('keterangan'));
 
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 
 		$saluran1 = $this->hitungSaluran($saluranPrimerB, $saluranPrimerBR,$saluranPrimerRS, $saluranPrimerRB, 1);
@@ -529,7 +529,7 @@ class IndexKinerja4B extends CI_Controller {
 		$dataKoonisi = $this->hitungTotalA($arrayX, 1);
 		$nilaiTotal = $this->hitungTotalA($arrayX, 2);
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),

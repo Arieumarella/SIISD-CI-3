@@ -19,13 +19,13 @@ class M_IndexKinerja4C extends CI_Model {
 			$cari .= " AND a.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi AS a
+		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
 		LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi AS a
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
 		LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
 		WHERE 1=1 $cari";
 
@@ -66,6 +66,8 @@ class M_IndexKinerja4C extends CI_Model {
 			$searchDIR = " AND m_irigasi.nama like '%$searchDIR%'";
 		}
 
+		$searchDi .= " AND m_irigasi.isActive = '1' ";
+
 		if ($kdprov != '') {
 			$searchDIR .= " AND m_irigasi.provid='$kdprov'";
 		}
@@ -87,6 +89,8 @@ class M_IndexKinerja4C extends CI_Model {
 			$searchDIR = " AND m_irigasi.nama like '%$searchDIR%'";
 		}
 
+		$searchDi .= " AND m_irigasi.isActive = '1' ";
+
 		if ($this->session->userdata('prive') == 'provinsi' OR $this->session->userdata('prive') == 'pemda') {
 			$kotakabid = $this->session->userdata('kotakabid');
 			$searchDIR .= " AND 	kotakabid='$kotakabid'";
@@ -103,7 +107,7 @@ class M_IndexKinerja4C extends CI_Model {
 	{
 		$thang = $this->session->userdata('thang');
 
-		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.* FROM m_irigasi AS a LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$thang') AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
+		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$thang') AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
 
 		return $this->db->query($qry)->row();
 	}
@@ -112,7 +116,7 @@ class M_IndexKinerja4C extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIAT'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f4c WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIAT'";
 
 		return $this->db->query($qry)->result();
 
@@ -127,7 +131,7 @@ class M_IndexKinerja4C extends CI_Model {
 			if ($prive == 'admin') {
 
 				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f4c AS a
-				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -137,7 +141,7 @@ class M_IndexKinerja4C extends CI_Model {
 				$kotakabid = $this->session->userdata('kotakabid');
 
 				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f4c AS a
-				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -147,7 +151,7 @@ class M_IndexKinerja4C extends CI_Model {
 		}else{
 
 			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f4c AS a
-			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on a.provid=d.provid
 			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 			WHERE 1=1 AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";

@@ -107,7 +107,7 @@ class Form9 extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data Form 9',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid]) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('Form9/tambaData', $tmp);
@@ -161,7 +161,7 @@ class Form9 extends CI_Controller {
 
 
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),
@@ -292,7 +292,7 @@ class Form9 extends CI_Controller {
 		}
 
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $idEdit]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $idEdit, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),

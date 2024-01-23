@@ -58,7 +58,7 @@ class M_VerifikasiDataTeknis extends CI_Model {
 		X.tgl_updt AS tgl_8,
 		Y.tgl_updt AS tgl_9
 		FROM (SELECT * FROM m_kotakab WHERE kotakabid='$kotakabid') AS a
-		LEFT JOIN (SELECT * FROM m_detail_verifTeknis WHERE ta='$thang' AND kotakabid='$kotakabid') AS b ON a.kotakabid=b.kotakabid
+		LEFT JOIN (SELECT * FROM m_detail_verifteknis WHERE ta='$thang' AND kotakabid='$kotakabid') AS b ON a.kotakabid=b.kotakabid
 		LEFT JOIN (SELECT GREATEST(COALESCE(MAX(uidDt), '2000-01-01'),COALESCE(MAX(uidDtUp), '2000-01-01')) AS tgl_updt, kotakabid FROM p_f1a WHERE kotakabid='$kotakabid'  AND ta='$thang') AS c ON a.kotakabid=c.kotakabid
 		LEFT JOIN (SELECT GREATEST(COALESCE(MAX(uidDt), '2000-01-01'),COALESCE(MAX(uidDtUp), '2000-01-01')) AS tgl_updt, kotakabid FROM p_f1b WHERE kotakabid='$kotakabid'  AND ta='$thang') AS d ON a.kotakabid=d.kotakabid
 		LEFT JOIN (SELECT GREATEST(COALESCE(MAX(uidDt), '2000-01-01'),COALESCE(MAX(uidDtUp), '2000-01-01')) AS tgl_updt, kotakabid FROM p_f1c WHERE kotakabid='$kotakabid'  AND ta='$thang') AS e ON a.kotakabid=e.kotakabid

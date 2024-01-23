@@ -107,7 +107,7 @@ class RealisasiTanam2E extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data 2E',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIP']) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIP', 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('RealisasiTanam/tamba2E', $tmp);
@@ -198,7 +198,7 @@ class RealisasiTanam2E extends CI_Controller {
 			$produktivitasRata2 = 0; 
 		}
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),

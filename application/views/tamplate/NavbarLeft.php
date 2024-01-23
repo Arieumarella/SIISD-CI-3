@@ -267,10 +267,46 @@
   </a>
 </li>
 
+<?php 
+
+$uri1 = @$this->uri->segment(1);
+
+
+$arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
+
+?>
+
+<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+  <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fa fa-plus"></i>
+      <p>
+        Daerah Irigasi Baru
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>StsVerifikasiDi" class="nav-link <?= $tittle == 'Verifikasi DI' ? 'active' : ''; ?>">
+          <p>
+            <?= $this->session->userdata('prive') == 'admin' ? '1 - Verifikasi Data DI' : '1 - Status Pengajuan'; ?>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>TambahDi" class="nav-link <?= $tittle == 'Pengajuan DI Baru' ? 'active' : ''; ?>">
+          <p>2 - Pengajuan DI Baru</p>
+        </a>
+      </li> 
+    </ul>
+  </li>
+<?php } ?>
+
 <?php if ($this->session->userdata('prive') == 'admin') { ?>
 
   <li class="nav-item">
-    <a href="<?= base_url(); ?>dataSandingan" class="nav-link <?= $tittle == 'Data Teknis Sandingan' ? 'active' : ''; ?>">
+    <a href="<?= base_url(); ?>DataSandingan" class="nav-link <?= $tittle == 'Data Teknis Sandingan' ? 'active' : ''; ?>">
       <i class="nav-icon fa fa-database"></i>
       <p>
         Data Teknis Sandingan
@@ -299,12 +335,12 @@
   </a>
 </li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a href="#" class="nav-link ">
     <i class="nav-icon fa fa-history"></i>
     <p> Riwayat Penanganan </p>
   </a>
-</li>
+</li> -->
 
 <!-- pengguna -->
 <li class="nav-item has-treeview">

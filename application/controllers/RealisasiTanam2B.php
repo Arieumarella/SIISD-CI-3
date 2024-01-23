@@ -107,7 +107,7 @@ class RealisasiTanam2B extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data 2B',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIR']) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'kategori' => 'DIR', 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('RealisasiTanam/tamba2B', $tmp);

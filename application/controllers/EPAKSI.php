@@ -107,7 +107,7 @@ class EPAKSI extends CI_Controller {
 
 		$tmp = array(
 			'tittle' => 'Tambah Data Form 8',
-			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid]) : null,
+			'dataDi' => ($this->session->userdata('prive') != 'admin') ? $this->M_dinamis->getResult('m_irigasi', ['kotakabid' => $kotakabid, 'isActive' => '1']) : null,
 		);
 
 		$this->load->view('Form8/tambaData', $tmp);
@@ -131,7 +131,7 @@ class EPAKSI extends CI_Controller {
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
 		
 
-		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		$dataM_irigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid, 'isActive' => '1']);
 
 		$dataInsert = array(
 			'ta' => $this->session->userdata('thang'),

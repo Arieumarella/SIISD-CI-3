@@ -182,6 +182,8 @@ class M_Epaksi extends CI_Model {
 			$searchDi = " AND m_irigasi.nama like '%$searchDi%'";
 		}
 
+		$searchDi .= " AND m_irigasi.isActive = '1' ";
+
 		if ($kdprov != '') {
 			$searchDi .= " AND m_irigasi.provid='$kdprov'";
 		}
@@ -202,6 +204,8 @@ class M_Epaksi extends CI_Model {
 		if ($searchDi != null or $searchDi != '') {
 			$searchDi = " AND m_irigasi.nama like '%$searchDi%'";
 		}
+
+		$searchDi .= " AND m_irigasi.isActive = '1' ";
 
 		if ($this->session->userdata('prive') == 'provinsi' OR $this->session->userdata('prive') == 'pemda') {
 			$kotakabid = $this->session->userdata('kotakabid');
@@ -225,7 +229,7 @@ class M_Epaksi extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM m_irigasi as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f8 WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f8 WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab'";
 
 		return $this->db->query($qry)->result();
 
