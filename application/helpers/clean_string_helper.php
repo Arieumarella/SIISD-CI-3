@@ -292,4 +292,23 @@ function ubahKomaMenjadiTitik($str)
 	return str_replace(',', '.', $str);
 }
 
+
+function cleanStr($str = null) {
+	if ($str === null) {
+		return '';
+	}
+
+	$strx = strval($str);
+
+	if (is_numeric($strx)) {
+		if (strpos($strx, '.') !== false) {
+			$angka = number_format(floatval($str), 2, '.', '');
+			return $angka;
+		}
+	}
+
+	return $str;
+}
+
+
 ?>

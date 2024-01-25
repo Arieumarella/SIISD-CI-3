@@ -19,10 +19,11 @@ class DataSandingan extends CI_Controller {
 		}
 
 		$this->load->model('M_dinamis');
+		$this->load->model('M_DataSandingan');
 	}
 
 
-	public function index()
+	public function index($tahunAwal=null, $tahunAkhir=null, $provid=null, $jnsForm=null)
 	{
 
 		$tmp = array(
@@ -31,8 +32,16 @@ class DataSandingan extends CI_Controller {
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'DataSandingan/index',
-			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc')
+			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc'),
+			'jnsForm' => $jnsForm,
+			'tahunAwal' => $tahunAwal,
+			'tahunAkhir' => $tahunAkhir,
+			'provid' => $provid,
+			'dataBody' => $this->M_DataSandingan->getDataBody($tahunAwal, $tahunAkhir, $jnsForm, $provid),
+			'provid' => $provid,
+			'dataKabKota' => $this->M_dinamis->getResult('m_kotakab', ['provid' => $provid])
 		);
+
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
