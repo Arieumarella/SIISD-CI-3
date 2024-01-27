@@ -303,6 +303,37 @@ $arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
   </li>
 <?php } ?>
 
+<?php 
+
+$uri1 = @$this->uri->segment(1);
+
+
+$arrayDataTeknisBase = ['IntegrasiEpaksi'];
+
+?>
+
+<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+  <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fa fa-random"></i>
+      <p>
+        Integrasi Data Epaksi
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>IntegrasiEpaksi/F1" class="nav-link <?= $tittle == 'Form 1' ? 'active' : ''; ?>">
+          <p>
+           1. - Form 1
+         </p>
+       </a>
+     </li> 
+   </ul>
+ </li>
+<?php } ?>
+
 <?php if ($this->session->userdata('prive') == 'admin') { ?>
 
   <li class="nav-item">
