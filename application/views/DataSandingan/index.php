@@ -256,6 +256,64 @@
 						<?php } ?>
 						<!-- End Form 5 -->
 
+						<!-- Jika Form 9 -->
+						<?php if (substr($jnsForm,0,1) == '9') { ?>
+							<div class="row">
+								<table class="table table-bordered">
+
+									<thead id="thead_data">
+										<tr id="boxThField0" style="background-color:#b5aeae; color:black;">
+											<th style="border: thin solid black;" rowspan="2">No</th>
+											<th style="border: thin solid black;" colspan="1">Provinsi/Kab/Kota</th>
+
+											<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
+
+												<th style="border: thin solid black;" colspan="5"><?= $tahun; ?></th>
+
+											<?php } ?>
+
+										</tr>
+										<tr id="boxThField1" style="background-color:#b5aeae; color:black;">
+											<th style="border: thin solid black;">Nama</th>
+
+											<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
+												<th style="border: thin solid black;">B</th>
+												<th style="border: thin solid black;">RR</th>
+												<th style="border: thin solid black;">RS</th>
+												<th style="border: thin solid black;">RB</th>
+												<th style="border: thin solid black;">IKSI</th>
+											<?php } ?>
+										</tr>
+									</thead>
+
+
+									<tbody id="tbody_data">
+										<?php 
+
+										$no=1;
+
+										?>
+										<?php foreach ($dataBody as $key => $value) { ?>
+											<tr>
+												<td style="border: thin solid black;" class="text-right"><?= $no++; ?></td>
+												<td style="border: thin solid black;" class="text-left"><?= cleanStr($value->kemendagri); ?></td>
+
+												<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"b".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rr".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rs".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rb".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"persenTotal".$tahun}); ?></td>
+												<?php } ?>
+
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						<?php } ?>
+						<!-- End Form 9 -->
+
 
 					</div>
 

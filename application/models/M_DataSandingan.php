@@ -55,6 +55,10 @@ class M_DataSandingan extends CI_Model {
 			$qry = $this->form5($taAwal, $taAkhir, $jnsForm, $kotakabid);
 		}
 
+		if ($jnsForm == '9') {
+			$qry = $this->form9($taAwal, $taAkhir, $jnsForm, $kotakabid);
+		}
+
 
 		if ($jnsForm != null) {
 			return $this->db->query($qry)->result();
@@ -298,6 +302,31 @@ class M_DataSandingan extends CI_Model {
 			$qry .= " LEFT JOIN (SELECT kotakabid, SUM(apbdNonDak) AS totNilai$tahun FROM (SELECT * FROM p_f5 WHERE ta='$tahun')  AS a
 			LEFT JOIN (SELECT idF5, apbdNonDak FROM p_f5_detail WHERE labelid='4' AND ta='$tahun') AS b ON a.id=b.idF5  
 			GROUP BY kotakabid) AS $huruf[$index] ON a.kotakabid=$huruf[$index].kotakabid ";
+
+			$index++;
+
+		}
+
+		return $qry;
+	}
+
+
+	private function form9($taAwal, $taAkhir, $jnsForm, $provid){
+
+		
+		$huruf = ['b', 'c', 'd', 'e', 'f', 'g', 'h'];
+		$index=0;
+
+
+		$qry = "SELECT * FROM (SELECT * FROM m_kotakab WHERE provid='$provid') AS a";
+
+		for ($tahun = $taAwal; $tahun <= $taAkhir; $tahun++) {
+
+			$qry .= " LEFT JOIN (SELECT a.kotakabid, b AS b$tahun, rr AS rr$tahun, rs AS rs$tahun, rb AS rb$tahun, (jmlIksi/jmlData) AS persenTotal$tahun FROM (
+			SELECT kotakabid, SUM(areaTerdampakJarIrigasiB) AS b, SUM(areaTerdampakJarIrigasiRR) AS rr, SUM(areaTerdampakJarIrigasiRS) AS rs, SUM(areaTerdampakJarIrigasiRB) AS rb, SUM(iKSIJumlah) AS jmlIksi FROM p_f9 WHERE ta='$tahun' AND provid='$provid' GROUP BY kotakabid
+			) AS a
+			LEFT JOIN 
+			(SELECT kotakabid, COUNT(*) AS jmlData FROM p_f9 WHERE ta='$tahun' AND provid='$provid' AND iKSIJumlah IS NOT NULL GROUP BY kotakabid) AS b ON a.kotakabid=b.kotakabid) AS $huruf[$index] ON a.kotakabid=$huruf[$index].kotakabid ";
 
 			$index++;
 
