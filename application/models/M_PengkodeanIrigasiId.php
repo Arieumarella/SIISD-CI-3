@@ -11,7 +11,7 @@ class M_PengkodeanIrigasiId extends CI_Model {
 		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
 		$cari .= ($provid != null) ? " AND b.provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND b.kotakabid='$kotakabid'" : '';
-		$cari .= ($stsDataKdEpaksi != null) ? " AND (b.irigasiid_epaksi IS NOT NULL ) " : '';
+		$cari .= ($stsDataKdEpaksi != null) ? " AND (b.irigasiid_epaksi IS NULL ) " : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
