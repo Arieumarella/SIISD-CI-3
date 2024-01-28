@@ -308,7 +308,7 @@ $arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
 $uri1 = @$this->uri->segment(1);
 
 
-$arrayDataTeknisBase = ['IntegrasiEpaksi'];
+$arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
 
 ?>
 
@@ -324,14 +324,31 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi'];
     <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
 
       <li class="nav-item">
-        <a href="<?= base_url(); ?>IntegrasiEpaksi/F1" class="nav-link <?= $tittle == 'Form 1' ? 'active' : ''; ?>">
+        <a href="<?= base_url(); ?>KodefikasiDI" class="nav-link <?= $tittle == 'Kodefikasi DI' ? 'active' : ''; ?>">
           <p>
-           1. - Form 1
+           1. - Pengkodean Daerah Irigasi
          </p>
        </a>
-     </li> 
-   </ul>
- </li>
+     </li>
+
+     <li class="nav-item">
+      <a href="<?= base_url(); ?>IntegrasiEpaksi/F1" class="nav-link <?= $tittle == 'Form 1' ? 'active' : ''; ?>">
+        <p>
+         2. - Form 1
+       </p>
+     </a>
+   </li>
+
+   <li class="nav-item">
+    <a href="<?= base_url(); ?>IntegrasiEpaksi/F9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
+      <p>
+       3. - Form 9
+     </p>
+   </a>
+ </li> 
+
+</ul>
+</li>
 <?php } ?>
 
 <?php if ($this->session->userdata('prive') == 'admin') { ?>
