@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 		}
 
 
-		if (substr($cek->uid, 0, 1) == 'P' and substr($cek->idpengguna, 0, 9) == 'dinasprov') {
+		if (substr($cek->uid, 0, 1) == 'P' and substr($cek->idkelompok, 0, 9) == 'PROVINSI') {
 			$is_provinsi = 'provinsi';
 			$prive = 'pemda';
 
@@ -95,6 +95,7 @@ class Login extends CI_Controller {
 			'kdKewenangan' => $cek->kdKewenangan,
 			'nama' => $cek->nama,
 			'aktif' => $cek->aktif,
+			'gambar' => $cek->gambar,
 			'idkelompok' => $cek->idkelompok,
 			'aksi' => $cek->aksi,
 			'in_user' => $cek->in_user,

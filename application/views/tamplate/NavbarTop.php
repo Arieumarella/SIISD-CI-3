@@ -21,7 +21,7 @@
         <i class="fa fa-cog"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <a href="/pengguna/detail/aqdmin" class="dropdown-item">
+        <a href="<?= base_url(); ?>Profile" class="dropdown-item">
           <i class="fas fa-user mr-2"></i> <?= $this->session->userdata('nama'); ?>
         </a>
         <div class="dropdown-divider"></div>

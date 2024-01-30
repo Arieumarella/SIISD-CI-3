@@ -17,6 +17,7 @@ $priv = $this->session->userdata('prive');
 
 					<div class="card-body" >
 						<dl class="row">	
+							
 							<dt class="col-sm-2">Provinsi</dt>
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="provid">

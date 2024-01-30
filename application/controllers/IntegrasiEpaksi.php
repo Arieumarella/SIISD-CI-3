@@ -46,7 +46,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 		if ($prive == 'pemda') {
 
-			$provid = $this->session->userdata('provid');
+			$provid = substr($this->session->userdata('kotakabid'), 0,2);
 
 			$dataProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => $provid]);
 		}
@@ -179,7 +179,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 		if ($prive == 'pemda') {
 
-			$provid = $this->session->userdata('provid');
+			$provid = substr($this->session->userdata('kotakabid'), 0,2);
 
 			$dataProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => $provid]);
 		}

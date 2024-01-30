@@ -525,7 +525,7 @@ class FormTeknis1B extends CI_Controller {
 				$this->session->set_flashdata('psn', "<div class='alert alert-danger alert-dismissible'>
 					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
 					<h5><i class='icon fas fa-ban'></i> Gagal.!</h5>
-					Dokumen Gagal diUpload Karena $psnError
+					Dokumen Gagal diUpload Karena ".$this->upload->display_errors()."
 					</div>");
 
 				redirect("/FormTeknis1B", 'refresh');

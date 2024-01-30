@@ -12,7 +12,7 @@
     <br>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/user.png" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); margin-top: 10px;">
+        <img src="<?= base_url(); ?>assets/admin/Ite/dist/img/<?= $this->session->userdata('gambar') == null ? 'user.png' : $this->session->userdata('gambar'); ?>" alt="er Image" class="circle elevation-2" style="border-radius: 30%; width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); margin-top: 10px;">
       </div>
       <div class="info">
         <a href="<?= base_url(); ?>" class="d-block"><?= $this->session->userdata('nama'); ?> <br> <i style="font-size: 15px;"><i class="fa fa-circle text-success" style="font-size:8px;" aria-hidden="true"></i> <?= $this->session->userdata('prive'); ?></i></a>
@@ -390,26 +390,47 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
   </a>
 </li> -->
 
-<!-- pengguna -->
-<li class="nav-item has-treeview">
-  <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-users"></i>
-    <p>Manajemen Pengguna<i class="right fas fa-angle-left"></i></p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="far fa-user nav-icon"></i><p>Pengguna</p></a>
-    </li>
+
+<?php 
+
+$uri1 = @$this->uri->segment(1);
+
+
+$arrayDataTeknisBase = ['Profile', 'DataUser'];
+
+?>
+
+<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+  <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fas fa-users"></i>
+      <p>
+        Manajemen Pengguna
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>Profile" class="nav-link <?= $tittle == 'Profile' ? 'active' : ''; ?>">
+          <p>
+           1. - Profile
+         </p>
+       </a>
+     </li>
+     <?php if ($this->session->userdata('prive') == 'admin') { ?>
+       <li class="nav-item">
+        <a href="<?= base_url(); ?>DataUser" class="nav-link <?= $tittle == 'Data User' ? 'active' : ''; ?>">
+          <p>
+            2. - Data User
+          </p>
+        </a>
+      </li>
+    <?php } ?>
   </ul>
 </li>
+<?php } ?>
 
-
-<li class="nav-item">
-  <a href="#" class="nav-link">
-    <i class="nav-icon fa fa-history"></i>
-    <p>Download Data Excel </p>
-  </a>
-</li>
 
 </ul>
 </nav>
