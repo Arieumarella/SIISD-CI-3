@@ -43,7 +43,27 @@
 								<?php foreach ($dataProv as $key => $val) { ?>
 									<tr style="background-color:#F7ECDE;">
 										<td style="border: thin solid #006666;" align="center"><?= $no++; ?></td>
-										<td style="border: thin solid #006666; text-align: left;"><a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a></td>
+										<td style="border: thin solid #006666; text-align: left;">    
+
+											<?php if ($this->session->userdata('prive') == 'pemda') { ?>
+
+												<?php if ($val->provid == $this->session->userdata('provid')) { ?>
+
+													<a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+
+												<?php }else{ ?>
+
+													<?= $val->provinsi; ?>
+
+												<?php } ?>
+
+											<?php }else{ ?>
+
+												<a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+
+											<?php } ?>
+
+										</td>
 										<td  style="border: thin solid #006666;" class="number"><?= $val->totPemdaVerif; ?></td>
 										<td  style="border: thin solid #006666;" class="number"><?= $val->totProvinsiVerif; ?></td>
 										<td  style="border: thin solid #006666;" class="number"><?= $val->totBalaiVerif; ?></td>

@@ -129,16 +129,53 @@
 										$kondisi = 'data-toggle="tooltip" data-placement="top" title="Telah diverifikasi oleh Pusat." disabled';
 									}
 
+
+									if ($this->session->userdata('prive') == 'pemda') {
+
+										if ($val->kotakabid != $this->session->userdata('kotakabid') and $this->session->userdata('is_provinsi') != 'provinsi') {
+
+											$kondisi = 'disabled';
+										}
+
+
+									}
+
 									?>
 
 
 									<tr style="background-color:#F7ECDE;">
 										<td style="border: thin solid #006666;" align="center"><?= $no++; ?></td>
-										<td style="border: thin solid #006666; text-align: left;"><a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a></td>
+
+										<td style="border: thin solid #006666; text-align: left;">
+
+
+											<?php if ($this->session->userdata('prive') == 'pemda') { ?>
+
+												<?php if ($val->kotakabid == $this->session->userdata('kotakabid')) { ?>
+
+													<a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
+
+												<?php }else{ ?>
+
+													<?= $val->kemendagri; ?>
+
+												<?php } ?>
+
+											<?php }else{ ?>
+
+												<a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
+
+											<?php } ?>
+
+
+
+										</td>
+										
 										<td  style="border: thin solid #006666;" class="text-center">
 											<input id='pemda<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $priv != 'pemda' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('pemda<?= $no; ?>', '1', '<?= $val->kotakabid; ?>')" 
 											<?= $val->pemda_verif == '1' ? 'checked' : ''; ?>>
 										</td>
+
 										<td  style="border: thin solid #006666;" class="text-center">
 											<input id='provinsi<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $is_provinsi != 'provinsi' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('provinsi<?= $no; ?>', '2', '<?= $val->kotakabid; ?>')" <?= $val->provinsi_verif == '1' ? 'checked' : ''; ?>>
 										</td>
@@ -151,7 +188,7 @@
 
 										$kondisi = '';
 
-										if ($val->pemda_verif != '1' AND $val->provinsi_verif != '1' AND $val->balai_verif != '1') {
+										if ($val->pemda_verif == '1' AND $val->provinsi_verif == '1' AND $val->balai_verif == '1') {
 											$kondisi = 'data-toggle="tooltip" data-placement="top" title="Pemda/Provinsi/Balai. Belum Checklist." disabled ';
 										}
 

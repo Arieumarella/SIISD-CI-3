@@ -68,6 +68,7 @@ class TambahDi extends CI_Controller {
 			'provid' => $prov,
 			'kotakabid' => $kotakab,
 			'balaiid' => $balai,
+			'kategori' => $Kategori, 
 			'isActive' => '0'
 		);
 

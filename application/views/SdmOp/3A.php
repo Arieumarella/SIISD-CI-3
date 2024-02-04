@@ -98,17 +98,20 @@
 
 						<?php } ?>
 
-						<div class="col-sm-12 col-lg-1 p-0">
-							
+						<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai') { ?>
+							<div class="col-sm-12 col-lg-1 p-0">
+								
 
-							<input type="hidden" id="nm_di" name="nm_di">
+								<input type="hidden" id="nm_di" name="nm_di">
 
-							<span class="input-group-append ml-1">
-								<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
-							</span>
+								<span class="input-group-append ml-1">
+									<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
+								</span>
 
-							
-						</div>
+								
+							</div>
+						<?php } ?>
+						
 						<div class="row col-sm-12  col-lg-4 p-0" style="margin-left: -50px;">
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
