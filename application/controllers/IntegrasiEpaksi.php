@@ -212,15 +212,6 @@ class IntegrasiEpaksi extends CI_Controller {
 		$kabkotaid = $this->input->post('kabkotaid');
 		$ta = $this->session->userdata('thang');
 
-		// $dataApi = curl_api('4', '3301', null, $ta, array());
-
-		// foreach ($dataApi as $key => $valApi) {
-		// 	var_dump($valApi['utama_laporan']['i']['bobot']);
-		// 	echo '<br><br>';
-		// }
-
-		// return;
-
 		$data = $this->M_IntegrasiEpaksi->ShinkronF1($provid, $kabkotaid);
 
 		
@@ -375,6 +366,30 @@ class IntegrasiEpaksi extends CI_Controller {
 
 					$this->M_dinamis->save('epaksi_f9', $dataInsert);
 				// End Json nf_6
+
+
+						// Json a_iksi
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'a_iksi']);
+
+					$dataInsert = array(
+						'ta' => $ta,
+						'id_kabupaten' => $valApi['id_kabupaten'],
+						'k_kabupaten' => $valApi['k_kabupaten'],
+						'n_kabupaten' => $valApi['n_kabupaten'],
+						'id_di' => $valApi['id_di'],
+						'k_di' => $valApi['k_di'],
+						'n_di' => $valApi['n_di'],
+						'tipe_key' => 'a_iksi',
+						'deskripsi' => $valApi['utama_laporan']['a_iksi']['deskripsi'],
+						'bobot' => $valApi['utama_laporan']['a_iksi']['bobot'],
+						'nilai_bagian' => $valApi['utama_laporan']['a_iksi']['nilai_bagian'],
+						'ada' => $valApi['utama_laporan']['a_iksi']['ada'],
+						'maks' => $valApi['utama_laporan']['a_iksi']['maks'],
+						'created_at' => date('Y-m-d H:i:s')
+					);
+
+					$this->M_dinamis->save('epaksi_f9', $dataInsert);
+				// End Json a_iksi
 
 
 				}
