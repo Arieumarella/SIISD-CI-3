@@ -216,6 +216,17 @@
     return str;
 
   }
+
+
+  function bgTabelKolom(kondsisi=null) {
+
+    if (kondsisi == 'epaksi') {
+     return `background-color:#66e45d;`;
+   }else{
+    return '';
+  }
+}
+
 </script>
 
 

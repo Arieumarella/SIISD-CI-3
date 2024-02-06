@@ -377,40 +377,40 @@
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPotensial)}</td>
 				<td id="laFungsional_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laFungsional)}</td>
 
-				<td id="sumberAir_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.buPengambilanAirTawar)}</td>
-				<td id="buBendung_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buPengambilanAirAsin)}</td>
-				<td id="buPengambilanBebas_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buStasiunPompa)}</td>
-				<td id="buStasiunPompa_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sTipeSaluran)}</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sPrimer)}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.sSekunder)}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sTersier)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sPembuang)}</td>
-				<td id="sTersier_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpPrimer)}</td>
-				<td id="sPembuang_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpSekunder)}</td>
-				<td id="bppBagi_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpTersier)}</td>
-				<td id="bppBagiSadap_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpPembuang)}</td>
-				<td id="bppSadap_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpGorong)}</td>
-				<td id="bppBangunanPengukur_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bpTalang)}</td>
-				<td id="bpGorong_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinTanggul)}</td>
-				<td id="bpSipon_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebing)}</td>
-				<td id="bpTalang_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpah)}</td>
-				<td id="bpTerjunan_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapJalanInspeksi)}</td>
-				<td id="bpGotMiring_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapJembatan)}</td>
-				<td id="bpFlum_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapKantorPengamat)}</td>
-				<td id="bpTerowongan_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapGudang)}</td>
-				<td id="blinKantong_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapRumahJaga)}</td>
-				<td id="blinPelimpah_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapSanggarTani)}</td>
-				<td id="blinPenguras_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapElektrikal)}</td>
-				<td id="blinSaluranGendong_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapKolamTandon)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapKolamPengendap)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapKolamPencampur)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bkapJetti)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAir)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaAlatUkur)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dokPeta)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dokSkemaJaringan)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dokGambarKonstruksi)}</td>
-				<td id="blinKrib_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dokBukuDataDI)}</td>
+				<td id="sumberAir_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buPengambilanAirTawarx)} " class="options">${cleanStr(value.buPengambilanAirTawar)}</td>
+				<td id="buBendung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buPengambilanAirAsinx)} " class="number">${cleanStr(value.buPengambilanAirAsin)}</td>
+				<td id="buPengambilanBebas_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buStasiunPompax)} " class="number">${cleanStr(value.buStasiunPompa)}</td>
+				<td id="buStasiunPompa_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sTipeSaluranx)} " class="number">${cleanStr(value.sTipeSaluran)}</td>
+				<td id="buEmbung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPrimerx)} " class="number">${cleanStr(value.sPrimer)}</td>
+				<td id="sTipeSaluran_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sSekunderx)} " class="options">${cleanStr(value.sSekunder)}</td>
+				<td id="sPrimer_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sTersierx)} " class="number">${cleanStr(value.sTersier)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPembuangx)} " class="number">${cleanStr(value.sPembuang)}</td>
+				<td id="sTersier_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPrimerx)} " class="number">${cleanStr(value.bpPrimer)}</td>
+				<td id="sPembuang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpSekunderx)} " class="number">${cleanStr(value.bpSekunder)}</td>
+				<td id="bppBagi_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpTersierx)} " class="number">${cleanStr(value.bpTersier)}</td>
+				<td id="bppBagiSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPembuangx)} " class="number">${cleanStr(value.bpPembuang)}</td>
+				<td id="bppSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpGorongx)} " class="number">${cleanStr(value.bpGorong)}</td>
+				<td id="bppBangunanPengukur_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpTalangx)} " class="number">${cleanStr(value.bpTalang)}</td>
+				<td id="bpGorong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinTanggulx)} " class="number">${cleanStr(value.blinTanggul)}</td>
+				<td id="bpSipon_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinPerkuatanTebingx)} " class="number">${cleanStr(value.blinPerkuatanTebing)}</td>
+				<td id="bpTalang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinPelimpahx)} " class="number">${cleanStr(value.blinPelimpah)}</td>
+				<td id="bpTerjunan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapJalanInspeksix)} " class="number">${cleanStr(value.bkapJalanInspeksi)}</td>
+				<td id="bpGotMiring_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapJembatanx)} " class="number">${cleanStr(value.bkapJembatan)}</td>
+				<td id="bpFlum_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapKantorPengamatx)} " class="number">${cleanStr(value.bkapKantorPengamat)}</td>
+				<td id="bpTerowongan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapGudangx)} " class="number">${cleanStr(value.bkapGudang)}</td>
+				<td id="blinKantong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapRumahJagax)} " class="number">${cleanStr(value.bkapRumahJaga)}</td>
+				<td id="blinPelimpah_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapSanggarTanix)} " class="number">${cleanStr(value.bkapSanggarTani)}</td>
+				<td id="blinPenguras_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapElektrikalx)} " class="number">${cleanStr(value.bkapElektrikal)}</td>
+				<td id="blinSaluranGendong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapKolamTandonx)} " class="number">${cleanStr(value.bkapKolamTandon)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapKolamPengendapx)} " class="number">${cleanStr(value.bkapKolamPengendap)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapKolamPencampurx)} " class="number">${cleanStr(value.bkapKolamPencampur)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bkapJettix)} " class="number">${cleanStr(value.bkapJetti)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaPintuAirx)} " class="number">${cleanStr(value.saranaPintuAir)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaAlatUkurx)} " class="number">${cleanStr(value.saranaAlatUkur)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokPetax)} " class="number">${cleanStr(value.dokPeta)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokSkemaJaringanx)} " class="number">${cleanStr(value.dokSkemaJaringan)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokGambarKonstruksix)} " class="number">${cleanStr(value.dokGambarKonstruksi)}</td>
+				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokBukuDataDIx)} " class="number">${cleanStr(value.dokBukuDataDI)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

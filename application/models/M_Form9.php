@@ -8,25 +8,35 @@ class M_Form9 extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($search != null) ? " AND a.irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
+		$cariEpaksi = ($kotakabid != null) ? " WHERE k_kabupaten='$kotakabid'" : '';
+
+		$qry = "SELECT 
+
+		a.irigasiid as irigasiidX, d.provinsi, c.kemendagri, a.nama,b.id,b.ta,b.provid,b.kotakabid,b.irigasiid,b.laPermen,b.areaTerdampakJarIrigasiB,b.areaTerdampakJarIrigasiRR,b.areaTerdampakJarIrigasiRS,b.areaTerdampakJarIrigasiRB,b.areaTerdampakJarIrigasiT,IF(I>0,I,b.iKSIPrasaranaFisik) as iKSIPrasaranaFisik,IF(nf_2>0,nf_2,b.iKSIProduktivitas) as iKSIProduktivitas,IF(nf_3>0,nf_3,b.iKSISaranaPenujang) as iKSISaranaPenujang,IF(nf_4>0,nf_4,b.iKSIOrgPersonalia) as iKSIOrgPersonalia,IF(nf_5>0,nf_5,b.iKSIDokumentasi) as iKSIDokumentasi,IF(nf_6>0,nf_6,b.iKSIPGI) as iKSIPGI,IF(I+nf_2+nf_3+nf_4+nf_5+nf_6>0,I+nf_2+nf_3+nf_4+nf_5+nf_6,b.iKSIJumlah) as iKSIJumlah,b.uidIn,b.uidDt,b.uidInUp,b.uidDtUp,b.aksi,IF(I>0,'epaksi','siisd') as iKSIPrasaranaFisikx,IF(nf_2>0,'epaksi','siisd') as iKSIProduktivitasx,IF(nf_3>0,'epaksi','siisd') as iKSISaranaPenujangx,IF(nf_4>0,'epaksi','siisd') as iKSIOrgPersonaliax,IF(nf_5>0,'epaksi','siisd') as iKSIDokumentasix,IF(nf_6>0,'epaksi','siisd') as iKSIPGIx,IF(I+nf_2+nf_3+nf_4+nf_5+nf_6>0,I+nf_2+nf_3+nf_4+nf_5+nf_6,iKSIJumlah) as iKSIJumlahx
+
+		FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN (SELECT * FROM p_f9 WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		LEFT JOIN 
+		(select kode_di,m.* FROM (SELECT k_di,IF(tipe_key='I',bobot,0) as I,IF(tipe_key='nf_2',bobot,0) as nf_2,IF(tipe_key='nf_3',bobot,0) as nf_3,IF(tipe_key='nf_4',bobot,0) as nf_4,IF(tipe_key='nf_5',bobot,0) as nf_5,IF(tipe_key='nf_6',bobot,0) as nf_6 FROM `epaksi_f9` $cariEpaksi) as m 
+			LEFT JOIN 
+			m_mapping_di as n on m.k_di=n.k_di) as e on b.irigasiid=e.kode_di 
+		ORDER BY d.provinsi, c.kemendagri";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS a
 		LEFT JOIN (SELECT * FROM p_f9 WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
-		WHERE 1=1 $cari";
+		";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();
