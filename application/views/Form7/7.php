@@ -380,6 +380,7 @@
 		}
 
 
+
 		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
 			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
 			var paginationContainer = $('#pagination');

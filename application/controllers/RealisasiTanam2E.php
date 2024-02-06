@@ -711,27 +711,27 @@ class RealisasiTanam2E extends CI_Controller {
 
 						$cklst=0;
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][7])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][7])) === 'V') {
 							$cklst++;
 						}
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][8])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][8])) === 'V') {
 							$cklst++;
 						}
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][9])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][9])) === 'V') {
 							$cklst++;
 						}
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][10])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][10])) === 'V') {
 							$cklst++;
 						}
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][11])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][11])) === 'V') {
 							$cklst++;
 						}
 
-						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][12])) == 'V') {
+						if (ubahKomaMenjadiTitik(strtoupper($rowData[0][12])) === 'V') {
 							$cklst++;
 						}
 
