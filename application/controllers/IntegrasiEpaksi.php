@@ -206,6 +206,135 @@ class IntegrasiEpaksi extends CI_Controller {
 	}
 
 
+	public function F4()
+	{
+
+		$prive = $this->session->userdata('prive');
+		$dataProvinsi = '';
+		$dataKabKota = '';
+		$ta = $this->session->userdata('thang');
+
+		if ($prive == 'admin') {
+			$dataProvinsi = $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc');
+		}
+
+
+		if ($prive == 'pemda') {
+
+			$provid = substr($this->session->userdata('kotakabid'), 0,2);
+
+			$dataProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => $provid]);
+		}
+
+
+		if ($prive == 'pemda') {
+
+			$kotakabid = $this->session->userdata('kotakabid');
+
+			$dataKabKota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid]);
+		}
+
+		$tmp = array(
+			'tittle' => 'Form 4',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'prov' => $dataProvinsi,
+			'kab' => $prive == 'admin' ? null : $dataKabKota,
+			'content' => 'IntegrasiEpaksi/F4'
+		);
+
+		$this->load->view('tamplate/baseTamplate', $tmp);
+	}
+
+
+	public function SinkronF4()
+	{
+		$provid = $this->input->post('provid');
+		$kabkotaid = $this->input->post('kabkotaid');
+		$ta = $this->session->userdata('thang');
+
+		$data = $this->M_IntegrasiEpaksi->ShinkronF1($provid, $kabkotaid);
+
+		
+		foreach ($data as $key => $val) {
+			
+			$k_kabupaten = $val->kotakabid_epaksi;
+			
+			$dataKabKota = $this->M_dinamis->getResult('t_di_epaksi_all', ['k_kabupaten' => $k_kabupaten]);
+
+			// Loop Kab Kota
+			foreach ($dataKabKota as $key => $valKotaKab) {
+
+
+			//Data 7 
+				$dataApi = curl_api('7', null, $valKotaKab->k_di, $ta, array());
+
+				if (@$dataApi['code'] != 500) {
+
+					foreach ($dataApi as $key => $valApi) {
+
+						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '7', 'k_aset' => $valApi['k_aset'], 'k_di' => $valKotaKab->k_di]);
+
+						$dataInsert = array(
+							'jns_data' => '7',
+							'k_di' => $valKotaKab->k_di,
+							'norec' => $valApi['norec'],
+							'nama' => $valApi['nama'],
+							'nomenklatur' => $valApi['nomenklatur'],
+							'k_aset' => $valApi['k_aset'],
+							'kondisi_iksi' => $valApi['kondisi_iksi'],
+							'nilai_iksi' => $valApi['nilai_iksi'],
+							'created_at' => date('Y-m-d H:i:s')
+						);
+
+						$this->M_dinamis->save('epaksi_f4', $dataInsert);
+					}
+
+				}
+				// End Data 7
+
+
+				//Data 7 
+				$dataApi = curl_api('8', null, $valKotaKab->k_di, $ta, array());
+				
+				if (@$dataApi['code'] != 500) {
+
+					foreach ($dataApi as $key => $valApi) {
+
+						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '8', 'k_aset' => $valApi['k_aset'], 'k_di' => $valKotaKab->k_di]);
+
+						$dataInsert = array(
+							'jns_data' => '7',
+							'k_di' => $valKotaKab->k_di,
+							'norec' => $valApi['norec'],
+							'nama' => $valApi['nama'],
+							'nomenklatur' => $valApi['nomenklatur'],
+							'k_aset' => $valApi['k_aset'],
+							'kondisi_iksi' => $valApi['kondisi_iksi'],
+							'nilai_iksi' => $valApi['nilai_iksi'],
+							'panjang' => $valApi['panjang'],
+							'luas_layanan' => $valApi['luas_layanan'],
+							'q' => $valApi['q'],
+							'created_at' => date('Y-m-d H:i:s')
+						);
+
+						$this->M_dinamis->save('epaksi_f4', $dataInsert);
+					}
+
+				}
+				// End Data 7
+
+			}
+			// End Loop Kab Kota
+		}
+
+
+		echo json_encode(['code' => 200]);
+
+	}
+
+
 	public function SinkronF9()
 	{
 		$provid = $this->input->post('provid');
@@ -436,6 +565,58 @@ class IntegrasiEpaksi extends CI_Controller {
 		}else{
 			echo 'Gagal';		
 		}
+
+	}
+
+
+	public function getAllDi()
+	{
+		$dataKabKota = $this->M_dinamis->add_all('m_kotakabid_maping_siisd_epaksi', '*', 'id', 'asc');
+
+
+		// Looping Kotakab
+		foreach ($dataKabKota as $key => $val) {
+			
+			$kotakabid = $val->kotakabid_epaksi;
+
+			$dataApi = curl_api('3', $kotakabid, null, null, array());
+
+			if (@$dataApi['code'] != 500) {
+
+				// Looping D_i
+				foreach ($dataApi as $key => $valApi) {
+					
+
+					$this->M_dinamis->delete('t_di_epaksi_all',  ['k_di' => $valApi['k_di']]);
+
+					$dataInsert = array(
+
+						'id_kabupaten' => $valApi['id_kabupaten'], 
+						'k_kabupaten' => $valApi['k_kabupaten'], 
+						'n_kabupaten' => $valApi['n_kabupaten'], 
+						'id_di' => $valApi['id_di'], 
+						'k_di' => $valApi['k_di'], 
+						'n_di' => $valApi['n_di'],
+						'luas_fungsional' => $valApi['luas_fungsional'], 
+						'luas_potensial' => $valApi['luas_potensial'], 
+						'luas_alih_fungsi' => $valApi['luas_alih_fungsi'], 
+						'luas_baku' => $valApi['luas_baku'],
+						'tipe' => $valApi['tipe']
+					);
+
+
+					$this->M_dinamis->save('t_di_epaksi_all', $dataInsert);
+
+
+				}
+				// End Looping D_i
+			}
+
+		}
+		// End Looping Kotakab
+
+
+		echo 'selesai';
 
 	}
 

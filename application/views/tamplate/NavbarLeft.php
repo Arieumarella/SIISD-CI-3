@@ -345,7 +345,15 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
        3. - Form 9
      </p>
    </a>
- </li> 
+ </li>
+
+ <li class="nav-item">
+  <a href="<?= base_url(); ?>IntegrasiEpaksi/F4" class="nav-link <?= $tittle == 'Form 4' ? 'active' : ''; ?>">
+    <p>
+     4. - Form 4
+   </p>
+ </a>
+</li> 
 
 </ul>
 </li>
@@ -369,6 +377,15 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
     <i class="nav-icon fa fa-check"></i>
     <p>
       Verifikasi Data Teknis
+    </p>
+  </a>
+</li>
+
+<li class="nav-item">
+  <a href="<?= base_url(); ?>RiwayatPenaganan" class="nav-link <?= $tittle == 'Riwayat Penaganan' ? 'active' : ''; ?>">
+    <i class="nav-icon fa fa-history"></i>
+    <p>
+      Riwayat Penanganan
     </p>
   </a>
 </li>
