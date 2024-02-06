@@ -34,11 +34,10 @@ class M_formTeknis1C extends CI_Model {
 				FROM epaksi_f1 GROUP BY k_di) as m 
 			LEFT JOIN 
 			m_mapping_di as n on m.k_di=n.k_di) as e on b.irigasiid=e.kode_di 
-		ORDER BY d.provinsi, c.kemendagri";
+		ORDER BY d.provinsi, c.kemendagri ";
 
 		
 		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS b
-		LEFT JOIN (SELECT * FROM p_f1c WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
 		";
 
 		$data =  $this->db->query($qry)->result();

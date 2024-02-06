@@ -11,7 +11,7 @@ class M_PengkodeanIrigasiId extends CI_Model {
 		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
 		$cari .= ($provid != null) ? " AND b.provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND b.kotakabid='$kotakabid'" : '';
-		$cari .= ($stsDataKdEpaksi != null) ? " AND (b.irigasiid_epaksi IS NULL ) " : '';
+		$cari .= ($stsDataKdEpaksi != 0) ? " AND (b.irigasiid_epaksi IS NULL ) " : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
@@ -19,12 +19,12 @@ class M_PengkodeanIrigasiId extends CI_Model {
 			$cari .= " AND b.kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di) AS b
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
 		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS b
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di) AS b
 		WHERE 1=1 $cari";
 
 		$data =  $this->db->query($qry)->result();

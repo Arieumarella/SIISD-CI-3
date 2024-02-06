@@ -36,8 +36,7 @@ class M_formTeknis extends CI_Model {
 			m_mapping_di AS n ON m.k_di=n.k_di) AS e ON b.irigasiid=e.kode_di
 		ORDER BY d.provinsi, c.kemendagri ";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS b
-		LEFT JOIN (SELECT * FROM p_f1a WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) as b
 		";
 
 		$data =  $this->db->query($qry)->result();

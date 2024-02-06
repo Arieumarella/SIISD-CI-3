@@ -120,7 +120,7 @@ class KodefikasiDI extends CI_Controller {
 		$siisd  = ubahKomaMenjadiTitik($this->input->post('siisd'));
 		$epaksi = ubahKomaMenjadiTitik($this->input->post('epaksi'));
 		
-		$pros = $this->M_dinamis->update('m_irigasi', ['irigasiid_epaksi' => $epaksi], ['irigasiid' => $siisd]);
+		$pros = $this->M_dinamis->update('m_mapping_di', ['k_di' => $epaksi], ['kode_di' => $siisd]);
 
 		echo json_encode(['code' => ($pros) ? 200:500]);	
 

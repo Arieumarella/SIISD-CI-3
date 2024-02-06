@@ -59,6 +59,28 @@ class StsVerifikasiDi extends CI_Controller {
 
 		$pros = $this->M_dinamis->update('m_irigasi', $dataEdit, ['irigasiid' => $irigasiId]);
 
+		if ($kondisi === '1') {
+			
+			$cek = $this->M_dinamis->getById('m_mapping_di', ['kode_di' => $irigasiId]);
+
+			if ($cek == null) {
+				
+				$dataMIrigasi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiId]);
+
+				$dataInsert = array(
+					'k_propinsi' => $dataMIrigasi->provid,
+					'k_kabupaten' => $dataMIrigasi->kotakabid,
+					'n_di' => $dataMIrigasi->nama,
+					'kode_di' => $dataMIrigasi->irigasiid
+				);
+
+				$this->M_dinamis->save('m_mapping_di', $dataInsert);
+
+			}
+
+		}
+
+
 		echo json_encode(['code' => ($pros) ? 200 : 500]);
 	}
 
