@@ -1,10 +1,10 @@
-
 <style type="text/css">
 	.profile-user-img {
-		width: 30%; /* 50% of the parent container's width */
-		height: auto; /* Maintain the aspect ratio */
+		width: 30%;
+		/* 50% of the parent container's width */
+		height: auto;
+		/* Maintain the aspect ratio */
 	}
-
 </style>
 
 <section class="content-header">
@@ -28,10 +28,10 @@
 					</div>
 					<button class="mt-2 btn btn-primary btn-sm" onclick="showUploadModal()">Ubah Foto</button>
 					<h2 class="profile-username text-center" style="font-size:40px;"><?= $dataPengguna->nama; ?></h2>
-					<p class="text-muted text-center"><?= $dataPengguna->idpengguna; ?></p>					
+					<p class="text-muted text-center"><?= $dataPengguna->idpengguna; ?></p>
 				</div>
 			</div>
-			
+
 			<div class="col-7">
 				<form action="<?= base_url(); ?>Profile/simpnProfil" method="POST">
 					<div class="form-group">
@@ -56,7 +56,7 @@
 					</div>
 				</form>
 			</div>
-			
+
 		</div>
 	</div>
 </section>
@@ -77,11 +77,11 @@
 						<input type="text" class="form-control" id="pswBaru" name="pswBaru" required>
 					</div>
 
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Simpan</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+			</div>
 			</form>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Form Fanti Goto</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Form Ganti Foto</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -105,11 +105,11 @@
 						<small>Maximal 5 MB.!</small>
 					</div>
 
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Simpan</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+			</div>
 			</form>
 		</div>
 	</div>
@@ -118,16 +118,16 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		
 
-		showUploadModal = function () {
-			
+
+		showUploadModal = function() {
+
 			$('#modalUpload').modal('show');
 
 		}
 
-		showModalRiset = function () {
-			
+		showModalRiset = function() {
+
 			$('#modalReset').modal('show');
 
 		}

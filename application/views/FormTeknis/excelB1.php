@@ -179,6 +179,13 @@
                                                     <input type="file" class="custom-file-input" id="fileExcel" name="fileExcel" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                                 </div>
+                                                <script>
+                                                    document.getElementById("fileExcel").addEventListener("change", function(){
+                                                        var fileName = this.files[0].name;
+                                                        var label = document.querySelector(".custom-file-label");
+                                                        label.textContent = fileName;
+                                                    });
+                                                </script>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-success float-right">Upload</button>
