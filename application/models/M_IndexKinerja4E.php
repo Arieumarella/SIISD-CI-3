@@ -8,26 +8,26 @@ class M_IndexKinerja4E extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($search != null) ? " AND a.irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$cari .= " AND kategori='DIP' ";
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
+		$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN (SELECT * FROM p_f4e WHERE ta='ta') AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY d.provinsi, c.kemendagri ";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS a
 		LEFT JOIN (SELECT * FROM p_f4e WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
-		WHERE 1=1 $cari";
+		";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();

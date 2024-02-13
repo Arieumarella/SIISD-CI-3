@@ -65,7 +65,7 @@ function curl_api($jenis_data = null, $k_kabupaten = null, $k_di = null, $tahun_
 
     // Check if JSON decoding was successful
 	if ($json_response === NULL || !is_array($json_response)) {
-		return ['code' => 500, 'psn' => 'error api'];
+		return  ['code' => 500, 'psn' => 'error api'];
 	}
 
     // Return the decoded JSON response

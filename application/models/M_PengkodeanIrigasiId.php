@@ -8,24 +8,24 @@ class M_PengkodeanIrigasiId extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid, $stsDataKdEpaksi)
 	{
 
-		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND b.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND b.kotakabid='$kotakabid'" : '';
-		$cari .= ($stsDataKdEpaksi != 0) ? " AND (b.irigasiid_epaksi IS NULL ) " : '';
+		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
+		$cari .= ($stsDataKdEpaksi != 0) ? " AND (irigasiid_epaksi IS NULL ) " : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND b.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di) AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY d.provinsi, c.kemendagri";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di) AS b
-		WHERE 1=1 $cari";
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di WHERE 1=1 $cari) AS b
+		";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();

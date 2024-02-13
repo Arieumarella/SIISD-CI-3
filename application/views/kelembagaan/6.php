@@ -181,11 +181,6 @@
 											<option value="10" selected="">10</option>
 											<option value="50">50</option>
 											<option value="150">150</option>
-											<option value="250">250</option>
-											<option value="350">350</option>
-											<option value="450">450</option>
-											<option value="9000">9000</option>
-
 										</select>
 									</li>
 								</ul>

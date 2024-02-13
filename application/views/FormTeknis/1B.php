@@ -262,11 +262,6 @@
 											<option value="10" selected="">10</option>
 											<option value="50">50</option>
 											<option value="150">150</option>
-											<option value="250">250</option>
-											<option value="350">350</option>
-											<option value="450">450</option>
-											<option value="9000">9000</option>
-
 										</select>
 									</li>
 								</ul>
@@ -393,146 +388,146 @@
 				no++;
 			});
 
-			$('#tbody_data').html(tableConten);
+$('#tbody_data').html(tableConten);
 
-		}
+}
 
 
-		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
-			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
-			var paginationContainer = $('#pagination');
-			paginationContainer.empty(); 
+function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
+	var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
+	var paginationContainer = $('#pagination');
+	paginationContainer.empty(); 
 
-			var startingPage = 1;
-			var endingPage = jumlahHalaman; 
+	var startingPage = 1;
+	var endingPage = jumlahHalaman; 
 
-			if (jumlahHalaman > 3) {
-				startingPage = Math.max(1, halamanSaatIni - 1);
-				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
-			}
+	if (jumlahHalaman > 3) {
+		startingPage = Math.max(1, halamanSaatIni - 1);
+		endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
+	}
 
   // Menampilkan tombol First
-			if (halamanSaatIni > 1) {
-				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
-				paginationContainer.append(firstButton);
-			}
+	if (halamanSaatIni > 1) {
+		var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
+		paginationContainer.append(firstButton);
+	}
 
-			var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
-			paginationContainer.append(prevButton);
+	var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
+	paginationContainer.append(prevButton);
 
-			for (var i = startingPage; i <= endingPage; i++) {
-				var listItem = $('<li class="page-item"></li>');
-				var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
+	for (var i = startingPage; i <= endingPage; i++) {
+		var listItem = $('<li class="page-item"></li>');
+		var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
 
-				linkItem.text(i);
+		linkItem.text(i);
 
-				if (Number(i) === Number(halamanSaatIni)) {
-					listItem.addClass('active');
-				}
-				listItem.append(linkItem);
-				paginationContainer.append(listItem);
-			}
-
-			if (halamanSaatIni < jumlahHalaman) {
-				var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
-				paginationContainer.append(nextButton);
-
-				var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
-				paginationContainer.append(lastButton);
-			}
+		if (Number(i) === Number(halamanSaatIni)) {
+			listItem.addClass('active');
 		}
+		listItem.append(linkItem);
+		paginationContainer.append(listItem);
+	}
+
+	if (halamanSaatIni < jumlahHalaman) {
+		var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
+		paginationContainer.append(nextButton);
+
+		var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
+		paginationContainer.append(lastButton);
+	}
+}
 
 
-		cari = function () {
+cari = function () {
 
-			provid = $('#prov').val();
-			kotakabid = $('#kabkota').val();
-			search = $('#in_irigasiid').val();
+	provid = $('#prov').val();
+	kotakabid = $('#kabkota').val();
+	search = $('#in_irigasiid').val();
 
-			getDataTabel(null, provid, kotakabid)
-
-
-		}
+	getDataTabel(null, provid, kotakabid)
 
 
-
-		$('#rowpage').change(function() {
-			getDataTabel(null)
-
-		});
+}
 
 
-		$('#prov').change(function() {
-			var prov = $(this).val();
 
-			$('.select2_Irigasi').val(null).trigger('change');
+$('#rowpage').change(function() {
+	getDataTabel(null)
 
-
-			ajaxUntukSemua(base_url()+'FormTeknis1B/getDataKabKota', {prov}, function(data) {
-
-				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
-
-				$.each(data, function(key, value) {
-					opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
-				})
-
-				$('#kabkota').html(opt);
-
-			}, function(error) {
-				console.log('Kesalahan:', error);
-			});
+});
 
 
-		});
+$('#prov').change(function() {
+	var prov = $(this).val();
 
-		$('#kabkota').change(function() {
-			$('.select2_Irigasi').val(null).trigger('change');
-		});
+	$('.select2_Irigasi').val(null).trigger('change');
 
 
-		$('.select2').select2({
-			placeholder: '-Pilih Provinsi-',
-			theme: 'default',
+	ajaxUntukSemua(base_url()+'FormTeknis1B/getDataKabKota', {prov}, function(data) {
 
+		let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+
+		$.each(data, function(key, value) {
+			opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
 		})
 
-		$('.select3').select2({
-			placeholder: '-Pilih Kab/Kota-',
-			theme: 'default',
+		$('#kabkota').html(opt);
 
-		})
-
-
-		$('.select2_Irigasi').select2({
-			placeholder: '-Tentukan Daerah Irigasi-',
-			theme: 'default',
-			ajax: {
-				url: base_url() + "FormTeknis1B/getDi",
-				dataType: 'json',
-				type: 'post',
-				delay: 250,
-				data: function (params) {
-					var query = {
-						searchDi: params.term,
-						kdprov: $('#prov').val(),
-						kdKab: $('#kabkota').val()
-					};
-					return query;
-				},
-				processResults: function (response) {
-
-					response.data.unshift({ id: '', text: 'Tampilkan semua' });
-
-					return {
-						results: response.data 
-					};
-				},
-				cache: true
-			}
-		});
-
-
-
+	}, function(error) {
+		console.log('Kesalahan:', error);
 	});
+
+
+});
+
+$('#kabkota').change(function() {
+	$('.select2_Irigasi').val(null).trigger('change');
+});
+
+
+$('.select2').select2({
+	placeholder: '-Pilih Provinsi-',
+	theme: 'default',
+
+})
+
+$('.select3').select2({
+	placeholder: '-Pilih Kab/Kota-',
+	theme: 'default',
+
+})
+
+
+$('.select2_Irigasi').select2({
+	placeholder: '-Tentukan Daerah Irigasi-',
+	theme: 'default',
+	ajax: {
+		url: base_url() + "FormTeknis1B/getDi",
+		dataType: 'json',
+		type: 'post',
+		delay: 250,
+		data: function (params) {
+			var query = {
+				searchDi: params.term,
+				kdprov: $('#prov').val(),
+				kdKab: $('#kabkota').val()
+			};
+			return query;
+		},
+		processResults: function (response) {
+
+			response.data.unshift({ id: '', text: 'Tampilkan semua' });
+
+			return {
+				results: response.data 
+			};
+		},
+		cache: true
+	}
+});
+
+
+
+});
 
 </script>

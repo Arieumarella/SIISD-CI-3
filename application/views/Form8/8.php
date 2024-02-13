@@ -287,11 +287,6 @@
 											<option value="10" selected="">10</option>
 											<option value="50">50</option>
 											<option value="150">150</option>
-											<option value="250">250</option>
-											<option value="350">350</option>
-											<option value="450">450</option>
-											<option value="9000">9000</option>
-
 										</select>
 									</li>
 								</ul>
@@ -379,39 +374,50 @@
 				tableConten += `<tr style="background-color:${warnaAwal};">
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}EPAKSI/getDetailData/${value.id}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>`;
 
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tahunPlaksana1 == null ? '': value.tahunPlaksana1}</td>
+				tableConten += `<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">`;
+
+				if (value.id != null) {
+
+					tableConten += `<a href="${base_url()}EPAKSI/getDetailData/${value.id}">${value.nama}</a></td>`;
+
+				}else{
+
+					tableConten += `${value.nama}</td>`;
+
+				}
+
+				tableConten += `<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.laPermen}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolomForm8(value.tahunPlaksana1x)}" class="number">${value.tahunPlaksana1 == null ? '': value.tahunPlaksana1}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.stKontrak1 == null ? '': value.stKontrak1 == 'K' ? 'Kontraktual' : 'Swakelola'}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.namaKonsultan1 == null ? '': value.namaKonsultan1}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.nomorKontrak1 == null ? '': value.nomorKontrak1}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tanggalKontrak1 == null ? '': value.tanggalKontrak1}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.lamaPelaksanaan1 == null ? '': value.lamaPelaksanaan1}</td>
 
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tahunPlaksana2 == null ? '': value.tahunPlaksana2}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolomForm8(value.tahunPlaksana2x)}" class="number">${value.tahunPlaksana2 == null ? '': value.tahunPlaksana2}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.stKontrak2 == null ? '': value.stKontrak2 == 'K' ? 'Kontraktual' : 'Swakelola'}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.namaKonsultan2 == null ? '': value.namaKonsultan2}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.nomorKontrak2 == null ? '': value.nomorKontrak2}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tanggalKontrak2 == null ? '': value.tanggalKontrak2}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.lamaPelaksanaan2 == null ? '': value.lamaPelaksanaan2}</td>
 
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tahunPlaksana3 == null ? '': value.tahunPlaksana3}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolomForm8(value.tahunPlaksana3x)}" class=" ">${value.tahunPlaksana3 == null ? '': value.tahunPlaksana3}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.stKontrak3 == null ? '': value.stKontrak3 == 'K' ? 'Kontraktual' : 'Swakelola'}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.namaKonsultan3 == null ? '': value.namaKonsultan3}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.nomorKontrak3 == null ? '': value.nomorKontrak3}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tanggalKontrak3 == null ? '': value.tanggalKontrak3}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.lamaPelaksanaan3 == null ? '': value.lamaPelaksanaan3}</td>
 
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tahunPlaksana4 == null ? '': value.tahunPlaksana4}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolomForm8(value.tahunPlaksana4x)}" class="number ">${value.tahunPlaksana4 == null ? '': value.tahunPlaksana4}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.stKontrak4 == null ? '': value.stKontrak4 == 'K' ? 'Kontraktual' : 'Swakelola'}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.namaKonsultan4 == null ? '': value.namaKonsultan4}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.nomorKontrak4 == null ? '': value.nomorKontrak4}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tanggalKontrak4 == null ? '': value.tanggalKontrak4}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.lamaPelaksanaan4 == null ? '': value.lamaPelaksanaan4}</td>
 
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.tahunPlaksana5 == null ? '': value.tahunPlaksana5}</td>
+				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolomForm8(value.tahunPlaksana5x)}" class="number">${value.tahunPlaksana5 == null ? '': value.tahunPlaksana5}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.stKontrak5 == null ? '': value.stKontrak5 == 'K' ? 'Kontraktual' : 'Swakelola'}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.namaKonsultan5 == null ? '': value.namaKonsultan5}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${value.nomorKontrak5 == null ? '': value.nomorKontrak5}</td>

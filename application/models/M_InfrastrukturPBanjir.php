@@ -8,22 +8,20 @@ class M_InfrastrukturPBanjir extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $das, $wsid=null, $dasid=null)
 	{
 		$cari = '';
-		$cari .= ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($das != null) ? " AND a.dasid='$das'" : '';
-		$cari .= ($search != null) ? " AND a.wsid='$search'" : '';
-		$cari .= ($dasid != null) ? " AND a.dasid='$dasid'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($das != null) ? " AND dasid='$das'" : '';
+		$cari .= ($search != null) ? " AND wsid='$search'" : '';
+		$cari .= ($dasid != null) ? " AND dasid='$dasid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT d.provinsi, nm_ws, nm_das, c.kemendagri,  a.* FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta)  AS a
+		$qry = "SELECT d.provinsi, nm_ws, nm_das, c.kemendagri,  a.* FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta $cari LIMIT $jumlahDataPerHalaman OFFSET $offset)  AS a
 		LEFT JOIN base_ws AS b ON a.wsid=b.id
 		LEFT JOIN base_das as e ON a.dasid=e.id
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY d.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY d.provinsi, c.kemendagri";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta) AS a
-
-		WHERE 1=1 $cari";
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM p_bangunan_pengendali_banjir WHERE ta=$ta $cari) AS a";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();

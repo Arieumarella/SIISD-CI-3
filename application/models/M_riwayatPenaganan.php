@@ -24,7 +24,7 @@ class M_riwayatPenaganan extends CI_Model {
 			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT * FROM (SELECT * FROM p_riwayat WHERE 1=1 $cari) AS a
+		$qry = "SELECT * FROM (SELECT * FROM p_riwayat WHERE 1=1 $cari  LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN m_kotakab as b on a.kotakabid=b.kotakabid 
 		";
 
@@ -41,9 +41,6 @@ class M_riwayatPenaganan extends CI_Model {
 
 			";
 		}
-
-		$qry .= " LIMIT $jumlahDataPerHalaman OFFSET $offset ";
-
 
 
 		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM p_riwayat WHERE 1=1 $cari) AS a";

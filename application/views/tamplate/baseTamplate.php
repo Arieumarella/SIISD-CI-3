@@ -227,6 +227,16 @@
   }
 }
 
+
+function bgTabelKolomForm8(kondsisi = 0) {
+
+  if (kondsisi != null) {
+   return `background-color:#66e45d;`;
+ }else{
+  return '';
+}
+}
+
 </script>
 
 

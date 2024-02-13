@@ -8,20 +8,20 @@ class M_stsVerifikasiDataTeknis extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND b.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND b.kotakabid='$kotakabid'" : '';
+		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND b.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi) AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
-		WHERE 1=1 $cari ORDER BY isActive asc LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY isActive asc";
 
 		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi) AS b
 		WHERE 1=1 $cari";

@@ -7,19 +7,19 @@ class M_SharingAPBD extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari = ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f5 AS a
+		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM (SELECT * FROM p_f5 WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset)AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
-		WHERE 1=1 $cari AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY b.provinsi, c.kemendagri ";
 
 		$qry2 = "SELECT count(*) as jml_data FROM p_f5 AS a WHERE 1=1 $cari AND a.ta=$ta";
 
@@ -73,7 +73,7 @@ class M_SharingAPBD extends CI_Model {
 		$nomorindexArray = 0;
 
 		foreach ($idLabel as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,
@@ -123,7 +123,7 @@ class M_SharingAPBD extends CI_Model {
 		$nomorindexArray = 0;
 
 		foreach ($idLabel as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,

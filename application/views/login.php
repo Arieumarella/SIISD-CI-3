@@ -52,46 +52,49 @@
 <body class="hold-transition login-page">
 
   <div class="boxLog">
-   <div class="login-box bg-login b-radius">
-    <div class="login-logo">
-     <div class="image" style="padding:10px;">
-      <img src="<?= base_url(); ?>assets/admin/images/pu-icon.png" alt="User Image" class="elevation-4" style="width:110px;">
-  </div>
-  <a href="/"><b>DAK SDA</b></a>
-</div>
-<!-- /.login-logo -->
-<div class="card b-radius">
- <div class="card-body login-card-body b-radius">
+     <div class="login-box bg-login b-radius">
+        <div class="login-logo">
+           <div class="image" style="padding:10px;">
+              <img src="<?= base_url(); ?>assets/admin/images/pu-icon.png" alt="User Image" class="elevation-4" style="width:110px;">
+          </div>
+          <a href="/"><b>DAK SDA</b></a>
+      </div>
+      <!-- /.login-logo -->
+      <div class="card b-radius">
+       <div class="card-body login-card-body b-radius">
 
-  <?= $this->session->flashdata('psn'); ?>
+          <?= $this->session->flashdata('psn'); ?>
 
-  <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
+          <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
 
-  <form class="kt-form" action="<?= base_url(); ?>Login/prs_login" method="POST">
-   <div class="input-group mb-3">
-    <input class="form-control text-center" type="text" placeholder="ID Pengguna" name="idpengguna" autocomplete="off" value="";>
+          <form class="kt-form" action="<?= base_url(); ?>Login/prs_login" method="POST">
+             <div class="input-group mb-3">
+                <input class="form-control text-center" type="text" placeholder="ID Pengguna" name="idpengguna" autocomplete="off" value="";>
 
-    <div class="input-group-append">
-     <div class="input-group-text">
-      <span class="fas fa-key"></span>
-  </div>
-</div>
+                <div class="input-group-append">
+                   <div class="input-group-text">
+                      <span class="fas fa-key"></span>
+                  </div>
+              </div>
 
-</div>
-<div class="input-group mb-3">
-    <input class="form-control form-control-last  text-center" type="password" placeholder="Kata Sandi" name="sandi" value="">
-    <div class="input-group-append">
-     <div class="input-group-text">
-      <span class="fas fa-lock"></span>
-  </div>
-</div>
-</div>
+          </div>
+          <div class="input-group mb-3">
+            <input class="form-control form-control-last  text-center" type="password" placeholder="Kata Sandi" name="sandi" value="">
+            <div class="input-group-append">
+               <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+              </div>
+          </div>
+      </div>
 
-<!-- /.col -->
-<div class="col-12">
-    <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
-</div>
-<!-- /.col -->
+      <!-- /.col -->
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
+    </div>
+    <div class="col-12 mt-2">
+        <a href="<?= base_url(); ?>Login/downloadUserManual" class="btn btn-success btn-block btn-flat">DOWNLOAD USER MANUAL SIISD</a>
+    </div>
+    <!-- /.col -->
 </div>
 </form>
 

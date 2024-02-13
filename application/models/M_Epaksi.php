@@ -27,8 +27,6 @@ class M_Epaksi extends CI_Model {
 			$data5Tahun[] = $tahun;
 		}
 
-
-
 		$qry = "SELECT 
 		provinsi,
 		kemendagri,
@@ -142,9 +140,71 @@ class M_Epaksi extends CI_Model {
 		";
 
 
-		$qry2 = "SELECT count(*) as jml_data FROM p_f8 WHERE ta='$ta' $cari";
+		$qry = "select provinsi,kemendagri,nama,lper as laPermen,d.*,e.*
+		FROM
+		(select * from m_irigasi where isActive=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) as a
+		LEFT JOIN
+		m_prov as b on a.provid=b.provid
+		LEFT JOIN
+		m_kotakab as c on a.kotakabid=c.kotakabid
+		LEFT JOIN
+		(SELECT id as idx,ta,idF8 as id,irigasiid,
 		
+		IF(tahunPlaksana=$data5Tahun[4],tahunPlaksana,0) as tahunPlaksana1,
+		IF(tahunPlaksana=$data5Tahun[4],stKontrak,0) AS stKontrak1,	
+		IF(tahunPlaksana=$data5Tahun[4],namaKonsultan,0) AS namaKonsultan1,
+		IF(tahunPlaksana=$data5Tahun[4],nomorKontrak,0) AS nomorKontrak1, 
+		IF(tahunPlaksana=$data5Tahun[4],tanggalKontrak,0) AS tanggalKontrak1, 
+		IF(tahunPlaksana=$data5Tahun[4],lamaPelaksanaan,0) AS lamaPelaksanaan1,
 
+
+		IF(tahunPlaksana=$data5Tahun[3],tahunPlaksana,0) as tahunPlaksana2,
+		IF(tahunPlaksana=$data5Tahun[3],stKontrak,0) AS stKontrak2,
+		IF(tahunPlaksana=$data5Tahun[3],namaKonsultan,0) AS namaKonsultan2, 
+		IF(tahunPlaksana=$data5Tahun[3],nomorKontrak,0) AS nomorKontrak2,
+		IF(tahunPlaksana=$data5Tahun[3],tanggalKontrak,0) AS tanggalKontrak2, 
+		IF(tahunPlaksana=$data5Tahun[3],lamaPelaksanaan,0) AS lamaPelaksanaan2, 
+
+
+		IF(tahunPlaksana=$data5Tahun[2],tahunPlaksana,0) as tahunPlaksana3,
+		IF(tahunPlaksana=$data5Tahun[2],stKontrak,0) AS stKontrak3, 
+		IF(tahunPlaksana=$data5Tahun[2],namaKonsultan,0) AS namaKonsultan3, 
+		IF(tahunPlaksana=$data5Tahun[2],nomorKontrak,0) AS nomorKontrak3, 
+		IF(tahunPlaksana=$data5Tahun[2],tanggalKontrak,0) AS tanggalKontrak3, 
+		IF(tahunPlaksana=$data5Tahun[2],lamaPelaksanaan,0) AS lamaPelaksanaan3,
+
+		IF(tahunPlaksana=$data5Tahun[1],tahunPlaksana,0) as tahunPlaksana4, 
+		IF(tahunPlaksana=$data5Tahun[1],stKontrak,0) AS stKontrak4, 
+		IF(tahunPlaksana=$data5Tahun[1],namaKonsultan,0) AS namaKonsultan4,
+		IF(tahunPlaksana=$data5Tahun[1],nomorKontrak,0) AS nomorKontrak4, 
+		IF(tahunPlaksana=$data5Tahun[1],tanggalKontrak,0) AS tanggalKontrak4, 
+		IF(tahunPlaksana=$data5Tahun[1],lamaPelaksanaan,0) AS lamaPelaksanaan4,
+
+		IF(tahunPlaksana=$data5Tahun[0],tahunPlaksana,0) as tahunPlaksana5,
+		IF(tahunPlaksana=$data5Tahun[0],stKontrak,0) AS stKontrak5, 
+		IF(tahunPlaksana=$data5Tahun[0],namaKonsultan,0) AS namaKonsultan5,
+		IF(tahunPlaksana=$data5Tahun[0],nomorKontrak,0) AS nomorKontrak5, 
+		IF(tahunPlaksana=$data5Tahun[0],tanggalKontrak,0) AS tanggalKontrak5, 
+		IF(tahunPlaksana=$data5Tahun[0],lamaPelaksanaan,0) AS lamaPelaksanaan5
+		FROM `p_f8_pelaksana` WHERE ta='$ta') as d ON a.irigasiid=d.irigasiid
+		LEFT JOIN
+		(SELECT kode_di,p.*
+		FROM
+		(SELECT 
+		k_di,
+		SUM(IF(ta=$data5Tahun[4],ada,0)) as tahunPlaksana1x,
+		SUM(IF(ta=$data5Tahun[3],ada,0)) as tahunPlaksana2x,
+		SUM(IF(ta=$data5Tahun[2],ada,0)) as tahunPlaksana3x,
+		SUM(IF(ta=$data5Tahun[1],ada,0)) as tahunPlaksana4x,
+		SUM(IF(ta=$data5Tahun[0],ada,0)) as tahunPlaksana5x
+		FROM `epaksi_f9` WHERE tipe_key='a_iksi' GROUP BY k_di) as p
+		LEFT JOIN
+		(SELECT k_di,kode_di from m_mapping_di) as q ON p.k_di=q.k_di) as e on a.irigasiid=e.kode_di";
+
+
+		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi WHERE 1=1 $cari";
+		
+		// echo $qry;
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();
 

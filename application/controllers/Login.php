@@ -102,7 +102,7 @@ class Login extends CI_Controller {
 			'sts_login' => true,
 			'prive' => $prive,
 			'is_provinsi' => $is_provinsi,
-			'thang' => '2023'
+			'thang' => '2024'
 		);
 
 		$this->session->set_userdata($dataSession);
@@ -112,12 +112,16 @@ class Login extends CI_Controller {
 		
 	}
 
-
-
 	public function Logout()
 	{
 		$this->session->sess_destroy();
 		redirect('/Login', 'refresh');
+	}
+
+
+	public function downloadUserManual()
+	{
+		force_download('././assets/panduan/USER MANUAL - SIISD - REV-1.pdf',NULL);
 	}
 
 }

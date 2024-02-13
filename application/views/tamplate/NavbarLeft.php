@@ -249,7 +249,7 @@
         <p>8 - e-PAKSI</p>
       </a>
     </li>                          
-
+ 
     <li class="nav-item"><a href="<?= base_url(); ?>Form9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
       <p>9 - Areal Terdampak dan IKSI</p>
     </a>
@@ -312,7 +312,7 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
 
 ?>
 
-<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+<?php if ($this->session->userdata('prive') == 'admin') { ?>
   <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
     <a href="#" class="nav-link ">
       <i class="nav-icon fa fa-random"></i>

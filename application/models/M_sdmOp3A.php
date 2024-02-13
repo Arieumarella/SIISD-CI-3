@@ -8,23 +8,23 @@ class M_sdmOp3A extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($provid != null) ? " AND a.provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND a.kotakabid='$kotakabid'" : '';
+		$cari = ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND a.kotakabid IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM p_f3a AS a
+		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM (SELECT * FROM p_f3a WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
 		LEFT JOIN 
 		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
 			LEFT JOIN
 			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
-		WHERE 1=1 $cari AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri LIMIT $jumlahDataPerHalaman OFFSET $offset";
+		ORDER BY b.provinsi, c.kemendagri ";
 
 		$qry2 = "SELECT count(*) as jml_data FROM p_f3a AS a WHERE 1=1 $cari AND a.ta=$ta";
 
