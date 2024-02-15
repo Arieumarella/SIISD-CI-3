@@ -459,28 +459,23 @@ class FormTeknis extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f1a', ['kotakabid' => $kab, 'ta' => $thang]);
-
-		if ($cek) {
-			$data = $this->M_formTeknis->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
-			$data = $this->M_formTeknis->getDataDiFull((string)$thang, $kab);
-		}
+		
+		$data = $this->M_formTeknis->getDataDiFull($thang, $kab);
+		
 
 		$indexLopp = 4;
 		$nilaiAwal = 1;
 		
 		foreach ($data as $key => $val) {
 			
-			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($val->provIdX);
-			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->kotakabidX);
-			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiidX);
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($val->provid);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->kotakabid);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiid);
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->provinsi);
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->laBaku);
 			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->laPotensial);
 			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->laFungsional);
@@ -855,6 +850,14 @@ class FormTeknis extends CI_Controller {
 		
 
 		
+	}
+
+
+	public function getLapermen()
+	{
+		$irigasiid = $this->input->post('irigasiid');
+		$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		echo json_encode($data);
 	}
 
 

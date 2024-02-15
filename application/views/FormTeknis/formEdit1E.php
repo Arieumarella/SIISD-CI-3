@@ -80,542 +80,542 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" data-select2-id="28"> <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-        <div class="row m-0" data-select2-id="27">
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>FormTeknis1E/SimpanDataEdit" method="POST" data-select2-id="25">
+            <div class="row m-0" data-select2-id="27">
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" data-select2-id="26">
+                <form role="form" action="<?= base_url(); ?>FormTeknis1E/SimpanDataEdit" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                      <h4 class="m-0">Form 1E : ASET D.I.P</h4>
-                  </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 1E : ASET D.I.P</h4>
+                      </div>
 
-                  <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>FormTeknis1E/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>FormTeknis1E/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="content" data-select2-id="24">
+        <section class="content" data-select2-id="24">
 
-        <div class="container-fluid" data-select2-id="23">
+            <div class="container-fluid" data-select2-id="23">
 
-            <!-- box data teknis -->
-            <div class="row" data-select2-id="22">
+                <!-- box data teknis -->
+                <div class="row" data-select2-id="22">
 
-                <div class="card-body p-0 " data-select2-id="21">
-
-
-
-                    <!-- form start -->
-                    <div class="modal-body" data-select2-id="20">
-
-                        <?= $this->session->flashdata('psn'); ?>
-
-                        <div style="background-color:red; color:#fff;">
-                        </div>
-                        <!-- menampilkan kolom dengan normal ---------------------------------------------------------------------------------------------------------------------- -->
-                        <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
-
-
-                            <div class="form-group" data-select2-id="32">
-                                <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
-
-                                 <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option>        
-
-                             </select>
-                             <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                         </div>
-
-                     </div> <!-- end box per input -->
+                    <div class="card-body p-0 " data-select2-id="21">
 
 
 
-                     <!-- Row Luas Areal (Ha) -->
-                     <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Luas&nbsp;Areal&nbsp;(Ha)</div></div>
+                        <!-- form start -->
+                        <div class="modal-body" data-select2-id="20">
 
-                     <div class="row">
-                        <div class="col-sm-3"> <!-- start box per input -->
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label for="in_laPermen">Berdasarkan Permen 14/2015  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                <input id="in_laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Berdasarkan Permen 14/2015" required>
-                                <div class="invalid-feedback" id="pesan_laPermen"></div>
+                            <?= $this->session->flashdata('psn'); ?>
+
+                            <div style="background-color:red; color:#fff;">
                             </div>
-                        </div> 
+                            <!-- menampilkan kolom dengan normal ---------------------------------------------------------------------------------------------------------------------- -->
+                            <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
 
-                        <div class="col-sm-3"> 
 
-                            <div class="form-group">
-                                <label for="in_laBaku">Baku (Pemetaan&nbsp;IGT)</label>
-                                <input id="in_laBaku" name="laBaku" value="<?= str_replace('.', ',', $dataDi->laBaku); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                <div class="invalid-feedback" id="pesan_laBaku"></div>
+                                <div class="form-group" data-select2-id="32">
+                                    <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
+
+                                       <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option>        
+
+                                   </select>
+                                   <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                               </div>
+
+                           </div> <!-- end box per input -->
+
+
+
+                           <!-- Row Luas Areal (Ha) -->
+                           <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Luas&nbsp;Areal&nbsp;(Ha)</div></div>
+
+                           <div class="row">
+                            <div class="col-sm-3"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="in_laPermen">Berdasarkan Permen 14/2015  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <input id="in_laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->lper); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Berdasarkan Permen 14/2015" required readonly>
+                                    <div class="invalid-feedback" id="pesan_laPermen"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-3"> 
+
+                                <div class="form-group">
+                                    <label for="in_laBaku">Baku (Pemetaan&nbsp;IGT)</label>
+                                    <input id="in_laBaku" name="laBaku" value="<?= str_replace('.', ',', $dataDi->laBaku); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_laBaku"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="in_laPotensial">Potensial (Pemetaan&nbsp;IGT)</label>
+                                    <input id="in_laPotensial" name="laPotensial" value="<?= str_replace('.', ',', $dataDi->laPotensial); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Potensial (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_laPotensial"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="in_laFungsional">Fungsional (Pemetaan&nbsp;IGT)</label>
+                                    <input id="in_laFungsional" name="laFungsional" value="<?= str_replace('.', ',', $dataDi->laFungsional); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Fungsional (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_laFungsional"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" data-select2-id="9"> 
+                                <div class="form-group" data-select2-id="8">
+                                    <label for="sumberAir">Sumber Air</label>
+                                    <select id="sumberAir" name="sumberAir" class="form-control form-control-sm select2 " required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option value="Waduk" <?= $dataDi->sumberAir == 'Waduk' ? 'selected' : ''; ?> >Waduk</option>
+                                        <option value="Embung" <?= $dataDi->sumberAir == 'Embung' ? 'selected' : ''; ?> >Embung</option>
+                                        <option value="Situ" <?= $dataDi->sumberAir == 'Situ' ? 'selected' : ''; ?> >Situ</option>
+                                        <option value="Danau" <?= $dataDi->sumberAir == 'Danau' ? 'selected' : ''; ?> >Danau</option>
+                                        <option value="Sungai" <?= $dataDi->sumberAir == 'Sungai' ? 'selected' : ''; ?> >Sungai</option>
+                                        <option value="Mata Air" <?= $dataDi->sumberAir == 'Mata Air' ? 'selected' : ''; ?> >Mata Air</option>
+                                        <option value="Air Tanah" <?= $dataDi->sumberAir == 'Air Tanah' ? 'selected' : ''; ?> >Air Tanah</option>
+                                        <option value="Hujan" <?= $dataDi->sumberAir == 'Hujan' ? 'selected' : ''; ?> >Hujan</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_sumberAir"></div>
+                                </div>
                             </div>
 
                         </div>
+                        <!-- End Row Luas Areal (Ha) -->
 
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="in_laPotensial">Potensial (Pemetaan&nbsp;IGT)</label>
-                                <input id="in_laPotensial" name="laPotensial" value="<?= str_replace('.', ',', $dataDi->laPotensial); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Potensial (Pemetaan&nbsp;IGT)" required>
-                                <div class="invalid-feedback" id="pesan_laPotensial"></div>
+
+                        <!-- End Row Bangunan Utama -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Utama</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buPompa">Pompa (bh)</label>
+                                    <input id="buPompa" name="buPompa" value="<?= str_replace('.', ',', $dataDi->buPompa); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pompa (bh)">
+                                    <div class="invalid-feedback" id="pesan_buPompa"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buRumahPompa">Rumah Pompa (bh)</label>
+                                    <input id="buRumahPompa" name="buRumahPompa" value="<?= str_replace('.', ',', $dataDi->buRumahPompa); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Pompa (bh)">
+                                    <div class="invalid-feedback" id="pesan_buRumahPompa"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buJembatanPengambilan">Jembatan Pengambilan (bh)</label>
+                                    <input id="buJembatanPengambilan" name="buJembatanPengambilan" value="<?= str_replace('.', ',', $dataDi->buJembatanPengambilan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jembatan Pengambilan (bh)">
+                                    <div class="invalid-feedback" id="pesan_buJembatanPengambilan"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buRmGensetPanelElektrikal">Rumah Genset & Panel Elektrikal (bh)</label>
+                                    <input id="buRmGensetPanelElektrikal" name="buRmGensetPanelElektrikal" value="<?= str_replace('.', ',', $dataDi->buRmGensetPanelElektrikal); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Genset & Panel Elektrikal (bh)">
+                                    <div class="invalid-feedback" id="pesan_buRmGensetPanelElektrikal"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Row Bangunan Utama -->
+
+
+                        <!-- Row Saluran -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Saluran</div></div>
+
+                        <div class="row">
+
+                            <div class="col-sm-3" data-select2-id="9"> 
+                                <div class="form-group" data-select2-id="8">
+                                    <label for="sTipeSaluran">Tipe Saluran</label>
+                                    <select id="sTipeSaluran" name="sTipeSaluran" class="form-control form-control-sm select2 " required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option value="Terbuka" <?= $dataDi->sTipeSaluran == 'Terbuka' ? 'selected' : ''; ?> >Terbuka</option>
+                                        <option value="Tertutup" <?= $dataDi->sTipeSaluran == 'Tertutup' ? 'selected' : ''; ?> >Tertutup</option>
+                                        <option value="Campuran" <?= $dataDi->sTipeSaluran == 'Campuran' ? 'selected' : ''; ?> >Campuran</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_sTipeSaluran"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="sPrimer">Primer (m)</label>
+                                    <input id="sPrimer" name="sPrimer" value="<?= str_replace('.', ',', $dataDi->sPrimer); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Primer (m)">
+                                    <div class="invalid-feedback" id="pesan_sPrimer"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="sSekunder">Sekunder (m)</label>
+                                    <input id="sSekunder" name="sSekunder" value="<?= str_replace('.', ',', $dataDi->sSekunder); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sekunder (m)">
+                                    <div class="invalid-feedback" id="pesan_sSekunder"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="sTersier">Tersier (m)</label>
+                                    <input id="sTersier" name="sTersier" value="<?= str_replace('.', ',', $dataDi->sTersier); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tersier (m)">
+                                    <div class="invalid-feedback" id="pesan_sTersier"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="sPembuang">Pembuang (m)</label>
+                                    <input id="sPembuang" name="sPembuang" value="<?= str_replace('.', ',', $dataDi->sPembuang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pembuang (m)">
+                                    <div class="invalid-feedback" id="pesan_sPembuang"></div>
+                                </div>
                             </div>
                         </div>
+                        <!-- End Row Saluran -->
 
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="in_laFungsional">Fungsional (Pemetaan&nbsp;IGT)</label>
-                                <input id="in_laFungsional" name="laFungsional" value="<?= str_replace('.', ',', $dataDi->laFungsional); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" placeholder="Fungsional (Pemetaan&nbsp;IGT)" required>
-                                <div class="invalid-feedback" id="pesan_laFungsional"></div>
+
+                        <!-- Row Bangunan Pengatur dan Pengukur -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pengatur dan Pengukur</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bppBagi">Bagi (bh)</label>
+                                    <input id="bppBagi" name="bppBagi" value="<?= str_replace('.', ',', $dataDi->bppBagi); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bagi (bh)">
+                                    <div class="invalid-feedback" id="pesan_bppBagi"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bppBagiSadap">Bagi Sadap (bh)</label>
+                                    <input id="bppBagiSadap" name="bppBagiSadap" value="<?= str_replace('.', ',', $dataDi->bppBagiSadap); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bagi Sadap (bh)">
+                                    <div class="invalid-feedback" id="pesan_bppBagiSadap"></div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bppSadap">Sadap (bh)</label>
+                                    <input id="bppSadap" name="bppSadap" value="<?= str_replace('.', ',', $dataDi->bppSadap); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sadap (bh)">
+                                    <div class="invalid-feedback" id="pesan_bppSadap"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bppBangunanPengukur">Bangunan Pengukur (bh)</label>
+                                    <input id="bppBangunanPengukur" name="bppBangunanPengukur" value="<?= str_replace('.', ',', $dataDi->bppBangunanPengukur); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bangunan Pengukur (bh)">
+                                    <div class="invalid-feedback" id="pesan_bppBangunanPengukur"></div>
+                                </div>
                             </div>
                         </div>
+                        <!-- End Row Bangunan Pengatur dan Pengukur -->
 
-                        <div class="col-sm-3" data-select2-id="9"> 
-                            <div class="form-group" data-select2-id="8">
-                                <label for="sumberAir">Sumber Air</label>
-                                <select id="sumberAir" name="sumberAir" class="form-control form-control-sm select2 " required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option value="Waduk" <?= $dataDi->sumberAir == 'Waduk' ? 'selected' : ''; ?> >Waduk</option>
-                                    <option value="Embung" <?= $dataDi->sumberAir == 'Embung' ? 'selected' : ''; ?> >Embung</option>
-                                    <option value="Situ" <?= $dataDi->sumberAir == 'Situ' ? 'selected' : ''; ?> >Situ</option>
-                                    <option value="Danau" <?= $dataDi->sumberAir == 'Danau' ? 'selected' : ''; ?> >Danau</option>
-                                    <option value="Sungai" <?= $dataDi->sumberAir == 'Sungai' ? 'selected' : ''; ?> >Sungai</option>
-                                    <option value="Mata Air" <?= $dataDi->sumberAir == 'Mata Air' ? 'selected' : ''; ?> >Mata Air</option>
-                                    <option value="Air Tanah" <?= $dataDi->sumberAir == 'Air Tanah' ? 'selected' : ''; ?> >Air Tanah</option>
-                                    <option value="Hujan" <?= $dataDi->sumberAir == 'Hujan' ? 'selected' : ''; ?> >Hujan</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_sumberAir"></div>
+
+                        <!-- Row Bangunan Pembawa -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pembawa</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bpGorong">Gorong-Gorong (bh)</label>
+                                    <input id="bpGorong" name="bpGorong" value="<?= str_replace('.', ',', $dataDi->bpGorong); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Gorong-Gorong (bh)">
+                                    <div class="invalid-feedback" id="pesan_bpGorong"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="bpSipon">Sipon (bh)</label>
+                                    <input id="bpSipon" name="bpSipon" value="<?= str_replace('.', ',', $dataDi->bpSipon); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sipon (bh)">
+                                    <div class="invalid-feedback" id="pesan_bpSipon"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="bpTalang">Talang (m)</label>
+                                    <input id="bpTalang" name="bpTalang" value="<?= str_replace('.', ',', $dataDi->bpTalang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Talang (m)">
+                                    <div class="invalid-feedback" id="pesan_bpTalang"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="bpTerjunan">Terjunan (bh)</label>
+                                    <input id="bpTerjunan" name="bpTerjunan" value="<?= str_replace('.', ',', $dataDi->bpTerjunan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Terjunan (bh)">
+                                    <div class="invalid-feedback" id="pesan_bpTerjunan"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="bpGotMiring">Got Miring (bh)</label>
+                                    <input id="bpGotMiring" name="bpGotMiring" value="<?= str_replace('.', ',', $dataDi->bpGotMiring); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Got Miring (bh)">
+                                    <div class="invalid-feedback" id="pesan_bpGotMiring"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Row Bangunan Pembawa -->
+
+                        <!-- Row Bangunan Lindung -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Lindung</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinKrib">Krib (Bh)</label>
+                                    <input id="blinKrib" name="blinKrib" value="<?= str_replace('.', ',', $dataDi->blinKrib); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Krib (Bh)">
+                                    <div class="invalid-feedback" id="pesan_blinKrib"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinPelimpah">Pelimpah (bh)</label>
+                                    <input id="blinPelimpah" name="blinPelimpah" value="<?= str_replace('.', ',', $dataDi->blinPelimpah); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pelimpah (bh)">
+                                    <div class="invalid-feedback" id="pesan_blinPelimpah"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinSaluranGendong">Saluran Gendong (m)</label>
+                                    <input id="blinSaluranGendong" name="blinSaluranGendong" value="<?= str_replace('.', ',', $dataDi->blinSaluranGendong); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Saluran Gendong (m)">
+                                    <div class="invalid-feedback" id="pesan_blinSaluranGendong"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinPelepasTekan">Pelepas Tekan (bh)</label>
+                                    <input id="blinPelepasTekan" name="blinPelepasTekan" value="<?= str_replace('.', ',', $dataDi->blinPelepasTekan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pelepas Tekan (bh)">
+                                    <div class="invalid-feedback" id="pesan_blinPelepasTekan"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinBakKontrol">Bak Kontrol (bh)</label>
+                                    <input id="blinBakKontrol" name="blinBakKontrol" value="<?= str_replace('.', ',', $dataDi->blinBakKontrol); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bak Kontrol (bh)">
+                                    <div class="invalid-feedback" id="pesan_blinBakKontrol"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinTanggul">Tanggul (bh)</label>
+                                    <input id="blinTanggul" name="blinTanggul" value="<?= str_replace('.', ',', $dataDi->blinTanggul); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tanggul (bh)">
+                                    <div class="invalid-feedback" id="pesan_blinSaluranGendong"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="blinPerkuatanTebing">Perkuatan Tebing (bh)</label>
+                                    <input id="blinPerkuatanTebing" name="blinPerkuatanTebing" value="<?= str_replace('.', ',', $dataDi->blinPerkuatanTebing); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Perkuatan Tebing (bh)">
+                                    <div class="invalid-feedback" id="pesan_blinPerkuatanTebing"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Row Bangunan Lindung -->
+
+                        <!-- Row Bangunan Pengatur dan Pengukur -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pelengkap</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapJalanInspeksi">Jalan Inspeksi (m)</label>
+                                    <input id="bkapJalanInspeksi" name="bkapJalanInspeksi" value="<?= str_replace('.', ',', $dataDi->bkapJalanInspeksi); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jalan Inspeksi (m)">
+                                    <div class="invalid-feedback" id="pesan_bkapJalanInspeksi"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buControlValve">Jembatan (bh)</label>
+                                    <input id="buControlValve" name="buControlValve" value="<?= str_replace('.', ',', $dataDi->buControlValve); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jembatan (bh)">
+                                    <div class="invalid-feedback" id="pesan_buControlValve"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapKantorPengamat">Kantor Pengamat (bh)</label>
+                                    <input id="bkapKantorPengamat" name="bkapKantorPengamat" value="<?= str_replace('.', ',', $dataDi->bkapKantorPengamat); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Kantor Pengamat (bh)">
+                                    <div class="invalid-feedback" id="pesan_bkapKantorPengamat"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapGudang">Gudang (bh)</label>
+                                    <input id="bkapGudang" name="bkapGudang" value="<?= str_replace('.', ',', $dataDi->bkapGudang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Gudang (bh)">
+                                    <div class="invalid-feedback" id="pesan_bkapGudang"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapRumahJaga">Rumah Jaga (bh)</label>
+                                    <input id="bkapRumahJaga" name="bkapRumahJaga" value="<?= str_replace('.', ',', $dataDi->bkapRumahJaga); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Jaga (bh)">
+                                    <div class="invalid-feedback" id="pesan_bkapKantorPengamat"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapSanggarTani">Sanggar Tani (bh)</label>
+                                    <input id="bkapSanggarTani" name="bkapSanggarTani" value="<?= str_replace('.', ',', $dataDi->bkapSanggarTani); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sanggar Tani (bh)">
+                                    <div class="invalid-feedback" id="pesan_bkapSanggarTani"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="bkapTampungan">Tampungan Air/Reservoir (bh)</label>
+                                    <input id="bkapTampungan" name="bkapTampungan" value="<?= str_replace('.', ',', $dataDi->bkapTampungan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tampungan Air/Reservoir (bh)">
+                                    <div class="invalid-feedback" id="pesan_bkapTampungan"></div>
+                                </div>
                             </div>
                         </div>
+                        <!-- End Row Bangunan Pengatur dan Pengukur -->
+
+
+
+                        <!-- Row Bangunan Pengatur dan Pengukur -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Sarana</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="saranaPintuAir">Pintu Air (bh)</label>
+                                    <input id="saranaPintuAir" name="saranaPintuAir" value="<?= str_replace('.', ',', $dataDi->saranaPintuAir); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pintu Air (bh)">
+                                    <div class="invalid-feedback" id="pesan_saranaPintuAir"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="buControlValve">Control Valve (bh)</label>
+                                    <input id="buControlValve" name="buControlValve" value="<?= str_replace('.', ',', $dataDi->buControlValve); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Control Valve (bh)">
+                                    <div class="invalid-feedback" id="pesan_buControlValve"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="saranaAlatUkur">Alat Ukur (bh)</label>
+                                    <input id="saranaAlatUkur" name="saranaAlatUkur" value="<?= str_replace('.', ',', $dataDi->saranaAlatUkur); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Alat Ukur (bh)">
+                                    <div class="invalid-feedback" id="pesan_saranaAlatUkur"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Bangunan Pengatur dan Pengukur -->
+
+
+                        <!-- Row Dokumentasi -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Dokumentasi</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="in_dokPeta">Peta</label>
+                                    <select id="in_dokPeta" name="dokPeta" class="form-control" required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option class="in_dokPeta_option" value="Ada" <?= $dataDi->dokPeta == 'Ada' ? 'selected' : ''; ?> >Ada</option>
+                                        <option class="in_dokPeta_option" value="Tidak Ada" <?= $dataDi->dokPeta == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_dokPeta"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label for="in_dokSkemaJaringan">Skema Jaringan</label>
+                                    <select id="in_dokSkemaJaringan" name="dokSkemaJaringan" class="form-control" required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option class="in_dokSkemaJaringan_option" value="Ada" <?= $dataDi->dokSkemaJaringan == 'Ada' ? 'selected' : ''; ?> >Ada</option>
+                                        <option class="in_dokSkemaJaringan_option" value="Tidak Ada" <?= $dataDi->dokSkemaJaringan == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_dokSkemaJaringan"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="in_dokGambarKonstruksi">Gambar Konstruksi</label>
+                                    <select id="in_dokGambarKonstruksi" name="dokGambarKonstruksi" class="form-control" required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option class="in_dokGambarKonstruksi_option" value="Ada"  <?= $dataDi->dokGambarKonstruksi == 'Ada' ? 'selected' : ''; ?> >Ada</option>
+                                        <option class="in_dokGambarKonstruksi_option" value="Tidak Ada" <?= $dataDi->dokGambarKonstruksi == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_dokGambarKonstruksi"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="in_dokBukuDataDI">Buku&nbsp;Data Daerah&nbsp;Irigasi</label>
+                                    <select id="in_dokBukuDataDI" name="dokBukuDataDI" class="form-control" required>
+                                        <option selected="" value="">-pilih-</option>
+                                        <option class="in_dokBukuDataDI_option" value="Ada" <?= $dataDi->dokBukuDataDI == 'Ada' ? 'selected' : ''; ?> >Ada</option>
+                                        <option class="in_dokBukuDataDI_option" value="Tidak Ada" <?= $dataDi->dokBukuDataDI == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_dokBukuDataDI"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row Dokumentasi -->
 
                     </div>
-                    <!-- End Row Luas Areal (Ha) -->
 
-
-                    <!-- End Row Bangunan Utama -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Utama</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buPompa">Pompa (bh)</label>
-                                <input id="buPompa" name="buPompa" value="<?= str_replace('.', ',', $dataDi->buPompa); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pompa (bh)">
-                                <div class="invalid-feedback" id="pesan_buPompa"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buRumahPompa">Rumah Pompa (bh)</label>
-                                <input id="buRumahPompa" name="buRumahPompa" value="<?= str_replace('.', ',', $dataDi->buRumahPompa); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Pompa (bh)">
-                                <div class="invalid-feedback" id="pesan_buRumahPompa"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buJembatanPengambilan">Jembatan Pengambilan (bh)</label>
-                                <input id="buJembatanPengambilan" name="buJembatanPengambilan" value="<?= str_replace('.', ',', $dataDi->buJembatanPengambilan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jembatan Pengambilan (bh)">
-                                <div class="invalid-feedback" id="pesan_buJembatanPengambilan"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buRmGensetPanelElektrikal">Rumah Genset & Panel Elektrikal (bh)</label>
-                                <input id="buRmGensetPanelElektrikal" name="buRmGensetPanelElektrikal" value="<?= str_replace('.', ',', $dataDi->buRmGensetPanelElektrikal); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Genset & Panel Elektrikal (bh)">
-                                <div class="invalid-feedback" id="pesan_buRmGensetPanelElektrikal"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- End Row Bangunan Utama -->
-
-
-                    <!-- Row Saluran -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Saluran</div></div>
-
-                    <div class="row">
-
-                        <div class="col-sm-3" data-select2-id="9"> 
-                            <div class="form-group" data-select2-id="8">
-                                <label for="sTipeSaluran">Tipe Saluran</label>
-                                <select id="sTipeSaluran" name="sTipeSaluran" class="form-control form-control-sm select2 " required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option value="Terbuka" <?= $dataDi->sTipeSaluran == 'Terbuka' ? 'selected' : ''; ?> >Terbuka</option>
-                                    <option value="Tertutup" <?= $dataDi->sTipeSaluran == 'Tertutup' ? 'selected' : ''; ?> >Tertutup</option>
-                                    <option value="Campuran" <?= $dataDi->sTipeSaluran == 'Campuran' ? 'selected' : ''; ?> >Campuran</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_sTipeSaluran"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="sPrimer">Primer (m)</label>
-                                <input id="sPrimer" name="sPrimer" value="<?= str_replace('.', ',', $dataDi->sPrimer); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Primer (m)">
-                                <div class="invalid-feedback" id="pesan_sPrimer"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="sSekunder">Sekunder (m)</label>
-                                <input id="sSekunder" name="sSekunder" value="<?= str_replace('.', ',', $dataDi->sSekunder); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sekunder (m)">
-                                <div class="invalid-feedback" id="pesan_sSekunder"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="sTersier">Tersier (m)</label>
-                                <input id="sTersier" name="sTersier" value="<?= str_replace('.', ',', $dataDi->sTersier); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tersier (m)">
-                                <div class="invalid-feedback" id="pesan_sTersier"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="sPembuang">Pembuang (m)</label>
-                                <input id="sPembuang" name="sPembuang" value="<?= str_replace('.', ',', $dataDi->sPembuang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pembuang (m)">
-                                <div class="invalid-feedback" id="pesan_sPembuang"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Row Saluran -->
-
-
-                    <!-- Row Bangunan Pengatur dan Pengukur -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pengatur dan Pengukur</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bppBagi">Bagi (bh)</label>
-                                <input id="bppBagi" name="bppBagi" value="<?= str_replace('.', ',', $dataDi->bppBagi); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bagi (bh)">
-                                <div class="invalid-feedback" id="pesan_bppBagi"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bppBagiSadap">Bagi Sadap (bh)</label>
-                                <input id="bppBagiSadap" name="bppBagiSadap" value="<?= str_replace('.', ',', $dataDi->bppBagiSadap); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bagi Sadap (bh)">
-                                <div class="invalid-feedback" id="pesan_bppBagiSadap"></div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bppSadap">Sadap (bh)</label>
-                                <input id="bppSadap" name="bppSadap" value="<?= str_replace('.', ',', $dataDi->bppSadap); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sadap (bh)">
-                                <div class="invalid-feedback" id="pesan_bppSadap"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bppBangunanPengukur">Bangunan Pengukur (bh)</label>
-                                <input id="bppBangunanPengukur" name="bppBangunanPengukur" value="<?= str_replace('.', ',', $dataDi->bppBangunanPengukur); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bangunan Pengukur (bh)">
-                                <div class="invalid-feedback" id="pesan_bppBangunanPengukur"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Row Bangunan Pengatur dan Pengukur -->
-
-
-                    <!-- Row Bangunan Pembawa -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pembawa</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bpGorong">Gorong-Gorong (bh)</label>
-                                <input id="bpGorong" name="bpGorong" value="<?= str_replace('.', ',', $dataDi->bpGorong); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Gorong-Gorong (bh)">
-                                <div class="invalid-feedback" id="pesan_bpGorong"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="bpSipon">Sipon (bh)</label>
-                                <input id="bpSipon" name="bpSipon" value="<?= str_replace('.', ',', $dataDi->bpSipon); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sipon (bh)">
-                                <div class="invalid-feedback" id="pesan_bpSipon"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="bpTalang">Talang (m)</label>
-                                <input id="bpTalang" name="bpTalang" value="<?= str_replace('.', ',', $dataDi->bpTalang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Talang (m)">
-                                <div class="invalid-feedback" id="pesan_bpTalang"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="bpTerjunan">Terjunan (bh)</label>
-                                <input id="bpTerjunan" name="bpTerjunan" value="<?= str_replace('.', ',', $dataDi->bpTerjunan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Terjunan (bh)">
-                                <div class="invalid-feedback" id="pesan_bpTerjunan"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="bpGotMiring">Got Miring (bh)</label>
-                                <input id="bpGotMiring" name="bpGotMiring" value="<?= str_replace('.', ',', $dataDi->bpGotMiring); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Got Miring (bh)">
-                                <div class="invalid-feedback" id="pesan_bpGotMiring"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- End Row Bangunan Pembawa -->
-
-                    <!-- Row Bangunan Lindung -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Lindung</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinKrib">Krib (Bh)</label>
-                                <input id="blinKrib" name="blinKrib" value="<?= str_replace('.', ',', $dataDi->blinKrib); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Krib (Bh)">
-                                <div class="invalid-feedback" id="pesan_blinKrib"></div>
-                            </div>
-                        </div> 
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinPelimpah">Pelimpah (bh)</label>
-                                <input id="blinPelimpah" name="blinPelimpah" value="<?= str_replace('.', ',', $dataDi->blinPelimpah); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pelimpah (bh)">
-                                <div class="invalid-feedback" id="pesan_blinPelimpah"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinSaluranGendong">Saluran Gendong (m)</label>
-                                <input id="blinSaluranGendong" name="blinSaluranGendong" value="<?= str_replace('.', ',', $dataDi->blinSaluranGendong); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Saluran Gendong (m)">
-                                <div class="invalid-feedback" id="pesan_blinSaluranGendong"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinPelepasTekan">Pelepas Tekan (bh)</label>
-                                <input id="blinPelepasTekan" name="blinPelepasTekan" value="<?= str_replace('.', ',', $dataDi->blinPelepasTekan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pelepas Tekan (bh)">
-                                <div class="invalid-feedback" id="pesan_blinPelepasTekan"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinBakKontrol">Bak Kontrol (bh)</label>
-                                <input id="blinBakKontrol" name="blinBakKontrol" value="<?= str_replace('.', ',', $dataDi->blinBakKontrol); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Bak Kontrol (bh)">
-                                <div class="invalid-feedback" id="pesan_blinBakKontrol"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinTanggul">Tanggul (bh)</label>
-                                <input id="blinTanggul" name="blinTanggul" value="<?= str_replace('.', ',', $dataDi->blinTanggul); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tanggul (bh)">
-                                <div class="invalid-feedback" id="pesan_blinSaluranGendong"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="blinPerkuatanTebing">Perkuatan Tebing (bh)</label>
-                                <input id="blinPerkuatanTebing" name="blinPerkuatanTebing" value="<?= str_replace('.', ',', $dataDi->blinPerkuatanTebing); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Perkuatan Tebing (bh)">
-                                <div class="invalid-feedback" id="pesan_blinPerkuatanTebing"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- End Row Bangunan Lindung -->
-
-                    <!-- Row Bangunan Pengatur dan Pengukur -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pelengkap</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapJalanInspeksi">Jalan Inspeksi (m)</label>
-                                <input id="bkapJalanInspeksi" name="bkapJalanInspeksi" value="<?= str_replace('.', ',', $dataDi->bkapJalanInspeksi); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jalan Inspeksi (m)">
-                                <div class="invalid-feedback" id="pesan_bkapJalanInspeksi"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buControlValve">Jembatan (bh)</label>
-                                <input id="buControlValve" name="buControlValve" value="<?= str_replace('.', ',', $dataDi->buControlValve); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Jembatan (bh)">
-                                <div class="invalid-feedback" id="pesan_buControlValve"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapKantorPengamat">Kantor Pengamat (bh)</label>
-                                <input id="bkapKantorPengamat" name="bkapKantorPengamat" value="<?= str_replace('.', ',', $dataDi->bkapKantorPengamat); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Kantor Pengamat (bh)">
-                                <div class="invalid-feedback" id="pesan_bkapKantorPengamat"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapGudang">Gudang (bh)</label>
-                                <input id="bkapGudang" name="bkapGudang" value="<?= str_replace('.', ',', $dataDi->bkapGudang); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Gudang (bh)">
-                                <div class="invalid-feedback" id="pesan_bkapGudang"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapRumahJaga">Rumah Jaga (bh)</label>
-                                <input id="bkapRumahJaga" name="bkapRumahJaga" value="<?= str_replace('.', ',', $dataDi->bkapRumahJaga); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Rumah Jaga (bh)">
-                                <div class="invalid-feedback" id="pesan_bkapKantorPengamat"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapSanggarTani">Sanggar Tani (bh)</label>
-                                <input id="bkapSanggarTani" name="bkapSanggarTani" value="<?= str_replace('.', ',', $dataDi->bkapSanggarTani); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Sanggar Tani (bh)">
-                                <div class="invalid-feedback" id="pesan_bkapSanggarTani"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="bkapTampungan">Tampungan Air/Reservoir (bh)</label>
-                                <input id="bkapTampungan" name="bkapTampungan" value="<?= str_replace('.', ',', $dataDi->bkapTampungan); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Tampungan Air/Reservoir (bh)">
-                                <div class="invalid-feedback" id="pesan_bkapTampungan"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Row Bangunan Pengatur dan Pengukur -->
-
-
-
-                    <!-- Row Bangunan Pengatur dan Pengukur -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Sarana</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="saranaPintuAir">Pintu Air (bh)</label>
-                                <input id="saranaPintuAir" name="saranaPintuAir" value="<?= str_replace('.', ',', $dataDi->saranaPintuAir); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Pintu Air (bh)">
-                                <div class="invalid-feedback" id="pesan_saranaPintuAir"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="buControlValve">Control Valve (bh)</label>
-                                <input id="buControlValve" name="buControlValve" value="<?= str_replace('.', ',', $dataDi->buControlValve); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Control Valve (bh)">
-                                <div class="invalid-feedback" id="pesan_buControlValve"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="saranaAlatUkur">Alat Ukur (bh)</label>
-                                <input id="saranaAlatUkur" name="saranaAlatUkur" value="<?= str_replace('.', ',', $dataDi->saranaAlatUkur); ?>" type="text" class="form-control form-control-sm text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required placeholder="Alat Ukur (bh)">
-                                <div class="invalid-feedback" id="pesan_saranaAlatUkur"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Row Bangunan Pengatur dan Pengukur -->
-
-
-                    <!-- Row Dokumentasi -->
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Dokumentasi</div></div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="in_dokPeta">Peta</label>
-                                <select id="in_dokPeta" name="dokPeta" class="form-control" required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option class="in_dokPeta_option" value="Ada" <?= $dataDi->dokPeta == 'Ada' ? 'selected' : ''; ?> >Ada</option>
-                                    <option class="in_dokPeta_option" value="Tidak Ada" <?= $dataDi->dokPeta == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_dokPeta"></div>
-                            </div>
-                        </div> 
-
-                        <div class="col-sm-3"> 
-                            <div class="form-group">
-                                <label for="in_dokSkemaJaringan">Skema Jaringan</label>
-                                <select id="in_dokSkemaJaringan" name="dokSkemaJaringan" class="form-control" required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option class="in_dokSkemaJaringan_option" value="Ada" <?= $dataDi->dokSkemaJaringan == 'Ada' ? 'selected' : ''; ?> >Ada</option>
-                                    <option class="in_dokSkemaJaringan_option" value="Tidak Ada" <?= $dataDi->dokSkemaJaringan == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_dokSkemaJaringan"></div>
-                            </div>
-                        </div> 
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="in_dokGambarKonstruksi">Gambar Konstruksi</label>
-                                <select id="in_dokGambarKonstruksi" name="dokGambarKonstruksi" class="form-control" required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option class="in_dokGambarKonstruksi_option" value="Ada"  <?= $dataDi->dokGambarKonstruksi == 'Ada' ? 'selected' : ''; ?> >Ada</option>
-                                    <option class="in_dokGambarKonstruksi_option" value="Tidak Ada" <?= $dataDi->dokGambarKonstruksi == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_dokGambarKonstruksi"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="in_dokBukuDataDI">Buku&nbsp;Data Daerah&nbsp;Irigasi</label>
-                                <select id="in_dokBukuDataDI" name="dokBukuDataDI" class="form-control" required>
-                                    <option selected="" value="">-pilih-</option>
-                                    <option class="in_dokBukuDataDI_option" value="Ada" <?= $dataDi->dokBukuDataDI == 'Ada' ? 'selected' : ''; ?> >Ada</option>
-                                    <option class="in_dokBukuDataDI_option" value="Tidak Ada" <?= $dataDi->dokBukuDataDI == 'Tidak Ada' ? 'selected' : ''; ?> >Tidak Ada</option>
-                                </select>
-                                <div class="invalid-feedback" id="pesan_dokBukuDataDI"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row Dokumentasi -->
-
-                </div>
-
-                <div class="modal-footer justify-content-between">
-                    <div class="row">
-                      <a href="<?= base_url(); ?>FormTeknis1E/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                      <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
+                    <div class="modal-footer justify-content-between">
+                        <div class="row">
+                          <a href="<?= base_url(); ?>FormTeknis1E/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                          <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
+                      </div>
                   </div>
+
+
+                  <!-- form end -->
+
               </div>
-
-
-              <!-- form end -->
-
           </div>
-      </div>
 
-  </div>
-</section>
+      </div>
+  </section>
 
 </form>
 
@@ -676,14 +676,14 @@
         },
         processResults: function (response) {
 
-           response.data.unshift({ id: '', text: 'Tampilkan semua' });
+         response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-           return {
-              results: response.data 
-          };
-      },
-      cache: true
-  }
+         return {
+          results: response.data 
+      };
+  },
+  cache: true
+}
 });
     <?php } ?>
 

@@ -20,7 +20,7 @@ class M_RealisasiTanam2E extends CI_Model {
 			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT d.provinsi, c.kemendagri, b.irigasiid as irigasiidX, a.nama, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
+		$qry = "SELECT d.provinsi, c.kemendagri, a.irigasiid as irigasiidX, a.nama, b.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN (SELECT * FROM p_f2e WHERE ta=$ta) AS b ON a.irigasiid=b.irigasiid
 		LEFT JOIN m_prov as d on a.provid=d.provid
 		LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
@@ -107,7 +107,11 @@ class M_RealisasiTanam2E extends CI_Model {
 
 	public function getDataDiById($id='')
 	{
-		$qry = "SELECT b.nama, a.* FROM p_f2e AS a LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b on a.irigasiid=b.irigasiid WHERE a.id='$id'";
+		
+		$thang = $this->session->userdata('thang');
+
+		$qry = "SELECT a.nama, a.irigasiid as irigasiidX, b.*, a.lper, a.irigasiid as id FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a LEFT JOIN  (SELECT * FROM p_f2e WHERE ta='$thang') AS b on a.irigasiid=b.irigasiid WHERE a.irigasiid='$id'";
+
 		return $this->db->query($qry)->row();
 	}
 
@@ -115,7 +119,7 @@ class M_RealisasiTanam2E extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f2e WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DIP'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.*, a.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kotakabid='$kab' AND kategori='DIP') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f2e WHERE ta='$thangX' AND kotakabid='$kab') as d on a.irigasiid=d.irigasiid";
 
 		return $this->db->query($qry)->result();
 

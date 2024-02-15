@@ -470,7 +470,7 @@
 
             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
-            <select id="in_stPenunjang" name="stPenunjang[]" required class="form-control select2">
+            <select id="in_stPenunjang" name="stPenunjang[]" class="form-control select2">
             <option selected="" value="" >-pilih-</option>
             <option value="Ada">Ada</option>
             <option value="Tidak Ada">Tidak Ada</option>
@@ -479,11 +479,11 @@
 
             </td>
             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" required class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
+            <input id="in_jmlOrg" name="jmlOrg[]" value="" type="text" class="form-control grupTempat angka  text-right" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Jumlah">
             <div class="invalid-feedback" id="pesan_jmlOrg"></div>
             </td>
             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
-            <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2" required>
+            <select id="in_stKondisi" name="stKondisi[]" class="form-control grupTempat select2">
             <option selected="" value="" >-pilih-</option>
             <option class="in_stKondisi_option" value="Layak" >Layak</option>
             <option class="in_stKondisi_option" value="Tidak Layak" >Tidak Layak</option>

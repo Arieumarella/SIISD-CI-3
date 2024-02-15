@@ -150,7 +150,7 @@ class M_sdmOp3B extends CI_Model {
 
 			$baseArray[] = $dataInsert2;
 
-			if ($nomorLoop == '22') {
+			if ($nomorLoop == '19') {
 				$nomorLoop=1;
 				$nomorindexArray++;
 			}else{
@@ -221,7 +221,7 @@ class M_sdmOp3B extends CI_Model {
 
 			$baseArray[] = $dataInsert2;
 
-			if ($nomorLoop == '22') {
+			if ($nomorLoop == '19') {
 				$nomorLoop=1;
 				$nomorindexArray++;
 			}else{

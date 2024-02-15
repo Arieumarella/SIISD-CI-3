@@ -80,232 +80,232 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
-   <!-- width:99%; height:100vh; -->
-   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+ <!-- width:99%; height:100vh; -->
+ <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
-   <!-- <div class="wrapper"> -->
+ <!-- <div class="wrapper"> -->
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class=""> <!-- content-wrapper -->
-        <div class="" data-select2-id="28"> <!-- content-wrapper -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class=""> <!-- content-wrapper -->
+    <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-            <div class="row m-0" data-select2-id="27">
-              <!-- panel panel-default -->
-              <div class="col-lg-12 p-0" data-select2-id="26">
-                <form role="form" action="<?= base_url(); ?>FormTeknis1F/SimpanDataEdit" method="POST" data-select2-id="25">
+        <div class="row m-0" data-select2-id="27">
+          <!-- panel panel-default -->
+          <div class="col-lg-12 p-0" data-select2-id="26">
+            <form role="form" action="<?= base_url(); ?>FormTeknis1F/SimpanDataEdit" method="POST" data-select2-id="25">
 
-                  <div class="content-header bg-warning">
-                    <div class="container-fluid">
-                      <div class="row m-0 p-0 text-left">
-                        <div class="col-sm-7">
-                          <h4 class="m-0">Form 1F : PROGRES PAIP</h4>
-                      </div>
+              <div class="content-header bg-warning">
+                <div class="container-fluid">
+                  <div class="row m-0 p-0 text-left">
+                    <div class="col-sm-7">
+                      <h4 class="m-0">Form 1F : PROGRES PAIP</h4>
+                  </div>
 
-                      <div class="col-sm-5 text-right">
-                        <a href="<?= base_url(); ?>FormTeknis1F/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
-                    </div>
+                  <div class="col-sm-5 text-right">
+                    <a href="<?= base_url(); ?>FormTeknis1F/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan Perubahan</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <section class="content" data-select2-id="24">
+    <section class="content" data-select2-id="24">
 
-            <div class="container-fluid" data-select2-id="23">
+        <div class="container-fluid" data-select2-id="23">
 
-                <!-- box data teknis -->
-                <div class="row" data-select2-id="22">
+            <!-- box data teknis -->
+            <div class="row" data-select2-id="22">
 
-                    <div class="card-body p-0 " data-select2-id="21">
-
-
-
-                        <!-- form start -->
-                        <div class="modal-body" data-select2-id="20">
-
-                            <?= $this->session->flashdata('psn'); ?>
-
-                            <div style="background-color:red; color:#fff;">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
-
-                                    <div class="form-group" data-select2-id="32">
-                                        <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
-
-                                            <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option> 
-
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-
-                                </div> <!-- end box per input -->
-
-                                <div class="col-sm-4"> 
-                                    <div class="form-group">
-                                        <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="in_laPermen" name="laPermen" value="<?= $dataDi->laPermen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
-                                        <div class="invalid-feedback" id="pesan_laPermen"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Inventarisasi Aset Irigasi</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-2"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="tkpaiInvAsetIrigasiThn">Tahun</label>
-                                        <input id="tkpaiInvAsetIrigasiThn" name="tkpaiInvAsetIrigasiThn" value="<?= $dataDi->tkpaiInvAsetIrigasiThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiInvAsetIrigasiThn"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-2"> 
-                                    <div class="form-group">
-                                        <label for="tkpaiInvAsetIrigasiPsen">%</label>
-                                        <input id="tkpaiInvAsetIrigasiPsen" name="tkpaiInvAsetIrigasiPsen" value="<?= $dataDi->tkpaiInvAsetIrigasiPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiInvAsetIrigasiPsen"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
-
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Perencanaan PAI</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-2"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="tkpaiPerencanaanPAIThn">Tahun</label>
-                                        <input id="tkpaiPerencanaanPAIThn" name="tkpaiPerencanaanPAIThn" value="<?= $dataDi->tkpaiPerencanaanPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
-                                        <div class="invalid-feedback" id="psn_tkpaiPerencanaanPAIThn"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-2"> 
-                                    <div class="form-group">
-                                        <label for="tkpaiPerencanaanPAIPsen">%</label>
-                                        <input id="tkpaiPerencanaanPAIPsen" name="tkpaiPerencanaanPAIPsen" value="<?= $dataDi->tkpaiPerencanaanPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiPerencanaanPAIPsen"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pelaksanaan PAI</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-2"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="tkpaiPelaksanaanPAIThn">Tahun</label>
-                                        <input id="tkpaiPelaksanaanPAIThn" name="tkpaiPelaksanaanPAIThn" value="<?= $dataDi->tkpaiPelaksanaanPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
-                                        <div class="invalid-feedback" id="psn_tkpaiPelaksanaanPAIThn"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-2"> 
-                                    <div class="form-group">
-                                        <label for="tkpaiPelaksanaanPAIPsen">%</label>
-                                        <input id="tkpaiPelaksanaanPAIPsen" name="tkpaiPelaksanaanPAIPsen" value="<?= $dataDi->tkpaiPelaksanaanPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiPelaksanaanPAIPsen"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Evaluasi PAI</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-2"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="tkpaiEvaluasiPAIThn">Tahun</label>
-                                        <input id="tkpaiEvaluasiPAIThn" name="tkpaiEvaluasiPAIThn" value="<?= $dataDi->tkpaiEvaluasiPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
-                                        <div class="invalid-feedback" id="psn_tkpaiEvaluasiPAIThn"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-2"> 
-                                    <div class="form-group">
-                                        <label for="tkpaiEvaluasiPAIPsen">%</label>
-                                        <input id="tkpaiEvaluasiPAIPsen" name="tkpaiEvaluasiPAIPsen" value="<?= $dataDi->tkpaiEvaluasiPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiEvaluasiPAIPsen"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pemutakhiran Hasil Invent. AI</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-2"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="tkpaiPethirHasilInventAIThn">Tahun</label>
-                                        <input id="tkpaiPethirHasilInventAIThn" name="tkpaiPethirHasilInventAIThn" value="<?= $dataDi->tkpaiPethirHasilInventAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
-                                        <div class="invalid-feedback" id="psn_tkpaiPethirHasilInventAIThn"></div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-sm-2"> 
-                                    <div class="form-group">
-                                        <label for="tkpaiPethirHasilInventAIPsen">%</label>
-                                        <input id="tkpaiPethirHasilInventAIPsen" name="tkpaiPethirHasilInventAIPsen" value="<?= $dataDi->tkpaiPethirHasilInventAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
-                                        <div class="invalid-feedback" id="pesan_tkpaiPethirHasilInventAIPsen"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
-
-
-                            <!-- Row Luas Areal (Ha) -->
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">TAHAPAN KEGIATAN PENGELOLAAN ASET IRIGASI</div></div>
-
-                            <div class="row">
-                                <div class="col-sm-12"> <!-- start box per input -->
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <textarea id="keterangan" name="keterangan" class="form-control " rows="3" placeholder="Keterangan"><?= $dataDi->keterangan; ?></textarea>
-                                        <div class="invalid-feedback" id="psn_keterangan"></div>
-                                    </div>
-                                </div> 
-                            </div>
-                            <!-- End Row Luas Areal (Ha) -->
+                <div class="card-body p-0 " data-select2-id="21">
 
 
 
+                    <!-- form start -->
+                    <div class="modal-body" data-select2-id="20">
+
+                        <?= $this->session->flashdata('psn'); ?>
+
+                        <div style="background-color:red; color:#fff;">
                         </div>
 
-                        <div class="modal-footer justify-content-between">
-                            <div class="row">
-                              <a href="<?= base_url(); ?>FormTeknis1F/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
-                          </div>
+                        <div class="row">
+                            <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
+
+                                <div class="form-group" data-select2-id="32">
+                                    <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
+
+                                        <option value="<?= $dataDi->irigasiidX; ?>"><?= $dataDi->nama; ?></option> 
+
+                                    </select>
+                                    <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                </div>
+
+                            </div> <!-- end box per input -->
+
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                    <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                    <input id="in_laPermen" name="laPermen" value="<?= $dataDi->lper; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)" readonly>
+                                    <div class="invalid-feedback" id="pesan_laPermen"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Inventarisasi Aset Irigasi</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-2"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="tkpaiInvAsetIrigasiThn">Tahun</label>
+                                    <input id="tkpaiInvAsetIrigasiThn" name="tkpaiInvAsetIrigasiThn" value="<?= $dataDi->tkpaiInvAsetIrigasiThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiInvAsetIrigasiThn"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-2"> 
+                                <div class="form-group">
+                                    <label for="tkpaiInvAsetIrigasiPsen">%</label>
+                                    <input id="tkpaiInvAsetIrigasiPsen" name="tkpaiInvAsetIrigasiPsen" value="<?= $dataDi->tkpaiInvAsetIrigasiPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiInvAsetIrigasiPsen"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Perencanaan PAI</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-2"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="tkpaiPerencanaanPAIThn">Tahun</label>
+                                    <input id="tkpaiPerencanaanPAIThn" name="tkpaiPerencanaanPAIThn" value="<?= $dataDi->tkpaiPerencanaanPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
+                                    <div class="invalid-feedback" id="psn_tkpaiPerencanaanPAIThn"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-2"> 
+                                <div class="form-group">
+                                    <label for="tkpaiPerencanaanPAIPsen">%</label>
+                                    <input id="tkpaiPerencanaanPAIPsen" name="tkpaiPerencanaanPAIPsen" value="<?= $dataDi->tkpaiPerencanaanPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiPerencanaanPAIPsen"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pelaksanaan PAI</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-2"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="tkpaiPelaksanaanPAIThn">Tahun</label>
+                                    <input id="tkpaiPelaksanaanPAIThn" name="tkpaiPelaksanaanPAIThn" value="<?= $dataDi->tkpaiPelaksanaanPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
+                                    <div class="invalid-feedback" id="psn_tkpaiPelaksanaanPAIThn"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-2"> 
+                                <div class="form-group">
+                                    <label for="tkpaiPelaksanaanPAIPsen">%</label>
+                                    <input id="tkpaiPelaksanaanPAIPsen" name="tkpaiPelaksanaanPAIPsen" value="<?= $dataDi->tkpaiPelaksanaanPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiPelaksanaanPAIPsen"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Evaluasi PAI</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-2"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="tkpaiEvaluasiPAIThn">Tahun</label>
+                                    <input id="tkpaiEvaluasiPAIThn" name="tkpaiEvaluasiPAIThn" value="<?= $dataDi->tkpaiEvaluasiPAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
+                                    <div class="invalid-feedback" id="psn_tkpaiEvaluasiPAIThn"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-2"> 
+                                <div class="form-group">
+                                    <label for="tkpaiEvaluasiPAIPsen">%</label>
+                                    <input id="tkpaiEvaluasiPAIPsen" name="tkpaiEvaluasiPAIPsen" value="<?= $dataDi->tkpaiEvaluasiPAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiEvaluasiPAIPsen"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Pemutakhiran Hasil Invent. AI</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-2"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="tkpaiPethirHasilInventAIThn">Tahun</label>
+                                    <input id="tkpaiPethirHasilInventAIThn" name="tkpaiPethirHasilInventAIThn" value="<?= $dataDi->tkpaiPethirHasilInventAIThn; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 4) this.value = this.value.slice(0, 4);" placeholder="Tahun" required>
+                                    <div class="invalid-feedback" id="psn_tkpaiPethirHasilInventAIThn"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-2"> 
+                                <div class="form-group">
+                                    <label for="tkpaiPethirHasilInventAIPsen">%</label>
+                                    <input id="tkpaiPethirHasilInventAIPsen" name="tkpaiPethirHasilInventAIPsen" value="<?= $dataDi->tkpaiPethirHasilInventAIPsen; ?>" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Baku (Pemetaan&nbsp;IGT)" required>
+                                    <div class="invalid-feedback" id="pesan_tkpaiPethirHasilInventAIPsen"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+
+                        <!-- Row Luas Areal (Ha) -->
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">TAHAPAN KEGIATAN PENGELOLAAN ASET IRIGASI</div></div>
+
+                        <div class="row">
+                            <div class="col-sm-12"> <!-- start box per input -->
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <textarea id="keterangan" name="keterangan" class="form-control " rows="3" placeholder="Keterangan"><?= $dataDi->keterangan; ?></textarea>
+                                    <div class="invalid-feedback" id="psn_keterangan"></div>
+                                </div>
+                            </div> 
+                        </div>
+                        <!-- End Row Luas Areal (Ha) -->
+
+
+
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <div class="row">
+                          <a href="<?= base_url(); ?>FormTeknis1F/getDetailData/<?= $id; ?>" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                          <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan Perubahan</button>
                       </div>
-
-
-                      <!-- form end -->
-
                   </div>
+
+
+                  <!-- form end -->
+
               </div>
-
           </div>
-      </section>
 
-  </form>
+      </div>
+  </section>
+
+</form>
 
 </div>
 </div>
@@ -364,14 +364,14 @@
         },
         processResults: function (response) {
 
-         response.data.unshift({ id: '', text: 'Tampilkan semua' });
+           response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-         return {
-          results: response.data 
-      };
-  },
-  cache: true
-}
+           return {
+              results: response.data 
+          };
+      },
+      cache: true
+  }
 });
     <?php } ?>
 

@@ -349,15 +349,7 @@ class Form7 extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f7', ['kotakabid' => $kab, 'ta' => $thang]);
-
-		if ($cek) {
-			$data = $this->M_Form7->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
-			$data = $this->M_Form7->getDataDiFull((string)$thang, $kab);
-		}
-
+		$data = $this->M_Form7->getDataDiFull($thang, $kab);
 
 		$indexLopp = 6;
 		$nilaiAwal = 1;
@@ -371,7 +363,7 @@ class Form7 extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->provinsi);
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->lper);
 
 			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
 			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);
@@ -696,8 +688,14 @@ class Form7 extends CI_Controller {
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
 		
+	}
 
-		
+
+	public function getLapermen()
+	{
+		$irigasiid = $this->input->post('irigasiid');
+		$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		echo json_encode($data);
 	}
 
 

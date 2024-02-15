@@ -157,7 +157,7 @@
                                 <div class="col-sm-4"> 
                                     <div class="form-group">
                                         <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="in_laPermen" name="laPermen" value="" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
+                                        <input id="in_laPermen" name="laPermen" value="" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" readonly placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
                                         <div class="invalid-feedback" id="pesan_laPermen"></div>
                                     </div>
                                 </div>
@@ -355,6 +355,26 @@
       theme: 'default'
 
   })
+
+
+    $('#in_irigasiid').on('change', function() {
+        let val = $(this).val();
+
+        $.ajax({
+            url: base_url()+'FormTeknis1F/getLapermen', 
+            method: 'POST',
+            data: {irigasiid:val},
+            dataType: 'json',
+            success: function(res) {
+
+                $('#in_laPermen').val(res.lper);
+
+            },
+            error: function(xhr, status, error) {
+                alert('Ada yang error.!');
+            }
+        });
+    });
     
 
     <?php if ($this->session->userdata('prive') == 'admin') { ?> 

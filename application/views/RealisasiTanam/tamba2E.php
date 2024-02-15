@@ -157,7 +157,7 @@
                                 <div class="col-sm-3"> 
                                     <div class="form-group">
                                         <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                        <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" readonly >
                                         <div class="invalid-feedback" id="pesan_laPermen"></div>
                                     </div>
                                 </div>
@@ -607,7 +607,26 @@
             $('input[type="checkbox"]').prop('checked', false);
         }
 
-    })
+    });
+
+    $('#irigasiid').on('change', function() {
+        let val = $(this).val();
+
+        $.ajax({
+            url: base_url()+'RealisasiTanam2E/getLapermen', 
+            method: 'POST',
+            data: {irigasiid:val},
+            dataType: 'json',
+            success: function(res) {
+
+                $('#laPermen').val(res.lper);
+
+            },
+            error: function(xhr, status, error) {
+                alert('Ada yang error.!');
+            }
+        });
+    });
 
     // Row 1
     TotalRTanamPadi = function () {

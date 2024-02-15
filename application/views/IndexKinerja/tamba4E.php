@@ -126,31 +126,31 @@
                                     <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
 
                                         <?php if ($this->session->userdata('prive') == 'admin') { ?> 
-                                        <div class="form-group" data-select2-id="32">
-                                            <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <select id="irigasiid" name="irigasiid" class="form-control select3" required>
+                                            <div class="form-group" data-select2-id="32">
+                                                <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                                <select id="irigasiid" name="irigasiid" class="form-control select3" required>
 
-                                            </select>
-                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                        </div>
+                                                </select>
+                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                            </div>
                                         <?php }else{ ?>
-                                        <div class="form-group" data-select2-id="32">
-                                            <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <select id="irigasiid" name="irigasiid" class="form-control select2" required>
-                                                <option value="" selected disabled>- Pilih D.I -</option>
-                                                <?php foreach ($dataDi as $key => $value) { ?>
-                                                <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                        </div>
+                                            <div class="form-group" data-select2-id="32">
+                                                <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                                <select id="irigasiid" name="irigasiid" class="form-control select2" required>
+                                                    <option value="" selected disabled>- Pilih D.I -</option>
+                                                    <?php foreach ($dataDi as $key => $value) { ?>
+                                                        <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                            </div>
                                         <?php } ?>
 
                                     </div>
                                     <div class="col-sm-3"> 
                                         <div class="form-group">
                                             <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                            <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" readonly >
                                             <div class="invalid-feedback" id="pesan_laPermen"></div>
                                         </div>
                                     </div>
@@ -1155,6 +1155,25 @@
 <script>
   $(document).ready(function(){
 
+    $('#irigasiid').on('change', function() {
+        let val = $(this).val();
+
+        $.ajax({
+            url: base_url()+'IndexKinerja4E/getLapermen', 
+            method: 'POST',
+            data: {irigasiid:val},
+            dataType: 'json',
+            success: function(res) {
+
+                $('#laPermen').val(res.lper);
+
+            },
+            error: function(xhr, status, error) {
+                alert('Ada yang error.!');
+            }
+        });
+    });
+
     // Hitungan bangunan Utama
     hitungBangunanUtama = function (urutan) {
 
@@ -1490,27 +1509,27 @@ $('.select2').select2({
 
 <?php if ($this->session->userdata('prive') == 'admin') { ?> 
 
-$('.select3').select2({
-  placeholder: '-Tentukan Daerah Irigasi-',
-  theme: 'default',
-  ajax: {
-    url: base_url() + "IndexKinerja4E/getDiTambahData",
-    dataType: 'json',
-    type: 'post',
-    delay: 250,
-    data: function (params) {
-      var query = {
-        searchDi: params.term
-    };
-    return query;
-},
-processResults: function (response) {
+    $('.select3').select2({
+      placeholder: '-Tentukan Daerah Irigasi-',
+      theme: 'default',
+      ajax: {
+        url: base_url() + "IndexKinerja4E/getDiTambahData",
+        dataType: 'json',
+        type: 'post',
+        delay: 250,
+        data: function (params) {
+          var query = {
+            searchDi: params.term
+        };
+        return query;
+    },
+    processResults: function (response) {
 
- response.data.unshift({ id: '', text: 'Tampilkan semua' });
+     response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
- return {
-  results: response.data 
-};
+     return {
+      results: response.data 
+  };
 },
 cache: true
 }

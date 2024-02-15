@@ -101,6 +101,7 @@
 								<tr id="boxThField1" style="background-color:#18978F; color:#fff;">
 									<th style="border: thin solid #006666; width: 1px;">No</th>
 									<th style="border: thin solid #006666; width: 4px;">Kab/Kota</th>
+									<th style="border: thin solid #006666; width: 4px;">Download <br> Berita Acara</th>
 									<th style="border: thin solid #006666; width: 20px;" >Pemda <br> Verifikasi</th>
 									<th style="border: thin solid #006666; width: 20px;" >Provinsi <br> Verifikasi</th>
 									<th style="border: thin solid #006666; width: 20px;" >Balai <br> Verifikasi</th>
@@ -172,68 +173,126 @@
 										</td>
 										
 										<td  style="border: thin solid #006666;" class="text-center">
-											<input id='pemda<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $priv != 'pemda' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('pemda<?= $no; ?>', '1', '<?= $val->kotakabid; ?>')" 
-											<?= $val->pemda_verif == '1' ? 'checked' : ''; ?>>
-										</td>
+											<button id="idButton<?= $val->kotakabid; ?>" class="btn btn-danger" onclick="showModalBa('<?= $val->kotakabid; ?>');" 
 
-										<td  style="border: thin solid #006666;" class="text-center">
-											<input id='provinsi<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $is_provinsi != 'provinsi' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('provinsi<?= $no; ?>', '2', '<?= $val->kotakabid; ?>')" <?= $val->provinsi_verif == '1' ? 'checked' : ''; ?>>
-										</td>
-										<td  style="border: thin solid #006666;" class="text-center">
-											<input type="checkbox" id='balai<?= $no; ?>' class="option-input checkbox" <?= $priv != 'balai' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('balai<?= $no; ?>', '3', '<?= $val->kotakabid; ?>')" 
-											<?= $val->balai_verif == '1' ? 'checked' : ''; ?>>
-										</td>
+												<?= $priv != 'admin' ? 'disabled' : ''; ?>
 
-										<?php 
+												<?= $val->pusat_verif !== '1' ? 'disabled' : ''; ?>
 
-										$kondisi = '';
+												><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+											</td>
 
-										if ($val->pemda_verif == '1' AND $val->provinsi_verif == '1' AND $val->balai_verif == '1') {
-											$kondisi = 'data-toggle="tooltip" data-placement="top" title="Pemda/Provinsi/Balai. Belum Checklist." disabled ';
-										}
+											<td  style="border: thin solid #006666;" class="text-center">
+												<input id='pemda<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $priv != 'pemda' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('pemda<?= $no; ?>', '1', '<?= $val->kotakabid; ?>')" 
+												<?= $val->pemda_verif == '1' ? 'checked' : ''; ?>>
+											</td>
 
-										?>
+											<td  style="border: thin solid #006666;" class="text-center">
+												<input id='provinsi<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $is_provinsi != 'provinsi' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('provinsi<?= $no; ?>', '2', '<?= $val->kotakabid; ?>')" <?= $val->provinsi_verif == '1' ? 'checked' : ''; ?>>
+											</td>
+											<td  style="border: thin solid #006666;" class="text-center">
+												<input type="checkbox" id='balai<?= $no; ?>' class="option-input checkbox" <?= $priv != 'balai' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('balai<?= $no; ?>', '3', '<?= $val->kotakabid; ?>')" 
+												<?= $val->balai_verif == '1' ? 'checked' : ''; ?>>
+											</td>
 
-										<td  style="border: thin solid #006666;" class="text-center">
-											<input type="checkbox" id='pusat<?= $no; ?>' onclick="verifFunc('pusat<?= $no; ?>', '4', '<?= $val->kotakabid; ?>')" class="option-input checkbox" 
-											<?= $priv != 'admin' ? 'disabled' : ''; ?> <?= $kondisi; ?> 
-											<?= $val->pusat_verif == '1' ? 'checked' : ''; ?>>
-											
-										</td>
-									</tr>
-								<?php } ?>
-							</tbody>
-						</table>
+											<?php 
+
+											$kondisi = '';
+
+											if ($val->pemda_verif == '1' AND $val->provinsi_verif == '1' AND $val->balai_verif == '1') {
+												$kondisi = 'data-toggle="tooltip" data-placement="top" title="Pemda/Provinsi/Balai. Belum Checklist." disabled ';
+											}
+
+											?>
+
+											<td  style="border: thin solid #006666;" class="text-center">
+												<input type="checkbox" id='pusat<?= $no; ?>' onclick="verifFunc('pusat<?= $no; ?>', '4', '<?= $val->kotakabid; ?>')" class="option-input checkbox" 
+												<?= $priv != 'admin' ? 'disabled' : ''; ?> <?= $kondisi; ?> 
+												<?= $val->pusat_verif == '1' ? 'checked' : ''; ?>>
+
+											</td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</section>
+
+
+	<div class="modal fade" id="modalBa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal Berita Acara</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="<?= base_url(); ?>VerifDataTeknis/downloadBa" method="POST">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Desk :</label>
+							<input type="text" class="form-control" name="desk" id="desk" required>
+							<input type="hidden" class="form-control" name="kotakabidBa" id="kotakabidBa">
+						</div>
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Nama Verifikator :</label>
+							<input type="text" class="form-control" name="nm_verifikator" id="nm_verifikator" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-success">Download</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-</section>
 
-<script type="text/javascript">
-	$(document).ready(function() {
 
-		verifFunc = function (idData, idJnsData, kotakabid) {
-			
-			let kondisi = ($(`#${idData}`).prop('checked')) ? '1':'0' ;
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-			ajaxUntukSemua(base_url()+'VerifDataTeknis/prosesVerif', {kondisi, idJnsData, kotakabid}, function(data) {
+			showModalBa = function (kotakabid) {
+				$('#kotakabidBa').val(kotakabid);
+				$('#modalBa').modal('show');
+			}
 
-				if (data.code == 200) {
-					toastr.success('Data berhasil disimpan.!');
-				}else{
-					toastr.error('Data gagal disimpan.');
+			verifFunc = function (idData, idJnsData, kotakabid) {
+
+				let kondisi = ($(`#${idData}`).prop('checked')) ? '1':'0' ;
+
+				ajaxUntukSemua(base_url()+'VerifDataTeknis/prosesVerif', {kondisi, idJnsData, kotakabid}, function(data) {
+
+					if (data.code == 200) {
+						toastr.success('Data berhasil disimpan.!');
+					}else{
+						toastr.error('Data gagal disimpan.');
+					}
+
+				}, function(error) {
+					toastr.error('Error :'+error);
+
+				});
+
+
+				if (idJnsData == '4') {
+
+					if (kondisi == '1') {
+						$('#idButton'+kotakabid).attr('disabled', false);
+					}else{
+						$('#idButton'+kotakabid).attr('disabled', true);
+					}
+
 				}
 
-			}, function(error) {
-				toastr.error('Error :'+error);
-
-			});
 
 
+			}
 
-		}
-
-	})
-</script>
+		})
+	</script>

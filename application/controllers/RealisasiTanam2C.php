@@ -494,14 +494,8 @@ class RealisasiTanam2C extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f2c', ['kotakabid' => $kab, 'ta' => $thang]);
-
-		if ($cek) {
-			$data = $this->M_RealisasiTanam2C->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
-			$data = $this->M_RealisasiTanam2C->getDataDiFull((string)$thang, $kab);
-		}
+		
+		$data = $this->M_RealisasiTanam2C->getDataDiFull($thang, $kab);
 
 		$indexLopp = 6;
 		$nilaiAwal = 1;
@@ -519,7 +513,7 @@ class RealisasiTanam2C extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiidX);
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->polatanamPadi3);
 			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->polatanamPadi2Plw);
@@ -562,7 +556,7 @@ class RealisasiTanam2C extends CI_Controller {
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
@@ -691,7 +685,7 @@ class RealisasiTanam2C extends CI_Controller {
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
 
 						if ($rowData[0][7] == '' and $rowData[0][6] == '') {
-							
+
 							$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 								<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
@@ -804,7 +798,7 @@ class RealisasiTanam2C extends CI_Controller {
 							'jmlMT3' => ubahKomaMenjadiTitik($rowData[0][35]),
 							'jmlTotalHa' => ubahKomaMenjadiTitik($rowData[0][33])+ubahKomaMenjadiTitik($rowData[0][34])+ubahKomaMenjadiTitik($rowData[0][35]),
 							'jmlTotalIp' =>  ((ubahKomaMenjadiTitik($rowData[0][33])+ubahKomaMenjadiTitik($rowData[0][34])+ubahKomaMenjadiTitik($rowData[0][35]))/$luasFix)*100,
-							
+
 							'produktivitasPadiMT1' => ubahKomaMenjadiTitik($rowData[0][38]),
 							'produktivitasPadiMT2' => ubahKomaMenjadiTitik($rowData[0][39]),
 							'produktivitasPadiMT3' => ubahKomaMenjadiTitik($rowData[0][40]),
@@ -854,7 +848,7 @@ class RealisasiTanam2C extends CI_Controller {
 		$thang = $this->session->userdata('thang');
 
 		if ($kotakabid == null) {
-			
+
 			if ($prive != 'admin' and $prive != 'pemda') {
 
 				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
@@ -870,7 +864,7 @@ class RealisasiTanam2C extends CI_Controller {
 
 		}
 
-		
+
 		$data = $this->M_RealisasiTanam2C->getDataDownload($thang, $prive, $kotakabid);
 
 		$menitDetik = date('i').date('s');
@@ -881,7 +875,7 @@ class RealisasiTanam2C extends CI_Controller {
 		$spreadsheet = IOFactory::load($path);
 		$indexLopp = 6;
 		$nilaiAwal = 1;
-		
+
 		foreach ($data as $key => $val) {
 
 			if ($val->laPermen != null) {
@@ -934,7 +928,7 @@ class RealisasiTanam2C extends CI_Controller {
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
@@ -946,7 +940,15 @@ class RealisasiTanam2C extends CI_Controller {
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-		
+
+	}
+
+
+	public function getLapermen()
+	{
+		$irigasiid = $this->input->post('irigasiid');
+		$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		echo json_encode($data);
 	}
 
 

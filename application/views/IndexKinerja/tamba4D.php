@@ -78,513 +78,513 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" data-select2-id="28"> <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-        <div class="row m-0" data-select2-id="27">
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>IndexKinerja4D/SimpanData" method="POST" data-select2-id="25">
+            <div class="row m-0" data-select2-id="27">
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" data-select2-id="26">
+                <form role="form" action="<?= base_url(); ?>IndexKinerja4D/SimpanData" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                        <h4 class="m-0">Form 4D : DATA KONDISI D.I.T</h4>
-                    </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                            <h4 class="m-0">Form 4D : DATA KONDISI D.I.T</h4>
+                        </div>
 
-                    <div class="col-sm-5 text-right">
-                        <a href="<?= base_url(); ?>IndexKinerja4D" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
-                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                        <div class="col-sm-5 text-right">
+                            <a href="<?= base_url(); ?>IndexKinerja4D" class="btn btn-default btn-sm" title="Kembali"><i class="fa fa-undo"></i> Kembali</a>
+                            <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <section class="content" data-select2-id="24">
+            <section class="content" data-select2-id="24">
 
-            <div class="container-fluid" data-select2-id="23">
+                <div class="container-fluid" data-select2-id="23">
 
-                <!-- box data teknis -->
-                <div class="row" data-select2-id="22">
+                    <!-- box data teknis -->
+                    <div class="row" data-select2-id="22">
 
-                    <div class="card-body p-0 " data-select2-id="21">                        <!-- form start -->
-                        <div class="modal-body" data-select2-id="20">
+                        <div class="card-body p-0 " data-select2-id="21">                        <!-- form start -->
+                            <div class="modal-body" data-select2-id="20">
 
-                            <?= $this->session->flashdata('psn'); ?>
+                                <?= $this->session->flashdata('psn'); ?>
 
-                            <div style="background-color:red; color:#fff;">
-                            </div>
+                                <div style="background-color:red; color:#fff;">
+                                </div>
 
-                            <div class="row">
-                                <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
+                                <div class="row">
+                                    <div class="col-sm-6" data-select2-id="33"> <!-- start box per input -->
 
-                                    <?php if ($this->session->userdata('prive') == 'admin') { ?> 
-                                        <div class="form-group" data-select2-id="32">
-                                            <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <select id="irigasiid" name="irigasiid" class="form-control select3" required>
+                                        <?php if ($this->session->userdata('prive') == 'admin') { ?> 
+                                            <div class="form-group" data-select2-id="32">
+                                                <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                                <select id="irigasiid" name="irigasiid" class="form-control select3" required>
 
-                                            </select>
-                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                                </select>
+                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                            </div>
+                                        <?php }else{ ?>
+                                            <div class="form-group" data-select2-id="32">
+                                                <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                                <select id="irigasiid" name="irigasiid" class="form-control select2" required>
+                                                    <option value="" selected disabled>- Pilih D.I -</option>
+                                                    <?php foreach ($dataDi as $key => $value) { ?>
+                                                        <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                            </div>
+                                        <?php } ?>
+
+                                    </div>
+                                    <div class="col-sm-3"> 
+                                        <div class="form-group">
+                                            <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" readonly>
+                                            <div class="invalid-feedback" id="pesan_laPermen"></div>
                                         </div>
-                                    <?php }else{ ?>
-                                        <div class="form-group" data-select2-id="32">
-                                            <label for="irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <select id="irigasiid" name="irigasiid" class="form-control select2" required>
-                                                <option value="" selected disabled>- Pilih D.I -</option>
-                                                <?php foreach ($dataDi as $key => $value) { ?>
-                                                    <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                    </div>
+
+                                    <div class="col-sm-3"> 
+                                        <div class="form-group">
+                                            <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <input id="sawahFungsional" name="sawahFungsional" value="" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
+                                            <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
                                         </div>
-                                    <?php } ?>
-
-                                </div>
-                                <div class="col-sm-3"> 
-                                    <div class="form-group">
-                                        <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="laPermen" name="laPermen" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
-                                        <div class="invalid-feedback" id="pesan_laPermen"></div>
                                     </div>
+
                                 </div>
 
-                                <div class="col-sm-3"> 
-                                    <div class="form-group">
-                                        <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="sawahFungsional" name="sawahFungsional" value="" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
-                                        <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
-                                    </div>
+                                <div class="bg-info mb-2" style="padding:2px; margin:0px;">
+                                    <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Utama*</div>
                                 </div>
-
-                            </div>
-
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;">
-                                <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Utama*</div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Pengambilan Air Tawar</h5>
-                                    <div class="row">
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangutarPengukur1">B/RR/RS/RB</label>
-                                                <input id="bangutarPengukur1" name="buPengambilanAirTawarA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                                                <div class="invalid-feedback" id="pesan_bppBagiA"></div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangunanPengukurValue1">Nilai Kondisi (%)</label>
-                                                <input id="bangunanPengukurValue1" name="buPengambilanAirTawarB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(1);" required placeholder="Nilai Kondisi (%)">
-                                                <div class="invalid-feedback" id="pesan_bppBagiB"></div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Pengambilan Air Asin</h5>
-                                    <div class="row">
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangutarPengukur2">B/RR/RS/RB</label>
-                                                <input id="bangutarPengukur2" name="buPengambilanAirAsinA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                                                <div class="invalid-feedback" id="pesan_bppBagiA"></div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangunanPengukurValue2">Nilai Kondisi (%)</label>
-                                                <input id="bangunanPengukurValue2" name="buPengambilanAirAsinB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(2);" required placeholder="Nilai Kondisi (%)">
-                                                <div class="invalid-feedback" id="pesan_bppBagiB"></div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Stasiun Pompa</h5>
-                                    <div class="row">
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangutarPengukur3">B/RR/RS/RB</label>
-                                                <input id="bangutarPengukur3" name="buStasiunPompaA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                                                <div class="invalid-feedback" id="pesan_bppBagiA"></div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-sm-6"> 
-                                            <div class="form-group">
-                                                <label for="bangunanPengukurValue3">Nilai Kondisi (%)</label>
-                                                <input id="bangunanPengukurValue3" name="buStasiunPompaB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(3);" required placeholder="Nilai Kondisi (%)">
-                                                <div class="invalid-feedback" id="pesan_bppBagiB"></div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="bg-info mb-2" style="padding:2px; margin:0px;">
-                                <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Saluran*</div>
-                            </div>
-
-                            <div class="row">
-                               <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Primer</h5>
 
                                 <div class="row">
 
+                                    <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Pengambilan Air Tawar</h5>
+                                        <div class="row">
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangutarPengukur1">B/RR/RS/RB</label>
+                                                    <input id="bangutarPengukur1" name="buPengambilanAirTawarA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                                    <div class="invalid-feedback" id="pesan_bppBagiA"></div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangunanPengukurValue1">Nilai Kondisi (%)</label>
+                                                    <input id="bangunanPengukurValue1" name="buPengambilanAirTawarB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(1);" required placeholder="Nilai Kondisi (%)">
+                                                    <div class="invalid-feedback" id="pesan_bppBagiB"></div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Pengambilan Air Asin</h5>
+                                        <div class="row">
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangutarPengukur2">B/RR/RS/RB</label>
+                                                    <input id="bangutarPengukur2" name="buPengambilanAirAsinA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                                    <div class="invalid-feedback" id="pesan_bppBagiA"></div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangunanPengukurValue2">Nilai Kondisi (%)</label>
+                                                    <input id="bangunanPengukurValue2" name="buPengambilanAirAsinB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(2);" required placeholder="Nilai Kondisi (%)">
+                                                    <div class="invalid-feedback" id="pesan_bppBagiB"></div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Stasiun Pompa</h5>
+                                        <div class="row">
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangutarPengukur3">B/RR/RS/RB</label>
+                                                    <input id="bangutarPengukur3" name="buStasiunPompaA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                                    <div class="invalid-feedback" id="pesan_bppBagiA"></div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-sm-6"> 
+                                                <div class="form-group">
+                                                    <label for="bangunanPengukurValue3">Nilai Kondisi (%)</label>
+                                                    <input id="bangunanPengukurValue3" name="buStasiunPompaB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(3);" required placeholder="Nilai Kondisi (%)">
+                                                    <div class="invalid-feedback" id="pesan_bppBagiB"></div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="bg-info mb-2" style="padding:2px; margin:0px;">
+                                    <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Saluran*</div>
+                                </div>
+
+                                <div class="row">
+                                 <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Primer</h5>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranB1">B (%)</label>
+                                                <input id="saluranB1" name="saluranPrimerB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="B (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerB"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRR1">RR (%)</label>
+                                                <input id="saluranRR1" name="saluranPrimerBR" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RR (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerBR"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRS1">RS (%)</label>
+                                                <input id="saluranRS1" name="saluranPrimerRS" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RS (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerRS"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRB1">RB (%)</label>
+                                                <input id="saluranRB1" name="saluranPrimerRB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RB (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerRB"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRerata1">Rerata (B/RR/RS/RB)</label>
+                                                <input id="saluranRerata1" name="saluranPrimerRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerRerata"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="kondisiKerusakan1">Nilai Kondisi Kerusakan (%)</label>
+                                                <input id="kondisiKerusakan1" name="saluranPrimerNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+
+                                                <div class="invalid-feedback" id="pesan_saluranPrimerNilai"></div>
+                                            </div>
+
+                                        </div> 
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Sekunder</h5>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranB2">B (%)</label>
+                                                <input id="saluranB2" name="saluranSekunderB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="B (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderB"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRR2">RR (%)</label>
+                                                <input id="saluranRR2" name="saluranSekunderBR" value="" type="text" class="form-control text-right number saluranSekunder" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RR (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderBR"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRS2">RS (%)</label>
+                                                <input id="saluranRS2" name="saluranSekunderRS" value="" type="text" class="form-control text-right number saluranSekunder" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RS (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderRS"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRB2">RB (%)</label>
+                                                <input id="saluranRB2" name="saluranSekunderRB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RB (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderRB"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="saluranRerata2">Rerata (B/RR/RS/RB)</label>
+                                                <input id="saluranRerata2" name="saluranSekunderRerata" value="" type="text" class="form-control text-right" readonly placeholder="Rerata (B/RR/RS/RB)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderRerata"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="kondisiKerusakan2">Nilai Kondisi Kerusakan (%)</label>
+                                                <input id="kondisiKerusakan2" name="saluranSekunderNilai" value="" type="text" class="form-control text-right number rataJaringan" readonly placeholder="Nilai Kondisi Kerusakan (%)">
+                                                <div class="invalid-feedback" id="pesan_saluranSekunderNilai"></div>
+                                            </div>
+
+                                        </div> 
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Tersier</h5><div class="row">
+
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="saluranB1">B (%)</label>
-                                            <input id="saluranB1" name="saluranPrimerB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="B (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerB"></div>
+                                            <label for="saluranB3">B (%)</label>
+                                            <input id="saluranB3" name="saluranTersierB" value="" type="text" class="form-control text-right number saluranTersier" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="B (%)">
+                                            <div class="invalid-feedback" id="pesan_saluranTersierB"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="saluranRR1">RR (%)</label>
-                                            <input id="saluranRR1" name="saluranPrimerBR" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RR (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerBR"></div>
+                                            <label for="saluranRR3">RR (%)</label>
+                                            <input id="saluranRR3" name="saluranTersierBR" value="" type="text" class="form-control text-right number saluranTersier" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RR (%)">
+                                            <div class="invalid-feedback" id="pesan_saluranTersierBR"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="saluranRS1">RS (%)</label>
-                                            <input id="saluranRS1" name="saluranPrimerRS" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RS (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerRS"></div>
+                                            <label for="saluranRS3">RS (%)</label>
+                                            <input id="saluranRS3" name="saluranTersierRS" value="" type="text" class="form-control text-right number saluranTersier" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RS (%)">
+                                            <div class="invalid-feedback" id="pesan_saluranTersierRS"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="saluranRB1">RB (%)</label>
-                                            <input id="saluranRB1" name="saluranPrimerRB" value="" type="text" class="form-control text-right number saluranPrimer" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(1);" required placeholder="RB (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerRB"></div>
+                                            <label for="saluranRB3">RB (%)</label>
+                                            <input id="saluranRB3" name="saluranTersierRB" value="" type="text" class="form-control text-right number saluranTersier" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RB (%)">
+                                            <div class="invalid-feedback" id="pesan_saluranTersierRB"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="saluranRerata1">Rerata (B/RR/RS/RB)</label>
-                                            <input id="saluranRerata1" name="saluranPrimerRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerRerata"></div>
+                                            <label for="saluranRerata3">Rerata (B/RR/RS/RB)</label>
+                                            <input id="saluranRerata3" name="saluranTersierRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+                                            <div class="invalid-feedback" id="pesan_saluranTersierRerata"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label for="kondisiKerusakan1">Nilai Kondisi Kerusakan (%)</label>
-                                            <input id="kondisiKerusakan1" name="saluranPrimerNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
-
-                                            <div class="invalid-feedback" id="pesan_saluranPrimerNilai"></div>
+                                            <label for="kondisiKerusakan3">Nilai Kondisi Kerusakan (%)</label>
+                                            <input id="kondisiKerusakan3" name="saluranTersierNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+                                            <div class="invalid-feedback" id="pesan_saluranTersierNilai"></div>
                                         </div>
 
                                     </div> 
 
                                 </div>
                             </div>
-                            <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Sekunder</h5>
-
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="saluranB2">B (%)</label>
-                                            <input id="saluranB2" name="saluranSekunderB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="B (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderB"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="saluranRR2">RR (%)</label>
-                                            <input id="saluranRR2" name="saluranSekunderBR" value="" type="text" class="form-control text-right number saluranSekunder" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RR (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderBR"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="saluranRS2">RS (%)</label>
-                                            <input id="saluranRS2" name="saluranSekunderRS" value="" type="text" class="form-control text-right number saluranSekunder" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RS (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderRS"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="saluranRB2">RB (%)</label>
-                                            <input id="saluranRB2" name="saluranSekunderRB" value="" type="text" class="form-control text-right number saluranSekunder" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(2);" required placeholder="RB (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderRB"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="saluranRerata2">Rerata (B/RR/RS/RB)</label>
-                                            <input id="saluranRerata2" name="saluranSekunderRerata" value="" type="text" class="form-control text-right" readonly placeholder="Rerata (B/RR/RS/RB)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderRerata"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="kondisiKerusakan2">Nilai Kondisi Kerusakan (%)</label>
-                                            <input id="kondisiKerusakan2" name="saluranSekunderNilai" value="" type="text" class="form-control text-right number rataJaringan" readonly placeholder="Nilai Kondisi Kerusakan (%)">
-                                            <div class="invalid-feedback" id="pesan_saluranSekunderNilai"></div>
-                                        </div>
-
-                                    </div> 
-
-                                </div>
-                            </div>
-                            <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Tersier</h5><div class="row">
+                            <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Pembuang</h5><div class="row">
 
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="saluranB3">B (%)</label>
-                                        <input id="saluranB3" name="saluranTersierB" value="" type="text" class="form-control text-right number saluranTersier" bobot="1" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="B (%)">
-                                        <div class="invalid-feedback" id="pesan_saluranTersierB"></div>
+                                        <label for="saluranB4">B (%)</label>
+                                        <input id="saluranB4" name="saluranPembuangB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="B (%)">
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangB"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="saluranRR3">RR (%)</label>
-                                        <input id="saluranRR3" name="saluranTersierBR" value="" type="text" class="form-control text-right number saluranTersier" bobot="20" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RR (%)">
-                                        <div class="invalid-feedback" id="pesan_saluranTersierBR"></div>
+                                        <label for="saluranRR4">RR (%)</label>
+                                        <input id="saluranRR4" name="saluranPembuangBR" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RR (%)">
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangBR"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="saluranRS3">RS (%)</label>
-                                        <input id="saluranRS3" name="saluranTersierRS" value="" type="text" class="form-control text-right number saluranTersier" bobot="40" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RS (%)">
-                                        <div class="invalid-feedback" id="pesan_saluranTersierRS"></div>
+                                        <label for="saluranRS4">RS (%)</label>
+                                        <input id="saluranRS4" name="saluranPembuangRS" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RS (%)">
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangRS"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="saluranRB3">RB (%)</label>
-                                        <input id="saluranRB3" name="saluranTersierRB" value="" type="text" class="form-control text-right number saluranTersier" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(3);" required placeholder="RB (%)">
-                                        <div class="invalid-feedback" id="pesan_saluranTersierRB"></div>
+                                        <label for="saluranRB4">RB (%)</label>
+                                        <input id="saluranRB4" name="saluranPembuangRB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RB (%)">
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangRB"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="saluranRerata3">Rerata (B/RR/RS/RB)</label>
-                                        <input id="saluranRerata3" name="saluranTersierRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
-                                        <div class="invalid-feedback" id="pesan_saluranTersierRerata"></div>
+                                        <label for="saluranRerata4">Rerata (B/RR/RS/RB)</label>
+                                        <input id="saluranRerata4" name="saluranPembuangRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangRerata"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="kondisiKerusakan3">Nilai Kondisi Kerusakan (%)</label>
-                                        <input id="kondisiKerusakan3" name="saluranTersierNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
-                                        <div class="invalid-feedback" id="pesan_saluranTersierNilai"></div>
+                                        <label for="kondisiKerusakan4">Nilai Kondisi Kerusakan (%)</label>
+                                        <input id="kondisiKerusakan4" name="saluranPembuangNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
+                                        <div class="invalid-feedback" id="pesan_saluranPembuangNilai"></div>
                                     </div>
 
                                 </div> 
 
                             </div>
                         </div>
-                        <div class="col-sm-12" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Saluran Pembuang</h5><div class="row">
+                    </div>
 
-                            <div class="col-sm-2">
+                    <div class="bg-info mb-2" style="padding:2px; margin:0px;">
+                        <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pengatur*</div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Primer</h5>
+
+                        <div class="row">
+
+                            <div class="col-sm-6"> 
+
                                 <div class="form-group">
-                                    <label for="saluranB4">B (%)</label>
-                                    <input id="saluranB4" name="saluranPembuangB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="B (%)">
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangB"></div>
+                                    <label for="bangutarPengukur4">B/RR/RS/RB</label>
+                                    <input id="bangutarPengukur4" name="bPintuPrimerA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                    <div class="invalid-feedback" id="pesan_bppBagiA"></div>
                                 </div>
 
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="saluranRR4">RR (%)</label>
-                                    <input id="saluranRR4" name="saluranPembuangBR" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RR (%)">
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangBR"></div>
-                                </div>
 
-                            </div>
-                            <div class="col-sm-2">
+                            </div> 
+                            <div class="col-sm-6"> 
                                 <div class="form-group">
-                                    <label for="saluranRS4">RS (%)</label>
-                                    <input id="saluranRS4" name="saluranPembuangRS" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RS (%)">
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangRS"></div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="saluranRB4">RB (%)</label>
-                                    <input id="saluranRB4" name="saluranPembuangRB" value="" type="text" class="form-control text-right number saluranPembuang" bobot="50" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungSaluran(4);" required placeholder="RB (%)">
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangRB"></div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="saluranRerata4">Rerata (B/RR/RS/RB)</label>
-                                    <input id="saluranRerata4" name="saluranPembuangRerata" value="" type="text" class="form-control text-right" placeholder="Rerata (B/RR/RS/RB)" readonly>
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangRerata"></div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="kondisiKerusakan4">Nilai Kondisi Kerusakan (%)</label>
-                                    <input id="kondisiKerusakan4" name="saluranPembuangNilai" value="" type="text" class="form-control text-right number rataJaringan" placeholder="Nilai Kondisi Kerusakan (%)" readonly>
-                                    <div class="invalid-feedback" id="pesan_saluranPembuangNilai"></div>
+                                    <label for="bangunanPengukurValue4">Nilai Kondisi (%)</label>
+                                    <input id="bangunanPengukurValue4" name="bPintuPrimerB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(4);" required placeholder="Nilai Kondisi (%)">
+                                    <div class="invalid-feedback" id="pesan_bppBagiB"></div>
                                 </div>
 
                             </div> 
 
                         </div>
+
                     </div>
-                </div>
-
-                <div class="bg-info mb-2" style="padding:2px; margin:0px;">
-                    <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pengatur*</div>
-                </div>
-
-                <div class="row">
-                 <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Primer</h5>
-
-                    <div class="row">
+                    <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Sekunder</h5><div class="row">
 
                         <div class="col-sm-6"> 
 
                             <div class="form-group">
-                                <label for="bangutarPengukur4">B/RR/RS/RB</label>
-                                <input id="bangutarPengukur4" name="bPintuPrimerA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                                <div class="invalid-feedback" id="pesan_bppBagiA"></div>
+                                <label for="bangutarPengukur5">B/RR/RS/RB</label>
+                                <input id="bangutarPengukur5" value="" type="text" name="bPintuSekunderA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                                <div class="invalid-feedback" id="pesan_bppBagiSadapA"></div>
                             </div>
 
 
                         </div> 
                         <div class="col-sm-6"> 
                             <div class="form-group">
-                                <label for="bangunanPengukurValue4">Nilai Kondisi (%)</label>
-                                <input id="bangunanPengukurValue4" name="bPintuPrimerB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(4);" required placeholder="Nilai Kondisi (%)">
-                                <div class="invalid-feedback" id="pesan_bppBagiB"></div>
+                                <label for="bangunanPengukurValue5">Nilai Kondisi (%)</label>
+                                <input id="bangunanPengukurValue5" name="bPintuSekunderB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(5);" required placeholder="Nilai Kondisi (%)">
+                                <div class="invalid-feedback" id="pesan_bppBagiSadapB"></div>
                             </div>
 
                         </div> 
 
                     </div>
-
                 </div>
-                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Sekunder</h5><div class="row">
+                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Tersier</h5><div class="row">
 
                     <div class="col-sm-6"> 
 
                         <div class="form-group">
-                            <label for="bangutarPengukur5">B/RR/RS/RB</label>
-                            <input id="bangutarPengukur5" value="" type="text" name="bPintuSekunderA" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                            <div class="invalid-feedback" id="pesan_bppBagiSadapA"></div>
+                            <label for="bangutarPengukur6">B/RR/RS/RB</label>
+                            <input id="bangutarPengukur6" name="bPintuTersierA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                            <div class="invalid-feedback" id="pesan_bppSadapA"></div>
                         </div>
 
 
                     </div> 
                     <div class="col-sm-6"> 
                         <div class="form-group">
-                            <label for="bangunanPengukurValue5">Nilai Kondisi (%)</label>
-                            <input id="bangunanPengukurValue5" name="bPintuSekunderB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(5);" required placeholder="Nilai Kondisi (%)">
-                            <div class="invalid-feedback" id="pesan_bppBagiSadapB"></div>
+                            <label for="bangunanPengukurValue6">Nilai Kondisi (%)</label>
+                            <input id="bangunanPengukurValue6" name="bPintuTersierB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(6);" required placeholder="Nilai Kondisi (%)">
+                            <div class="invalid-feedback" id="pesan_bppSadapB"></div>
                         </div>
 
                     </div> 
 
                 </div>
             </div>
-            <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Tersier</h5><div class="row">
+            <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Pembuang</h5><div class="row">
 
                 <div class="col-sm-6"> 
 
                     <div class="form-group">
-                        <label for="bangutarPengukur6">B/RR/RS/RB</label>
-                        <input id="bangutarPengukur6" name="bPintuTersierA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                        <div class="invalid-feedback" id="pesan_bppSadapA"></div>
+                        <label for="bangutarPengukur7">B/RR/RS/RB</label>
+                        <input id="bangutarPengukur7" name="bPintuPembuangA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                        <div class="invalid-feedback" id="pesan_bppBangunanPengukurA"></div>
                     </div>
 
 
                 </div> 
                 <div class="col-sm-6"> 
                     <div class="form-group">
-                        <label for="bangunanPengukurValue6">Nilai Kondisi (%)</label>
-                        <input id="bangunanPengukurValue6" name="bPintuTersierB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(6);" required placeholder="Nilai Kondisi (%)">
-                        <div class="invalid-feedback" id="pesan_bppSadapB"></div>
+                        <label for="bangunanPengukurValue7">Nilai Kondisi (%)</label>
+                        <input id="bangunanPengukurValue7" name="bPintuPembuangB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(7);" required placeholder="Nilai Kondisi (%)">
+                        <div class="invalid-feedback" id="pesan_bppBangunanPengukurB"></div>
                     </div>
 
                 </div> 
 
             </div>
         </div>
-        <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Bangunan Pintu Pembuang</h5><div class="row">
-
-            <div class="col-sm-6"> 
-
-                <div class="form-group">
-                    <label for="bangutarPengukur7">B/RR/RS/RB</label>
-                    <input id="bangutarPengukur7" name="bPintuPembuangA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-                    <div class="invalid-feedback" id="pesan_bppBangunanPengukurA"></div>
-                </div>
-
-
-            </div> 
-            <div class="col-sm-6"> 
-                <div class="form-group">
-                    <label for="bangunanPengukurValue7">Nilai Kondisi (%)</label>
-                    <input id="bangunanPengukurValue7" name="bPintuPembuangB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(7);" required placeholder="Nilai Kondisi (%)">
-                    <div class="invalid-feedback" id="pesan_bppBangunanPengukurB"></div>
-                </div>
-
-            </div> 
-
-        </div>
     </div>
-</div>
 
 
-<div class="bg-info mb-2" style="padding:2px; margin:0px;">
-    <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pembawa*</div>
-</div>
+    <div class="bg-info mb-2" style="padding:2px; margin:0px;">
+        <div class="" style="padding:0px 0px 0px 4px; margin:0px;">Bangunan Pembawa*</div>
+    </div>
 
-<div class="row">
-   <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Gorong-gorong</h5><div class="row">
+    <div class="row">
+     <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Gorong-gorong</h5><div class="row">
 
-    <div class="col-sm-6">
+        <div class="col-sm-6">
 
 
-        <div class="form-group">
-            <label for="bangutarPengukur8">B/RR/RS/RB</label>
-            <input id="bangutarPengukur8" name="bPembawaGorongA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
-            <div class="invalid-feedback" id="pesan_bPembawaGorongA"></div>
+            <div class="form-group">
+                <label for="bangutarPengukur8">B/RR/RS/RB</label>
+                <input id="bangutarPengukur8" name="bPembawaGorongA" value="" type="text" class="form-control kududisabled" placeholder="B/RR/RS/RB" readonly>
+                <div class="invalid-feedback" id="pesan_bPembawaGorongA"></div>
+            </div>
+
         </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="bangunanPengukurValue8">Nilai Kondisi (%)</label>
+                <input id="bangunanPengukurValue8" name="bPembawaGorongB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(8);" required placeholder="Nilai Kondisi (%)">
+                <div class="invalid-feedback" id="pesan_bPembawaGorongB"></div>
+            </div>
+
+        </div> 
 
     </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label for="bangunanPengukurValue8">Nilai Kondisi (%)</label>
-            <input id="bangunanPengukurValue8" name="bPembawaGorongB" value="" type="text" class="form-control text-right number rataJaringan" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBangunanPengukur(8);" required placeholder="Nilai Kondisi (%)">
-            <div class="invalid-feedback" id="pesan_bPembawaGorongB"></div>
-        </div>
-
-    </div> 
-
-</div>
 </div>
 
 
@@ -957,7 +957,7 @@
 
 
 <div class="row">
-   <div class="col-sm-4" style="border:thin solid #e6e6e6;"><div class="row">
+ <div class="col-sm-4" style="border:thin solid #e6e6e6;"><div class="row">
 
     <div class="col-sm-6">
         <div class="form-group">
@@ -1045,6 +1045,25 @@
 <script>
   $(document).ready(function(){
 
+    $('#irigasiid').on('change', function() {
+        let val = $(this).val();
+
+        $.ajax({
+            url: base_url()+'IndexKinerja4D/getLapermen', 
+            method: 'POST',
+            data: {irigasiid:val},
+            dataType: 'json',
+            success: function(res) {
+
+                $('#laPermen').val(res.lper);
+
+            },
+            error: function(xhr, status, error) {
+                alert('Ada yang error.!');
+            }
+        });
+    });
+
     // Hitungan bangunan Utama
     hitungBangunanUtama = function (urutan) {
 
@@ -1068,17 +1087,17 @@
                 $(`#isi${urutan}`).val('Null');
             }
         } else {
-         $(`#isi${urutan}`).val('Null');
-     }
+           $(`#isi${urutan}`).val('Null');
+       }
 
-     hitungRataRataSemua();
+       hitungRataRataSemua();
 
- }
+   }
     // End Hitungan bangunan Utama
 
 
    // Hitung Saluran
- hitungSaluran = function (index) {
+   hitungSaluran = function (index) {
     let saluranB1 = ($(`#saluranB${index}`).val() == null || $(`#saluranB${index}`).val() == '') ? 0 : $(`#saluranB${index}`).val().toString().replace(/,/g, '.'),
     saluranRR1 =  ($(`#saluranRR${index}`).val() == null || $(`#saluranRR${index}`).val() == '') ? 0 : $(`#saluranRR${index}`).val().toString().replace(/,/g, '.'),
     saluranRS1 =  ($(`#saluranRS${index}`).val() == null || $(`#saluranRS${index}`).val() == '') ? 0 : $(`#saluranRS${index}`).val().toString().replace(/,/g, '.'),
@@ -1116,14 +1135,14 @@
         } else if (nilaiKondisiKerusakanFix >= 21) {
             $(`#saluranRerata${index}`).val('RS')
         } else if (nilaiKondisiKerusakanFix >= 10) {
-           $(`#saluranRerata${index}`).val('RR')
-       } else if (nilaiKondisiKerusakanFix > 0) {
+         $(`#saluranRerata${index}`).val('RR')
+     } else if (nilaiKondisiKerusakanFix > 0) {
         $(`#saluranRerata${index}`).val('B')
     } else {
         $(`#saluranRerata${index}`).val('Null')
     }
 } else {
- $(`#saluranRerata${index}`).val('Null')
+   $(`#saluranRerata${index}`).val('Null')
 }
 
 hitungRataRataSemua();
@@ -1146,8 +1165,8 @@ hitungBangunanPengukur = function (index) {
         if (nilai > 90) {
             $(`#bangutarPengukur${index}`).val('B')
         } else if (nilai >= 80) {
-           $(`#bangutarPengukur${index}`).val('RR')
-       } else if (nilai >= 60) {
+         $(`#bangutarPengukur${index}`).val('RR')
+     } else if (nilai >= 60) {
         $(`#bangutarPengukur${index}`).val('RS')
     } else if (nilai > 0) {;
     $(`#bangutarPengukur${index}`).val('RB')
@@ -1395,13 +1414,13 @@ $('.select2').select2({
     },
     processResults: function (response) {
 
-       response.data.unshift({ id: '', text: 'Tampilkan semua' });
+     response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-       return {
-          results: response.data 
-      };
-  },
-  cache: true
+     return {
+      results: response.data 
+  };
+},
+cache: true
 }
 });
 <?php } ?>

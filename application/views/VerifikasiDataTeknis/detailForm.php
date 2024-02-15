@@ -61,7 +61,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1a" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1a" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1a == '1' ? 'selected' : ''; ?>>Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1a == '2' ? 'selected' : ''; ?>>Tidak Sesuai</option>
@@ -90,7 +90,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1b" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1b" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1b == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1b == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -119,7 +119,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1c" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1c" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1c == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1c == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -148,7 +148,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1d" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1d" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1d == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1d == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -177,7 +177,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1e" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1e" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1e == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1e == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -206,7 +206,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_1f" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_1f" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_1f == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_1f == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -242,7 +242,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_2a" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_2a" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_2a == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_2a == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -271,7 +271,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_2b" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_2b" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_2b == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_2b == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -300,7 +300,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_2c" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_2c" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_2c == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_2c == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -330,7 +330,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_2d" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_2d" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_2d == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_2d == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -360,7 +360,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_2e" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_2e" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_2e == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_2e == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -395,7 +395,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_3a" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_3a" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_3a == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_3a == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -425,7 +425,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_3b" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_3b" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_3b == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_3b == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -459,7 +459,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_4a" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_4a" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_4a == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_4a == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -489,7 +489,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_4b" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_4b" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_4b == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_4b == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -519,7 +519,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_4c" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_4c" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_4c == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_4c == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -549,7 +549,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_4d" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_4d" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_4d == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_4d == '2' ? 'selected' : ''; ?>  >Tidak Sesuai</option>
@@ -579,7 +579,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_4e" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_4e" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_4e == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_4e == '2' ? 'selected' : ''; ?>  >Tidak Sesuai</option>
@@ -615,7 +615,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_5" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_5" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_5 == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_5 == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -651,7 +651,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_6" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_6" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_6 == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_6 == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -687,7 +687,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_7" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_7" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_7 == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_7 == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -722,7 +722,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_8" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_8" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_8 == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_8 == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>
@@ -757,7 +757,7 @@ $priv = $this->session->userdata('prive');
 										</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
 											<?php if ($priv == 'admin') { ?>
-												<select class="form-control form-control-sm" name="sts_9" aria-label=".form-select-sm example" style="" required>
+												<select class="form-control form-control-sm" name="sts_9" aria-label=".form-select-sm example" style="">
 													<option value="" selected disabled>-- Pilih Status --</option>
 													<option value="1" <?= $dataTabel->sts_9 == '1' ? 'selected' : ''; ?> >Sesuai</option>
 													<option value="2" <?= $dataTabel->sts_9 == '2' ? 'selected' : ''; ?> >Tidak Sesuai</option>

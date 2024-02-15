@@ -26,7 +26,7 @@ function clean($str)
 	
 }
 
-function getProvByKotaKabId($kotakabid)
+function getProvByKotaKabId($kotakabid=null)
 {
 	$CI =& get_instance();
 
@@ -37,7 +37,7 @@ function getProvByKotaKabId($kotakabid)
 	return $CI->db->query($qry)->row()->provinsi;
 }
 
-function getKabKota($kotakabid)
+function getKabKota($kotakabid=null)
 {
 	$CI =& get_instance();
 

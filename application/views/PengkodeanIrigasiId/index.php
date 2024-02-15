@@ -115,12 +115,21 @@
 								<span class="input-group-append ml-1">
 									<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
 								</span>
+								
 
 							</div>
 						</div>
 
+						<div class="col-sm-12 col-lg-2 p-0">
+							<div class="input-group ">
+								<span class="input-group-append ml-1">
+									<a href="<?= base_url(); ?>KodefikasiDI/downloadDiEpaksi" class="btn btn-success "><i class="fa fa-file-excel" aria-hidden="true"></i> Download DI Epaksi</a>
+								</span>
+							</div>
+						</div>
+
 						<div class="row col-sm-12  col-lg-2 p-0 ml-1">
-							
+
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'provinsi') { ?>
 
 								<!-- <a href="<?= base_url(); ?>KodefikasiDI/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a> -->
@@ -145,7 +154,7 @@
 
 					<?= $this->session->flashdata('psn'); ?>
 					<table class="table table-bordered">
-						
+
 						<thead id="thead_data">
 							<tr id="boxThField0" style="background-color:#18978F; color:#fff;">
 								<th style="border: thin solid #006666;" colspan="1" rowspan="3">No</th>
@@ -401,9 +410,9 @@
 
 		});
 
-		
+
 		prs_edit = function () {
-			
+
 			let siisd = $('#irigasiid_siisd').val(),
 			epaksi = $('#irigasiid_epaksi').val();
 
@@ -415,10 +424,10 @@
 
 			$("#loading").LoadingOverlay("show");
 
-			
+
 
 			ajaxUntukSemua(base_url()+'KodefikasiDI/prosesEditDi', {siisd, epaksi}, function(data) {
-				
+
 				$("#loading").LoadingOverlay("hide");
 				$('#modalEdit').modal('hide');
 
@@ -444,7 +453,7 @@
 		}
 
 		showModalEdit = function (nm_di, irigasiidSIISD, irigasiidEPAKSI) {
-			
+
 			$('#tittleModal').text(nm_di);
 			$('#irigasiid_siisd').val(irigasiidSIISD);
 			$('#irigasiid_epaksi').val(irigasiidEPAKSI);

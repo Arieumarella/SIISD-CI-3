@@ -145,7 +145,7 @@
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                     <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                    <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->lper); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" readonly>
                                     <div class="invalid-feedback" id="pesan_laPermen"></div>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="sawahFungsional" name="sawahFungsional" value="<?= str_replace('.', ',', $dataDi->sawahFungsional); ?>" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
+                                    <input id="sawahFungsional" name="sawahFungsional" value="<?= str_replace('.', ',', $dataDi->sawahFungsional); ?>" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required readonly>
                                     <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
                                 </div>
                             </div>

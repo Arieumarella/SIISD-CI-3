@@ -13,6 +13,14 @@ class M_Epaksi extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
+		$caraiPemda = '';
+
+		if ($kotakabid != null) {
+			
+			$caraiPemda = " AND LEFT(k_di,2)=substr($kotakabid, 0, 2)  AND LEFT(k_di,4)=substr($kotakabid, 0, 4)";		
+
+		}
+
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
 			$cari .= " AND kotakabid IN $stringCari";
@@ -197,9 +205,9 @@ class M_Epaksi extends CI_Model {
 		SUM(IF(ta=$data5Tahun[2],ada,0)) as tahunPlaksana3x,
 		SUM(IF(ta=$data5Tahun[1],ada,0)) as tahunPlaksana4x,
 		SUM(IF(ta=$data5Tahun[0],ada,0)) as tahunPlaksana5x
-		FROM `epaksi_f9` WHERE tipe_key='a_iksi' GROUP BY k_di) as p
+		FROM `epaksi_f9` WHERE tipe_key='a_iksi' $caraiPemda GROUP BY k_di) as p
 		LEFT JOIN
-		(SELECT k_di,kode_di from m_mapping_di) as q ON p.k_di=q.k_di) as e on a.irigasiid=e.kode_di";
+		(SELECT k_di,kode_di from m_mapping_di WHERE 1=1 ) as q ON p.k_di=q.k_di) as e on a.irigasiid=e.kode_di";
 
 
 		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi WHERE 1=1 $cari";

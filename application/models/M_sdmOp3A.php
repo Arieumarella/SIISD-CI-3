@@ -104,7 +104,7 @@ class M_sdmOp3A extends CI_Model {
 
 		foreach ($uptd as $key => $val) {
 
-			for ($i = 1; $i <= 8; $i++) {
+			for ($i = 1; $i <= 7; $i++) {
 
 				$dataInsert = array(
 

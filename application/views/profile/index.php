@@ -52,11 +52,13 @@
 					</div>
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary" value="Simpan">
-						<input type="button" class="btn btn-danger" value="Rsaet Password" onclick="showModalRiset()">
+						<?php if ($this->session->userdata('prive') == 'admin') { ?>
+							<input type="button" class="btn btn-danger" value="Reset Password" onclick="showModalRiset()">
+						<?php } ?>
 					</div>
 				</form>
 			</div>
-			
+
 		</div>
 	</div>
 </section>

@@ -127,6 +127,12 @@ class KodefikasiDI extends CI_Controller {
 	}
 
 
+	public function downloadDiEpaksi()
+	{
+		force_download('././assets/panduan/di epaksi seluruh indonesia.xlsx',NULL);
+	}
+
+
 
 
 

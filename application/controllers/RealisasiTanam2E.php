@@ -491,15 +491,8 @@ class RealisasiTanam2E extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f2e', ['kotakabid' => $kab, 'ta' => $thang]);
-
-		if ($cek) {
-			$data = $this->M_RealisasiTanam2E->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
-			$data = $this->M_RealisasiTanam2E->getDataDiFull((string)$thang, $kab);
-		}
-
+		$data = $this->M_RealisasiTanam2E->getDataDiFull($thang, $kab);
+		
 		$indexLopp = 6;
 		$nilaiAwal = 1;
 
@@ -516,7 +509,7 @@ class RealisasiTanam2E extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiidX);
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->polatanamPadi3);
 			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->polatanamPadi2Plw);
@@ -944,6 +937,14 @@ class RealisasiTanam2E extends CI_Controller {
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
 		
+	}
+
+
+	public function getLapermen()
+	{
+		$irigasiid = $this->input->post('irigasiid');
+		$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+		echo json_encode($data);
 	}
 
 

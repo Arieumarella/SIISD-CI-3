@@ -17,7 +17,7 @@
 				<!-- Presentase Berdasarkan Status -->
 				<div class="card">
 					<div class="card-body text-center">
-						A
+						<img src="<?= base_url(); ?>assets/admin/images/bagan.jpg" style="width: 50%; height:auto;">
 					</div>
 				</div>
 			</div>
@@ -26,7 +26,7 @@
 				<!-- Presentase Berdasarkan Status -->
 				<div class="card">
 					<div class="card-body text-center">
-						b
+						<img src="<?= base_url(); ?>assets/admin/images/PaiChart.jpg" style="width: 55%; height:auto;">
 					</div>
 				</div>
 			</div>

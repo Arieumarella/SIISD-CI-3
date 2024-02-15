@@ -244,12 +244,12 @@
         <p>7 - P3A,GP3A,IP3A</p>
       </a>
     </li>                         
-    <li class="nav-item">
+  <!--   <li class="nav-item">
       <a href="<?= base_url(); ?>EPAKSI" class="nav-link <?= $tittle == 'Form 8' ? 'active' : ''; ?>">
         <p>8 - e-PAKSI</p>
       </a>
-    </li>                          
- 
+    </li>  -->                         
+    
     <li class="nav-item"><a href="<?= base_url(); ?>Form9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
       <p>9 - Areal Terdampak dan IKSI</p>
     </a>
@@ -312,25 +312,25 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
 
 ?>
 
-<?php if ($this->session->userdata('prive') == 'admin') { ?>
-  <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
-    <a href="#" class="nav-link ">
-      <i class="nav-icon fa fa-random"></i>
-      <p>
-        Integrasi Data Epaksi
-        <i class="fas fa-angle-left right"></i>
-      </p>
-    </a>
-    <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
 
-      <li class="nav-item">
-        <a href="<?= base_url(); ?>KodefikasiDI" class="nav-link <?= $tittle == 'Kodefikasi DI' ? 'active' : ''; ?>">
-          <p>
-           1. - Pengkodean Daerah Irigasi
-         </p>
-       </a>
-     </li>
+<li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+  <a href="#" class="nav-link ">
+    <i class="nav-icon fa fa-random"></i>
+    <p>
+      Integrasi Data Epaksi
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
 
+    <li class="nav-item">
+      <a href="<?= base_url(); ?>KodefikasiDI" class="nav-link <?= $tittle == 'Kodefikasi DI' ? 'active' : ''; ?>">
+        <p>
+         1. - Pengkodean Daerah Irigasi
+       </p>
+     </a>
+   </li>
+   <?php if ($this->session->userdata('prive') == 'admin') { ?>
      <li class="nav-item">
       <a href="<?= base_url(); ?>IntegrasiEpaksi/F1" class="nav-link <?= $tittle == 'Form 1' ? 'active' : ''; ?>">
         <p>
@@ -354,10 +354,10 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
    </p>
  </a>
 </li> 
-
+<?php } ?>
 </ul>
 </li>
-<?php } ?>
+
 
 <?php if ($this->session->userdata('prive') == 'admin') { ?>
 

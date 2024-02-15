@@ -10,6 +10,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
+
 class VerifDataTeknis extends CI_Controller {
 
 	public function __construct() {
@@ -293,6 +294,376 @@ class VerifDataTeknis extends CI_Controller {
 
 		redirect('/VerifDataTeknis/DetailForm/'.$kotakabid, 'refresh');
 
+	}
+
+	public function downloadBa()
+	{
+		$desk = clean($this->input->post('desk'));
+		$kotakabidBa = $this->input->post('kotakabidBa');
+		$nm_verifikator = clean($this->input->post('nm_verifikator'));
+		$date_now = date('Y-m-d');
+
+		$baseData = $this->M_VerifikasiDataTeknis->getDataTabel($kotakabidBa);
+
+		$hari = $this->getNamaHari($date_now);
+		$nmBulan = $this->getNamaBulan($date_now);
+		$splitTanggal = @explode("-", $date_now);
+		$fixTanggal = @$splitTanggal[2].' '.$nmBulan.' '.@$splitTanggal[0];
+
+		$nmProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => substr($kotakabidBa, 0, 2)]);
+		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabidBa]);
+
+		$tamplate = new \PhpOffice\PhpWord\TemplateProcessor('assets/tamplate ba/format ba.docx');
+		unlink('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx');
+
+		$tamplate->setValue('${tahun}', strtoupper(date('Y')));
+		$tamplate->setValue('${nm_provinsi}', strtoupper($nmProvinsi->provinsi));
+		$tamplate->setValue('${kabupatenkota}', strtoupper($nmKabkota->kemendagri));
+
+		$tamplate->setValue('${desk}', ucwords(strtolower($desk)));
+		$tamplate->setValue('${verifikator_atas}', ucwords(strtolower($nm_verifikator)));
+		$tamplate->setValue('${tgl_atas}', ucwords(strtolower($hari.' '.$fixTanggal)));
+		$tamplate->setValue('${verifikator_bawah}', ucwords(strtolower($nm_verifikator)));
+		$tamplate->setValue('${pemda_bawah}', ucwords(strtolower($nmKabkota->kemendagri)));
+
+
+		if ($baseData->sts_1a == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1a == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+
+		$tamplate->setValue('${tgl_1a}', ucwords(strtolower($baseData->tgl_1a)));
+		$tamplate->setValue('${sts_1a}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1a}', ucwords(strtolower($baseData->catat_1a)));
+
+
+		if ($baseData->sts_1b == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1b == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_1b}', ucwords(strtolower($baseData->tgl_1b)));
+		$tamplate->setValue('${sts_1b}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1b}', ucwords(strtolower($baseData->catat_1b)));
+
+
+		if ($baseData->sts_1c == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1c == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_1c}', ucwords(strtolower($baseData->tgl_1c)));
+		$tamplate->setValue('${sts_1c}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1c}', ucwords(strtolower($baseData->catat_1c)));
+
+
+		if ($baseData->sts_1d == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1d == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_1d}', ucwords(strtolower($baseData->tgl_1d)));
+		$tamplate->setValue('${sts_1d}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1d}', ucwords(strtolower($baseData->catat_1d)));
+
+
+		if ($baseData->sts_1e == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1e == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_1e}', ucwords(strtolower($baseData->tgl_1e)));
+		$tamplate->setValue('${sts_1e}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1e}', ucwords(strtolower($baseData->catat_1e)));
+
+
+		if ($baseData->sts_1f == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_1f == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_1f}', ucwords(strtolower($baseData->tgl_1f)));
+		$tamplate->setValue('${sts_1f}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_1f}', ucwords(strtolower($baseData->catat_1f)));
+
+
+		if ($baseData->sts_2a == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_2a == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_2a}', ucwords(strtolower($baseData->tgl_2a)));
+		$tamplate->setValue('${sts_2a}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_2a}', ucwords(strtolower($baseData->catat_2a)));
+
+
+		if ($baseData->sts_2b == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_2b == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_2b}', ucwords(strtolower($baseData->tgl_2b)));
+		$tamplate->setValue('${sts_2b}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_2b}', ucwords(strtolower($baseData->catat_2b)));
+
+
+		if ($baseData->sts_2c == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_2c == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_2c}', ucwords(strtolower($baseData->tgl_2c)));
+		$tamplate->setValue('${sts_2c}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_2c}', ucwords(strtolower($baseData->catat_2c)));
+
+
+		if ($baseData->sts_2d == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_2d == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_2d}', ucwords(strtolower($baseData->tgl_2d)));
+		$tamplate->setValue('${sts_2d}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_2d}', ucwords(strtolower($baseData->catat_2d)));
+
+
+		if ($baseData->sts_2e == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_2e == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_2e}', ucwords(strtolower($baseData->tgl_2e)));
+		$tamplate->setValue('${sts_2e}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_2e}', ucwords(strtolower($baseData->catat_2e)));
+
+
+		if ($baseData->sts_3a == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_3a == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_3a}', ucwords(strtolower($baseData->tgl_3a)));
+		$tamplate->setValue('${sts_3a}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_3a}', ucwords(strtolower($baseData->catat_3a)));
+
+
+		if ($baseData->sts_3b == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_3b == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_3b}', ucwords(strtolower($baseData->tgl_3b)));
+		$tamplate->setValue('${sts_3b}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_3b}', ucwords(strtolower($baseData->catat_3b)));
+
+
+		if ($baseData->sts_4a == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_4a == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_4a}', ucwords(strtolower($baseData->tgl_4a)));
+		$tamplate->setValue('${sts_4a}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_4a}', ucwords(strtolower($baseData->catat_4a)));
+
+
+		if ($baseData->sts_4b == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_4b == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_4b}', ucwords(strtolower($baseData->tgl_4b)));
+		$tamplate->setValue('${sts_4b}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_4b}', ucwords(strtolower($baseData->catat_4b)));
+
+
+		if ($baseData->sts_4c == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_4c == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_4c}', ucwords(strtolower($baseData->tgl_4c)));
+		$tamplate->setValue('${sts_4c}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_4c}', ucwords(strtolower($baseData->catat_4c)));
+		
+
+		if ($baseData->sts_4d == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_4d == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_4d}', ucwords(strtolower($baseData->tgl_4d)));
+		$tamplate->setValue('${sts_4d}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_4d}', ucwords(strtolower($baseData->catat_4d)));
+
+
+		if ($baseData->sts_4e == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_4e == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_4e}', ucwords(strtolower($baseData->tgl_4e)));
+		$tamplate->setValue('${sts_4e}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_4e}', ucwords(strtolower($baseData->catat_4e)));
+
+
+		if ($baseData->sts_5 == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_5 == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_5}', ucwords(strtolower($baseData->tgl_5)));
+		$tamplate->setValue('${sts_5}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_5}', ucwords(strtolower($baseData->catat_5)));
+
+
+		if ($baseData->sts_6 == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_6 == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_6}', ucwords(strtolower($baseData->tgl_6)));
+		$tamplate->setValue('${sts_6}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_6}', ucwords(strtolower($baseData->catat_6)));
+
+
+		if ($baseData->sts_7 == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_7 == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_7}', ucwords(strtolower($baseData->tgl_7)));
+		$tamplate->setValue('${sts_7}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_7}', ucwords(strtolower($baseData->catat_7)));
+
+
+		if ($baseData->sts_8 == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_8 == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_8}', ucwords(strtolower($baseData->tgl_8)));
+		$tamplate->setValue('${sts_8}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_8}', ucwords(strtolower($baseData->catat_8)));
+
+
+		if ($baseData->sts_9 == '1') {
+			$kondisi = 'Sesuai';
+		}elseif ($baseData->sts_9 == '2') {
+			$kondisi = 'Tidak Sesuai';
+		}else{
+			$kondisi = 'Belum Diverifikasi';
+		}
+		
+		$tamplate->setValue('${tgl_9}', ucwords(strtolower($baseData->tgl_9)));
+		$tamplate->setValue('${sts_9}', ucwords(strtolower($kondisi)));
+		$tamplate->setValue('${ct_9}', ucwords(strtolower($baseData->catat_9)));
+
+
+		$tamplate->saveAs('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx');
+		force_download('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx', NULL);
+
+	}
+
+
+	private function getNamaHari($tanggal) {
+		$nama_hari = date('l', strtotime($tanggal));
+		$daftar_hari = array(
+			'Sunday' => 'Minggu',
+			'Monday' => 'Senin',
+			'Tuesday' => 'Selasa',
+			'Wednesday' => 'Rabu',
+			'Thursday' => 'Kamis',
+			'Friday' => 'Jumat',
+			'Saturday' => 'Sabtu'
+		);
+		return $daftar_hari[$nama_hari];
+	}
+
+
+	private function getNamaBulan($tanggal) {
+		$nama_bulan = date('F', strtotime($tanggal));
+		$daftar_bulan = array(
+			'January' => 'Januari',
+			'February' => 'Februari',
+			'March' => 'Maret',
+			'April' => 'April',
+			'May' => 'Mei',
+			'June' => 'Juni',
+			'July' => 'Juli',
+			'August' => 'Agustus',
+			'September' => 'September',
+			'October' => 'Oktober',
+			'November' => 'November',
+			'December' => 'Desember'
+		);
+		return $daftar_bulan[$nama_bulan];
 	}
 
 

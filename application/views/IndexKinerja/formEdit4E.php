@@ -140,7 +140,7 @@
                                    <div class="col-sm-3"> 
                                     <div class="form-group">
                                         <label for="laPermen">Luas D.I. Sesuai Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->laPermen);  ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" >
+                                        <input id="laPermen" name="laPermen" value="<?= str_replace('.', ',', $dataDi->lper);  ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, '');"  placeholder="Luas D.I. Sesuai Permen 14/2015 (Ha)" readonly>
                                         <div class="invalid-feedback" id="pesan_laPermen"></div>
                                     </div>
                                 </div>

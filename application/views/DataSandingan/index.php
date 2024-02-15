@@ -24,7 +24,7 @@
 									<option value="2024" <?= $tahunAwal == '2024' ? 'selected' : ''; ?>>2024</option>
 								</select>
 							</dd>
-							<dd class="col-sm-1 text-center" style="margin-top: 5px;"> SD </dd>
+							<dd class="col-sm-1 text-center" style="margin-top: 5px;"> S/D </dd>
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="taAkhir">
 									<option value="" selected disabled>-- Pilih Tahun Akhir --</option>

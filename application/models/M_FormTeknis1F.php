@@ -26,7 +26,6 @@ class M_formTeknis1F extends CI_Model {
 		ORDER BY d.provinsi, c.kemendagri ";
 
 		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS b
-		LEFT JOIN (SELECT * FROM p_f1f WHERE ta='$ta') AS a ON a.irigasiid=b.irigasiid
 		";
 
 		$data =  $this->db->query($qry)->result();
@@ -109,7 +108,7 @@ class M_formTeknis1F extends CI_Model {
 
 		$thang = $this->session->userdata('thang');
 
-		$qry = "SELECT b.irigasiid as irigasiidX, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS b  
+		$qry = "SELECT b.irigasiid as irigasiidX, b.nama, a.*, b.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS b  
 		LEFT JOIN 
 		(SELECT * FROM p_f1f WHERE ta='$thang')  AS a on a.irigasiid=b.irigasiid WHERE b.irigasiid='$id'";
 		return $this->db->query($qry)->row();
@@ -119,7 +118,7 @@ class M_formTeknis1F extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f1f WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab' AND kategori='DI'";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.provid, a.irigasiid,  a.kotakabid, a.nama, d.*, a.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kotakabid='$kab' AND kategori='DI') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f1f WHERE ta='$thangX' AND kotakabid='$kab') as d on a.irigasiid=d.irigasiid";
 
 		return $this->db->query($qry)->result();
 

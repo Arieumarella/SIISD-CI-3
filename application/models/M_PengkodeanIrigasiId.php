@@ -8,15 +8,15 @@ class M_PengkodeanIrigasiId extends CI_Model {
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid, $stsDataKdEpaksi)
 	{
 
-		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
-		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
+		$cari = ($search != null) ? " AND kode_di='$search'" : '';
+		$cari .= ($provid != null) ? " AND k_propinsi='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND k_kabupaten='$kotakabid'" : '';
 		$cari .= ($stsDataKdEpaksi != 0) ? " AND (irigasiid_epaksi IS NULL ) " : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND kotakabid IN $stringCari";
+			$cari .= " AND k_kabupaten IN $stringCari";
 		}
 
 		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b

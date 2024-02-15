@@ -330,9 +330,15 @@ class IndexKinerja4B extends CI_Controller {
 	}
 
 
-	private function hitungSaluran($saluranB1=null, $saluranRR1=null,$saluranRS1=null, $saluranRB1=null, $kondisi=null) {
+	private function hitungSaluran($saluranB1=0, $saluranRR1=0,$saluranRS1=0, $saluranRB1=0, $kondisi=0) {
 
 
+		$totalSaluran = floatval($saluranB1) + floatval($saluranRR1) + floatval($saluranRS1) + floatval($saluranRB1);
+
+		if ($totalSaluran  === 0) {
+			return null;
+		}
+		
 		$nilaiKondisiKerusakan = ((floatval($saluranB1) * 1) + (floatval($saluranRR1) * 20) + (floatval($saluranRS1) * 40) + (floatval($saluranRB1) * 50)) / (floatval($saluranB1) + floatval($saluranRR1) + floatval($saluranRS1) + floatval($saluranRB1));
 		$nilaiKondisiKerusakanFix = is_nan($nilaiKondisiKerusakan) ? 0 : $nilaiKondisiKerusakan;
 
@@ -654,14 +660,7 @@ class IndexKinerja4B extends CI_Controller {
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		$cek = $this->M_dinamis->getById('p_f4b', ['kotakabid'=>$kab, 'ta' => $thang]);
-		
-		if ($cek) {
-			$data = $this->M_IndexKinerja4B->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
-			$data = $this->M_IndexKinerja4B->getDataDiFull((string)$thang, $kab);
-		}
+		$data = $this->M_IndexKinerja4B->getDataDiFull($thang, $kab);
 		
 		$indexLopp = 6;
 		$nilaiAwal = 1;
@@ -673,7 +672,7 @@ class IndexKinerja4B extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->irigasiidX);
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->saluranPrimerB);
@@ -1269,6 +1268,13 @@ public function downloadTabel($kotakabid=null)
 
 }
 
+
+public function getLapermen()
+{
+	$irigasiid = $this->input->post('irigasiid');
+	$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
+	echo json_encode($data);
+}
 
 
 }

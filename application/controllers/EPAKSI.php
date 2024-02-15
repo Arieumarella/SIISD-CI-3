@@ -13,7 +13,12 @@ use PhpOffice\PhpWord\Table;
 class EPAKSI extends CI_Controller {
 
 	public function __construct() {
+
+
+
 		parent:: __construct();
+
+
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -35,6 +40,9 @@ class EPAKSI extends CI_Controller {
 	public function index()
 	{
 
+		echo 'Untuk Sementara Fitur ini Dalam maintenance.!';
+		return;
+		
 		$tmp = array(
 			'tittle' => 'Form 8',
 			'footer_content' => 'footer_content',

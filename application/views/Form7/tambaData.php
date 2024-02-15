@@ -80,125 +80,240 @@
 </head>
 
 <body class="m-0 p-0" id="bodyUtama">
- <!-- width:99%; height:100vh; -->
- <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
+   <!-- width:99%; height:100vh; -->
+   <!-- hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed -->
 
- <!-- <div class="wrapper"> -->
+   <!-- <div class="wrapper"> -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class=""> <!-- content-wrapper -->
-    <div class="" data-select2-id="28"> <!-- content-wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class=""> <!-- content-wrapper -->
+        <div class="" data-select2-id="28"> <!-- content-wrapper -->
 
-        <div class="row m-0" data-select2-id="27">
-          <!-- panel panel-default -->
-          <div class="col-lg-12 p-0" data-select2-id="26">
-            <form role="form" action="<?= base_url(); ?>Form7/SimpanData" method="POST" data-select2-id="25">
+            <div class="row m-0" data-select2-id="27">
+              <!-- panel panel-default -->
+              <div class="col-lg-12 p-0" data-select2-id="26">
+                <form role="form" action="<?= base_url(); ?>Form7/SimpanData" method="POST" data-select2-id="25">
 
-              <div class="content-header bg-warning">
-                <div class="container-fluid">
-                  <div class="row m-0 p-0 text-left">
-                    <div class="col-sm-7">
-                      <h4 class="m-0">Form 7 : P3A,GP3A,IP3A</h4>
-                  </div>
+                  <div class="content-header bg-warning">
+                    <div class="container-fluid">
+                      <div class="row m-0 p-0 text-left">
+                        <div class="col-sm-7">
+                          <h4 class="m-0">Form 7 : P3A,GP3A,IP3A</h4>
+                      </div>
 
-                  <div class="col-sm-5 text-right">
-                    <a href="<?= base_url(); ?>Form7" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
-                    <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                      <div class="col-sm-5 text-right">
+                        <a href="<?= base_url(); ?>Form7" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
+                        <button type="submit" class="btn btn-primary btn-sm btn-simpan"><i class="fas fa-archive"></i> Simpan</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="content" data-select2-id="24">
+        <section class="content" data-select2-id="24">
 
-        <div class="container-fluid" data-select2-id="23">
+            <div class="container-fluid" data-select2-id="23">
 
-            <!-- box data teknis -->
-            <div class="row" data-select2-id="22">
+                <!-- box data teknis -->
+                <div class="row" data-select2-id="22">
 
-                <div class="card-body p-0 " data-select2-id="21">
-
+                    <div class="card-body p-0 " data-select2-id="21">
 
 
-                    <!-- form start -->
-                    <div class="modal-body" data-select2-id="20">
 
-                        <?= $this->session->flashdata('psn'); ?>
+                        <!-- form start -->
+                        <div class="modal-body" data-select2-id="20">
 
-                        <div style="background-color:red; color:#fff;">
+                            <?= $this->session->flashdata('psn'); ?>
+
+                            <div style="background-color:red; color:#fff;">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6" data-select2-id="33">
+
+                                    <?php if ($this->session->userdata('prive') == 'admin') { ?> 
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="in_irigasiid" name="irigasiid" class="form-control select3" required>
+
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                        </div>
+                                    <?php }else{ ?>
+                                        <div class="form-group" data-select2-id="32">
+                                            <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                            <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
+                                                <option value="" selected disabled>- Pilih D.I -</option>
+                                                <?php foreach ($dataDi as $key => $value) { ?>
+                                                    <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="invalid-feedback" id="pesan_irigasiid"></div>
+                                        </div>
+                                    <?php } ?>
+
+                                </div> 
+
+                                <div class="col-sm-4"> 
+                                    <div class="form-group">
+                                        <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
+                                        <input id="in_laPermen" name="laPermen" value="" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)" readonly>
+                                        <div class="invalid-feedback" id="pesan_laPermen"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Jumlah P3A/GP3A/IP3A</div></div>
+
+                            <div class="row">
+                               <div class="col-sm-8"></div><div class="col-sm-4" style="border:thin solid #e6e6e6;"><div class="row">
+
+                                <div class="col-sm-4">
+
+
+
+                                    <div class="form-group">
+                                        <label for="totAllP3A">P3A</label>
+                                        <input id="totAllP3A" value="" type="text" class="form-control kududisabled" placeholder="P3A" readonly>
+                                        <div class="invalid-feedback" id="pesan_P3Ajml"></div>
+                                    </div>
+
+                                </div>     
+                                <div class="col-sm-4">
+
+
+
+                                    <div class="form-group">
+                                        <label for="totAllGP3A">GP3A</label>
+                                        <input id="totAllGP3A" value="" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
+                                        <div class="invalid-feedback" id="pesan_GP3Ajml"></div>
+                                    </div>
+
+                                </div>     
+                                <div class="col-sm-4">
+
+
+
+                                    <div class="form-group">
+                                        <label for="totAllIP3A">IP3A</label>
+                                        <input id="totAllIP3A" value="" type="text" class="form-control kududisabled" placeholder="IP3A" readonly>
+                                        <div class="invalid-feedback" id="pesan_IP3Ajml"></div>
+                                    </div>
+
+                                </div> 
+
+                            </div></div>
                         </div>
 
+                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Berbadan Hukum</div></div>
+
                         <div class="row">
-                            <div class="col-sm-6" data-select2-id="33">
+                         <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Aktif</h5><div class="row">
 
-                                <?php if ($this->session->userdata('prive') == 'admin') { ?> 
-                                    <div class="form-group" data-select2-id="32">
-                                        <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="in_irigasiid" name="irigasiid" class="form-control select3" required>
+                            <div class="col-sm-4">
 
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-                                <?php }else{ ?>
-                                    <div class="form-group" data-select2-id="32">
-                                        <label for="in_irigasiid">Nomeklatur/ Nama D.I.  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                        <select id="in_irigasiid" name="irigasiid" class="form-control select2" required>
-                                            <option value="" selected disabled>- Pilih D.I -</option>
-                                            <?php foreach ($dataDi as $key => $value) { ?>
-                                                <option value="<?= $value->irigasiid; ?>"><?= $value->nama; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="invalid-feedback" id="pesan_irigasiid"></div>
-                                    </div>
-                                <?php } ?>
+                                <div class="form-group">
+                                    <label for="P3A1">P3A</label>
+                                    <input id="P3A1" name="P3ABhAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('P3A')"  placeholder="P3A">
+                                    <div class="invalid-feedback" id="pesan_P3ABhAktif"></div>
+                                </div>
+
+
+
+                            </div> 
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <label for="GP3A1">GP3A</label>
+                                    <input id="GP3A1" name="GP3ABhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('GP3A')" placeholder="GP3A">
+                                    <div class="invalid-feedback" id="pesan_GP3ABhAktif"></div>
+                                </div>
+
+
+
+                            </div> 
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <label for="IP3A1">IP3A</label>
+                                    <input id="IP3A1" name="IP3ABhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('IP3A')" placeholder="IP3A">
+                                    <div class="invalid-feedback" id="pesan_IP3ABhAktif"></div>
+                                </div>
+
+
 
                             </div> 
 
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label for="in_laPermen">Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="in_laPermen" name="laPermen" value="" type="text" class="form-control  text-right number" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" placeholder="Luas Daerah Irigasi Berdasarkan Permen 14/2015 (Ha)">
-                                    <div class="invalid-feedback" id="pesan_laPermen"></div>
-                                </div>
-                            </div>
-                        </div>
+                        </div></div>
 
 
-                        <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Jumlah P3A/GP3A/IP3A</div></div>
 
-                        <div class="row">
-                         <div class="col-sm-8"></div><div class="col-sm-4" style="border:thin solid #e6e6e6;"><div class="row">
+
+                        <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Tidak Aktif</h5><div class="row">
 
                             <div class="col-sm-4">
 
-
-
                                 <div class="form-group">
-                                    <label for="totAllP3A">P3A</label>
-                                    <input id="totAllP3A" value="" type="text" class="form-control kududisabled" placeholder="P3A" readonly>
-                                    <div class="invalid-feedback" id="pesan_P3Ajml"></div>
+                                    <label for="P3A2">P3A</label>
+                                    <input id="P3A2" name="P3ABhTidakAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('P3A')" placeholder="P3A">
+                                    <div class="invalid-feedback" id="pesan_P3ABhTidakAktif"></div>
                                 </div>
 
-                            </div>     
+
+
+                            </div> 
                             <div class="col-sm-4">
 
-
-
                                 <div class="form-group">
-                                    <label for="totAllGP3A">GP3A</label>
-                                    <input id="totAllGP3A" value="" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
-                                    <div class="invalid-feedback" id="pesan_GP3Ajml"></div>
+                                    <label for="GP3A2">GP3A</label>
+                                    <input id="GP3A2" name="GP3ABhTidakAktif" value="" type="text" class="form-control text-right number" placeholder="GP3A" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('GP3A')">
+                                    <div class="invalid-feedback" id="pesan_GP3ABhTidakAktif"></div>
                                 </div>
 
-                            </div>     
+
+
+                            </div> 
                             <div class="col-sm-4">
 
-
-
                                 <div class="form-group">
-                                    <label for="totAllIP3A">IP3A</label>
-                                    <input id="totAllIP3A" value="" type="text" class="form-control kududisabled" placeholder="IP3A" readonly>
-                                    <div class="invalid-feedback" id="pesan_IP3Ajml"></div>
+                                    <label for="IP3A2">IP3A</label>
+                                    <input id="IP3A2" name="IP3ABhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('IP3A')" placeholder="IP3A">
+                                    <div class="invalid-feedback" id="pesan_IP3ABhTidakAktif"></div>
+                                </div>
+
+
+
+                            </div> 
+
+                        </div></div>
+
+
+
+
+                        <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Jumlah</h5><div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="P3ATotal">P3A</label>
+                                    <input id="P3ATotal" value=""  name="P3ABhJumlah" type="text" class="form-control kududisabled" placeholder="P3A" readonly>
+                                    <div class="invalid-feedback" id="pesan_P3ABhJumlah"></div>
+                                </div>
+
+                            </div> 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="GP3ATotal">GP3A</label>
+                                    <input id="GP3ATotal" value="" name="GP3ABhJumlah" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
+                                    <div class="invalid-feedback" id="pesan_GP3ABhJumlah"></div>
+                                </div>
+
+                            </div> 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="IP3ATotal">IP3A</label>
+                                    <input id="IP3ATotal" value="" type="text" name="IP3ABhJumlah" class="form-control kududisabled" placeholder="IP3A" readonly>
+                                    <div class="invalid-feedback" id="pesan_IP3ABhJumlah"></div>
                                 </div>
 
                             </div> 
@@ -206,39 +321,36 @@
                         </div></div>
                     </div>
 
-                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Berbadan Hukum</div></div>
+                    <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Belum Berbadan Hukum</div></div>
 
                     <div class="row">
-                       <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Aktif</h5><div class="row">
+                     <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Aktif</h5><div class="row">
 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="P3A1">P3A</label>
-                                <input id="P3A1" name="P3ABhAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('P3A')"  placeholder="P3A">
-                                <div class="invalid-feedback" id="pesan_P3ABhAktif"></div>
+                                <label for="P3Ax1">P3A</label>
+                                <input id="P3Ax1" name="P3ABelumBhAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('P3A')" placeholder="P3A">
+                                <div class="invalid-feedback" id="pesan_P3ABelumBhAktif"></div>
                             </div>
 
 
 
                         </div> 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="GP3A1">GP3A</label>
-                                <input id="GP3A1" name="GP3ABhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('GP3A')" placeholder="GP3A">
-                                <div class="invalid-feedback" id="pesan_GP3ABhAktif"></div>
+                                <label for="GP3Ax1">GP3A</label>
+                                <input id="GP3Ax1" name="GP3ABelumBhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('GP3A')" placeholder="GP3A">
+                                <div class="invalid-feedback" id="pesan_GP3ABelumBhAktif"></div>
                             </div>
 
 
 
                         </div> 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="IP3A1">IP3A</label>
-                                <input id="IP3A1" name="IP3ABhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('IP3A')" placeholder="IP3A">
-                                <div class="invalid-feedback" id="pesan_IP3ABhAktif"></div>
+                                <label for="IP3Ax1">IP3A</label>
+                                <input id="IP3Ax1" name="IP3ABelumBhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('IP3A')" placeholder="IP3A">
+                                <div class="invalid-feedback" id="pesan_IP3ABelumBhAktif"></div>
                             </div>
 
 
@@ -253,33 +365,30 @@
                     <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Tidak Aktif</h5><div class="row">
 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="P3A2">P3A</label>
-                                <input id="P3A2" name="P3ABhTidakAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('P3A')" placeholder="P3A">
-                                <div class="invalid-feedback" id="pesan_P3ABhTidakAktif"></div>
+                                <label for="P3Ax2">P3A</label>
+                                <input id="P3Ax2" name="P3ABelumBhTidakAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('P3A')" placeholder="P3A">
+                                <div class="invalid-feedback" id="pesan_P3ABelumBhTidakAktif"></div>
                             </div>
 
 
 
                         </div> 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="GP3A2">GP3A</label>
-                                <input id="GP3A2" name="GP3ABhTidakAktif" value="" type="text" class="form-control text-right number" placeholder="GP3A" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('GP3A')">
-                                <div class="invalid-feedback" id="pesan_GP3ABhTidakAktif"></div>
+                                <label for="GP3Ax2">GP3A</label>
+                                <input id="GP3Ax2" name="GP3ABelumBhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('GP3A')" placeholder="GP3A">
+                                <div class="invalid-feedback" id="pesan_GP3ABelumBhTidakAktif"></div>
                             </div>
 
 
 
                         </div> 
                         <div class="col-sm-4">
-
                             <div class="form-group">
-                                <label for="IP3A2">IP3A</label>
-                                <input id="IP3A2" name="IP3ABhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); tambahKan('IP3A')" placeholder="IP3A">
-                                <div class="invalid-feedback" id="pesan_IP3ABhTidakAktif"></div>
+                                <label for="IP3Ax2">IP3A</label>
+                                <input id="IP3Ax2" name="IP3ABelumBhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('IP3A')" placeholder="IP3A">
+                                <div class="invalid-feedback" id="pesan_IP3ABelumBhTidakAktif"></div>
                             </div>
 
 
@@ -293,165 +402,56 @@
 
                     <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Jumlah</h5><div class="row">
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-4"> 
                             <div class="form-group">
-                                <label for="P3ATotal">P3A</label>
-                                <input id="P3ATotal" value=""  name="P3ABhJumlah" type="text" class="form-control kududisabled" placeholder="P3A" readonly>
-                                <div class="invalid-feedback" id="pesan_P3ABhJumlah"></div>
+                                <label for="P3AxTotal">P3A</label>
+                                <input id="P3AxTotal" value="" type="text" name="P3ABelumBhJumlah" class="form-control kududisabled" placeholder="P3A" readonly>
+                                <div class="invalid-feedback" id="pesan_P3ABelumBhJumlah"></div>
                             </div>
 
-                        </div> 
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="GP3ATotal">GP3A</label>
-                                <input id="GP3ATotal" value="" name="GP3ABhJumlah" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
-                                <div class="invalid-feedback" id="pesan_GP3ABhJumlah"></div>
-                            </div>
+
 
                         </div> 
-                        <div class="col-sm-4">
+                        <div class="col-sm-4"> 
                             <div class="form-group">
-                                <label for="IP3ATotal">IP3A</label>
-                                <input id="IP3ATotal" value="" type="text" name="IP3ABhJumlah" class="form-control kududisabled" placeholder="IP3A" readonly>
-                                <div class="invalid-feedback" id="pesan_IP3ABhJumlah"></div>
+                                <label for="GP3AxTotal">GP3A</label>
+                                <input id="GP3AxTotal" value="" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
+                                <div class="invalid-feedback" id="pesan_GP3ABelumBhJumlah"></div>
                             </div>
+
+
+
+                        </div> 
+                        <div class="col-sm-4"> 
+                            <div class="form-group">
+                                <label for="IP3AxTotal">IP3A</label>
+                                <input id="IP3AxTotal" value="" name="IP3ABelumBhJumlah" type="text" class="form-control kududisabled" placeholder="IP3A" readonly>
+                                <div class="invalid-feedback" id="pesan_IP3ABelumBhJumlah"></div>
+                            </div>
+
+
 
                         </div> 
 
                     </div></div>
                 </div>
 
-                <div class="bg-info mb-2" style="padding:2px; margin:0px;"><div class="" style="padding:0px 0px 0px 4px; margin:0px;">Belum Berbadan Hukum</div></div>
-
-                <div class="row">
-                   <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Aktif</h5><div class="row">
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="P3Ax1">P3A</label>
-                            <input id="P3Ax1" name="P3ABelumBhAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('P3A')" placeholder="P3A">
-                            <div class="invalid-feedback" id="pesan_P3ABelumBhAktif"></div>
-                        </div>
 
 
-
-                    </div> 
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="GP3Ax1">GP3A</label>
-                            <input id="GP3Ax1" name="GP3ABelumBhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('GP3A')" placeholder="GP3A">
-                            <div class="invalid-feedback" id="pesan_GP3ABelumBhAktif"></div>
-                        </div>
-
-
-
-                    </div> 
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="IP3Ax1">IP3A</label>
-                            <input id="IP3Ax1" name="IP3ABelumBhAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('IP3A')" placeholder="IP3A">
-                            <div class="invalid-feedback" id="pesan_IP3ABelumBhAktif"></div>
-                        </div>
-
-
-
-                    </div> 
-
-                </div></div>
-
-
-
-
-                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Tidak Aktif</h5><div class="row">
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="P3Ax2">P3A</label>
-                            <input id="P3Ax2" name="P3ABelumBhTidakAktif" value="" type="text" class="form-control number text-right" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('P3A')" placeholder="P3A">
-                            <div class="invalid-feedback" id="pesan_P3ABelumBhTidakAktif"></div>
-                        </div>
-
-
-
-                    </div> 
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="GP3Ax2">GP3A</label>
-                            <input id="GP3Ax2" name="GP3ABelumBhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('GP3A')" placeholder="GP3A">
-                            <div class="invalid-feedback" id="pesan_GP3ABelumBhTidakAktif"></div>
-                        </div>
-
-
-
-                    </div> 
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="IP3Ax2">IP3A</label>
-                            <input id="IP3Ax2" name="IP3ABelumBhTidakAktif" value="" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); hitungBelumBerbadan('IP3A')" placeholder="IP3A">
-                            <div class="invalid-feedback" id="pesan_IP3ABelumBhTidakAktif"></div>
-                        </div>
-
-
-
-                    </div> 
-
-                </div></div>
-
-
-
-
-                <div class="col-sm-4" style="border:thin solid #e6e6e6; padding-top:2px;"><h5 style="border-bottom:1px solid #994d00; color:#994d00;">Jumlah</h5><div class="row">
-
-                    <div class="col-sm-4"> 
-                        <div class="form-group">
-                            <label for="P3AxTotal">P3A</label>
-                            <input id="P3AxTotal" value="" type="text" name="P3ABelumBhJumlah" class="form-control kududisabled" placeholder="P3A" readonly>
-                            <div class="invalid-feedback" id="pesan_P3ABelumBhJumlah"></div>
-                        </div>
-
-
-
-                    </div> 
-                    <div class="col-sm-4"> 
-                        <div class="form-group">
-                            <label for="GP3AxTotal">GP3A</label>
-                            <input id="GP3AxTotal" value="" type="text" class="form-control kududisabled" placeholder="GP3A" readonly>
-                            <div class="invalid-feedback" id="pesan_GP3ABelumBhJumlah"></div>
-                        </div>
-
-
-
-                    </div> 
-                    <div class="col-sm-4"> 
-                        <div class="form-group">
-                            <label for="IP3AxTotal">IP3A</label>
-                            <input id="IP3AxTotal" value="" name="IP3ABelumBhJumlah" type="text" class="form-control kududisabled" placeholder="IP3A" readonly>
-                            <div class="invalid-feedback" id="pesan_IP3ABelumBhJumlah"></div>
-                        </div>
-
-
-
-                    </div> 
-
-                </div></div>
             </div>
 
-
-
-        </div>
-
-        <div class="modal-footer justify-content-between">
-            <div class="row">
-              <a href="<?= base_url(); ?>Form7" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
-              <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
+            <div class="modal-footer justify-content-between">
+                <div class="row">
+                  <a href="<?= base_url(); ?>Form7" class="btn btn-default btn-sm" title="Batal"><i class="fa fa-undo"></i> Kembali</a>
+                  <button type="submit" class="btn btn-primary btn-sm btn-simpan">Simpan</button>
+              </div>
           </div>
+
+
+          <!-- form end -->
+
       </div>
-
-
-      <!-- form end -->
-
   </div>
-</div>
 
 </div>
 </section>
@@ -490,6 +490,26 @@
 
 <script>
   $(document).ready(function(){
+
+    $('#in_irigasiid').on('change', function() {
+        let val = $(this).val();
+
+        $.ajax({
+            url: base_url()+'Form7/getLapermen', 
+            method: 'POST',
+            data: {irigasiid:val},
+            dataType: 'json',
+            success: function(res) {
+
+                $('#in_laPermen').val(res.lper);
+
+            },
+            error: function(xhr, status, error) {
+                alert('Ada yang error.!');
+            }
+        });
+    });
+
 
     $('.select2').select2({
       theme: 'default'
@@ -563,14 +583,14 @@
         },
         processResults: function (response) {
 
-           response.data.unshift({ id: '', text: 'Tampilkan semua' });
+         response.data.unshift({ id: '', text: 'Tampilkan semua' });
 
-           return {
-              results: response.data 
-          };
-      },
-      cache: true
-  }
+         return {
+          results: response.data 
+      };
+  },
+  cache: true
+}
 });
     <?php } ?>
 
