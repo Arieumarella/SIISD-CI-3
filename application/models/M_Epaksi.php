@@ -330,7 +330,6 @@ class M_Epaksi extends CI_Model {
 
 		}
 
-
 		$this->db->insert_batch('p_f8_pelaksana', $baseArray); 
 
 		$this->db->trans_complete();

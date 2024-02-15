@@ -1,4 +1,3 @@
-
 <section class="content">
 	<div class="container-fluid">
 		<br>
@@ -18,10 +17,10 @@
 								<div class="form-group col-md-6 col-sm-12">
 									<label for="prov">Provinsi</label>
 									<select id="prov" class="form-control select2" name="prov" required>
-										<option value="" selected disabled>-- Pilih Provinsi --</option>
-										
-										<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
+
+										<?php if ($this->session->userdata('prive') == 'admin') { ?>
+											<option value="" selected disabled>-- Pilih Provinsi --</option>
 											<?php foreach ($prov as $key => $val) { ?>
 												<option value="<?= $val->provid; ?>"><?= $val->provinsi; ?></option>
 											<?php } ?>
@@ -39,11 +38,11 @@
 								<div class="form-group col-md-6 col-sm-12">
 									<label for="kotakab">Kab/Kota</label>
 									<select id="kotakab" class="form-control select2" name="kotakab" required>
-										<option value="" selected disabled>-- Pilih Kota/Kab --</option>
-										
+
+
 										<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
-											
+											<option value="" selected disabled>-- Pilih Kota/Kab --</option>
 
 										<?php } ?>
 
@@ -76,7 +75,7 @@
 									<input type="text" class="form-control" id="luasPermen" name="luasPermen" placeholder="Luas D.I Berdasarkan Permen 14/2015" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" required>
 								</div>
 								<div class="form-group col-md-6 col-sm-12">
-									<label for="balai">Kewenangan Balai</label>
+									<label for="balai">Balai</label>
 									<select id="balai" class="form-control select2" name="balai" required>
 										<option value="" selected disabled>-- Pilih Balai --</option>
 										<?php foreach ($dataBalai as $key => $value) { ?>
@@ -101,7 +100,9 @@
 		$('#prov').change(function() {
 			let provid = $(this).val();
 
-			ajaxUntukSemua(base_url()+'TambahDi/getDataKabKota', {provid}, function(data) {
+			ajaxUntukSemua(base_url() + 'TambahDi/getDataKabKota', {
+				provid
+			}, function(data) {
 
 				let opt = `<option selected value="" disabled>- Pilih Kab/Kota -</option>`;
 

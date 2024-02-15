@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -10,10 +10,12 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class TambahDi extends CI_Controller {
+class TambahDi extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -68,7 +70,7 @@ class TambahDi extends CI_Controller {
 			'provid' => $prov,
 			'kotakabid' => $kotakab,
 			'balaiid' => $balai,
-			'kategori' => $Kategori, 
+			'kategori' => $Kategori,
 			'isActive' => '0'
 		);
 
@@ -78,9 +80,9 @@ class TambahDi extends CI_Controller {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-				Data Berhasil Disimpan.! Untk melihat status pengajuan Daerah Irigasi dapat di lihat di <a href="'.base_url().'StsVerifikasiDi">Sini</a>
+				Data Berhasil Disimpan.! Untk melihat status pengajuan Daerah Irigasi dapat di lihat di <a href="' . base_url() . 'StsVerifikasiDi">Sini</a>
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -90,8 +92,6 @@ class TambahDi extends CI_Controller {
 		}
 
 		redirect('/TambahDi', 'refresh');
-
-
 	}
 
 
@@ -103,7 +103,4 @@ class TambahDi extends CI_Controller {
 
 		echo json_encode($data);
 	}
-
-
-
 }

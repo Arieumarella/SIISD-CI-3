@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No DIect script access allowed');
+defined('BASEPATH') or exit('No DIect script access allowed');
 
-class M_TambahDi extends CI_Model {
+class M_TambahDi extends CI_Model
+{
 
 
 	public function getKategori()
@@ -10,6 +11,4 @@ class M_TambahDi extends CI_Model {
 
 		return $this->db->query($qry)->result();
 	}
-
-
 }
