@@ -382,6 +382,15 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
 </li>
 
 <li class="nav-item">
+  <a href="<?= base_url(); ?>CekDI" class="nav-link <?= $tittle == 'Crosscheck Data DI' ? 'active' : ''; ?>">
+    <i class="nav-icon fa fa-edit"></i>
+    <p>
+      Crosscheck Data DI
+    </p>
+  </a>
+</li>
+
+<li class="nav-item">
   <a href="<?= base_url(); ?>RiwayatPenaganan" class="nav-link <?= $tittle == 'Riwayat Penaganan' ? 'active' : ''; ?>">
     <i class="nav-icon fa fa-history"></i>
     <p>
