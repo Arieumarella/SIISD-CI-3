@@ -100,21 +100,16 @@
 
 						<?php } ?>
 
-			            <?php if ($this->session->userdata('prive') == 'pemda' || $this->session->userdata('prive') == 'provinsi' || $this->session->userdata('prive') == 'balai') { ?>
-			                <div class="col-sm-12 col-lg-3 p-0">
-			                    <div class="input-group input-group-sm">
-			                    <select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0">
-			                    <!-- Populate select options here -->
-			                    <?php foreach ($options as $option) { ?>
-			                        <option value="<?= $option->value ?>"><?= $option->label ?></option>
-			                    <?php } ?>
-			                    </select>
-			                   <span class="input-group-append ml-1">
-			                        <button id="btn_filter" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Submit</button>
-			                    </span>
-			                    </div>
-			                </div>
-		                <?php } ?>
+			           <?php if ($this->session->userdata('prive') == 'pemda' || $this->session->userdata('prive') == 'provinsi' || $this->session->userdata('prive') == 'balai' || $this->session->userdata('prive') == 'admin') { ?>
+                        <div class="col-sm-12 col-lg-3 p-0">
+                           <div class="input-group input-group-sm">
+                                <select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0"></select>
+                                    <span class="input-group-append ml-1">
+                                        <button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Submit</button>
+                                    </span>
+                            </div>
+                        </div>
+                       <?php } ?>
 
 						<?php if ($this->session->userdata('prive') == 'admin'  ) { ?>
 						<div class="col-sm-12 col-lg-3 p-0">
@@ -178,11 +173,8 @@
 							<!-- header utama -->
 							<tr id="boxThField" style="background-color:#18978F; color:#fff;">
 								<th class="text-center" style="border: thin solid #006666;">Provinsi</th>
-								<th class="text-center" style="border: thin solid #006666;">Kab/Kota</th>                                                                                                                           
+								<th class="text-center" style="border: thin solid #006666;">Kab/Kota</th>                                                                                                                        
 							</tr>
-
-						
-
 
 						</thead>
 
@@ -311,6 +303,43 @@
 		}
 
 		getDataTabel();
+		<?php if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'balai'or $this->session->userdata('prive') == 'provinsi') { ?>
+
+		function setTabelKonten(data) {
+            let tableConten = ``,
+            warnaAwal = `#F7ECDE`,
+            no = 1;
+
+            // Filter data sesuai dengan opsi yang dipilih oleh pengguna
+            let selectedValue = $('#in_irigasiid').val();
+            let filteredData = data.filter(function(item) {
+            return item.irigasiid === selectedValue;
+        });
+
+    // Tampilkan data yang sudah difilter dalam tabel
+    $.each(filteredData, function(key, value) {
+        tableConten += `<tr style="background-color:${warnaAwal};">
+            <td style="border: thin solid #006666;" align="center">${no}</td>
+            <td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
+            <td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
+            <td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">${value.nama}</td>
+            <td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid)}</td>`;
+            
+       
+
+        tableConten += `</tr>`;
+
+        warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
+        no++;
+    });
+
+    $('#tbody_data').html(tableConten);
+}
+<?php } ?>
+
+<?php if ($this->session->userdata('prive') == 'admin' ) { ?>
+
+getDataTabel();
 
 
 		function setTabelKonten(data) {
@@ -343,25 +372,26 @@
 			$('#tbody_data').html(tableConten);
 
 		}
+		<?php } ?>
 
-	$(document).ready(function() {
-    $('#btn_filter').click(function() {
-        var selectedValue = $('#in_irigasiid').val();
-        // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            type: 'POST',
-            url: 'CekDI/getData', // Sesuaikan dengan URL controller Anda
-            data: { selectedValue: selectedValue },
-            success: function(response) {
-                // Panggil fungsi setTabelKonten dengan data yang diterima dari server
-                setTabelKonten(JSON.parse(response));
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+        $(document).ready(function() {
+            $('#btn_filter').click(function() {
+                var selectedValue = $('#in_irigasiid').val();
+                // Kirim data ke server menggunakan AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: 'CekDI/getData', // Sesuaikan dengan URL controller Anda
+                    data: { selectedValue: selectedValue },
+                    success: function(response) {
+                    // Panggil fungsi setTabelKonten dengan data yang diterima dari server
+                    setTabelKonten(response);
+                    },
+                    error: function(xhr, status, error) {
+                    console.error(error);
+                    }
+                });
+            });
         });
-    });
-});
 
 
 		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
