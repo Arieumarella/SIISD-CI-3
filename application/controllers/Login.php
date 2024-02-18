@@ -82,6 +82,10 @@ class Login extends CI_Controller {
 			$prive = 'admin';
 		}
 
+		if (substr($cek->uid, 0, 4)  == 'tamu') {
+			$prive = 'guest';
+		}
+
 		// End Set privilege
 
 

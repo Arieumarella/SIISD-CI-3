@@ -60,7 +60,7 @@ class M_Kelembagaan extends CI_Model {
 		$thang = $this->session->userdata('thang');
 
 		$this->db->where(['kotakabid' => $kotakabid, 'ta' => $thang]);
-		return $this->db->delete('p_f6');
+		$this->db->delete('p_f6');
 
 
 		$this->db->insert('p_f6', $dataAwal);

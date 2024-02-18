@@ -375,7 +375,7 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1C/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1C/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laBaku)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPotensial)}</td>

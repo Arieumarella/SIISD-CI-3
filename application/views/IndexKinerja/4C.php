@@ -429,10 +429,11 @@
 
 	$(document).ready(function() {
 
-		var halamanSaatIni = '1',
+		let halamanSaatIni = '1',
 		search = '',
 		provid = '',
-		kotakabid = '';
+		kotakabid = '',
+		priveXX = '<?= $this->session->userdata('prive'); ?>';
 
 		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
 			try{
@@ -480,255 +481,360 @@
 
 		}
 
-		getDataTabel();
+		if (priveXX != 'admin') {
+			getDataTabel();
+		}
 
 
-		function setTabelKonten(data) {
-
-			let tableConten = ``,
-			warnaAwal = `#F7ECDE`,
-			no = 1;
-
-
-			$.each(data, function(key, value) {
-				console.log(value)
-				tableConten += `<tr style="background-color:${warnaAwal};">
-				<td style="border: thin solid #006666;" align="center">${no}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4C/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
-
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buSumurA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buSumurB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buPompaA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buPompaB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buRumahPompaA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buRumahPompaB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buRumahA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buRumahB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerBR)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRS)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPrimerRerata)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerNilai)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderBR)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRS)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranSekunderRerata)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderNilai)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierBR)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRS)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranTersierRerata)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierNilai)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangBR)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRS)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPembuangRerata)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangNilai)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiSadapA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiSadapB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppSadapA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppSadapB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBangunanPengukurA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBangunanPengukurB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGorongA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGorongB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaSiponA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaSiponB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTalangA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTalangB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerjunanA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTerjunanB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGotMiringA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGotMiringB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelimpahA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpahB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinSaluranGendongA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinSaluranGendongB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelepasTekanA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelepasTekanB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinBakKontrolA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinBakKontrolB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPerkuatanTebingA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebingB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengTampungA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengTampungB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJalanInspeksiA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJalanInspeksiB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJembatanA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJembatanB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengKantorPengamatA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengKantorPengamatB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengGudangA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengGudangB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahJagaA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahJagaB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengSanggarTaniA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengSanggarTaniB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaPintuAirA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAirB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaControlValveA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaControlValveB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaAlatUkurA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaAlatUkurB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.rataJaringanA)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.rataJaringanB)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
-				</tr>`;
-
-				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
-				no++;
-			});
-
-$('#tbody_data').html(tableConten);
-
-}
+		async function setTabelKonten(data) {
+			try {
+				let tableConten = ``,
+				warnaAwal = `#F7ECDE`,
+				no = 1;
 
 
-function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
-	var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
-	var paginationContainer = $('#pagination');
-	paginationContainer.empty(); 
+				for (const [key, value] of Object.entries(data)) {
+					try{
 
-	var startingPage = 1;
-	var endingPage = jumlahHalaman; 
+						let nilaiSaluarB = await hasilKaliSaluran(value.saluranPrimerB, value.pjg_saluranPrimerB),
+						nilaiSaluarBR = await hasilKaliSaluran(value.saluranPrimerBR, value.pjg_saluranPrimerBR),
+						nilaiSaluarRS = await hasilKaliSaluran(value.saluranPrimerRS, value.pjg_saluranPrimerRS),
+						nilaiSaluarRB = await hasilKaliSaluran(value.saluranPrimerRB, value.pjg_saluranPrimerRB),
+						totalPanjangSaluranPrimer = await totalPanjangSaluran(value.pjg_saluranPrimerB, value.pjg_saluranPrimerBR, value.pjg_saluranPrimerRS, value.pjg_saluranPrimerRB),
+						retaRataNilaiKondisi = await (totalPanjangSaluranPrimer == 0 || totalPanjangSaluranPrimer == null) ? 0 : (nilaiSaluarB+nilaiSaluarBR+nilaiSaluarRS+nilaiSaluarRB)/totalPanjangSaluranPrimer;
 
-	if (jumlahHalaman > 3) {
-		startingPage = Math.max(1, halamanSaatIni - 1);
-		endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
-	}
+
+
+						let sekunderNilaiSaluarB = await hasilKaliSaluran(value.saluranSekunderB, value.pjg_saluranSekunderB),
+						sekunderNilaiSaluarBR = await hasilKaliSaluran(value.saluranSekunderBR, value.pjg_saluranSekunderBR),
+						sekunderNilaiSaluarRS = await hasilKaliSaluran(value.saluranSekunderRS, value.pjg_saluranSekunderRS),
+						sekunderNilaiSaluarRB = await hasilKaliSaluran(value.saluranSekunderRB, value.pjg_saluranSekunderRB),
+						totalPanjangSaluranSekunder = await totalPanjangSaluran(value.pjg_saluranSekunderB, value.pjg_saluranSekunderBR, value.pjg_saluranSekunderRS, value.pjg_saluranSekunderRB),
+						retaRataNilaiKondisiSekunder = await (totalPanjangSaluranSekunder == 0 || totalPanjangSaluranSekunder == null) ? 0 : (sekunderNilaiSaluarB+sekunderNilaiSaluarBR+sekunderNilaiSaluarRS+sekunderNilaiSaluarRB)/totalPanjangSaluranSekunder;
+
+						let TersierNilaiSaluarB = await hasilKaliSaluran(value.saluranTersierB, value.pjg_saluranTersierB),
+						TersierNilaiSaluarBR = await hasilKaliSaluran(value.saluranTersierBR, value.pjg_saluranTersierBR),
+						TersierNilaiSaluarRS = await hasilKaliSaluran(value.saluranTersierRS, value.pjg_saluranTersierRS),
+						TersierNilaiSaluarRB = await hasilKaliSaluran(value.saluranTersierRB, value.pjg_saluranTersierRB),
+						totalPanjangSaluranTersier = await totalPanjangSaluran(value.pjg_saluranTersierB, value.pjg_saluranTersierBR, value.pjg_saluranTersierRS, value.pjg_saluranTersierRB),
+						retaRataNilaiKondisiTersier = await (totalPanjangSaluranTersier == 0 || totalPanjangSaluranTersier == null) ? 0 : (TersierNilaiSaluarB+TersierNilaiSaluarBR+TersierNilaiSaluarRS+TersierNilaiSaluarRB)/totalPanjangSaluranTersier;
+
+						let PembuangNilaiSaluarB = await hasilKaliSaluran(value.saluranPembuangB, value.pjg_saluranPembuangB),
+						PembuangNilaiSaluarBR = await hasilKaliSaluran(value.saluranPembuangBR, value.pjg_saluranPembuangBR),
+						PembuangNilaiSaluarRS = await hasilKaliSaluran(value.saluranPembuangRS, value.pjg_saluranPembuangRS),
+						PembuangNilaiSaluarRB = await hasilKaliSaluran(value.saluranPembuangRB, value.pjg_saluranPembuangRB),
+						totalPanjangSaluranPembuang = await totalPanjangSaluran(value.pjg_saluranPembuangB, value.pjg_saluranPembuangBR, value.pjg_saluranPembuangRS, value.pjg_saluranPembuangRB),
+						retaRataNilaiKondisiPembuang = await (totalPanjangSaluranPembuang == 0 || totalPanjangSaluranPembuang == null) ? 0 : (PembuangNilaiSaluarB+PembuangNilaiSaluarBR+PembuangNilaiSaluarRS+PembuangNilaiSaluarRB)/totalPanjangSaluranPembuang;
+
+						let saluran1 = await hitungSaluranTotal(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB, 1),
+						saluran2 = await hitungSaluranTotal(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB, 1),
+						saluran3 = await hitungSaluranTotal(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB, 1),
+						saluran4 = await hitungSaluranTotal(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB, 1);
+
+
+						let arrayRataRata = [
+							value.buSumurB,
+							value.buPompaB,
+							value.buRumahPompaB,
+							value.buRumahB,
+							value.bppBagiB,
+							value.bppBagiSadapB,
+							value.bppSadapB,
+							value.bppBangunanPengukurB,
+							value.bPembawaGorongB,
+							value.bPembawaSiponB,
+							value.bPembawaTalangB,
+							value.bPembawaTerjunanB,
+							value.bPembawaGotMiringB,
+							value.blinPelimpahB,
+							value.blinSaluranGendongB,
+							value.blinPelepasTekanB,
+							value.blinBakKontrolB,
+							value.blinPerkuatanTebingB,
+							value.balengTampungB,
+							value.balengJalanInspeksiB,
+							value.balengJembatanB,							
+							value.balengKantorPengamatB,
+							value.balengGudangB,
+							value.balengRumahJagaB,
+							value.balengSanggarTaniB,
+							value.saranaPintuAirB,
+							value.saranaControlValveB,
+							value.saranaAlatUkurB,
+							saluran1,
+							saluran2,
+							saluran3,
+							saluran4
+							];
+
+						
+
+						let totalNilai = await hitungTotalRataRataAllForm4(arrayRataRata, 2),
+						totalNilaiKondisi = await hitungTotalRataRataAllForm4(arrayRataRata, 1);
+
+
+						tableConten += `<tr style="background-color:${warnaAwal};">
+						<td style="border: thin solid #006666;" align="center">${no}</td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
+						<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4C/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.lper)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
+
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buSumurA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buSumurB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buPompaA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buPompaB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buRumahPompaA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buRumahPompaB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buRumahA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buRumahB)}</td>
+
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerBx)}" class="number">${cleanStr(value.saluranPrimerB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerBRx)}" class="number">${cleanStr(value.saluranPrimerBR)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerRSx)}" class="number">${cleanStr(value.saluranPrimerRS)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerRBx)}" class="number">${cleanStr(value.saluranPrimerRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisi))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisi)}</td>
+
+
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranSekunderBx)}" class="number">${cleanStr(value.saluranSekunderB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranSekunderBRx)}" class="number">${cleanStr(value.saluranSekunderBR)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranSekunderRSx)}" class="number">${cleanStr(value.saluranSekunderRS)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranSekunderRBx)}" class="number">${cleanStr(value.saluranSekunderRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiSekunder))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiSekunder)}</td>
+
+
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierBx)}" class="number">${cleanStr(value.saluranTersierB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierBRx)}" class="number">${cleanStr(value.saluranTersierBR)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierRSx)}" class="number">${cleanStr(value.saluranTersierRS)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierRBx)}" class="number">${cleanStr(value.saluranTersierRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiTersier))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiTersier)}</td>
+
+
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangBx)}" class="number">${cleanStr(value.saluranPembuangB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangBRx)}" class="number">${cleanStr(value.saluranPembuangBR)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangRSx)}" class="number">${cleanStr(value.saluranPembuangRS)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangRBx)}" class="number">${cleanStr(value.saluranPembuangRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiPembuang))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiPembuang)}</td>
+
+
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bppBagiBx)}" class="number">${cleanStr(value.bppBagiB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiSadapA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.bppBagiSadapBx)}" class="number">${cleanStr(value.bppBagiSadapB)}</td>
+
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppSadapA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bppSadapBx)}" class="number">${cleanStr(value.bppSadapB)}</td>
+
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBangunanPengukurA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBangunanPengukurB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGorongA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaGorongBx)}" class="number">${cleanStr(value.bPembawaGorongB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaSiponA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaSiponBx)}" class="number">${cleanStr(value.bPembawaSiponB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTalangA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.bPembawaTalangBx)}" class="number">${cleanStr(value.bPembawaTalangB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerjunanA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaTerjunanBx)}" class="number">${cleanStr(value.bPembawaTerjunanB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGotMiringA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.bPembawaGotMiringx)}" class="number">${cleanStr(value.bPembawaGotMiringB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelimpahA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpahB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinSaluranGendongA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinSaluranGendongBx)}" class="number">${cleanStr(value.blinSaluranGendongB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelepasTekanA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelepasTekanB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinBakKontrolA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinBakKontrolB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPerkuatanTebingA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebingB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengTampungA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengTampungB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJalanInspeksiA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengJalanInspeksiBx)}" class="number">${cleanStr(value.balengJalanInspeksiB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJembatanA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengJembatanBx)}" class="number">${cleanStr(value.balengJembatanB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengKantorPengamatA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengKantorPengamatB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengGudangA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengGudangB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahJagaA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahJagaB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengSanggarTaniA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengSanggarTaniB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaPintuAirA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAirB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaControlValveA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaControlValveB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaAlatUkurA)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaAlatUkurB)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(totalNilaiKondisi)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(totalNilai)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
+						</tr>`;
+
+						warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
+						no++;
+					} catch (err) {
+						console.error('Error saat looping tabel:', err);
+					}
+				}
+
+				$('#tbody_data').html(tableConten);
+
+			} catch (err) {
+				console.error('Error:', err);
+			}
+		}
+
+
+		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
+			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
+			var paginationContainer = $('#pagination');
+			paginationContainer.empty(); 
+
+			var startingPage = 1;
+			var endingPage = jumlahHalaman; 
+
+			if (jumlahHalaman > 3) {
+				startingPage = Math.max(1, halamanSaatIni - 1);
+				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
+			}
 
   // Menampilkan tombol First
-	if (halamanSaatIni > 1) {
-		var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
-		paginationContainer.append(firstButton);
-	}
+			if (halamanSaatIni > 1) {
+				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
+				paginationContainer.append(firstButton);
+			}
 
-	var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
-	paginationContainer.append(prevButton);
+			var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
+			paginationContainer.append(prevButton);
 
-	for (var i = startingPage; i <= endingPage; i++) {
-		var listItem = $('<li class="page-item"></li>');
-		var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
+			for (var i = startingPage; i <= endingPage; i++) {
+				var listItem = $('<li class="page-item"></li>');
+				var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
 
-		linkItem.text(i);
+				linkItem.text(i);
 
-		if (Number(i) === Number(halamanSaatIni)) {
-			listItem.addClass('active');
+				if (Number(i) === Number(halamanSaatIni)) {
+					listItem.addClass('active');
+				}
+				listItem.append(linkItem);
+				paginationContainer.append(listItem);
+			}
+
+			if (halamanSaatIni < jumlahHalaman) {
+				var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
+				paginationContainer.append(nextButton);
+
+				var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
+				paginationContainer.append(lastButton);
+			}
 		}
-		listItem.append(linkItem);
-		paginationContainer.append(listItem);
-	}
-
-	if (halamanSaatIni < jumlahHalaman) {
-		var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
-		paginationContainer.append(nextButton);
-
-		var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
-		paginationContainer.append(lastButton);
-	}
-}
 
 
-cari = function () {
+		cari = function () {
 
-	provid = $('#prov').val();
-	kotakabid = $('#kabkota').val();
-	search = $('#in_irigasiid').val();
+			provid = $('#prov').val();
+			kotakabid = $('#kabkota').val();
+			search = $('#in_irigasiid').val();
 
-	getDataTabel(null, provid, kotakabid)
+			if (priveXX == 'admin') {
+				if (kotakabid == null || kotakabid == '') {
+					toastr.error('Pilih kabupaten kota terlebih dahulu')
+					return;
+				}
+			}
 
 
-}
+			getDataTabel(null, provid, kotakabid)
+
+
+		}
 
 
 
-$('#rowpage').change(function() {
-	getDataTabel(null)
+		$('#rowpage').change(function() {
+			getDataTabel(null)
 
-});
-
-
-$('#prov').change(function() {
-	var prov = $(this).val();
-
-	$('.select2_Irigasi').val(null).trigger('change');
+		});
 
 
-	ajaxUntukSemua(base_url()+'IndexKinerja4C/getDataKabKota', {prov}, function(data) {
+		$('#prov').change(function() {
+			var prov = $(this).val();
 
-		let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+			$('.select2_Irigasi').val(null).trigger('change');
 
-		$.each(data, function(key, value) {
-			opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+
+			ajaxUntukSemua(base_url()+'IndexKinerja4C/getDataKabKota', {prov}, function(data) {
+
+				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+
+				$.each(data, function(key, value) {
+					opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+				})
+
+				$('#kabkota').html(opt);
+
+			}, function(error) {
+				console.log('Kesalahan:', error);
+			});
+
+
+		});
+
+		$('#kabkota').change(function() {
+			$('.select2_Irigasi').val(null).trigger('change');
+		});
+
+
+		$('.select2').select2({
+			placeholder: '-Pilih Provinsi-',
+			theme: 'default',
+
 		})
 
-		$('#kabkota').html(opt);
+		$('.select3').select2({
+			placeholder: '-Pilih Kab/Kota-',
+			theme: 'default',
 
-	}, function(error) {
-		console.log('Kesalahan:', error);
+		})
+
+
+		$('.select2_Irigasi').select2({
+			placeholder: '-Tentukan Daerah Irigasi-',
+			theme: 'default',
+			ajax: {
+				url: base_url() + "IndexKinerja4C/getDi",
+				dataType: 'json',
+				type: 'post',
+				delay: 250,
+				data: function (params) {
+					var query = {
+						searchDi: params.term,
+						kdprov: $('#prov').val(),
+						kdKab: $('#kabkota').val()
+					};
+					return query;
+				},
+				processResults: function (response) {
+
+					response.data.unshift({ id: '', text: 'Tampilkan semua' });
+
+					return {
+						results: response.data 
+					};
+				},
+				cache: true
+			}
+		});
+
+
+
 	});
-
-
-});
-
-$('#kabkota').change(function() {
-	$('.select2_Irigasi').val(null).trigger('change');
-});
-
-
-$('.select2').select2({
-	placeholder: '-Pilih Provinsi-',
-	theme: 'default',
-
-})
-
-$('.select3').select2({
-	placeholder: '-Pilih Kab/Kota-',
-	theme: 'default',
-
-})
-
-
-$('.select2_Irigasi').select2({
-	placeholder: '-Tentukan Daerah Irigasi-',
-	theme: 'default',
-	ajax: {
-		url: base_url() + "IndexKinerja4C/getDi",
-		dataType: 'json',
-		type: 'post',
-		delay: 250,
-		data: function (params) {
-			var query = {
-				searchDi: params.term,
-				kdprov: $('#prov').val(),
-				kdKab: $('#kabkota').val()
-			};
-			return query;
-		},
-		processResults: function (response) {
-
-			response.data.unshift({ id: '', text: 'Tampilkan semua' });
-
-			return {
-				results: response.data 
-			};
-		},
-		cache: true
-	}
-});
-
-
-
-});
 
 </script>

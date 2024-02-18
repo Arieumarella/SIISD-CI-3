@@ -444,7 +444,8 @@
 		var halamanSaatIni = '1',
 		search = '',
 		provid = '',
-		kotakabid = '';
+		kotakabid = '',
+		priveXX = '<?= $this->session->userdata('prive'); ?>';
 
 		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
 			try{
@@ -492,7 +493,9 @@
 
 		}
 
-		getDataTabel();
+		if (priveXX != 'admin') {
+			getDataTabel();
+		}
 
 
 		function setTabelKonten(data) {
@@ -508,7 +511,7 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4E/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4E/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
 
@@ -661,6 +664,14 @@ cari = function () {
 	provid = $('#prov').val();
 	kotakabid = $('#kabkota').val();
 	search = $('#in_irigasiid').val();
+
+	if (priveXX == 'admin') {
+		if (kotakabid == null || kotakabid == '') {
+			toastr.error('Pilih kabupaten kota terlebih dahulu')
+			return;
+		}
+	}
+
 
 	getDataTabel(null, provid, kotakabid)
 

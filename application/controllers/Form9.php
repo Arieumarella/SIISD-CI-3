@@ -552,13 +552,17 @@ class Form9 extends CI_Controller {
 						);
 
 						$baseArray[] = $arrayRow;
+						
+						if (ubahKomaMenjadiTitik($rowData[0][2]) != null or ubahKomaMenjadiTitik($rowData[0][2]) != '') {
+							$this->M_dinamis->delete('p_f9', ['kotakabid' => ubahKomaMenjadiTitik($rowData[0][2]), 'ta' => $this->session->userdata('thang')]);
+						}						
 
 					}
 				}
 
 				$thang = $this->session->userdata('thang');
 
-				$this->M_dinamis->delete('p_f9', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
+				
 				$pros = $this->M_dinamis->insertBatch('p_f9', $baseArray);
 
 				if ($pros == true) {

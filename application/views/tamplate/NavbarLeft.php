@@ -244,11 +244,11 @@
         <p>7 - P3A,GP3A,IP3A</p>
       </a>
     </li>                         
-  <!--   <li class="nav-item">
+    <li class="nav-item">
       <a href="<?= base_url(); ?>EPAKSI" class="nav-link <?= $tittle == 'Form 8' ? 'active' : ''; ?>">
         <p>8 - e-PAKSI</p>
       </a>
-    </li>  -->                         
+    </li>                          
     
     <li class="nav-item"><a href="<?= base_url(); ?>Form9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
       <p>9 - Areal Terdampak dan IKSI</p>

@@ -311,7 +311,8 @@
 		var halamanSaatIni = '1',
 		search = '',
 		provid = '',
-		kotakabid = '';
+		kotakabid = '',
+		priveX = '<?= $this->session->userdata('prive'); ?>';
 
 		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
 			try{
@@ -359,7 +360,11 @@
 
 		}
 
-		getDataTabel();
+		if (priveX == 'pemda') {
+
+			getDataTabel();
+
+		}
 
 
 		function setTabelKonten(data) {
@@ -380,11 +385,11 @@
 
 				if (value.id != null) {
 
-					tableConten += `<a href="${base_url()}EPAKSI/getDetailData/${value.id}">${value.nama}</a></td>`;
+					tableConten += `<a href="${base_url()}EPAKSI/getDetailData/${value.id}">${cleanStr(value.nama)}</a></td>`;
 
 				}else{
 
-					tableConten += `${value.nama}</td>`;
+					tableConten += `${cleanStr(value.nama)}</td>`;
 
 				}
 
@@ -486,6 +491,15 @@ cari = function () {
 	kotakabid = $('#kabkota').val();
 	search = $('#in_irigasiid').val();
 
+	if (priveX != 'pemda') {
+
+		if (kotakabid == null) {
+			toastr.error('Silakan Pilih Provinsi dan Kabupaten/Kota Terlebih dahulu.!');
+			return;
+		}
+
+	}
+
 	getDataTabel(null, provid, kotakabid)
 
 
@@ -494,7 +508,12 @@ cari = function () {
 
 
 $('#rowpage').change(function() {
-	getDataTabel(null)
+
+	provid = $('#prov').val();
+	kotakabid = $('#kabkota').val();
+	search = $('#in_irigasiid').val();
+
+	getDataTabel(null, provid, kotakabid);
 
 });
 

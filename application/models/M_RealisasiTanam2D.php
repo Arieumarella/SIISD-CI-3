@@ -131,7 +131,7 @@ class M_RealisasiTanam2D extends CI_Model {
 			if ($prive == 'admin') {
 
 				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2d AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIT') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -141,7 +141,7 @@ class M_RealisasiTanam2D extends CI_Model {
 				$kotakabid = $this->session->userdata('kotakabid');
 
 				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2d AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIT') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -151,7 +151,7 @@ class M_RealisasiTanam2D extends CI_Model {
 
 
 			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f2d AS a
-			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIT') AS b ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on a.provid=d.provid
 			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 			WHERE 1=1 AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";

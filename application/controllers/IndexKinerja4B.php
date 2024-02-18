@@ -221,7 +221,6 @@ class IndexKinerja4B extends CI_Controller {
 			$balengSanggarTaniB,
 			$saranaPintuAirB,
 			$saranaAlatUkurB,
-			$rataJaringanB,
 			$saluran1,
 			$saluran2,
 			$saluran3,

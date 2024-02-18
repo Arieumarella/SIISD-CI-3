@@ -319,7 +319,7 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form9/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}Form9/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolom(value.areaTerdampakJarIrigasiBx)} " class="number">${cleanStr(value.areaTerdampakJarIrigasiB)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666; ${bgTabelKolom(value.areaTerdampakJarIrigasiRRx)} " class="number">${cleanStr(value.areaTerdampakJarIrigasiRR)}</td>

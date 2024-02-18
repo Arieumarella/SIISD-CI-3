@@ -386,6 +386,7 @@
 
 			$.each(data, function(key, value) {
 				
+				let tolltip;
 
 				if (value.polatanamPadi3 != 'V' && value.polatanamPadi2Plw != 'V' && value.polatanamPadiPlw2 != 'V' && value.polatanamPadi2 != 'V' && value.polatanamPadiPlw != 'V' && value.polatanamPadi != 'V') {
 
@@ -406,7 +407,7 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2B/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2B/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"> ${ (value.polatanamPadi3 == 'V') ? '<i class="fas fa-check"></i>': '' }</td>
@@ -450,6 +451,7 @@
 				no++;
 				tolltip="";
 			});
+
 
 $('#tbody_data').html(tableConten);
 $('.showTooltip').tooltip('update');

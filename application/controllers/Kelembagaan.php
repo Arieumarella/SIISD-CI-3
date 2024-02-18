@@ -104,9 +104,10 @@ class Kelembagaan extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+		
+
 		$pros = $this->M_Kelembagaan->simpanData($dataInsertAwal);
 
-		
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -194,8 +195,8 @@ class Kelembagaan extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 
-		$this->M_dinamis->delete('p_f5', ['id' => $id]);
-		$this->M_dinamis->delete('p_f5_detail', ['idF6' => $id]);
+		$this->M_dinamis->delete('p_f6', ['id' => $id]);
+		$this->M_dinamis->delete('p_f6_detail', ['idF6' => $id]);
 
 		$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
