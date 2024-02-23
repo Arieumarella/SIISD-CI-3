@@ -10,7 +10,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class CekDI extends CI_Controller {
+class DeleteDi extends CI_Controller {
 
 	public function __construct() {
 		parent:: __construct();
@@ -28,7 +28,7 @@ class CekDI extends CI_Controller {
 		}
 
 		$this->load->model('M_dinamis');
-		$this->load->model('M_CekDI');
+		$this->load->model('M_DeleteDi');
 	}
 
 
@@ -40,8 +40,8 @@ class CekDI extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_PengkodeanIrigasiId->getProvBalai(),
-			'content' => 'CekDI/index'
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_DeleteDi->getProvBalai(),
+			'content' => 'DeleteDi/index'
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
@@ -63,7 +63,7 @@ class CekDI extends CI_Controller {
 
 		$offset = ($halamanSaatIni - 1) * $jumlahDataPerHalaman;
 
-		$data = $this->M_CekDI->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
+		$data = $this->M_DeleteDi->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
@@ -77,7 +77,7 @@ class CekDI extends CI_Controller {
 		$kdprov = $this->input->post('kdprov');
 		$kdKab = $this->input->post('kdKab');
 
-		$data = $this->M_PengkodeanIrigasiId->getDataDi($searchDi, $kdprov, $kdKab);
+		$data = $this->M_DeleteDi->getDataDi($searchDi, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -91,7 +91,7 @@ class CekDI extends CI_Controller {
 		if ($this->session->userdata('prive') != 'balai') {
 			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
 		}else{
-			$data = $this->M_PengkodeanIrigasiId->getkabKota($prov);
+			$data = $this->M_DeleteDi->getkabKota($prov);
 		}
 
 		echo json_encode($data);
@@ -104,7 +104,7 @@ class CekDI extends CI_Controller {
         $selectedValue = $this->input->post('selectedValue');
 
         // Proses data sesuai kebutuhan, misalnya panggil model
-        $data = $this->M_CekDI->getData($selectedValue);
+        $data = $this->M_DeleteDi->getData($selectedValue);
 
         // Kembalikan data dalam format JSON
         echo json_encode($data);
@@ -114,7 +114,7 @@ class CekDI extends CI_Controller {
 	{
 		$searchDi = $this->input->post('searchDi');
 
-		$data = $this->M_PengkodeanIrigasiId->getDataDiTambah($searchDi);
+		$data = $this->M_DeleteDi->getDataDiTambah($searchDi);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 
@@ -142,8 +142,8 @@ public function prosesDeleteDi()
     $siisd = ubahKomaMenjadiTitik($siisd);
 
     // Lakukan penghapusan data dari dua tabel menggunakan model M_dinamis
-    $this->M_CekDI->delete('m_mapping_di', ['kode_di' => $siisd]);
-    $this->M_CekDI->delete('m_irigasi', ['irigasiid' => $siisd]);
+    $this->M_DeleteDi->delete('m_mapping_di', ['kode_di' => $siisd]);
+    $this->M_DeleteDi->delete('m_irigasi', ['irigasiid' => $siisd]);
 
     // Berikan respons dalam bentuk JSON, kode 200 jika penghapusan berhasil
     echo json_encode(['code' => 200]);

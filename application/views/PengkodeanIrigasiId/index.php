@@ -69,7 +69,8 @@
 								</select>
 							</div>
 
-						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php }
+						else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -91,7 +92,8 @@
 								</select>
 							</div>
 
-						<?php }else{ ?>
+						<?php }
+						else{ ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">

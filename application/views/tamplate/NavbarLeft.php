@@ -299,6 +299,11 @@ $arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
           <p>2 - Pengajuan DI Baru</p>
         </a>
       </li> 
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>DeleteDi" class="nav-link <?= $tittle == 'Delete DI Double' ? 'active' : ''; ?>">
+          <p>3 - Delete DI Double</p>
+        </a>
+      </li>
     </ul>
   </li>
 <?php } ?>
@@ -377,15 +382,6 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
     <i class="nav-icon fa fa-check"></i>
     <p>
       Verifikasi Data Teknis
-    </p>
-  </a>
-</li>
-
-<li class="nav-item">
-  <a href="<?= base_url(); ?>CekDI" class="nav-link <?= $tittle == 'Crosscheck Data DI' ? 'active' : ''; ?>">
-    <i class="nav-icon fa fa-edit"></i>
-    <p>
-      Crosscheck Data DI
     </p>
   </a>
 </li>

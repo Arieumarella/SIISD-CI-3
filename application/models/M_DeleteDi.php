@@ -1,31 +1,30 @@
 <?php
 defined('BASEPATH') OR exit('No DIect script access allowed');
 
-class M_CekDI extends CI_Model {
+class M_DeleteDi extends CI_Model {
 
 	private $thang = '';
 
-	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid, $stsDataKdEpaksi)
+public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
-		$cari = ($search != null) ? " AND kode_di='$search'" : '';
-		$cari .= ($provid != null) ? " AND k_propinsi='$provid'" : '';
-		$cari .= ($kotakabid != null) ? " AND k_kabupaten='$kotakabid'" : '';
-		$cari .= ($stsDataKdEpaksi != 0) ? " AND (irigasiid_epaksi IS NULL ) " : '';
+		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
+		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
+		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
 			$stringCari = getWhereBalai();
-			$cari .= " AND k_kabupaten IN $stringCari";
+			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
-		ORDER BY d.provinsi, c.kemendagri";
+		ORDER BY isActive asc";
 
-		$qry2 = "SELECT count(*) as jml_data FROM (SELECT kode_di as irigasiid, n_di as nama, k_propinsi as provid, k_kabupaten as kotakabid, k_di as irigasiid_epaksi FROM m_mapping_di WHERE 1=1 $cari) AS b
-		";
+		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi) AS b
+		WHERE 1=1 $cari";
 
 		$data =  $this->db->query($qry)->result();
 		$jml_data = $this->db->query($qry2)->row();
@@ -191,11 +190,5 @@ class M_CekDI extends CI_Model {
         $query = $this->db->get('m_irigasi');
         return $query->result();
     }
-
-
-
-
-
-
 
 }
