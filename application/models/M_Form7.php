@@ -129,32 +129,56 @@ class M_Form7 extends CI_Model {
 			
 			if ($prive == 'admin') {
 
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f7 AS a
-				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				$cari = '';
+				$cari .= ($kotakabidx != null) ? " AND kotakabid='$kotakabidx'" : '';
+
+				if ($this->session->userdata('prive') == 'balai' AND $kotakabidx == null) {
+					$stringCari = getWhereBalai();
+					$cari .= " AND kotakabid IN $stringCari";
+				}
+
+				$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.*, a.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS a
+				LEFT JOIN (SELECT * FROM p_f7 WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+				ORDER BY d.provinsi, c.kemendagri";
+
 
 			}else if($prive == 'pemda'){
 
 				$kotakabid = $this->session->userdata('kotakabid');
 
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f7 AS a
-				LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+				$cari = '';
+				$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
+
+				if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+					$stringCari = getWhereBalai();
+					$cari .= " AND kotakabid IN $stringCari";
+				}
+
+				$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.*, a.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS a
+				LEFT JOIN (SELECT * FROM p_f7 WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+				ORDER BY d.provinsi, c.kemendagri";
 
 			}
 
 		}else{
 
-			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f7 AS a
-			LEFT JOIN m_irigasi AS b ON a.irigasiid=b.irigasiid
+			$cari = '';
+			$cari .= ($kotakabidx != null) ? " AND kotakabid='$kotakabidx'" : '';
+
+			if ($this->session->userdata('prive') == 'balai' AND $kotakabidx == null) {
+				$stringCari = getWhereBalai();
+				$cari .= " AND kotakabid IN $stringCari";
+			}
+
+			$qry = "SELECT d.provinsi, c.kemendagri, a.nama, a.irigasiid as irigasiidX, b.*, a.lper FROM (SELECT * FROM m_irigasi WHERE isActive = '1' $cari) AS a
+			LEFT JOIN (SELECT * FROM p_f7 WHERE ta='$ta') AS b ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on a.provid=d.provid
 			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-			WHERE 1=1 AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
-			
+			ORDER BY d.provinsi, c.kemendagri";
 		}
 
 		

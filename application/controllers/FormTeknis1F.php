@@ -583,7 +583,7 @@ class FormTeknis1F extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->tkpaiInvAsetIrigasiThn);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->tkpaiInvAsetIrigasiPsen);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->tkpaiPerencanaanPAIThn);

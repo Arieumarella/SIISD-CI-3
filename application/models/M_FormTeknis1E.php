@@ -152,7 +152,7 @@ class M_formTeknis1E extends CI_Model {
 			
 			if ($prive == 'admin') {
 
-				$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP') AS b
+				$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, lper, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP') AS b
 				LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta) AS a ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on b.provid=d.provid
 				LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
@@ -169,7 +169,7 @@ class M_formTeknis1E extends CI_Model {
 
 				$kotakabid = $this->session->userdata('kotakabid');
 
-				$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP' AND kotakabid='$kotakabid') AS b
+				$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, lper, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP' AND kotakabid='$kotakabid') AS b
 				LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta AND kotakabid='$kotakabid') AS a ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on b.provid=d.provid
 				LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
@@ -187,7 +187,7 @@ class M_formTeknis1E extends CI_Model {
 
 		}else{
 
-			$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.nama, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP' AND kotakabid='$kotakabidx') AS b
+			$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.nama, lper, a.* FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DIP' AND kotakabid='$kotakabidx') AS b
 			LEFT JOIN (SELECT * FROM p_f1e WHERE ta=$ta AND kotakabid='$kotakabidx') AS a ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on b.provid=d.provid
 			LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid

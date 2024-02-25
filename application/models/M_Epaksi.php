@@ -17,7 +17,7 @@ class M_Epaksi extends CI_Model {
 
 		if ($kotakabid != null) {
 			
-			$caraiPemda = " AND LEFT(k_di,2)=substr($kotakabid, 0, 2)  AND LEFT(k_di,4)=substr($kotakabid, 0, 4)";		
+			$caraiPemda = " AND LEFT(k_di,4)=$kotakabid";		
 
 		}
 
@@ -48,43 +48,43 @@ class M_Epaksi extends CI_Model {
 		LEFT JOIN
 		(SELECT id as idx,ta,idF8 as id,irigasiid,
 		
-		IF(tahunPlaksana=$data5Tahun[4],tahunPlaksana,0) as tahunPlaksana1,
-		IF(tahunPlaksana=$data5Tahun[4],stKontrak,0) AS stKontrak1,	
-		IF(tahunPlaksana=$data5Tahun[4],namaKonsultan,0) AS namaKonsultan1,
-		IF(tahunPlaksana=$data5Tahun[4],nomorKontrak,0) AS nomorKontrak1, 
-		IF(tahunPlaksana=$data5Tahun[4],tanggalKontrak,0) AS tanggalKontrak1, 
-		IF(tahunPlaksana=$data5Tahun[4],lamaPelaksanaan,0) AS lamaPelaksanaan1,
+		MAX(IF(tahunPlaksana=$data5Tahun[4],tahunPlaksana,0)) as tahunPlaksana1,
+		MAX(IF(tahunPlaksana=$data5Tahun[4],stKontrak,0)) AS stKontrak1,	
+		MAX(IF(tahunPlaksana=$data5Tahun[4],namaKonsultan,0)) AS namaKonsultan1,
+		MAX(IF(tahunPlaksana=$data5Tahun[4],nomorKontrak,0)) AS nomorKontrak1, 
+		MAX(IF(tahunPlaksana=$data5Tahun[4],tanggalKontrak,0)) AS tanggalKontrak1, 
+		MAX(IF(tahunPlaksana=$data5Tahun[4],lamaPelaksanaan,0)) AS lamaPelaksanaan1,
 
 
-		IF(tahunPlaksana=$data5Tahun[3],tahunPlaksana,0) as tahunPlaksana2,
-		IF(tahunPlaksana=$data5Tahun[3],stKontrak,0) AS stKontrak2,
-		IF(tahunPlaksana=$data5Tahun[3],namaKonsultan,0) AS namaKonsultan2, 
-		IF(tahunPlaksana=$data5Tahun[3],nomorKontrak,0) AS nomorKontrak2,
-		IF(tahunPlaksana=$data5Tahun[3],tanggalKontrak,0) AS tanggalKontrak2, 
-		IF(tahunPlaksana=$data5Tahun[3],lamaPelaksanaan,0) AS lamaPelaksanaan2, 
+		MAX(IF(tahunPlaksana=$data5Tahun[3],tahunPlaksana,0)) as tahunPlaksana2,
+		MAX(IF(tahunPlaksana=$data5Tahun[3],stKontrak,0)) AS stKontrak2,
+		MAX(IF(tahunPlaksana=$data5Tahun[3],namaKonsultan,0)) AS namaKonsultan2, 
+		MAX(IF(tahunPlaksana=$data5Tahun[3],nomorKontrak,0)) AS nomorKontrak2,
+		MAX(IF(tahunPlaksana=$data5Tahun[3],tanggalKontrak,0)) AS tanggalKontrak2, 
+		MAX(IF(tahunPlaksana=$data5Tahun[3],lamaPelaksanaan,0)) AS lamaPelaksanaan2, 
 
 
-		IF(tahunPlaksana=$data5Tahun[2],tahunPlaksana,0) as tahunPlaksana3,
-		IF(tahunPlaksana=$data5Tahun[2],stKontrak,0) AS stKontrak3, 
-		IF(tahunPlaksana=$data5Tahun[2],namaKonsultan,0) AS namaKonsultan3, 
-		IF(tahunPlaksana=$data5Tahun[2],nomorKontrak,0) AS nomorKontrak3, 
-		IF(tahunPlaksana=$data5Tahun[2],tanggalKontrak,0) AS tanggalKontrak3, 
-		IF(tahunPlaksana=$data5Tahun[2],lamaPelaksanaan,0) AS lamaPelaksanaan3,
+		MAX(IF(tahunPlaksana=$data5Tahun[2],tahunPlaksana,0)) as tahunPlaksana3,
+		MAX(IF(tahunPlaksana=$data5Tahun[2],stKontrak,0)) AS stKontrak3, 
+		MAX(IF(tahunPlaksana=$data5Tahun[2],namaKonsultan,0)) AS namaKonsultan3, 
+		MAX(IF(tahunPlaksana=$data5Tahun[2],nomorKontrak,0)) AS nomorKontrak3, 
+		MAX(IF(tahunPlaksana=$data5Tahun[2],tanggalKontrak,0)) AS tanggalKontrak3, 
+		MAX(IF(tahunPlaksana=$data5Tahun[2],lamaPelaksanaan,0)) AS lamaPelaksanaan3,
 
-		IF(tahunPlaksana=$data5Tahun[1],tahunPlaksana,0) as tahunPlaksana4, 
-		IF(tahunPlaksana=$data5Tahun[1],stKontrak,0) AS stKontrak4, 
-		IF(tahunPlaksana=$data5Tahun[1],namaKonsultan,0) AS namaKonsultan4,
-		IF(tahunPlaksana=$data5Tahun[1],nomorKontrak,0) AS nomorKontrak4, 
-		IF(tahunPlaksana=$data5Tahun[1],tanggalKontrak,0) AS tanggalKontrak4, 
-		IF(tahunPlaksana=$data5Tahun[1],lamaPelaksanaan,0) AS lamaPelaksanaan4,
+		MAX(IF(tahunPlaksana=$data5Tahun[1],tahunPlaksana,0)) as tahunPlaksana4, 
+		MAX(IF(tahunPlaksana=$data5Tahun[1],stKontrak,0)) AS stKontrak4, 
+		MAX(IF(tahunPlaksana=$data5Tahun[1],namaKonsultan,0)) AS namaKonsultan4,
+		MAX(IF(tahunPlaksana=$data5Tahun[1],nomorKontrak,0)) AS nomorKontrak4, 
+		MAX(IF(tahunPlaksana=$data5Tahun[1],tanggalKontrak,0)) AS tanggalKontrak4, 
+		MAX(IF(tahunPlaksana=$data5Tahun[1],lamaPelaksanaan,0)) AS lamaPelaksanaan4,
 
-		IF(tahunPlaksana=$data5Tahun[0],tahunPlaksana,0) as tahunPlaksana5,
-		IF(tahunPlaksana=$data5Tahun[0],stKontrak,0) AS stKontrak5, 
-		IF(tahunPlaksana=$data5Tahun[0],namaKonsultan,0) AS namaKonsultan5,
-		IF(tahunPlaksana=$data5Tahun[0],nomorKontrak,0) AS nomorKontrak5, 
-		IF(tahunPlaksana=$data5Tahun[0],tanggalKontrak,0) AS tanggalKontrak5, 
-		IF(tahunPlaksana=$data5Tahun[0],lamaPelaksanaan,0) AS lamaPelaksanaan5
-		FROM `p_f8_pelaksana` WHERE ta='$ta') as d ON a.irigasiid=d.irigasiid
+		MAX(IF(tahunPlaksana=$data5Tahun[0],tahunPlaksana,0)) as tahunPlaksana5,
+		MAX(IF(tahunPlaksana=$data5Tahun[0],stKontrak,0)) AS stKontrak5, 
+		MAX(IF(tahunPlaksana=$data5Tahun[0],namaKonsultan,0)) AS namaKonsultan5,
+		MAX(IF(tahunPlaksana=$data5Tahun[0],nomorKontrak,0)) AS nomorKontrak5, 
+		MAX(IF(tahunPlaksana=$data5Tahun[0],tanggalKontrak,0)) AS tanggalKontrak5, 
+		MAX(IF(tahunPlaksana=$data5Tahun[0],lamaPelaksanaan,0)) AS lamaPelaksanaan5
+		FROM `p_f8_pelaksana` WHERE ta='$ta' GROUP BY ta,idF8,irigasiid) as d ON a.irigasiid=d.irigasiid
 		LEFT JOIN
 		(SELECT kode_di,p.*
 		FROM
@@ -97,8 +97,9 @@ class M_Epaksi extends CI_Model {
 		SUM(IF(ta=$data5Tahun[0],ada,0)) as tahunPlaksana5x
 		FROM `epaksi_f9` WHERE tipe_key='a_iksi' $caraiPemda GROUP BY k_di) as p
 		LEFT JOIN
-		(SELECT k_di,kode_di from m_mapping_di WHERE 1=1 $caraiPemda) as q ON p.k_di=q.k_di order by k_di) as e on a.irigasiid=e.kode_di";
-
+		(SELECT DISTINCT k_di,kode_di from m_mapping_di WHERE 1=1 $caraiPemda) as q ON p.k_di=q.k_di order by k_di) as e on a.irigasiid=e.kode_di";
+		
+		// echo $qry;
 
 		$qry2 = "SELECT count(*) as jml_data FROM m_irigasi WHERE 1=1 $cari";
 		
@@ -218,7 +219,7 @@ class M_Epaksi extends CI_Model {
 				'namaKonsultan' => clean($this->input->post('namaKonsultan')[$key]),
 				'nomorKontrak' => clean($this->input->post('nomorKontrak')[$key]),
 				'tanggalKontrak' => clean($this->input->post('tanggalKontrak')[$key]),
-				'lamaPelaksanaan' => clean($this->input->post('tanggalKontrak')[$key]),
+				'lamaPelaksanaan' => clean($this->input->post('lamaPelaksanaan')[$key]),
 				'uidIn' => $this->session->userdata('uid'),
 				'uidDt' => date('Y-m-d H:i:s')
 
@@ -273,7 +274,7 @@ class M_Epaksi extends CI_Model {
 				'namaKonsultan' => clean($this->input->post('namaKonsultan')[$key]),
 				'nomorKontrak' => clean($this->input->post('nomorKontrak')[$key]),
 				'tanggalKontrak' => clean($this->input->post('tanggalKontrak')[$key]),
-				'lamaPelaksanaan' => clean($this->input->post('tanggalKontrak')[$key]),
+				'lamaPelaksanaan' => clean($this->input->post('lamaPelaksanaan')[$key]),
 				'uidIn' => $this->session->userdata('uid'),
 				'uidDt' => date('Y-m-d H:i:s')
 
@@ -453,7 +454,7 @@ class M_Epaksi extends CI_Model {
 				FROM `epaksi_f9` WHERE tipe_key='a_iksi' $caraiPemda GROUP BY k_di) as p
 				LEFT JOIN
 				(SELECT k_di,kode_di from m_mapping_di WHERE 1=1 $caraiPemda) as q ON p.k_di=q.k_di order by k_di) as e on a.irigasiid=e.kode_di";
-
+				
 			}
 
 		}else{

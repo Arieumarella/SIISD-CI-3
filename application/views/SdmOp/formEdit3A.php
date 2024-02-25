@@ -186,7 +186,7 @@
                                     <div class="col-sm-12 col-lg-3" data-select2-id="33"> 
                                         <div class="form-group" data-select2-id="32">
                                             <label for="alokasiApbn">Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                            <input id="alokasiApbn" name="alokasiApbn" value="<?= str_replace('.', ',', $dataHeader->dak); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  disabled placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
+                                            <input id="alokasiApbn" name="alokasiApbn" value="<?= number_format( $dataHeader->dak,0,',','.'); ?>" type="text" class="form-control text-right number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  disabled placeholder="Alokasi APBD O&P Irigasi TA <?= $this->session->userdata('thang'); ?> (Rp)" required>
                                         </div>
                                     </div> 
 

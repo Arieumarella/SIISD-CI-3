@@ -372,7 +372,7 @@ private function hitungSaluran($saluranB1=0, $saluranRR1=0,$saluranRS1=0, $salur
 
 	$totalSaluran = floatval($saluranB1) + floatval($saluranRR1) + floatval($saluranRS1) + floatval($saluranRB1);
 
-	if ($totalSaluran  === 0) {
+	if ($totalSaluran == 0 OR $totalSaluran == null) {
 		return null;
 	}
 	
@@ -1223,6 +1223,10 @@ private function hitungTotalA($arrayAll=[], $kondisi)
 
 	}
 
+	if (($nilaiTotal == 0 or $nilaiTotal == null) AND ($totalData == 0 or $totalData == null)) {
+		return 0;
+	}
+
 	$nilaiHasilBagi = $nilaiTotal/$totalData;
 
 	if ($kondisi == 2) {
@@ -1285,7 +1289,7 @@ public function downloadTabel($kotakabid=null)
 
 		$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 		$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 		$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 
 

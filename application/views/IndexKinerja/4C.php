@@ -117,7 +117,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>IndexKinerja4C/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>IndexKinerja4C/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 
@@ -501,7 +501,7 @@
 						nilaiSaluarRS = await hasilKaliSaluran(value.saluranPrimerRS, value.pjg_saluranPrimerRS),
 						nilaiSaluarRB = await hasilKaliSaluran(value.saluranPrimerRB, value.pjg_saluranPrimerRB),
 						totalPanjangSaluranPrimer = await totalPanjangSaluran(value.pjg_saluranPrimerB, value.pjg_saluranPrimerBR, value.pjg_saluranPrimerRS, value.pjg_saluranPrimerRB),
-						retaRataNilaiKondisi = await (totalPanjangSaluranPrimer == 0 || totalPanjangSaluranPrimer == null) ? 0 : (nilaiSaluarB+nilaiSaluarBR+nilaiSaluarRS+nilaiSaluarRB)/totalPanjangSaluranPrimer;
+						retaRataNilaiKondisi = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB)/hitungSUmSaluran(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB)) ? 0:hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB)/hitungSUmSaluran(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB);
 
 
 
@@ -510,21 +510,21 @@
 						sekunderNilaiSaluarRS = await hasilKaliSaluran(value.saluranSekunderRS, value.pjg_saluranSekunderRS),
 						sekunderNilaiSaluarRB = await hasilKaliSaluran(value.saluranSekunderRB, value.pjg_saluranSekunderRB),
 						totalPanjangSaluranSekunder = await totalPanjangSaluran(value.pjg_saluranSekunderB, value.pjg_saluranSekunderBR, value.pjg_saluranSekunderRS, value.pjg_saluranSekunderRB),
-						retaRataNilaiKondisiSekunder = await (totalPanjangSaluranSekunder == 0 || totalPanjangSaluranSekunder == null) ? 0 : (sekunderNilaiSaluarB+sekunderNilaiSaluarBR+sekunderNilaiSaluarRS+sekunderNilaiSaluarRB)/totalPanjangSaluranSekunder;
+						retaRataNilaiKondisiSekunder = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB)/hitungSUmSaluran(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB)) ? 0:hitungNilaiKondisiKerusakanExcelForm4(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB)/hitungSUmSaluran(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB);
 
 						let TersierNilaiSaluarB = await hasilKaliSaluran(value.saluranTersierB, value.pjg_saluranTersierB),
 						TersierNilaiSaluarBR = await hasilKaliSaluran(value.saluranTersierBR, value.pjg_saluranTersierBR),
 						TersierNilaiSaluarRS = await hasilKaliSaluran(value.saluranTersierRS, value.pjg_saluranTersierRS),
 						TersierNilaiSaluarRB = await hasilKaliSaluran(value.saluranTersierRB, value.pjg_saluranTersierRB),
 						totalPanjangSaluranTersier = await totalPanjangSaluran(value.pjg_saluranTersierB, value.pjg_saluranTersierBR, value.pjg_saluranTersierRS, value.pjg_saluranTersierRB),
-						retaRataNilaiKondisiTersier = await (totalPanjangSaluranTersier == 0 || totalPanjangSaluranTersier == null) ? 0 : (TersierNilaiSaluarB+TersierNilaiSaluarBR+TersierNilaiSaluarRS+TersierNilaiSaluarRB)/totalPanjangSaluranTersier;
+						retaRataNilaiKondisiTersier = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB)/hitungSUmSaluran(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB)/hitungSUmSaluran(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB);
 
 						let PembuangNilaiSaluarB = await hasilKaliSaluran(value.saluranPembuangB, value.pjg_saluranPembuangB),
 						PembuangNilaiSaluarBR = await hasilKaliSaluran(value.saluranPembuangBR, value.pjg_saluranPembuangBR),
 						PembuangNilaiSaluarRS = await hasilKaliSaluran(value.saluranPembuangRS, value.pjg_saluranPembuangRS),
 						PembuangNilaiSaluarRB = await hasilKaliSaluran(value.saluranPembuangRB, value.pjg_saluranPembuangRB),
 						totalPanjangSaluranPembuang = await totalPanjangSaluran(value.pjg_saluranPembuangB, value.pjg_saluranPembuangBR, value.pjg_saluranPembuangRS, value.pjg_saluranPembuangRB),
-						retaRataNilaiKondisiPembuang = await (totalPanjangSaluranPembuang == 0 || totalPanjangSaluranPembuang == null) ? 0 : (PembuangNilaiSaluarB+PembuangNilaiSaluarBR+PembuangNilaiSaluarRS+PembuangNilaiSaluarRB)/totalPanjangSaluranPembuang;
+						retaRataNilaiKondisiPembuang = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB)/hitungSUmSaluran(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB)/hitungSUmSaluran(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB);
 
 						let saluran1 = await hitungSaluranTotal(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB, 1),
 						saluran2 = await hitungSaluranTotal(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB, 1),
@@ -561,10 +561,10 @@
 							value.saranaPintuAirB,
 							value.saranaControlValveB,
 							value.saranaAlatUkurB,
-							saluran1,
-							saluran2,
-							saluran3,
-							saluran4
+							retaRataNilaiKondisi,
+							retaRataNilaiKondisiSekunder,
+							retaRataNilaiKondisiTersier,
+							retaRataNilaiKondisiPembuang
 							];
 
 						

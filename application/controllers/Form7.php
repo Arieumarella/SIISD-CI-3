@@ -643,7 +643,7 @@ class Form7 extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->provinsi);
 			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->kemendagri);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->lper);
 
 			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
 			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);

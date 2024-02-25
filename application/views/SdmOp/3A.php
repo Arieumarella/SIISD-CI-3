@@ -118,7 +118,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>SdmOp3A/downloadTabel" class="btn btn-info mr-1" style="margin-left: 50px;"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>SdmOp3A/downloadTabel" class="btn btn-info mr-1" style="margin-left: 50px;"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 
@@ -286,7 +286,7 @@
 				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}SdmOp3A/getDetailData/${value.id}">${value.kemendagri}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlDI)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.luasDI)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dak)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${numberFormatJs(value.dak)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

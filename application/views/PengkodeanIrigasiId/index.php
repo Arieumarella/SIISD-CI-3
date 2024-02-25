@@ -330,11 +330,11 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">${cleanStr(value.nama)}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">${cleanStr(value.nama.replace(/['"`]/g, ''))}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.lper)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid_epaksi)}</td>
-				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-warning" onclick="showModalEdit('${cleanStr(value.nama)}', '${cleanStr(value.irigasiid)}', '${cleanStr(value.irigasiid_epaksi)}')"><i class="fa fa-file"></i></button></td>
+				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-warning" onclick="showModalEdit('${cleanStr(value.nama.replace(/['"`]/g, ''))}', '${cleanStr(value.irigasiid)}', '${cleanStr(value.irigasiid_epaksi)}')"><i class="fa fa-file"></i></button></td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';

@@ -121,7 +121,7 @@
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
 
-							<a href="<?= base_url(); ?>InfrastrukturPBanjir/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+							<!-- <a href="<?= base_url(); ?>InfrastrukturPBanjir/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<!-- ---------------- -->
 

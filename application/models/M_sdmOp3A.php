@@ -17,11 +17,11 @@ class M_sdmOp3A extends CI_Model {
 			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM (SELECT * FROM p_f3a WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
+		$qry = "SELECT b.provinsi, c.kemendagri, apbdNonDak as dak, a.* FROM (SELECT * FROM p_f3a WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
 		LEFT JOIN 
-		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+		(SELECT a.*, b.apbdNonDak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
 			LEFT JOIN
 			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		ORDER BY b.provinsi, c.kemendagri ";
@@ -68,11 +68,23 @@ class M_sdmOp3A extends CI_Model {
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid 
 		LEFT JOIN 
-		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+		(SELECT a.*, b.apbdNonDak as dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
 			LEFT JOIN
 			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		WHERE a.id='$id'
 		";
+
+		return $this->db->query($qry)->row();
+	}
+
+	public function getDataApbd($kotakabid='')
+	{
+
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT a.*, b.apbdNonDak as dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta AND kotakabid='$kotakabid') AS a
+		LEFT JOIN
+		(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5";
 
 		return $this->db->query($qry)->row();
 	}

@@ -148,7 +148,7 @@ public function getDataDiFull($thangX, $kab)
 
 	$cariTabelEpaksi = '';
 
-	if ($kotakabid != null) {
+	if ($kab != null) {
 		$cariTabelEpaksi .= " AND LEFT(k_di,4)='$kab' ";
 	}
 

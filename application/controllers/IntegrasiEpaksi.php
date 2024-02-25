@@ -93,7 +93,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 				foreach ($dataApi as $key => $valApi) {
 
-					$this->M_dinamis->delete('epaksi_f1',  ['ta' => $ta, 'jns_form' => '5', 'k_kabupaten' => $k_kabupaten, 'k_di' => $valApi['k_di'], 'k_aset' => $valApi['k_aset']]);
+					$this->M_dinamis->delete('epaksi_f1',  ['ta' => $ta, 'jns_form' => '5', 'k_di' => $valApi['k_di']]);
 
 					$dataInsert = array(
 						'id_kabupaten' => $valApi['id_kabupaten'],
@@ -131,7 +131,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 				if (@$dataApi['code'] != 500) {
 
-					$this->M_dinamis->delete('epaksi_f1',  ['ta' => $ta, 'jns_form' => '5', 'k_kabupaten' => $k_kabupaten, 'k_di' => $valApi['k_di'], 'k_aset' => $valApi['k_aset']]);
+					$this->M_dinamis->delete('epaksi_f1',  ['ta' => $ta, 'jns_form' => '6',  'k_di' => $valApi['k_di']]);
 
 					$dataInsert = array(
 						'id_kabupaten' => $valApi['id_kabupaten'],
@@ -274,7 +274,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 					foreach ($dataApi as $key => $valApi) {
 
-						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '7', 'k_aset' => $valApi['k_aset'], 'k_di' => $valKotaKab->k_di]);
+						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '7', 'k_di' => $valKotaKab->k_di]);
 
 						$dataInsert = array(
 							'jns_data' => '7',
@@ -302,7 +302,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 					foreach ($dataApi as $key => $valApi) {
 
-						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '8', 'k_aset' => $valApi['k_aset'], 'k_di' => $valKotaKab->k_di]);
+						$this->M_dinamis->delete('epaksi_f4',  ['jns_data' => '8',  'k_di' => $valKotaKab->k_di]);
 
 						$dataInsert = array(
 							'jns_data' => '7',
@@ -357,7 +357,7 @@ class IntegrasiEpaksi extends CI_Controller {
 				foreach ($dataApi as $key => $valApi) {
 
 					// Json I
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'I']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'k_di' => $valApi['k_di'], 'tipe_key' => 'I']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -381,7 +381,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 
 				// Json nf_2
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'nf_2']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta,  'k_di' => $valApi['k_di'], 'tipe_key' => 'nf_2']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -405,7 +405,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 
 			// Json nf_3
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'nf_3']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta,  'k_di' => $valApi['k_di'],  'tipe_key' => 'nf_3']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -428,7 +428,7 @@ class IntegrasiEpaksi extends CI_Controller {
 				// End Json nf_3
 
 				// Json nf_4
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'nf_4']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta,  'k_di' => $valApi['k_di'],  'tipe_key' => 'nf_4']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -451,7 +451,7 @@ class IntegrasiEpaksi extends CI_Controller {
 				// End Json nf_4
 
 					// Json nf_5
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'nf_5']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'k_di' => $valApi['k_di'],  'tipe_key' => 'nf_5']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -475,7 +475,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 
 					// Json nf_6
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'nf_6']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'k_di' => $valApi['k_di'],  'tipe_key' => 'nf_6']);
 
 					$dataInsert = array(
 						'ta' => $ta,
@@ -499,7 +499,7 @@ class IntegrasiEpaksi extends CI_Controller {
 
 
 						// Json a_iksi
-					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta, 'id_kabupaten' => $valApi['id_kabupaten'], 'k_kabupaten' => $valApi['k_kabupaten'], 'k_di' => $valApi['k_di'], 'id_di' => $valApi['id_di'], 'tipe_key' => 'a_iksi']);
+					$this->M_dinamis->delete('epaksi_f9',  ['ta' => $ta,  'k_di' => $valApi['k_di'],  'tipe_key' => 'a_iksi']);
 
 					$dataInsert = array(
 						'ta' => $ta,

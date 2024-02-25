@@ -188,26 +188,18 @@
 											</td>
 
 											<td  style="border: thin solid #006666;" class="text-center">
-												<input id='provinsi<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $is_provinsi != 'provinsi' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('provinsi<?= $no; ?>', '2', '<?= $val->kotakabid; ?>')" <?= $val->provinsi_verif == '1' ? 'checked' : ''; ?>>
+												<input id='provinsi<?= $no; ?>' type="checkbox" class="option-input checkbox" <?= $is_provinsi != 'provinsi' ? 'disabled' : ''; ?> onclick="verifFunc('provinsi<?= $no; ?>', '2', '<?= $val->kotakabid; ?>')" <?= $val->provinsi_verif == '1' ? 'checked' : ''; ?>>
 											</td>
 											<td  style="border: thin solid #006666;" class="text-center">
-												<input type="checkbox" id='balai<?= $no; ?>' class="option-input checkbox" <?= $priv != 'balai' ? 'disabled' : ''; ?> <?= $kondisi; ?> onclick="verifFunc('balai<?= $no; ?>', '3', '<?= $val->kotakabid; ?>')" 
+												<input type="checkbox" id='balai<?= $no; ?>' class="option-input checkbox" <?= $priv != 'balai' ? 'disabled' : ''; ?>  onclick="verifFunc('balai<?= $no; ?>', '3', '<?= $val->kotakabid; ?>')" 
 												<?= $val->balai_verif == '1' ? 'checked' : ''; ?>>
 											</td>
 
-											<?php 
-
-											$kondisi = '';
-
-											if ($val->pemda_verif == '1' AND $val->provinsi_verif == '1' AND $val->balai_verif == '1') {
-												$kondisi = 'data-toggle="tooltip" data-placement="top" title="Pemda/Provinsi/Balai. Belum Checklist." disabled ';
-											}
-
-											?>
+											
 
 											<td  style="border: thin solid #006666;" class="text-center">
 												<input type="checkbox" id='pusat<?= $no; ?>' onclick="verifFunc('pusat<?= $no; ?>', '4', '<?= $val->kotakabid; ?>')" class="option-input checkbox" 
-												<?= $priv != 'admin' ? 'disabled' : ''; ?> <?= $kondisi; ?> 
+												<?= $priv != 'admin' ? 'disabled' : ''; ?>
 												<?= $val->pusat_verif == '1' ? 'checked' : ''; ?>>
 
 											</td>

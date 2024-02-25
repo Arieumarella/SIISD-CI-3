@@ -98,7 +98,8 @@ class SdmOp3A extends CI_Controller {
 			'tittle' => 'Tambah Data 3A',
 			'dataProvinsi' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('m_prov', '*', 'provinsi', 'ASC') : $this->M_dinamis->getById('m_prov', ['provid' => $provid]),
 			'dataKabKota' => ($this->session->userdata('prive') == 'admin') ? null : $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid]),
-			'dataKantor' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('p_f3_tempat', '*', 'id', 'asc') : $this->M_dinamis->getResult('p_f3_tempat', ['kdKewenangan' => $this->session->userdata('kdKewenangan')])
+			'dataKantor' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('p_f3_tempat', '*', 'id', 'asc') : $this->M_dinamis->getResult('p_f3_tempat', ['kdKewenangan' => $this->session->userdata('kdKewenangan')]),
+			'dataApbd' => ($this->session->userdata('prive') == 'pemda') ? $this->M_sdmOp3A->getDataApbd($kotakabid) : null,
 		);
 
 		$this->load->view('SdmOp/tamba3A', $tmp);

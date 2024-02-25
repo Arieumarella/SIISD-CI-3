@@ -483,7 +483,7 @@ $priv = $this->session->userdata('prive');
 										<td style="border: thin solid #006666;" align="center">2</td>
 										<td style="border: thin solid #006666; text-align: left;">4B - DATA KONDISI D.I.R</td>
 										<td  style="border: thin solid #006666;" align="center" class="align-middle">
-											<a href="<?= base_url(); ?>IndexKinerja4B/downloadTabel/<?= $dataTabel->kotakabid; ?>" class="btn btn-sm btn-success">4A - DATA KONDISI D.I.R</a>
+											<a href="<?= base_url(); ?>IndexKinerja4B/downloadTabel/<?= $dataTabel->kotakabid; ?>" class="btn btn-sm btn-success">4B - DATA KONDISI D.I.R</a>
 											<br>
 											<?= $dataTabel->tgl_4b; ?>
 										</td>

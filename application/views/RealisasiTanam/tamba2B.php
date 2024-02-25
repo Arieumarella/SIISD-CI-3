@@ -167,7 +167,7 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label for="sawahFungsional">Sawah/Fungsional (Pemetaan IGT) (Ha)  <span class="text-danger" title="Wajib di Isi">*</span></label>
-                                    <input id="sawahFungsional" name="sawahFungsional" value="" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
+                                    <input id="sawahFungsionalx" name="sawahFungsionalx" value="" oninput="this.value = this.value.replace(/[^0-9,]/g, ''); TotalRTanamPadi(); RealisasiTanamPalawija(); RealisasiTanamTebu(); RealisasiTanamLainnya();" type="text" class="form-control text-right number" placeholder="Sawah/Fungsional (Pemetaan IGT) (Ha)" required>
                                     <div class="invalid-feedback" id="pesan_sawahFungsional"></div>
                                 </div>
                             </div>

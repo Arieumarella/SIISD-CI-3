@@ -546,23 +546,22 @@ class Form9 extends CI_Controller {
 							'iKSIOrgPersonalia' => ubahKomaMenjadiTitik($rowData[0][16]),
 							'iKSIDokumentasi' => ubahKomaMenjadiTitik($rowData[0][17]),
 							'iKSIPGI' => ubahKomaMenjadiTitik($rowData[0][18]),
-							'iKSIJumlah' => ubahKomaMenjadiTitik($rowData[0][13])+ubahKomaMenjadiTitik($rowData[0][14])+ubahKomaMenjadiTitik($rowData[0][15])+ubahKomaMenjadiTitik($rowData[0][16])+ubahKomaMenjadiTitik($rowData[0][17]),
+							'iKSIJumlah' => (float)ubahKomaMenjadiTitik($rowData[0][13])+(float)ubahKomaMenjadiTitik($rowData[0][14])+(float)ubahKomaMenjadiTitik($rowData[0][15])+(float)ubahKomaMenjadiTitik($rowData[0][16])+(float)ubahKomaMenjadiTitik($rowData[0][17])+(float)ubahKomaMenjadiTitik($rowData[0][18]),
 							'uidIn' => $this->session->userdata('uid'),
 							'uidDt' => date('Y-m-d H:i:s')
 						);
 
-						$baseArray[] = $arrayRow;
 						
-						if (ubahKomaMenjadiTitik($rowData[0][2]) != null or ubahKomaMenjadiTitik($rowData[0][2]) != '') {
-							$this->M_dinamis->delete('p_f9', ['kotakabid' => ubahKomaMenjadiTitik($rowData[0][2]), 'ta' => $this->session->userdata('thang')]);
-						}						
+						$baseArray[] = $arrayRow;
+
+						$this->M_dinamis->delete('p_f9', ['kotakabid' => ubahKomaMenjadiTitik($rowData[0][2]), 'ta' => $this->session->userdata('thang')]);					
 
 					}
 				}
 
 				$thang = $this->session->userdata('thang');
 
-				
+				$this->M_dinamis->delete('p_f9', ['kotakabid' => $kab, 'ta' => $thang]);	
 				$pros = $this->M_dinamis->insertBatch('p_f9', $baseArray);
 
 				if ($pros == true) {

@@ -202,6 +202,7 @@
     }
 
     strx = str.toString();
+    strx = strx.replace(/['"`]/g, '');
 
     if (!isNaN(strx)) {
 
@@ -215,6 +216,20 @@
 
     return str;
 
+  }
+
+
+  function numberFormatJs(input = null) {
+
+    let intValue = parseInt(input, 10);
+
+    if (isNaN(intValue) || intValue === null) {
+      return 0;
+    } else {
+
+      let formattedValue = intValue.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      return formattedValue;
+    }
   }
 
 
@@ -232,7 +247,7 @@ function hasilKaliSaluran(nilaiKondisi = 0, panjangSaluran = 0) {
   nilaiKondisi = nilaiKondisi == null ? 0 : parseFloat(nilaiKondisi);
   panjangSaluran = panjangSaluran == null ? 0 : parseFloat(panjangSaluran);
 
-  return nilaiKondisi*panjangSaluran;
+  return nilaiKondisi;
 
 }
 
@@ -287,6 +302,13 @@ function hitungSaluranTotal(saluranB1 = 0, saluranRR1 = 0, saluranRS1 = 0, salur
   saluranRB1 = saluranRB1 == null ? 0 : saluranRB1;
   kondisi = kondisi == null ? 0 : kondisi;
 
+  saluranB1x = (parseFloat(saluranB1) * 1);
+  saluranRR1x = (parseFloat(saluranRR1) * 20);
+  saluranRS1x = (parseFloat(saluranRS1) * 40);
+  saluranRB1 = (parseFloat(saluranRB1) * 50);
+
+
+
   let nilaiKondisiKerusakan = ((parseFloat(saluranB1) * 1) + (parseFloat(saluranRR1) * 20) + (parseFloat(saluranRS1) * 40) + (parseFloat(saluranRB1) * 50)) / totalSaluran;
   let nilaiKondisiKerusakanFix = isNaN(nilaiKondisiKerusakan) ? 0 : nilaiKondisiKerusakan;
 
@@ -313,56 +335,110 @@ function hitungSaluranTotal(saluranB1 = 0, saluranRR1 = 0, saluranRS1 = 0, salur
 
 
 function hitungTotalRataRataAllForm4(arrayAll = [], kondisi) {
-  let nilaiTotal = 0;
-  let totalData = 0;
-  let nilaiHasilBagi = 0;
+  // let nilaiTotal = 0;
+  // let totalData = 0;
+  // let nilaiHasilBagi = 0;
 
-  arrayAll.forEach((val) => {
-    if (val !== null && val !== '') {
-      totalData++;
-      nilaiTotal += parseFloat(val);
-    }
-  });
+  // arrayAll.forEach((val) => {
+  //   if (val !== null && val !== '' && val !== 0) {
+  //     totalData++;
+  //     nilaiTotal += parseFloat(val);
+  //   }
+  // });
 
-  nilaiHasilBagi = nilaiTotal / totalData;
+  // nilaiHasilBagi = nilaiTotal / totalData;
 
-  if (isNaN(nilaiHasilBagi)) {
-    nilaiHasilBagi = 0;
+  // if (isNaN(nilaiHasilBagi)) {
+  //   nilaiHasilBagi = 0;
+  // }
+
+
+ let nilaiTotal = 0;
+ let totalData = 0;
+
+  // Iterasi melalui array dan tambahkan nilai yang valid ke nilaiTotal
+ arrayAll.forEach((val) => {
+  if (!isNaN(val) && val !== null && parseFloat(val) > 0) {
+    nilaiTotal += parseFloat(val);
+    totalData++;
   }
+});
+
+
+  // Hitung rata-rata jika totalData lebih besar dari 0
+ let nilaiHasilBagi = totalData > 0 ? nilaiTotal / totalData : 0;
 
 
 
-
-  if (kondisi === 2) {
-    return nilaiHasilBagi;
-  } else {
-    if (nilaiHasilBagi !== 0) {
-      if (nilaiHasilBagi > 90) {
-        return 'B';
-      } else if (nilaiHasilBagi >= 80) {
-        return 'RR';
-      } else if (nilaiHasilBagi >= 60) {
-        return 'RS';
-      } else if (nilaiHasilBagi > 0) {
-        return 'RB';
-      } else {
-        return '';
-      }
+ if (kondisi === 2) {
+  return nilaiHasilBagi;
+} else {
+  if (nilaiHasilBagi !== 0) {
+    if (nilaiHasilBagi > 90) {
+      return 'B';
+    } else if (nilaiHasilBagi >= 80) {
+      return 'RR';
+    } else if (nilaiHasilBagi >= 60) {
+      return 'RS';
+    } else if (nilaiHasilBagi > 0) {
+      return 'RB';
     } else {
       return '';
     }
+  } else {
+    return '';
   }
+}
 }
 
 
 function bgTabelKolomForm8(kondsisi = 0) {
 
-  if (kondsisi != null) {
+  if (kondsisi != null && kondsisi > 0) {
    return `background-color:#66e45d;`;
  }else{
   return '';
 }
 }
+
+// Rumus Form 4 Sesuai Excel
+function hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB=0, nilaiSaluarBR=0, nilaiSaluarRS=0, nilaiSaluarRB=0) {
+
+  let totalSaluran = parseFloat(nilaiSaluarB) + parseFloat(nilaiSaluarBR) + parseFloat(nilaiSaluarRS) + parseFloat(nilaiSaluarRB);
+
+  if (totalSaluran === 0) {
+    return 0;
+  }
+
+  let nilaiSaluarBx = parseFloat(nilaiSaluarB)*1,
+  nilaiSaluarBRx = parseFloat(nilaiSaluarBR)*20,
+  nilaiSaluarRSx = parseFloat(nilaiSaluarRS)*40,
+  nilaiSaluarRBx = parseFloat(nilaiSaluarRB)*50;
+
+  totalSum = nilaiSaluarBx+nilaiSaluarBRx+nilaiSaluarRSx+nilaiSaluarRBx;
+
+
+
+  return totalSum;
+
+
+
+
+}
+
+function hitungSUmSaluran(nilaiSaluarB=0, nilaiSaluarBR=0, nilaiSaluarRS=0, nilaiSaluarRB=0) {
+
+
+ let totalSaluran = parseFloat(nilaiSaluarB) + parseFloat(nilaiSaluarBR) + parseFloat(nilaiSaluarRS) + parseFloat(nilaiSaluarRB);
+
+ if (totalSaluran === 0) {
+  return 0;
+}
+
+return totalSaluran;
+
+}
+// End Rumus Form 4 Sesuai Excel
 
 </script>
 

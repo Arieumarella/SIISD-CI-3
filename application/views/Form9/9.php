@@ -117,7 +117,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>Form9/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>Form9/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 							
@@ -255,7 +255,8 @@
 		var halamanSaatIni = '1',
 		search = '',
 		provid = '',
-		kotakabid = '';
+		kotakabid = '',
+		priveXX = '<?= $this->session->userdata('prive'); ?>';
 
 		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
 			try{
@@ -303,7 +304,7 @@
 
 		}
 
-		getDataTabel();
+		
 
 
 		function setTabelKonten(data) {
@@ -395,15 +396,36 @@
 			kotakabid = $('#kabkota').val();
 			search = $('#in_irigasiid').val();
 
+			if (priveXX == 'admin') {
+
+				if (kotakabid == null || kotakabid == '') {
+
+					toastr.error('Silakan Pilih Kabupaten Kotan terelebih dahulu');
+					return;
+
+				}
+
+			}
+
 			getDataTabel(null, provid, kotakabid)
 
 
 		}
 
 
+		
+		if (priveXX != 'admin') {
+			getDataTabel();
+		}
+
 
 		$('#rowpage').change(function() {
-			getDataTabel(null)
+
+			provid = $('#prov').val();
+			kotakabid = $('#kabkota').val();
+			search = $('#in_irigasiid').val();
+
+			getDataTabel(null, provid, kotakabid)
 
 		});
 

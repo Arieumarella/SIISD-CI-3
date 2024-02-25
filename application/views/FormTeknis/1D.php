@@ -117,7 +117,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>FormTeknis1D/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>FormTeknis1D/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 

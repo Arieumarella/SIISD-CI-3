@@ -11,7 +11,7 @@ class M_formTeknis1F extends CI_Model {
 		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
 		$cari .= ($provid != null) ? " AND provid='$provid'" : '';
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
-		$cari .= " AND kategori='DI'";
+
 		$ta = $this->session->userdata('thang');
 
 		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
@@ -77,7 +77,7 @@ class M_formTeknis1F extends CI_Model {
 			$searchDi .= " AND m_irigasi. kotakabid='$kdKab'";
 		}
 
-		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 AND kategori='DI' $searchDi LIMIT 80 ";
+		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1  $searchDi LIMIT 80 ";
 
 		return $this->db->query($qry)->result();
 	}
@@ -96,7 +96,7 @@ class M_formTeknis1F extends CI_Model {
 			$searchDi .= " AND 	kotakabid='$kotakabid'";
 		}
 
-		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1 AND kategori='DI' $searchDi LIMIT 80 ";
+		$qry = "SELECT irigasiid as id, CONCAT(nama, ' ', '(', lper, ' Ha)', ' - ', kemendagri)  as text from m_irigasi  LEFT JOIN m_kotakab on m_irigasi.kotakabid=m_kotakab.kotakabid WHERE 1=1  $searchDi LIMIT 80 ";
 
 
 		return $this->db->query($qry)->result();
@@ -118,7 +118,7 @@ class M_formTeknis1F extends CI_Model {
 	public function getDataDiFull($thangX, $kab)
 	{
 
-		$qry = "SELECT b.provinsi, c.kemendagri, a.nama, d.*, a.lper, a.provid, a.irigasiid,  a.kotakabid FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kotakabid='$kab' AND kategori='DI') AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f1f WHERE ta='$thangX' AND kotakabid='$kab') as d on a.irigasiid=d.irigasiid";
+		$qry = "SELECT b.provinsi, c.kemendagri, a.nama, d.*, a.lper, a.provid, a.irigasiid,  a.kotakabid FROM (SELECT * FROM m_irigasi WHERE isActive = '1' AND kotakabid='$kab' ) AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f1f WHERE ta='$thangX' AND kotakabid='$kab') as d on a.irigasiid=d.irigasiid";
 
 		return $this->db->query($qry)->result();
 
@@ -135,8 +135,8 @@ class M_formTeknis1F extends CI_Model {
 
 			if ($prive == 'admin') {
 
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1f AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DI') AS b ON a.irigasiid=b.irigasiid
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, lper, a.* FROM p_f1f AS a
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' ) AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -145,8 +145,8 @@ class M_formTeknis1F extends CI_Model {
 
 				$kotakabid = $this->session->userdata('kotakabid');
 
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1f AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DI') AS b ON a.irigasiid=b.irigasiid
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, lper, a.* FROM p_f1f AS a
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' ) AS b ON a.irigasiid=b.irigasiid
 				LEFT JOIN m_prov as d on a.provid=d.provid
 				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
@@ -157,8 +157,8 @@ class M_formTeknis1F extends CI_Model {
 
 			
 
-			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM (SELECT * FROM p_f1f WHERE kotakabid='$kotakabidx' AND ta=$ta) AS a
-			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' AND kategori='DI') AS b ON a.irigasiid=b.irigasiid
+			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, lper, a.* FROM (SELECT * FROM p_f1f WHERE kotakabid='$kotakabidx' AND ta=$ta) AS a
+			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1' ) AS b ON a.irigasiid=b.irigasiid
 			LEFT JOIN m_prov as d on a.provid=d.provid
 			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
 			WHERE 1=1  ORDER BY d.provinsi, c.kemendagri";

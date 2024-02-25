@@ -410,7 +410,7 @@ private function hitungSaluran($saluranB1=0, $saluranRR1=0,$saluranRS1=0, $salur
 
 	$totalSaluran = floatval($saluranB1) + floatval($saluranRR1) + floatval($saluranRS1) + floatval($saluranRB1);
 
-	if ($totalSaluran  === 0) {
+	if ($totalSaluran == 0 OR $totalSaluran == null) {
 		return null;
 	}
 
@@ -1238,6 +1238,11 @@ $baseArray[] = $arrayRow;
 
 $thang = $this->session->userdata('thang');
 
+if ($this->session->userdata('prive') == 'pemda') {
+	$kotakabidX = $this->session->userdata('kotakabid');
+}
+
+
 $this->M_dinamis->delete('p_f4a', ['kotakabid' => $kotakabidX, 'ta' => $thang]);
 $pros = $this->M_dinamis->insertBatch('p_f4a', $baseArray);
 
@@ -1279,6 +1284,10 @@ private function hitungTotalA($arrayAll=[], $kondisi)
 			$nilaiTotal = $nilaiTotal+ubahKomaMenjadiTitik($val);
 		}
 		
+	}
+
+	if (($nilaiTotal == 0 or $nilaiTotal == null) AND ($totalData == 0 or $totalData == null)) {
+		return 0;
 	}
 
 	$nilaiHasilBagi = $nilaiTotal/$totalData;
@@ -1351,7 +1360,7 @@ public function downloadTabel($kotakabid=null)
 
 		$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 		$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+		$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 		$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 		$spreadsheet->getActiveSheet()->setCellValue("H$indexLopp", '=IF(COUNT(I'.$indexLopp.')<>0,IF(I'.$indexLopp.'>90,"B",IF(I'.$indexLopp.'>=80,"RR",IF(I'.$indexLopp.'>=60,"RS",IF(I'.$indexLopp.'>0,"RB","Null")))),"Null")');	
 		$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->buBendungB);

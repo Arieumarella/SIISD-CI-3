@@ -61,8 +61,12 @@ class TambahDi extends CI_Controller {
 		$Kategori = $this->input->post('Kategori');
 		$luasPermen = ubahKomaMenjadiTitik($this->input->post('luasPermen'));
 		$balai = $this->input->post('balai');
+		$maxId = $this->M_TambahDi->getMaxId()->irigasiidMax;
+
+		
 
 		$dataInsert = array(
+			'irigasiid' => $maxId+1,
 			'nama' => $nm_di,
 			'lper' => $luasPermen,
 			'provid' => $prov,
