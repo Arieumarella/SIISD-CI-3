@@ -240,12 +240,14 @@
                                                     $nomorKuning = 1;
                                                     $nomorPutih = 1;
                                                     $idTbl2 = '';
+                                                    $nm_kantor = '';
+                                                    $alamat = '';
 
                                                     ?>
 
                                                     <?php foreach ($dataBody as $key => $val) { ?>
 
-                                                     <?php if ($idTbl2 != $val->uptd) { ?> 
+                                                     <?php if ($idTbl2 != $val->uptd || $nm_kantor != $val->$nm_kantor || $alamat != $val->alamat) { ?> 
 
                                                         <?php $nomorPutih=1; ?>
 
@@ -431,11 +433,10 @@
 
                                                     <?php } ?>
 
-
-
-
                                                     <?php 
                                                     $idTbl2=$val->uptd;
+                                                    $nm_kantor = $val->$nm_kantor;
+                                                    $alamat = $val->alamat;
                                                     ?>
 
                                                 <?php } ?>

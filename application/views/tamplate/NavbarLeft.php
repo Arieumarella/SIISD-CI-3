@@ -272,7 +272,7 @@
 $uri1 = @$this->uri->segment(1);
 
 
-$arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
+$arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi', 'DeleteDi'];
 
 ?>
 
@@ -281,7 +281,7 @@ $arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
     <a href="#" class="nav-link ">
       <i class="nav-icon fa fa-plus"></i>
       <p>
-        Daerah Irigasi Baru
+        Daerah Irigasi
         <i class="fas fa-angle-left right"></i>
       </p>
     </a>
@@ -297,6 +297,11 @@ $arrayDataTeknisBase = ['TambahDi', 'StsVerifikasiDi'];
       <li class="nav-item">
         <a href="<?= base_url(); ?>TambahDi" class="nav-link <?= $tittle == 'Pengajuan DI Baru' ? 'active' : ''; ?>">
           <p>2 - Pengajuan DI Baru</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?= base_url(); ?>DeleteDi" class="nav-link <?= $tittle == 'Delete Data DI' ? 'active' : ''; ?>">
+          <p>3 - Hapus D.I</p>
         </a>
       </li> 
     </ul>

@@ -31,7 +31,7 @@ class M_Form9 extends CI_Model {
 		IF(nf_3>0,'epaksi','siisd') as iKSISaranaPenujangx,IF(nf_4>0,'epaksi','siisd') as iKSIOrgPersonaliax,
 		IF(nf_5>0,'epaksi','siisd') as iKSIDokumentasix,IF(nf_6>0,'epaksi','siisd') as iKSIPGIx,
 		IF(I+nf_2+nf_3+nf_4+nf_5+nf_6>0,I+nf_2+nf_3+nf_4+nf_5+nf_6,iKSIJumlah) as iKSIJumlahx FROM 
-		(SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT 10 OFFSET 0) AS a 
+		(SELECT * FROM m_irigasi WHERE isActive = '1' $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a 
 		LEFT JOIN 
 		(SELECT DISTINCT ta,provid,kotakabid,irigasiid,nm_di,laPermen,areaTerdampakJarIrigasiB,areaTerdampakJarIrigasiRR,areaTerdampakJarIrigasiRS,areaTerdampakJarIrigasiRB,areaTerdampakJarIrigasiT,iKSIPrasaranaFisik,iKSIProduktivitas,iKSISaranaPenujang,iKSIOrgPersonalia,iKSIDokumentasi,iKSIPGI,iKSIJumlah,uidIn,uidDt,uidInUp,uidDtUp,aksi
 			FROM p_f9 WHERE ta=$ta $cari) AS b ON a.irigasiid=b.irigasiid 

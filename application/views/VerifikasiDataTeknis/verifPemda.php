@@ -93,7 +93,7 @@
 					<div class="card-body text-center">
 						<h4 class="mt-4"> REKAPITULASI VERIFIKASI DATA TEKNIS TA. <?= $this->session->userdata('thang'); ?> </h4>
 						<h4 class="mb-2"> PROVINSI <?= $nmProv->provinsi; ?> </h4>
-
+						
 						<table class="table table-bordered mt-3">
 
 							<thead id="thead_data">
@@ -164,7 +164,23 @@
 
 											<?php }else{ ?>
 
-												<a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
+
+												<?php if ($this->session->userdata('prive') == 'balai') { ?>
+
+
+													<?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+
+														<a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
+
+													<?php }else{echo $val->provinsi;} ?>
+
+												<?php }else{ ?>
+
+													<a href="<?= base_url(); ?>VerifDataTeknis/DetailForm/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
+
+												<?php } ?>
+
+												
 
 											<?php } ?>
 

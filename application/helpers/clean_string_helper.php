@@ -77,6 +77,59 @@ function getWhereBalai()
 }
 
 
+function getWhereBalaiProv()
+{
+	$CI =& get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+		$provid = substr($value->kotakabid, 0,2);
+
+		$baseArray[] = $provid;
+
+	}
+
+
+	return $baseArray;
+
+}
+
+
+function getWhereBalaiKotaKabid()
+{
+	$CI =& get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+
+		$baseArray[] = $value->kotakabid;
+
+	}
+
+	return $baseArray;
+}
+
+
 function getProvIdByKotakabid($kotakabid)
 {
 	$kotakabid = substr($kotakabid, 0, 2);

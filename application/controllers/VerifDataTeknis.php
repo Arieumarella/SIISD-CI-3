@@ -42,6 +42,7 @@ class VerifDataTeknis extends CI_Controller {
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'dataProv' => $this->M_VerifikasiDataTeknis->getRekapProv(),
+			'dataBalai' => getWhereBalaiProv(),
 			'content' => 'VerifikasiDataTeknis/index'
 		);
 
@@ -69,6 +70,7 @@ class VerifDataTeknis extends CI_Controller {
 			'dataProv' => $this->M_VerifikasiDataTeknis->getRekapKabKota($idprov),
 			'nmProv' => $this->M_dinamis->getById('m_prov', ['provid' => $idprov]),
 			'provid' => $idprov,
+			'dataBalai' => getWhereBalaiKotaKabid(),
 			'content' => 'VerifikasiDataTeknis/verifPemda'
 		);
 

@@ -217,12 +217,13 @@
                             $nomorTempat = 1;
                             $nomorDetail = 1;
                             $kondisiTempat = '';
+                            $nm_kantor = '';
 
 
                             ?>
                             <?php foreach ($dataBody as $key => $value) { ?>
 
-                                <?php if ($kondisiTempat != $value->nm_kantor) { ?>
+                                <?php if ($kondisiTempat != $value->alamat || $nm_kantor != $value->nm_kantor) { ?>
 
                                     <!-- Item -->
                                     <tr>
@@ -244,9 +245,10 @@
                                         <td style="min-width:150px; background-color:#000;"></td>
                                     </tr>
                                     <!-- End Item -->
-                                    <?php $kondisiTempat = $value->nm_kantor; $nomorTempat++; $nomorDetail=1; ?>
+                                    <?php  $nomorTempat++; $nomorDetail=1; ?>
                                 <?php } ?>
-
+                                
+                                <?php $kondisiTempat = $value->alamat;   $nm_kantor = $value->nm_kantor; ?>
 
                                 <!-- Putih -->
                                 <tr>
