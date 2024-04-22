@@ -552,9 +552,7 @@ class Form9 extends CI_Controller {
 						);
 
 						
-						$baseArray[] = $arrayRow;
-
-						$this->M_dinamis->delete('p_f9', ['kotakabid' => ubahKomaMenjadiTitik($rowData[0][2]), 'ta' => $this->session->userdata('thang')]);					
+						$baseArray[] = $arrayRow;			
 
 					}
 				}

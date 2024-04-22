@@ -363,6 +363,128 @@ $arrayDataTeknisBase = ['IntegrasiEpaksi', 'KodefikasiDI'];
 </ul>
 </li>
 
+<?php
+
+$uri1 = @$this->uri->segment(1);
+
+
+$arrayDataTeknisBase = ['DataTeknis'];
+
+?>
+
+<li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+  <a href="#" class="nav-link ">
+    <i class="nav-icon fas fa-folder-open"></i>
+    <p>
+      Data Teknis TA. <?= $this->session->userdata('thang'); ?>
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+
+
+    <li class="nav-item">
+      <a href="<?= base_url(); ?>DataTeknis/downloadFormat" class="nav-link <?= $tittle == 'Download Format Dokumen' ? 'active' : ''; ?>">
+        <p>
+         1. - Download Format Dokumen
+       </p>
+     </a>
+   </li>
+
+   <li class="nav-item">
+    <a href="<?= base_url(); ?>DataTeknis" class="nav-link <?= $tittle == 'Upload Data Teknis Irigasi' ? 'active' : ''; ?>">
+      <p>
+       2. - Upload Data Teknis Irigasi
+     </p>
+   </a>
+ </li>
+
+ <li class="nav-item">
+  <a href="<?= base_url(); ?>DataTeknis/DataTeknisPengendaliBanjir" class="nav-link <?= $tittle == 'Upload Data Teknis Pengendali Banjir' ? 'active' : ''; ?>">
+    <p>
+     3. - Upload Data Teknis Pengendali Banjir
+   </p>
+ </a>
+</li>
+
+<?php if ($this->session->userdata('prive') == 'admin' || $this->session->userdata('prive') == 'balai') { ?>
+
+  <li class="nav-item">
+    <a href="<?= base_url(); ?>DataTeknis/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
+      <p>
+        4. - Rekapitulasi Data Teknis Irigasi
+      </p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="<?= base_url(); ?>DataTeknis/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
+      <p>
+        5. - Rekapitulasi Data Teknis Pengendali Banjir
+      </p>
+    </a>
+  </li>
+
+<?php } ?>
+</ul>
+</li>
+
+
+<?php
+
+$uri1 = @$this->uri->segment(1);
+
+
+$arrayDataTeknisBase = ['Usulan'];
+
+?>
+
+<li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+  <a href="#" class="nav-link ">
+    <i class="nav-icon fa fa-list-alt"></i>
+    <p>
+      Usulan Rencana Kegiatan
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+
+    <li class="nav-item">
+      <a href="<?= base_url(); ?>Usulan" class="nav-link <?= $tittle == 'Usulan Rencana Kegiatan' ? 'active' : ''; ?>">
+        <p>
+         1. - Usulan Kegiatan Simoni
+       </p>
+     </a>
+   </li>
+   <li class="nav-item">
+    <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Cheklist Simoni' ? 'active' : ''; ?>">
+      <p>
+       2. - Cheklist URK Simoni
+     </p>
+   </a>
+ </li>
+
+ <li class="nav-item">
+  <a href="<?= base_url(); ?>Usulan/PengususlanKonreg" class="nav-link <?= $tittle == 'Usulan Rencana Kegiatan Konreg' ? 'active' : ''; ?>">
+    <p>
+     3. - Usulan Kegiatan Konreg
+   </p>
+ </a>
+</li>
+
+
+<li class="nav-item">
+  <a href="<?= base_url(); ?>Usulan/CheklistKonreg" class="nav-link <?= $tittle == 'Cheklist Konreg' ? 'active' : ''; ?>">
+    <p>
+      4. - Cheklist URK KONREG
+    </p>
+  </a>
+</li>
+
+</ul>
+</li>
+
+
 
 <?php if ($this->session->userdata('prive') == 'admin') { ?>
 

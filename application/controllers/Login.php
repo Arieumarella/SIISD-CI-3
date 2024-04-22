@@ -86,6 +86,11 @@ class Login extends CI_Controller {
 			$prive = 'guest';
 		}
 
+		if ($cek->uid  == 'sda') {
+			$prive = 'admin';
+			$is_provinsi = 'sda';
+		}
+
 		// End Set privilege
 
 

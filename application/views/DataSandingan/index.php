@@ -1,4 +1,3 @@
-
 <section class="content">
 	<div class="container-fluid">
 		<br>
@@ -17,34 +16,34 @@
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="taAwal">
 									<option value="" selected disabled>-- Pilih Tahun Awal --</option>
-									<option value="2020" <?= $tahunAwal == '2020' ? 'selected' : ''; ?>>2020</option>
-									<option value="2021" <?= $tahunAwal == '2021' ? 'selected' : ''; ?>>2021</option>
-									<option value="2022" <?= $tahunAwal == '2022' ? 'selected' : ''; ?>>2022</option>
-									<option value="2023" <?= $tahunAwal == '2023' ? 'selected' : ''; ?>>2023</option>
 									<option value="2024" <?= $tahunAwal == '2024' ? 'selected' : ''; ?>>2024</option>
+									<option value="2023" <?= $tahunAwal == '2023' ? 'selected' : ''; ?>>2023</option>
+									<option value="2022" <?= $tahunAwal == '2022' ? 'selected' : ''; ?>>2022</option>
+									<option value="2021" <?= $tahunAwal == '2021' ? 'selected' : ''; ?>>2021</option>
+									<option value="2020" <?= $tahunAwal == '2020' ? 'selected' : ''; ?>>2020</option>
 								</select>
 							</dd>
 							<dd class="col-sm-1 text-center" style="margin-top: 5px;"> S/D </dd>
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="taAkhir">
 									<option value="" selected disabled>-- Pilih Tahun Akhir --</option>
-									<option value="2020" <?= $tahunAkhir == '2020' ? 'selected' : ''; ?>>2020</option>
-									<option value="2021" <?= $tahunAkhir == '2021' ? 'selected' : ''; ?>>2021</option>
-									<option value="2022" <?= $tahunAkhir == '2022' ? 'selected' : ''; ?>>2022</option>
-									<option value="2023" <?= $tahunAkhir == '2023' ? 'selected' : ''; ?>>2023</option>
 									<option value="2024" <?= $tahunAkhir == '2024' ? 'selected' : ''; ?>>2024</option>
+									<option value="2023" <?= $tahunAkhir == '2023' ? 'selected' : ''; ?>>2023</option>
+									<option value="2022" <?= $tahunAkhir == '2022' ? 'selected' : ''; ?>>2022</option>
+									<option value="2021" <?= $tahunAkhir == '2021' ? 'selected' : ''; ?>>2021</option>
+									<option value="2020" <?= $tahunAkhir == '2020' ? 'selected' : ''; ?>>2020</option>
 								</select>
 							</dd>
 						</dl>
-						<dl class="row">	
+						<dl class="row">
 							<dt class="col-sm-2">Provinsi</dt>
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="provid">
-									<option value="" selected disabled >-- Pilih Provinsi --</option>
+									<option value="" selected disabled>-- Pilih Provinsi --</option>
 
 									<?php foreach ($dataProv as $key => $val) { ?>
 
-										<option value="<?= $val->provid; ?>" <?= $provid ==  $val->provid ? 'selected' : ''; ?> ><?= $val->provinsi; ?></option>
+										<option value="<?= $val->provid; ?>" <?= $provid ==  $val->provid ? 'selected' : ''; ?>><?= $val->provinsi; ?></option>
 
 									<?php } ?>
 
@@ -52,23 +51,23 @@
 							</dd>
 						</dl>
 
-						<dl class="row">	
+						<dl class="row">
 							<dt class="col-sm-2">Jenis Form</dt>
 							<dd class="col-sm-2">
 								<select class="form-control form-control-sm select2" id="jnsForm">
-									<option value="" selected disabled >-- Pilih Jenis Form --</option>
+									<option value="" selected disabled>-- Pilih Jenis Form --</option>
 									<option value="2a" <?= $jnsForm == '2a' ? 'selected' : ''; ?>>2A</option>
-									<option value="2b" <?= $jnsForm == '2b' ? 'selected' : ''; ?> >2B</option>
-									<option value="2c" <?= $jnsForm == '2c' ? 'selected' : ''; ?> >2C</option>
-									<option value="2d" <?= $jnsForm == '2d' ? 'selected' : ''; ?> >2D</option>
-									<option value="2e" <?= $jnsForm == '2e' ? 'selected' : ''; ?> >2E</option>
-									<option value="4a" <?= $jnsForm == '4a' ? 'selected' : ''; ?> >4A</option>
-									<option value="4b" <?= $jnsForm == '4b' ? 'selected' : ''; ?> >4B</option>
-									<option value="4c" <?= $jnsForm == '4c' ? 'selected' : ''; ?> >4C</option>
-									<option value="4d" <?= $jnsForm == '4d' ? 'selected' : ''; ?> >4D</option>
-									<option value="4e" <?= $jnsForm == '4e' ? 'selected' : ''; ?> >4E</option>
-									<option value="5" <?= $jnsForm == '5' ? 'selected' : ''; ?> >5</option>
-									<option value="9" <?= $jnsForm == '9' ? 'selected' : ''; ?> >9</option>
+									<option value="2b" <?= $jnsForm == '2b' ? 'selected' : ''; ?>>2B</option>
+									<option value="2c" <?= $jnsForm == '2c' ? 'selected' : ''; ?>>2C</option>
+									<option value="2d" <?= $jnsForm == '2d' ? 'selected' : ''; ?>>2D</option>
+									<option value="2e" <?= $jnsForm == '2e' ? 'selected' : ''; ?>>2E</option>
+									<option value="4a" <?= $jnsForm == '4a' ? 'selected' : ''; ?>>4A</option>
+									<option value="4b" <?= $jnsForm == '4b' ? 'selected' : ''; ?>>4B</option>
+									<option value="4c" <?= $jnsForm == '4c' ? 'selected' : ''; ?>>4C</option>
+									<option value="4d" <?= $jnsForm == '4d' ? 'selected' : ''; ?>>4D</option>
+									<option value="4e" <?= $jnsForm == '4e' ? 'selected' : ''; ?>>4E</option>
+									<option value="5" <?= $jnsForm == '5' ? 'selected' : ''; ?>>5</option>
+									<option value="9" <?= $jnsForm == '9' ? 'selected' : ''; ?>>9</option>
 								</select>
 							</dd>
 						</dl>
@@ -79,7 +78,7 @@
 						</dl>
 
 						<!-- Jika Form 2 -->
-						<?php if (substr($jnsForm,0,1) == '2') { ?>
+						<?php if (substr($jnsForm, 0, 1) == '2') { ?>
 							<div class="row">
 								<table class="table table-bordered">
 
@@ -107,9 +106,9 @@
 
 
 									<tbody id="tbody_data">
-										<?php 
+										<?php
 
-										$no=1;
+										$no = 1;
 
 										?>
 										<?php foreach ($dataBody as $key => $value) { ?>
@@ -118,8 +117,8 @@
 												<td style="border: thin solid black;" class="text-left"><?= cleanStr($value->kemendagri); ?></td>
 
 												<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
-													<td style="border: thin solid black;"><?= cleanStr($value->{"totHa".$tahun}); ?></td>
-													<td style="border: thin solid black;"><?= cleanStr($value->{"TotIp".$tahun}); ?></td>
+													<td style="border: thin solid black;"><?= cleanStr($value->{"totHa" . $tahun}); ?></td>
+													<td style="border: thin solid black;"><?= cleanStr($value->{"TotIp" . $tahun}); ?></td>
 												<?php } ?>
 
 											</tr>
@@ -131,7 +130,7 @@
 						<!-- End Form 2 -->
 
 						<!-- Jika Form 4 -->
-						<?php if (substr($jnsForm,0,1) == '4') { ?>
+						<?php if (substr($jnsForm, 0, 1) == '4') { ?>
 							<div class="row">
 								<table class="table table-bordered">
 
@@ -159,9 +158,9 @@
 
 
 									<tbody id="tbody_data">
-										<?php 
+										<?php
 
-										$no=1;
+										$no = 1;
 
 										?>
 										<?php foreach ($dataBody as $key => $value) { ?>
@@ -171,9 +170,9 @@
 
 												<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
 													<td style="border: thin solid black;">
-														<?php 
+														<?php
 
-														$nilaiFix = cleanStr($value->{"TotNilai".$tahun});
+														$nilaiFix = cleanStr($value->{"TotNilai" . $tahun});
 
 														if ($nilaiFix !== 0) {
 															if ($nilaiFix > 90) {
@@ -192,9 +191,9 @@
 														}
 
 
-														?>	
+														?>
 													</td>
-													<td style="border: thin solid black;"><?= cleanStr($value->{"TotNilai".$tahun}); ?></td>
+													<td style="border: thin solid black;"><?= cleanStr($value->{"TotNilai" . $tahun}); ?></td>
 												<?php } ?>
 
 											</tr>
@@ -207,7 +206,7 @@
 
 
 						<!-- Jika Form 5 -->
-						<?php if (substr($jnsForm,0,1) == '5') { ?>
+						<?php if (substr($jnsForm, 0, 1) == '5') { ?>
 							<div class="row">
 								<table class="table table-bordered">
 
@@ -234,9 +233,9 @@
 
 
 									<tbody id="tbody_data">
-										<?php 
+										<?php
 
-										$no=1;
+										$no = 1;
 
 										?>
 										<?php foreach ($dataBody as $key => $value) { ?>
@@ -245,7 +244,7 @@
 												<td style="border: thin solid black;" class="text-left"><?= cleanStr($value->kemendagri); ?></td>
 
 												<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"totNilai".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"totNilai" . $tahun}); ?></td>
 												<?php } ?>
 
 											</tr>
@@ -257,7 +256,7 @@
 						<!-- End Form 5 -->
 
 						<!-- Jika Form 9 -->
-						<?php if (substr($jnsForm,0,1) == '9') { ?>
+						<?php if (substr($jnsForm, 0, 1) == '9') { ?>
 							<div class="row">
 								<table class="table table-bordered">
 
@@ -288,9 +287,9 @@
 
 
 									<tbody id="tbody_data">
-										<?php 
+										<?php
 
-										$no=1;
+										$no = 1;
 
 										?>
 										<?php foreach ($dataBody as $key => $value) { ?>
@@ -299,11 +298,11 @@
 												<td style="border: thin solid black;" class="text-left"><?= cleanStr($value->kemendagri); ?></td>
 
 												<?php for ($tahun = $tahunAwal; $tahun <= $tahunAkhir; $tahun++) { ?>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"b".$tahun}); ?></td>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rr".$tahun}); ?></td>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rs".$tahun}); ?></td>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rb".$tahun}); ?></td>
-													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"persenTotal".$tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"b" . $tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rr" . $tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rs" . $tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"rb" . $tahun}); ?></td>
+													<td style="border: thin solid black;" class="text-right"><?= cleanStr($value->{"persenTotal" . $tahun}); ?></td>
 												<?php } ?>
 
 											</tr>
@@ -327,13 +326,13 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		cariX = function () {
+		cariX = function() {
 
 			let taAwal = $('#taAwal').val(),
-			taAkhir = $('#taAkhir').val(),
-			provid = $('#provid').val(),
-			kabkotaid = $('#kabkotaid').val(),
-			jnsForm = $('#jnsForm').val();
+				taAkhir = $('#taAkhir').val(),
+				provid = $('#provid').val(),
+				kabkotaid = $('#kabkotaid').val(),
+				jnsForm = $('#jnsForm').val();
 
 			if (taAwal == null) {
 				toastr.error('Silahkan Pilih Tahun Awal');
@@ -365,7 +364,7 @@
 				return;
 			}
 
-			window.location.href = base_url()+`DataSandingan/index/${taAwal}/${taAkhir}/${provid}/${jnsForm}`;
+			window.location.href = base_url() + `DataSandingan/index/${taAwal}/${taAkhir}/${provid}/${jnsForm}`;
 
 		}
 
@@ -373,7 +372,9 @@
 		$('#provid').change(function() {
 			let provid = $(this).val();
 
-			ajaxUntukSemua(base_url()+'DataSandingan/getDataKabKota', {provid}, function(data) {
+			ajaxUntukSemua(base_url() + 'DataSandingan/getDataKabKota', {
+				provid
+			}, function(data) {
 
 				let opt = `<option selected value="" disabled>- Pilih Kab/Kota -</option>`;
 

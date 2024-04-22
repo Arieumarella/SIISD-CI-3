@@ -210,12 +210,12 @@ class WsGeneret extends CI_Controller {
 
 		foreach ($dataMirigasi as $key => $value) {
 			
-			$dataMappinglama = $this->M_dinamis->getById('m_mapping_di', ['kode_di' => $value->irigasiid, 'k_di IS NOT NULL' => null]);
+			$dataMappinglama = $this->M_dinamis->getById('m_mapping_dix', ['kode_di' => $value->irigasiid, 'k_di IS NOT NULL' => null]);
 
 			$dataInsert = array(
 
-				'k_propinsi' => @$value->provid,
-				'k_kabupaten' => @$value->kotakabid,
+				'k_provinsi' => @$dataMappinglama->k_provinsi,
+				'k_kabupaten' => @$dataMappinglama->k_kabupaten,
 				'k_di' => @$dataMappinglama->k_di,
 				'n_di' => clean($value->nama),
 				'kode_di' => $value->irigasiid,
