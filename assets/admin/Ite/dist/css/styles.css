@@ -1,0 +1,36 @@
+/* .event:hover { cursor: e-resize; } */
+.hidden { display: none; }
+.td-item { min-width: 200px; }
+.table-data { margin-bottom: 0 !important; }
+.card-body.p-0 .table tbody>tr>td:last-of-type, .table.table-data td, .table.table-data th { padding: 4px 10px !important; font-size: 14px; }
+.login-logo h2 { font-size: 12px; margin-top: 20px; }
+.login-logo h3 { font-size: 13px; margin-top: 0px; }
+.login-box, .register-box { margin: 5% auto; }
+.main-logo { box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2) }
+.main-app-name { font-size: 35px; font-weight: 300; text-align: center; }
+.modal-body.fix-height { max-height: 440px; overflow: auto; }
+.card-body.p-0 .table tbody>tr>td:first-of-type { padding-left: .75rem !important; }
+/* .td-item:hover, .td-data:hover { font-weight: bold; } */
+.table td, .table th { padding: 4px !important; }
+.no-margin { margin: 0px !important; }
+.select2 { padding:0px;  font-size:12px; margin:0px; }
+.c-pinter{ cursor: pointer; }
+.c-pinter:hover{ background-color:#ff9900; }
+.outborder{ border-bottom:2px solid #333; }
+.input-group-sm.cus select, .input-group-sm.cus input, .input-group-sm.cus .select2-selection  { border-radius: 0px !important; }
+.input-group-sm.cus input { height: 38px; }
+.page-link { padding: 5px 10px; font-size: 14px; color: #212529; }
+.infoPage { border: 1px solid #ddd; padding: 6px 0; font-size: 12px; width: 150px; height: 31px; text-align: center; }
+.infoalokasi { width: 67px !important; background: #FFF !important; }
+.infocolor { width: 66px !important; background: #FFF !important; padding: 4px !important; }
+.btn-label { cursor: auto !important; }
+.btn-label:hover { background-color: #f8f9fa !important; }
+.box-info-color { width: 28px; float: left; border: 1px solid #ccc; border-radius: 3px 0 0 3px; }
+.bg-maroon-disabled { background: #e16795; }
+.pagination .input-group select { padding: 0px 0px 0px 4px; }
+.pagination li { margin-left: 4px; }
+.btn-group-nav { margin-top: -4px; }
+input.error, select.error { border: 1px solid #f00; }
+label.error { color: #f00; }
+.bg-zebra1{background-color:#e5e6e5;}
+.bg-zebra1{background-color:#fff;}
