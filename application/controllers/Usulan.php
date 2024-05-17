@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Usulan extends CI_Controller {
+class Usulan extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -25,8 +27,8 @@ class Usulan extends CI_Controller {
 	}
 
 	public function index()
-	{	
-		$idprov = substr($this->session->userdata('kotakabid'), 0,2);
+	{
+		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$kotakabid = $this->session->userdata('kotakabid');
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
 		$ta = $this->session->userdata('thang');
@@ -74,18 +76,19 @@ class Usulan extends CI_Controller {
 		$pengadaan = $this->input->post('pengadaan');
 		$pagu_kegiatan = $this->input->post('pagu_kegiatan');
 		$kotakabid = $this->session->userdata('kotakabid');
-		$idprov = substr($this->session->userdata('kotakabid'), 0,2);
+		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$thang = $this->session->userdata('thang');
 		$menuKegiatan = $this->input->post('menuKegiatan');
 		$kecamatan = $this->input->post('kecamatan');
 		$desa = $this->input->post('desa');
 		$wsPilih = $this->input->post('wsPilih');
 		$das = $this->input->post('das');
+		$jenisOutcome = $this->input->post('jenisOutcome');
 
 		$insertData = array(
 			'kdprov' => $idprov,
 			'kdkabkota' => $kotakabid,
-			'kd_di' => ($kategoriDi == 'BARU') ? '': $daerahIrigasi,
+			'kd_di' => ($kategoriDi == 'BARU') ? '' : $daerahIrigasi,
 			'kategori_di' => $kategoriDi,
 			'nm_di' => ($kategoriDi == 'BARU') ? $daerahIrigasiBaru : $nm_di,
 			'output' => $output,
@@ -96,6 +99,7 @@ class Usulan extends CI_Controller {
 			'kddes' => $desa,
 			'kd_menu' => $menuKegiatan,
 			'kd_ws' => $wsPilih,
+			'jns_luasan' => ($menuKegiatan == '2') ? $jenisOutcome : '',
 			'kd_das' => $das,
 			'verif_provinsi' => 0,
 			'verif_balai' => 0,
@@ -108,13 +112,13 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_dinamis->save('m_usulan_simoni', $insertData);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -148,13 +152,13 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_usulan->ada_komponen($dataInsert, $idData, $ta);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -164,7 +168,6 @@ class Usulan extends CI_Controller {
 		}
 
 		redirect('/Usulan', 'refresh');
-
 	}
 
 
@@ -178,13 +181,13 @@ class Usulan extends CI_Controller {
 
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Dihapus.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -206,13 +209,13 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_usulan->deleteBaseData($id, $ta);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Dihapus.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -223,7 +226,6 @@ class Usulan extends CI_Controller {
 
 
 		echo json_encode(['code' => 200]);
-
 	}
 
 	public function CheklistSimoni()
@@ -243,7 +245,7 @@ class Usulan extends CI_Controller {
 	}
 
 
-	public function rekapKabKotaSimoni($idProv='')
+	public function rekapKabKotaSimoni($idProv = '')
 	{
 
 		if ($idProv == '') {
@@ -267,7 +269,7 @@ class Usulan extends CI_Controller {
 	}
 
 
-	public function cheklistURKSimoni($kotakabid='')
+	public function cheklistURKSimoni($kotakabid = '')
 	{
 		if ($kotakabid == '') {
 			redirect('/Usulan/CheklistSimoni', 'refresh');
@@ -300,7 +302,7 @@ class Usulan extends CI_Controller {
 	}
 
 
-	public function cheklistURKKonreg($kotakabid='')
+	public function cheklistURKKonreg($kotakabid = '')
 	{
 		if ($kotakabid == '') {
 			redirect('/Usulan/Cheklistkonreg', 'refresh');
@@ -342,54 +344,55 @@ class Usulan extends CI_Controller {
 
 		foreach ($id as $key => $val) {
 
-			$cheklist_provinsi = $this->input->post('cheklist_provinsi_'.$key);
-			$cheklist_balai = $this->input->post('cheklist_balai_'.$key);
-			$cheklist_sda = $this->input->post('cheklist_sda_'.$key);
-			$cheklist_pfid = $this->input->post('cheklist_pfid_'.$key);
+			$cheklist_provinsi = $this->input->post('cheklist_provinsi_' . $key);
+			$cheklist_balai = $this->input->post('cheklist_balai_' . $key);
+			$cheklist_sda = $this->input->post('cheklist_sda_' . $key);
+			$cheklist_pfid = $this->input->post('cheklist_pfid_' . $key);
 
-			if($is_prive == 'provinsi') {
+			if ($is_prive == 'provinsi') {
 				$dataUpdate = array(
-					'verif_provinsi' => ($cheklist_provinsi == 'on') ? '1':'0'
+					'verif_provinsi' => ($cheklist_provinsi == 'on') ? '1' : '0'
 				);
 			}
 
-			if($prive == 'balai') {
+			if ($prive == 'balai') {
 				$dataUpdate = array(
-					'verif_balai' => ($cheklist_balai == 'on') ? '1':'0',
+					'verif_balai' => ($cheklist_balai == 'on') ? '1' : '0',
 				);
 			}
 
 
-			if($is_prive == 'sda') {
+			if ($is_prive == 'sda') {
 				$dataUpdate = array(
-					'verif_sda' => ($cheklist_sda == 'on') ? '1':'0',
+					'verif_sda' => ($cheklist_sda == 'on') ? '1' : '0',
 					'catat_sda' => $catat_sda[$key]
 				);
 			}
 
 
-			if($prive == 'admin') {
-				
+			if ($prive == 'admin') {
+
 				$dataUpdate = array(
-					'verif_pusat' => ($cheklist_pfid == 'on') ? '1':'0',
+					'verif_pusat' => ($cheklist_pfid == 'on') ? '1' : '0',
 					'catat_pusat' => $catat_pfid[$key]
 				);
 
 				// Proses Input ke Tabel Konreg
 				if ($cheklist_pfid == 'on') {
-					
+
 					$dataSimoni = $this->M_dinamis->getById('m_usulan_simoni', ['id' => $key]);
 
 					$dataInsert = array(
 						'id_usulan_simoni' => $key,
 						'kdprov' => $dataSimoni->kdprov,
-						'kdkabkota' => $dataSimoni->kdkabkota, 
+						'kdkabkota' => $dataSimoni->kdkabkota,
 						'kd_di' => $dataSimoni->kd_di,
 						'kategori_di' => $dataSimoni->kategori_di,
 						'nm_di' => $dataSimoni->nm_di,
 						'komponen_json' => $dataSimoni->komponen_json,
 						'output' => $dataSimoni->output,
 						'kd_ws' => $dataSimoni->kd_ws,
+						'jns_luasan' => $dataSimoni->jns_luasan,
 						'kd_das' => $dataSimoni->kd_das,
 						'kd_menu' => $dataSimoni->kd_menu,
 						'kdkec' => $dataSimoni->kdkec,
@@ -402,28 +405,23 @@ class Usulan extends CI_Controller {
 					);
 
 					$this->M_usulan->saveUsulanKonregFromSimoni($key, $dataInsert, $thang);
-
-
-				}else{
+				} else {
 
 					$this->M_usulan->deleteDataKonregByIdSimoni($key, $thang);
-
-
 				}
-
 			}
 
 			$pros = $this->M_dinamis->update('m_usulan_simoni', $dataUpdate, ['id' => $key]);
 		}
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -432,7 +430,7 @@ class Usulan extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/Usulan/cheklistURKSimoni/'.$idkabkota, 'refresh');
+		redirect('/Usulan/cheklistURKSimoni/' . $idkabkota, 'refresh');
 	}
 
 
@@ -451,54 +449,53 @@ class Usulan extends CI_Controller {
 
 		foreach ($id as $key => $val) {
 
-			$cheklist_provinsi = $this->input->post('cheklist_provinsi_'.$key);
-			$cheklist_balai = $this->input->post('cheklist_balai_'.$key);
-			$cheklist_sda = $this->input->post('cheklist_sda_'.$key);
-			$cheklist_pfid = $this->input->post('cheklist_pfid_'.$key);
+			$cheklist_provinsi = $this->input->post('cheklist_provinsi_' . $key);
+			$cheklist_balai = $this->input->post('cheklist_balai_' . $key);
+			$cheklist_sda = $this->input->post('cheklist_sda_' . $key);
+			$cheklist_pfid = $this->input->post('cheklist_pfid_' . $key);
 
-			if($is_prive == 'provinsi') {
+			if ($is_prive == 'provinsi') {
 				$dataUpdate = array(
-					'verif_provinsi' => ($cheklist_provinsi == 'on') ? '1':'0',
+					'verif_provinsi' => ($cheklist_provinsi == 'on') ? '1' : '0',
 					'catat_provinsi' => $catat_provinsi[$key]
 				);
 			}
 
-			if($prive == 'balai') {
+			if ($prive == 'balai') {
 				$dataUpdate = array(
-					'verif_balai' => ($cheklist_balai == 'on') ? '1':'0',
+					'verif_balai' => ($cheklist_balai == 'on') ? '1' : '0',
 					'catat_balai' => $catat_balai[$key]
 				);
 			}
 
 
-			if($is_prive == 'sda') {
+			if ($is_prive == 'sda') {
 				$dataUpdate = array(
-					'verif_sda' => ($cheklist_sda == 'on') ? '1':'0',
+					'verif_sda' => ($cheklist_sda == 'on') ? '1' : '0',
 					'catat_sda' => $catat_sda[$key]
 				);
 			}
 
 
-			if($prive == 'admin') {
-				
+			if ($prive == 'admin') {
+
 				$dataUpdate = array(
-					'verif_pusat' => ($cheklist_pfid == 'on') ? '1':'0',
+					'verif_pusat' => ($cheklist_pfid == 'on') ? '1' : '0',
 					'catat_pusat' => $catat_pfid[$key]
 				);
-
 			}
 
 			$pros = $this->M_dinamis->update('m_usulan_konreg', $dataUpdate, ['id' => $key]);
 		}
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -507,13 +504,13 @@ class Usulan extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/Usulan/cheklistURKKonreg/'.$idkabkota, 'refresh');
+		redirect('/Usulan/cheklistURKKonreg/' . $idkabkota, 'refresh');
 	}
 
 
 	public function PengususlanKonreg()
 	{
-		$idprov = substr($this->session->userdata('kotakabid'), 0,2);
+		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$kotakabid = $this->session->userdata('kotakabid');
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
 		$ta = $this->session->userdata('thang');
@@ -552,6 +549,8 @@ class Usulan extends CI_Controller {
 		echo json_encode(['dataSimoni' => $data, 'dataDi' => $dataDi, 'dataDesa' => $dataDesa, 'dataDas' => $dataDas]);
 	}
 
+	
+
 	public function editURKAdmin()
 	{
 		$idEditSimoni = $this->input->post('idEditSimoni');
@@ -567,9 +566,10 @@ class Usulan extends CI_Controller {
 		$desa_edit = $this->input->post('desa_edit');
 		$wsPilihEdit = $this->input->post('wsPilihEdit');
 		$dasEdit = $this->input->post('dasEdit');
+		$jenisOutcome = $this->input->post('jenisOutcome-edit');
 
 		$dataEdit = array(
-			'kd_di' => ($kategoriDi_edit == 'BARU') ? '': $daerahIrigasi_edit,
+			'kd_di' => ($kategoriDi_edit == 'BARU') ? '' : $daerahIrigasi_edit,
 			'kategori_di' => ($menuKegiatan_edit === '9') ? '' : $kategoriDi_edit,
 			'nm_di' => ($kategoriDi_edit == 'BARU') ? $daerahIrigasiBaru_edit : $nm_di_edit,
 			'output' => $output_edit,
@@ -580,6 +580,7 @@ class Usulan extends CI_Controller {
 			'kddes' => $desa_edit,
 			'kd_menu' => $menuKegiatan_edit,
 			'kd_ws' => ($menuKegiatan_edit === '9') ? $wsPilihEdit : '',
+			'jns_luasan' => ($menuKegiatan_edit === '2') ? $jenisOutcome : '',
 			'kd_das' => ($menuKegiatan_edit === '9') ? $dasEdit : '',
 			'verif_provinsi' => 0,
 			'verif_balai' => 0,
@@ -591,22 +592,22 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_dinamis->update('m_usulan_simoni', $dataEdit, ['id' => $idEditSimoni]);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-				Data Berhasil Diupdate.!
+				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-				Data Gagal Diupdate.!
+				Data Gagal Disimpan.!
 				</div>');
 		}
-		redirect($this->agent->referrer());
 
+		redirect($this->agent->referrer());
 	}
 
 	public function rekapIrigasiProvinsi()
@@ -624,9 +625,9 @@ class Usulan extends CI_Controller {
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
-	public function rekapPengendaliBanjirKabKota($idprov='')
+	public function rekapPengendaliBanjirKabKota($idprov = '')
 	{
-		
+
 		if ($idprov == '') {
 			redirect('Usulan/rekapPengendaliBanjirProvinsi', 'refresh');
 		}
@@ -644,7 +645,7 @@ class Usulan extends CI_Controller {
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
-	public function rekapIrigasiKabKota($idprov='')
+	public function rekapIrigasiKabKota($idprov = '')
 	{
 		$kotakabid = $this->session->userdata('kotakabid');
 		if ($idprov == '') {
@@ -667,7 +668,6 @@ class Usulan extends CI_Controller {
 
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
-
 	}
 
 	public function rekapPengendaliBanjirProvinsi()
@@ -701,9 +701,10 @@ class Usulan extends CI_Controller {
 		$desa_edit = $this->input->post('desa_edit');
 		$wsPilihEdit = $this->input->post('wsPilihEdit');
 		$dasEdit = $this->input->post('dasEdit');
+		$jenisOutcome = $this->input->post('jenisOutcome-edit');
 
 		$dataEdit = array(
-			'kd_di' => ($kategoriDi_edit == 'BARU') ? '': $daerahIrigasi_edit,
+			'kd_di' => ($kategoriDi_edit == 'BARU') ? '' : $daerahIrigasi_edit,
 			'kategori_di' => ($menuKegiatan_edit === '9') ? '' : $kategoriDi_edit,
 			'nm_di' => ($kategoriDi_edit == 'BARU') ? $daerahIrigasiBaru_edit : $nm_di_edit,
 			'output' => $output_edit,
@@ -714,6 +715,7 @@ class Usulan extends CI_Controller {
 			'kddes' => $desa_edit,
 			'kd_menu' => $menuKegiatan_edit,
 			'kd_ws' => ($menuKegiatan_edit === '9') ? $wsPilihEdit : '',
+			'jns_luasan' => ($menuKegiatan_edit === '2') ? $jenisOutcome : '',
 			'kd_das' => ($menuKegiatan_edit === '9') ? $dasEdit : '',
 			'verif_provinsi' => 0,
 			'verif_balai' => 0,
@@ -725,13 +727,13 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_dinamis->update('m_usulan_simoni', $dataEdit, ['id' => $idEditSimoni]);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -741,7 +743,6 @@ class Usulan extends CI_Controller {
 		}
 
 		redirect('/Usulan', 'refresh');
-
 	}
 
 
@@ -766,13 +767,13 @@ class Usulan extends CI_Controller {
 		$pros = $this->M_usulan->ada_komponen_konreg($dataInsert, $idData, $ta);
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -782,7 +783,6 @@ class Usulan extends CI_Controller {
 		}
 
 		redirect('/Usulan/PengususlanKonreg', 'refresh');
-
 	}
 
 
@@ -796,13 +796,13 @@ class Usulan extends CI_Controller {
 
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -845,13 +845,13 @@ class Usulan extends CI_Controller {
 
 
 		if ($pros) {
-			
+
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -861,7 +861,6 @@ class Usulan extends CI_Controller {
 		}
 
 		redirect('/Usulan/PengususlanKonreg', 'refresh');
-
 	}
 
 
@@ -880,7 +879,7 @@ class Usulan extends CI_Controller {
 	}
 
 
-	public function rekapKabKotaKonreg($idProv='')
+	public function rekapKabKotaKonreg($idProv = '')
 	{
 
 		if ($idProv == '') {
@@ -936,7 +935,7 @@ class Usulan extends CI_Controller {
 		$hari = $this->getNamaHari($date_now);
 		$nmBulan = $this->getNamaBulan($date_now);
 		$splitTanggal = @explode("-", $date_now);
-		$fixTanggal = @$splitTanggal[2].' '.$nmBulan.' '.@$splitTanggal[0];
+		$fixTanggal = @$splitTanggal[2] . ' ' . $nmBulan . ' ' . @$splitTanggal[0];
 
 		$nmProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => substr($kotakabidBa, 0, 2)]);
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabidBa]);
@@ -950,16 +949,16 @@ class Usulan extends CI_Controller {
 
 		$tamplate->setValue('${desk}', ucwords(strtolower($desk)));
 		$tamplate->setValue('${verifikator_atas}', ucwords(strtolower($nm_verifikator)));
-		$tamplate->setValue('${tgl_atas}', ucwords(strtolower($hari.' '.$fixTanggal)));
+		$tamplate->setValue('${tgl_atas}', ucwords(strtolower($hari . ' ' . $fixTanggal)));
 		$tamplate->setValue('${verifikator_bawah}', ucwords(strtolower($nm_verifikator)));
 		$tamplate->setValue('${pemda_bawah}', ucwords(strtolower($nmKabkota->kemendagri)));
 
 
 		if ($baseData->sts_1a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1a == '2') {
+		} elseif ($baseData->sts_1a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
 
@@ -970,12 +969,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_1b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1b == '2') {
+		} elseif ($baseData->sts_1b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1b}', ucwords(strtolower($baseData->tgl_1b)));
 		$tamplate->setValue('${sts_1b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1b}', ucwords(strtolower($baseData->catat_1b)));
@@ -983,12 +982,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_1c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1c == '2') {
+		} elseif ($baseData->sts_1c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1c}', ucwords(strtolower($baseData->tgl_1c)));
 		$tamplate->setValue('${sts_1c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1c}', ucwords(strtolower($baseData->catat_1c)));
@@ -996,12 +995,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_1d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1d == '2') {
+		} elseif ($baseData->sts_1d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1d}', ucwords(strtolower($baseData->tgl_1d)));
 		$tamplate->setValue('${sts_1d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1d}', ucwords(strtolower($baseData->catat_1d)));
@@ -1009,12 +1008,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_1e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1e == '2') {
+		} elseif ($baseData->sts_1e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1e}', ucwords(strtolower($baseData->tgl_1e)));
 		$tamplate->setValue('${sts_1e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1e}', ucwords(strtolower($baseData->catat_1e)));
@@ -1022,12 +1021,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_1f == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1f == '2') {
+		} elseif ($baseData->sts_1f == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1f}', ucwords(strtolower($baseData->tgl_1f)));
 		$tamplate->setValue('${sts_1f}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1f}', ucwords(strtolower($baseData->catat_1f)));
@@ -1035,12 +1034,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_2a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2a == '2') {
+		} elseif ($baseData->sts_2a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2a}', ucwords(strtolower($baseData->tgl_2a)));
 		$tamplate->setValue('${sts_2a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2a}', ucwords(strtolower($baseData->catat_2a)));
@@ -1048,12 +1047,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_2b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2b == '2') {
+		} elseif ($baseData->sts_2b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2b}', ucwords(strtolower($baseData->tgl_2b)));
 		$tamplate->setValue('${sts_2b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2b}', ucwords(strtolower($baseData->catat_2b)));
@@ -1061,12 +1060,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_2c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2c == '2') {
+		} elseif ($baseData->sts_2c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2c}', ucwords(strtolower($baseData->tgl_2c)));
 		$tamplate->setValue('${sts_2c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2c}', ucwords(strtolower($baseData->catat_2c)));
@@ -1074,12 +1073,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_2d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2d == '2') {
+		} elseif ($baseData->sts_2d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2d}', ucwords(strtolower($baseData->tgl_2d)));
 		$tamplate->setValue('${sts_2d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2d}', ucwords(strtolower($baseData->catat_2d)));
@@ -1087,12 +1086,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_2e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2e == '2') {
+		} elseif ($baseData->sts_2e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2e}', ucwords(strtolower($baseData->tgl_2e)));
 		$tamplate->setValue('${sts_2e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2e}', ucwords(strtolower($baseData->catat_2e)));
@@ -1100,12 +1099,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_3a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_3a == '2') {
+		} elseif ($baseData->sts_3a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_3a}', ucwords(strtolower($baseData->tgl_3a)));
 		$tamplate->setValue('${sts_3a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_3a}', ucwords(strtolower($baseData->catat_3a)));
@@ -1113,12 +1112,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_3b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_3b == '2') {
+		} elseif ($baseData->sts_3b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_3b}', ucwords(strtolower($baseData->tgl_3b)));
 		$tamplate->setValue('${sts_3b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_3b}', ucwords(strtolower($baseData->catat_3b)));
@@ -1126,12 +1125,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_4a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4a == '2') {
+		} elseif ($baseData->sts_4a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4a}', ucwords(strtolower($baseData->tgl_4a)));
 		$tamplate->setValue('${sts_4a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4a}', ucwords(strtolower($baseData->catat_4a)));
@@ -1139,12 +1138,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_4b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4b == '2') {
+		} elseif ($baseData->sts_4b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4b}', ucwords(strtolower($baseData->tgl_4b)));
 		$tamplate->setValue('${sts_4b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4b}', ucwords(strtolower($baseData->catat_4b)));
@@ -1152,25 +1151,25 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_4c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4c == '2') {
+		} elseif ($baseData->sts_4c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4c}', ucwords(strtolower($baseData->tgl_4c)));
 		$tamplate->setValue('${sts_4c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4c}', ucwords(strtolower($baseData->catat_4c)));
-		
+
 
 		if ($baseData->sts_4d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4d == '2') {
+		} elseif ($baseData->sts_4d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4d}', ucwords(strtolower($baseData->tgl_4d)));
 		$tamplate->setValue('${sts_4d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4d}', ucwords(strtolower($baseData->catat_4d)));
@@ -1178,12 +1177,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_4e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4e == '2') {
+		} elseif ($baseData->sts_4e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4e}', ucwords(strtolower($baseData->tgl_4e)));
 		$tamplate->setValue('${sts_4e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4e}', ucwords(strtolower($baseData->catat_4e)));
@@ -1191,12 +1190,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_5 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_5 == '2') {
+		} elseif ($baseData->sts_5 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_5}', ucwords(strtolower($baseData->tgl_5)));
 		$tamplate->setValue('${sts_5}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_5}', ucwords(strtolower($baseData->catat_5)));
@@ -1204,12 +1203,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_6 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_6 == '2') {
+		} elseif ($baseData->sts_6 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_6}', ucwords(strtolower($baseData->tgl_6)));
 		$tamplate->setValue('${sts_6}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_6}', ucwords(strtolower($baseData->catat_6)));
@@ -1217,12 +1216,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_7 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_7 == '2') {
+		} elseif ($baseData->sts_7 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_7}', ucwords(strtolower($baseData->tgl_7)));
 		$tamplate->setValue('${sts_7}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_7}', ucwords(strtolower($baseData->catat_7)));
@@ -1230,12 +1229,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_8 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_8 == '2') {
+		} elseif ($baseData->sts_8 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_8}', ucwords(strtolower($baseData->tgl_8)));
 		$tamplate->setValue('${sts_8}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_8}', ucwords(strtolower($baseData->catat_8)));
@@ -1243,12 +1242,12 @@ class Usulan extends CI_Controller {
 
 		if ($baseData->sts_9 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_9 == '2') {
+		} elseif ($baseData->sts_9 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_9}', ucwords(strtolower($baseData->tgl_9)));
 		$tamplate->setValue('${sts_9}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_9}', ucwords(strtolower($baseData->catat_9)));
@@ -1256,8 +1255,5 @@ class Usulan extends CI_Controller {
 
 		$tamplate->saveAs('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx');
 		force_download('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx', NULL);
-
 	}
-
-
 }
