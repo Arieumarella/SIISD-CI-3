@@ -66,6 +66,7 @@
 	}
 </style>
 
+
 <section class="content">
 	<div class="container-fluid">
 		<br>
@@ -74,13 +75,24 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="text-center">
-							<h4 class="font-weight-bolder">USULAN RENCANA KEGIATAN SIMONI</h4>
+							<h4 class="font-weight-bolder">USULAN RENCANA KEGIATANI</h4>
+							<h4 class="font-weight-bolder">PENILAIAN SINKRONISASI DAN HARMONISASI</h4>
+							<!-- <?php if ($this->session->userdata('prive') == 'provinsi') { ?>
+								<h4 class="font-weight-bolder">PROVINSI <?= $nm_Provinsi; ?></h4>
+							<?php } ?> -->
 							<h4 class="font-weight-bolder"><?= $nmKabkota; ?></h4>
 							<h4 class="font-weight-bolder">TA. <?= $this->session->userdata('thang'); ?></h4>
 						</div>
 						<?= $this->session->flashdata('psn'); ?>
 						<?php if ($this->session->userdata('prive') == 'pemda') { ?>
 							<button class="btn btn-sm btn-primary" style="float:right; margin-bottom: 5px;" onclick="tambahData();"><i class="fa fa-plus" aria-hidden="true"></i> TAMBAH DATA</button>
+							<br><br>
+
+							<!-- <form method="post">
+								<input type="submit" value="Convert To PDF" name="button" class="btn btn-danger">
+							</form> -->
+
+							<!-- <a href="<?= base_url(); ?>Usulan/exportURK " target="_blank" class="btn btn-danger btn-icon" style="float:right; margin-bottom: 5px;">Convert To PDF</a> -->
 						<?php } ?>
 
 						<table class=" table-bordered tableX " id="myTabelUsulan" style="width:100%;">
@@ -94,7 +106,6 @@
 									<th class="text-center" rowspan="2" style="width:17%;">KOMPONEN</th>
 									<th class="text-center" colspan="2">OUTCOME KEGIATAN</th>
 									<th class="text-center" rowspan="2">KEBUTUHAN <br> DANA</th>
-									<th class="text-center" rowspan="2">STATUS <br> CHECKLIST</th>
 									<th class="text-center" rowspan="2" style="width:7%;">AKSI</th>
 
 								</tr>
@@ -105,17 +116,15 @@
 							</thead>
 
 							<tbody id="tbody_data">
-
-								<?php if ($dataKegiatan != null) { ?>
-
+								<?php $hasData = false;
+								if ($dataKegiatan != null) { ?>
 									<?php $no = 1;
 									foreach ($dataKegiatan as $key => $val) { ?>
-										<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3') { ?>
-
+										<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3') {
+											$hasData = true; ?>
 											<tr>
-												<td class="text-center">
+												<td class="text-center" rowspan="6">
 													<?= $no++; ?>
-
 												</td>
 												<td>
 													<b><?= $val->nm_menu; ?></b>
@@ -133,11 +142,13 @@
 													<b>-Kecamatan :</b> <?= $val->keca; ?>
 													<br>
 													<b>-Desa :</b> <?= $val->desa; ?>
+													<br>
+
 												</td>
 												<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
 												<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
 												<td class="text-right" style="vertical-align: top;">
-													<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+													<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0' and $val->verif_provinsi === '0') { ?>
 														<button class="btn btn-primary btn-sm mb-2" onclick="showModalKomponen('<?= $val->id; ?>')"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														<br>
 													<?php } ?>
@@ -153,7 +164,7 @@
 																<tr>
 																	<td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
 																	<td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
-																	<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+																	<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0' and $val->verif_provinsi === '0') { ?>
 																		<td class="text-center" style="width:1%;"><button class="btn btn-danger btn-sm" onclick="hapuskomponen('<?= $datakomponen['id']; ?>', '<?= $datakomponen['id_usulan_simoni']; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 																	<?php } ?>
 																</tr>
@@ -163,51 +174,11 @@
 												</td>
 												<td class="text-right"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
 												<td><?= $val->satuan_output; ?></td>
-												<td class="text-right">Rp. <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?></td>
-												<td>
-													<table class="tabelVerifikasi">
-														<tr>
-															<td style="width:10%;">Balai</td>
-															<td style="width:10%;">
-																<?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
-																	<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-																<?php } else { ?>
-																	<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-																<?php } ?>
-															</td>
-															<td style="width:80%;">
-															</td>
-														</tr>
-														<tr>
-															<td style="width:10%;">IRWA/SUPAN</td>
-															<td style="width:10%;">
-																<?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
-																	<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-																<?php } else { ?>
-																	<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-																<?php } ?>
-															</td>
-															<td style="width:80%;">
-																<?= $val->catat_sda; ?>
-															</td>
-														</tr>
-														<tr>
-															<td style="width:10%;">PFID</td>
-															<td style="width:10%;">
-																<?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
-																	<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-																<?php } else { ?>
-																	<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-																<?php } ?>
-															</td>
-															<td style="width:80%;">
-																<?= $val->catat_pusat; ?>
-															</td>
-														</tr>
-													</table>
-												</td>
-												<td class="text-center">
-													<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+												<td class="text-left"><b>- Dana :</b> Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br> <b>- Harga Satuan :</b>
+													Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
+
+												<td class="text-center" rowspan="6">
+													<?php if ($val->verif_balai === '0' and $val->verif_provinsi === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
 
 														<br>
 														<button class="btn btn-danger btn-sm" onclick="hapusMainData('<?= $val->id; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -216,24 +187,70 @@
 													<?php } ?>
 												</td>
 											</tr>
+											<tr id="boxThField">
+											<tr class="row7">
+												<td colspan="2"><b>CHECKLIST</b></td>
+												<td colspan="5"><b>CATATAN</b></td>
+											</tr>
+											<tr>
+												<td>PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
+												<td><?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
+														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+													<?php } else { ?>
+														<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+													<?php } ?>
+												</td>
+												<td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_pusat; ?></textarea></td>
+											</tr>
+											<tr>
+												<td>DIREKTORAT IRIGASI DAN RAWA</td>
+												<td><?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
+														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+													<?php } else { ?>
+														<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+													<?php } ?>
+												</td>
+												<td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_sda; ?></textarea></td>
+											</tr>
+											<tr>
+												<td>BBWS/BWS</td>
+												<td>
+													<?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
+														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+													<?php } else { ?>
+														<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+													<?php } ?>
+												</td>
+
+												<td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_balai; ?></textarea></td>
+
+											</tr>
+											</tr>
 										<?php } ?>
 									<?php } ?>
-								<?php } else { ?>
+								<?php }
+								if (!$hasData) { ?>
 									<tr>
-										<td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
+										<td class="text-center" colspan="9" style="height: 20px;"><b>DATA KOSONG.!</b></td>
 									</tr>
 								<?php } ?>
 							</tbody>
 						</table>
 					</div>
 
-					<!-- 
-					<div class="card-body">
-						<?= $this->session->flashdata('psn'); ?>
+					<!-- Table untuk download URK -->
+					<div class="card-body row col-sm-15  col-lg-4 p-0 ml-4">
 						<?php if ($this->session->userdata('prive') == 'pemda') { ?>
-							<button class="btn btn-primary" style="float:left; " onclick="downloadurk();"><i class="fa fa-plus" aria-hidden="true"></i> TAMBAH DATA</button>
+							<button id="parafButton" class="btn btn-primary" style="float:right; margin-bottom: 5px;" onclick="downloadurk();"><i class="fa fa-save" aria-hidden="true"></i> Simpan</button>
+
+							&nbsp;&nbsp;
+							<a href="<?= base_url(); ?>ExportPdf/generate_pdf " target="_blank" class="btn btn-success btn-icon" style="float:right; margin-bottom: 5px;"><i class="fa fa-download" aria-hidden="true"></i> URK</a>
 						<?php } ?>
 					</div>
+					<div class="card-body">
+						<a id="downloadButton" href="<?= base_url(); ?>DataTeknis/downloadFile/1" class="btn btn-primary" style="float: right; display: none;">Download</a>
+					</div>
+
 					<div class="card-body">
 						<table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
 							<thead class="theadX">
@@ -247,50 +264,32 @@
 							</thead>
 
 							<tbody id="tbody_data">
-
-								<?php if ($dataKegiatan != null) { ?>
-
-									<?php $no = 1;
-									foreach ($dataKegiatan as $key => $val) { ?>
+								<?php if ($dataParaf != null) { ?>
+									<?php
+									$lastVal = end($dataParaf);
+									?>
+									<?php $no = 1; { ?>
 										<tr>
 											<td class="text-center">
 												<?= $no++; ?>
-
 											</td>
 											<td>
-												<b><?= $val->nm_menu; ?></b>
-												<br><br>
-
-												<?php
-												if ($val->kd_menu === '9') {
-													echo '<b>WS : </b>' . $val->nm_ws;
-													echo '<br>';
-													echo '<b>DAS : </b>' . $val->nm_das;
-												} else {
-													echo '<b>' . $val->nm_di . '</b>';
-												} ?>
-												<br><br>
-												<b>-Kecamatan :</b> <?= $val->keca; ?>
-												<br>
-												<b>-Desa :</b> <?= $val->desa; ?>
+												<?= $lastVal->nm_dinas; ?>
 											</td>
-											<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
-											<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
-
-
-											<td><?= $val->satuan_output; ?></td>
+											<td style="width:auto;"><?= $lastVal->nm_kpl_dinas; ?></td>
+											<td><?= $lastVal->nip; ?></td>
+											<td><?= $lastVal->paraf; ?></td>
 
 										</tr>
 									<?php } ?>
 								<?php } else { ?>
 									<tr>
-										<td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
+										<td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSONG.!</b></td>
 									</tr>
 								<?php } ?>
 							</tbody>
 						</table>
-					</div> -->
-
+					</div>
 				</div>
 			</div>
 		</div>
@@ -315,7 +314,7 @@
 							<option value="" selected disabled>-- Pilih Menu --</option>
 							<!-- <?php foreach ($dataMenu as $key => $val) { ?>
 								<option value="<?= $val->id; ?>"><?= $val->nm_menu; ?></option>
-							<?php } ?> -->
+								<?php } ?> -->
 							<option value="1">Pembangunan Jaringan Irigasi</option>
 							<option value="2">Peningkatan jaringan Irigasi</option>
 							<option value="3">Rehabilitas Jaringan Irigasi</option>
@@ -376,7 +375,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="output" class="col-form-label">Output (Hektar) :</label>
+						<label for="output" class="col-form-label">Outcome (Hektar) :</label>
 						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
 					</div>
 					<div class="form-group">
@@ -410,7 +409,8 @@
 			</div>
 			<div class="card-body">
 				<p class="keterangan">*Penulisan Kebutuhan Dana Tidak dapat menggunakan titik dan koma, Contoh "10000000"</p>
-				<p class="keterangan">*Penulisan Nama Daerah Irigasi Harus Sesuai, contoh "D.I ASEM"</p>
+				<p class="keterangan">*Penulisan Nama Daerah Irigasi Untuk Menu Pembangunan Harus Sesuai Format, contoh "D.I. ASEM"</p>
+				<p class="keterangan">*Penginputan Usulan diurutkan Sesuai Prioritas</p>
 
 			</div>
 			<div class="modal-footer">
@@ -418,51 +418,67 @@
 				<button type="Submit" class="btn btn-primary">SIMPAN</button>
 			</div>
 
+
+
 			</form>
 		</div>
 	</div>
 </div>
 <!-- End Modal tambah Data -->
 
-<!-- Modal Tambah Data -->
+<!-- Modal Download URK -->
 <div class="modal fade" id="modalParaf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">TAMBAH DATA</h5>
+				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Pengesahan</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" action="<?= base_url(); ?>Usulan/simpanUsulanKegiatanSimoni">
+				<form method="POST" action="<?= base_url(); ?>Usulan/simpanParafURK" enctype="multipart/form-data">
 
 
 					<div class="form-group">
 						<label for="output" class="col-form-label">Nama Dinas :</label>
-						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<input type="text" class="form-control" id="nm_dinas" name="nm_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
-						<label for="output" class="col-form-label">Nama Kepala Dinas :</label>
-						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<label for="output" class="col-form-label">Nama :</label>
+						<input type="text" class="form-control" id="nm_kpl_dinas" name="nm_kpl_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
+						<label for="output" class="col-form-label">Jabatan :</label>
+						<br>
+						<select name="jabatan" id="jabatan" class="col-form-label" required>
+							<option value="">--Pilih Jabatan--</option>
+							<option value="Kepala Dinas">Kepala Dinas</option>
+							<option value="Plt Kepala DInas">Plt Kepala Dinas</option>
+						</select>
+
+					</div>
+					<div class=" form-group">
 						<label for="output" class="col-form-label">NIP Kepala Dinas :</label>
-						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<input type="text" class="form-control" id="nip" name="nip" required oninput="this.value = this.value.replace(/\D/g, '')" required>
 					</div>
 					<div class="form-group">
 						<label for="recipient-name" class="col-form-label">Paraf Kepala Dinas :</label>
 						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="fileExcel" name="fileExcel" accept="image/jpeg, image/jpg, image/png" required>
+							<input type="file" class="custom-file-input" id="paraf" name="paraf" accept="image/*" required>
 							<label class="custom-file-label" for="customFile">Choose file</label>
 						</div>
 						<script>
-							document.getElementById("fileExcel").addEventListener("change", function() {
+							document.getElementById("paraf").addEventListener("change", function() {
 								var fileName = this.files[0].name;
 								var label = document.querySelector(".custom-file-label");
 								label.textContent = fileName;
 							});
 						</script>
+					</div>
+					<div class="card-body">
+						<p class="keterangan">*Tanda Tangan dilengkapi Cap Instansi</p>
+
 					</div>
 
 
@@ -496,9 +512,9 @@
 						<label for="menuKegiatan_edit" class="col-form-label">Pilih Menu :</label>
 						<select class="form-control" name="menuKegiatan_edit" id="menuKegiatan_edit" required>
 							<option value="" selected disabled>-- Pilih Menu --</option>
-							<?php foreach ($dataMenu as $key => $val) { ?>
-								<option value="<?= $val->id; ?>"><?= $val->nm_menu; ?></option>
-							<?php } ?>
+							<option value="1">Pembangunan Jaringan Irigasi</option>
+							<option value="2">Peningkatan Jaringan Irigasi</option>
+							<option value="3">Rehabilitasi jarigan Irigasi</option>
 						</select>
 					</div>
 					<div class="form-group" id="pilih-ws-edit" style="display: none;">
@@ -555,7 +571,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="output_edit" class="col-form-label">Output (Hektar) :</label>
+						<label for="output_edit" class="col-form-label">Outcome (Hektar) :</label>
 						<input type="text" class="form-control" id="output_edit" name="output_edit" required oninput="this.value = this.value.replace(/\D/g, '')">
 					</div>
 					<div class="form-group">
@@ -613,9 +629,13 @@
 						<label for="komponen" class="col-form-label">Pilih Komponen :</label>
 						<select class="form-control select3" name="komponen" id="komponen" required>
 							<option value="" selected disabled>-- Pilih Komponen --</option>
-							<?php foreach ($dataKomponen as $key => $val) { ?>
-								<option value="<?= $val->id ?>"><?= $val->nm_komponen . ' (' . $val->satuan . ')'; ?></option>
-							<?php } ?>
+
+
+							<?php foreach ($dataKomponen as $key => $val) {
+								if (!in_array($val->id, ['34', '35', '36'])) { ?>
+									<option value="<?= $val->id ?>"><?= $val->nm_komponen . ' (' . $val->satuan . ')'; ?></option>
+							<?php }
+							} ?>
 						</select>
 					</div>
 					<div class="form-group">
@@ -643,6 +663,7 @@
 			width: '100%'
 
 		})
+
 
 		$('.select3').select2({
 			placeholder: '-Pilih Komponen-',
@@ -882,12 +903,12 @@
 					} else {
 
 						$('#kategoriDi_edit').html(`
-						<option value="DIT">DIT</option>
-						<option value="DI">DI</option>
-						<option value="DIR">DIR</option>
-						<option value="DIAT">DIAT</option>
-						<option value="DIP">DIP</option>
-						`);
+							<option value="DIT">DIT</option>
+							<option value="DI">DI</option>
+							<option value="DIR">DIR</option>
+							<option value="DIAT">DIAT</option>
+							<option value="DIP">DIP</option>
+							`);
 
 						$('#pilih-kategori-di-edit').show();
 						$('#pilih-ws-edit').hide();
@@ -899,12 +920,12 @@
 
 						if (data.dataSimoni.kd_menu == '1') {
 							$('#kategoriDi_edit').html(`
-						<option value="DIT">DIT</option>
-						<option value="BARU">DI</option>
-						<option value"DIR">DIR</option>
-						<option value="DIAT">DIAT</option>
-						<option value="DIP">DIP</option>
-						`);
+								<option value="DIT">DIT</option>
+								<option value="BARU">DI</option>
+								<option value"DIR">DIR</option>
+								<option value="DIAT">DIAT</option>
+								<option value="DIP">DIP</option>
+								`);
 
 							$('#pilih-kategori-di-edit').show();
 							$('#pilih-ws-edit').hide();
@@ -1178,14 +1199,14 @@
 
 
 					$('#kategoriDi').html(`
-                    <option value="DIT">DIT</option>
-					<option value="BARU">DI</option>
-					<option value="DIR">DIR</option>
-                    <option value="DIAT">DIAT</option>
-					<option value="DIP">DIP</option>
-					
-					
-                `);
+			<option value="DIT">DIT</option>
+			<option value="BARU">DI</option>
+			<option value="DIR">DIR</option>
+			<option value="DIAT">DIAT</option>
+			<option value="DIP">DIP</option>
+
+
+			`);
 					$('#pilih-kategori-di').show(); // Menampilkan dropdown
 					$('#pilih-ws').hide();
 					$('#pilih-das').hide();
@@ -1197,14 +1218,14 @@
 					break;
 				case "2":
 					$('#kategoriDi').html(`
-                    <option value="DIT">DIT</option>
-					<option value="DI">DI</option>
-					<option value="DIR">DIR</option>
-                    <option value="DIAT">DIAT</option>
-					<option value="DIP">DIP</option>
-					
-					
-                `);
+						<option value="DIT">DIT</option>
+						<option value="DI">DI</option>
+						<option value="DIR">DIR</option>
+						<option value="DIAT">DIAT</option>
+						<option value="DIP">DIP</option>
+
+
+						`);
 
 					$('#pilih-kategori-di').show();
 					$('#pilih-ws').hide();
@@ -1218,12 +1239,12 @@
 				case "3":
 
 					$('#kategoriDi').html(`
-                    <option value="DIT">DIT</option>
-					<option value="DI">DI</option>
-					<option value="DIR">DIR</option>
-                    <option value="DIAT">DIAT</option>
-					<option value="DIP">DIP</option>
-                `);
+						<option value="DIT">DIT</option>
+						<option value="DI">DI</option>
+						<option value="DIR">DIR</option>
+						<option value="DIAT">DIAT</option>
+						<option value="DIP">DIP</option>
+						`);
 					$('#pilih-kategori-di').show();
 					$('#pilih-ws').hide();
 					$('#pilih-das').hide();

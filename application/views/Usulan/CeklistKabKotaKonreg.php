@@ -1,4 +1,3 @@
-
 <section class="content">
 	<div class="container-fluid">
 		<br>
@@ -29,7 +28,7 @@
 									<th style="border: thin solid #006666;" colspan="4">CHEKLIST KEGIATAN</th>
 								</tr>
 								<tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-									
+
 									<th style="border: thin solid #006666;">PROVINSI</th>
 									<th style="border: thin solid #006666;">BALAI</th>
 									<th style="border: thin solid #006666;">SDA</th>
@@ -40,23 +39,23 @@
 
 							<tbody id="tbody_data">
 
-								<?php 
+								<?php
 
-								$no=1;
+								$no = 1;
 
 								?>
 
 								<?php foreach ($dataRekap as $key => $val) { ?>
 									<tr style="background-color:#F7ECDE;">
 										<td style="border: thin solid #006666;" align="center"><?= $no++; ?></td>
-										<td style="border: thin solid #006666; text-align: left;">    
+										<td style="border: thin solid #006666; text-align: left;">
 											<a href="<?= base_url(); ?>Usulan/cheklistURKKonreg/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
 										</td>
-										<td  style="border: thin solid #006666;" class="number"><?= $val->jml_data; ?></td>
-										<td  style="border: thin solid #006666;" class="number"><?= $val->jml_prov; ?></td>
-										<td  style="border: thin solid #006666;" class="number"><?= $val->jml_balai; ?></td>
-										<td  style="border: thin solid #006666;" class="number"><?= $val->jml_sda; ?></td>
-										<td  style="border: thin solid #006666;" class="number"><?= $val->jml_pusat; ?></td>
+										<td style="border: thin solid #006666;" class="number"><?= $val->jml_data; ?></td>
+										<td style="border: thin solid #006666;" class="number"><?= $val->jml_prov; ?></td>
+										<td style="border: thin solid #006666;" class="number"><?= $val->jml_balai; ?></td>
+										<td style="border: thin solid #006666;" class="number"><?= $val->jml_sda; ?></td>
+										<td style="border: thin solid #006666;" class="number"><?= $val->jml_pusat; ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>

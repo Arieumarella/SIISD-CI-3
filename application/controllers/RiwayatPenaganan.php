@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class RiwayatPenaganan extends CI_Controller {
+class RiwayatPenaganan extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -31,7 +33,7 @@ class RiwayatPenaganan extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'prov' =>  ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_riwayatPenaganan->getProvBalai(),
+			'prov' => ($this->session->userdata('prive') != 'balai') ? $this->M_dinamis->add_all('m_prov', '*', 'provid', 'asc') : $this->M_riwayatPenaganan->getProvBalai(),
 			'content' => 'riwayatPenaganan/index'
 		);
 
@@ -58,7 +60,7 @@ class RiwayatPenaganan extends CI_Controller {
 	{
 		$jumlahDataPerHalaman  = ($this->input->post('perhalaman')) ? $this->input->post('perhalaman') : 5;
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
-		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
+		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null;
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
 		$kotakabid = ($this->input->post('kotakabid') != '') ? $this->input->post('kotakabid') : null;
 
@@ -73,8 +75,6 @@ class RiwayatPenaganan extends CI_Controller {
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
-
-
 	}
 
 
@@ -87,7 +87,6 @@ class RiwayatPenaganan extends CI_Controller {
 		$data = $this->M_riwayatPenaganan->getDataDi($searchDi, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
-
 	}
 
 
@@ -97,14 +96,10 @@ class RiwayatPenaganan extends CI_Controller {
 
 		if ($this->session->userdata('prive') != 'balai') {
 			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
-		}else{
+		} else {
 			$data = $this->M_riwayatPenaganan->getkabKota($prov);
 		}
 
 		echo json_encode($data);
-
 	}
-
-
-
 }

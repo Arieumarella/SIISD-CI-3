@@ -68,7 +68,7 @@ class Login extends CI_Controller
 			$prive = 'pemda';
 		}
 
-		if (substr($cek->uid, 0, 1) == 'Y') {
+		if (substr($cek->uid, 0, 1) == 'S') {
 			$prive = 'sda';
 		}
 

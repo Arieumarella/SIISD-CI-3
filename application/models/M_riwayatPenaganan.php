@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No DITect script access allowed');
+defined('BASEPATH') or exit('No DITect script access allowed');
 
-class M_riwayatPenaganan extends CI_Model {
+class M_riwayatPenaganan extends CI_Model
+{
 
 	private $thang = '';
 
@@ -11,7 +12,7 @@ class M_riwayatPenaganan extends CI_Model {
 		$startingYear = $this->session->userdata('thang');
 		$numOfYears = 6;
 		$yearArray = range($startingYear - $numOfYears + 1, $startingYear);
-		$arrayHuruf = [ 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+		$arrayHuruf = ['c', 'd', 'e', 'f', 'g', 'h', 'i'];
 
 		// $cari = ($search != null) ? " AND b.irigasiid='$search'" : '';
 		$cari = '';
@@ -19,7 +20,7 @@ class M_riwayatPenaganan extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+		if ($this->session->userdata('prive') == 'balai' and $kotakabid == null) {
 			$stringCari = getWhereBalai();
 			$cari .= " AND kotakabid IN $stringCari";
 		}
@@ -50,9 +51,7 @@ class M_riwayatPenaganan extends CI_Model {
 		$jml_data = $this->db->query($qry2)->row();
 
 
-		return $dataArray = ($data == true AND $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
-
-
+		return $dataArray = ($data == true and $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
 	}
 
 
@@ -66,8 +65,8 @@ class M_riwayatPenaganan extends CI_Model {
 	}
 
 
-	public function getkabKota($prov='')
-	{	
+	public function getkabKota($prov = '')
+	{
 		$nama = $this->session->userdata('nama');
 		$substring_to_remove = 'BALAI ';
 		$nama = str_replace($substring_to_remove, '', $nama);
@@ -109,7 +108,7 @@ class M_riwayatPenaganan extends CI_Model {
 
 		$searchDi .= " AND m_irigasi.isActive = '1' ";
 
-		if ($this->session->userdata('prive') == 'provinsi' OR $this->session->userdata('prive') == 'pemda') {
+		if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda') {
 			$kotakabid = $this->session->userdata('kotakabid');
 			$searchDi .= " AND 	kotakabid='$kotakabid'";
 		}
@@ -121,7 +120,7 @@ class M_riwayatPenaganan extends CI_Model {
 	}
 
 
-	public function getDataDiById($id='')
+	public function getDataDiById($id = '')
 	{
 		$thang = $this->session->userdata('thang');
 
@@ -137,8 +136,5 @@ class M_riwayatPenaganan extends CI_Model {
 		$qry = "SELECT b.provinsi, c.kemendagri, a.provid as provIdX, a.irigasiid as irigasiidX,  a.kotakabid as kotakabidX, a.nama, d.* FROM (SELECT * FROM m_irigasi ) AS a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid LEFT JOIN (SELECT * FROM p_f1d WHERE ta='$thangX') as d on a.irigasiid=d.irigasiid WHERE a.kotakabid='$kab'";
 
 		return $this->db->query($qry)->result();
-
 	}
-
-
 }

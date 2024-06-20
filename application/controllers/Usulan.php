@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+use Dompdf\Dompdf;
+use PharIo\Manifest\Application;
+
+
+
 class Usulan extends CI_Controller
 {
 
@@ -24,12 +30,16 @@ class Usulan extends CI_Controller
 		$this->load->model('M_usulan');
 		$this->load->library('user_agent');
 		$this->load->model('M_DataTeknis');
+		$this->load->model('M_VerifikasiDataTeknis');;
+		$this->load->library('pdf');
+		$this->load->library('pdfgenerator');
 	}
 
 	public function index()
 	{
 		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$kotakabid = $this->session->userdata('kotakabid');
+		// $nm_Provinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idprov])->provinsi;
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
 		$ta = $this->session->userdata('thang');
 
@@ -45,11 +55,13 @@ class Usulan extends CI_Controller
 			'kotakabid' => $kotakabid,
 			'nmKabkota' => $nmKabkota,
 			'dataKegiatan' => $this->M_usulan->getUrkSimoni($kotakabid),
+			// 'nm_Provinsi' => $nm_Provinsi,
 			// 'dataParaf' => $this->M_usulan->getUrkParaf($kotakabid),
 			'dataMenu' => $this->M_dinamis->add_all('m_menu', '*', 'id', 'asc'),
 			'dataKecamatan' => $this->M_dinamis->getResult('m_keca', ['kotakabid' => $kotakabid]),
 			'dataWS' => $this->M_dinamis->getResult('m_ws', ['kotakabid' => $kotakabid]),
-			'dataDiPembangunan' => $this->M_dinamis->getResult('m_di_pembangunan_baru', ['Idkokab' => $kotakabid])
+			'dataDiPembangunan' => $this->M_dinamis->getResult('m_di_pembangunan_baru', ['Idkokab' => $kotakabid]),
+			'dataParaf' => $this->M_dinamis->getResult('download_urk', ['kotakabid' => $kotakabid]),
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
@@ -94,6 +106,31 @@ class Usulan extends CI_Controller
 
 		echo json_encode($data);
 	}
+	public function getDataKabupatenByIdProv()
+	{
+		$idProv = $this->input->post('idProv');
+
+		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $idProv]);
+
+		echo json_encode($data);
+	}
+
+	public function getURKByDownload()
+	{
+
+		$provinsiSelect = $this->input->post('provinsiSelect');
+		$kabkotaSelect = $this->input->post('kabkotaSelect');
+		$jns_kegiatan = $this->input->post('jns_kegiatan');
+		$thang = $this->session->userdata('thang');
+
+		if ($jns_kegiatan == '1') {
+			$data = $this->M_usulan->getUrkDownload('m_usulan_simoni', $kabkotaSelect);
+		} else {
+			$data = $this->M_usulan->getUrkDownload('m_usulan_konreg', $kabkotaSelect);
+		}
+
+		echo json_encode(['dataRK' => $data]);
+	}
 
 
 	public function simpanUsulanKegiatanSimoni()
@@ -131,6 +168,7 @@ class Usulan extends CI_Controller
 			'kd_ws' => $wsPilih,
 			'jns_luasan' => ($menuKegiatan == '2') ? $jenisOutcome : '',
 			'kd_das' => $das,
+			'verif_provinsi' => 0,
 			'verif_balai' => 0,
 			'verif_sda' => 0,
 			'verif_pusat' => 0,
@@ -159,26 +197,42 @@ class Usulan extends CI_Controller
 		redirect('/Usulan', 'refresh');
 	}
 
-	public function simpanParafURK()
+	public function simpanURKSimoniPengendaliBanjir()
 	{
-
+		$kategoriDi = $this->input->post('kategoriDi');
+		$daerahIrigasi = $this->input->post('daerahIrigasi');
+		$nm_di = $this->input->post('nm_di');
+		$daerahIrigasiBaru = $this->input->post('daerahIrigasiBaru');
+		$output = $this->input->post('output');
+		$pengadaan = $this->input->post('pengadaan');
+		$pagu_kegiatan = $this->input->post('pagu_kegiatan');
 		$kotakabid = $this->session->userdata('kotakabid');
 		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$thang = $this->session->userdata('thang');
-		$nm_dinas = $this->session->userdata('nm_dinas');
-		$nm_kpl_dinas = $this->session->userdata('nm_kpl_dinas');
-		$nip = $this->session->userdata('nip');
-		$paraf = $this->session->userdata('paraf');
-
+		$menuKegiatan = $this->input->post('menuKegiatan');
+		$kecamatan = $this->input->post('kecamatan');
+		$desa = $this->input->post('desa');
+		$wsPilih = $this->input->post('wsPilih');
+		$das = $this->input->post('das');
+		$jenisOutcome = $this->input->post('jenisOutcome');
 
 		$insertData = array(
-			'provid' => $idprov,
-			'kotakabid' => $kotakabid,
-			'provid' => $idprov,
-			'nm_kpl_dinas' => $nm_kpl_dinas,
-			'paraf' => $paraf,
-			'nm_dinas' => $nm_dinas,
-			'nip' => $nip,
+			'kdprov' => $idprov,
+			'kdkabkota' => $kotakabid,
+			'kd_di' => ($kategoriDi == 'BARU') ? '' : $daerahIrigasi,
+			'kategori_di' => $kategoriDi,
+			'nm_di' => ($kategoriDi == 'BARU') ? $daerahIrigasiBaru : $nm_di,
+			'output' => $output,
+			'satuan_output' => 'Hektar',
+			'pagu_kegiatan' => $pagu_kegiatan,
+			'pengadaan' => $pengadaan,
+			'kdkec' => $kecamatan,
+			'kddes' => $desa,
+			'kd_menu' => $menuKegiatan,
+			'kd_ws' => $wsPilih,
+			'jns_luasan' => ($menuKegiatan == '2') ? $jenisOutcome : '',
+			'kd_das' => $das,
+			'verif_provinsi' => 0,
 			'verif_balai' => 0,
 			'verif_sda' => 0,
 			'verif_pusat' => 0,
@@ -186,47 +240,7 @@ class Usulan extends CI_Controller
 			'created_at' => date('Y-m-d H:i:s')
 		);
 
-		$pros = $this->M_dinamis->save('download_urk', $insertData);
-
-		if ($pros) {
-
-			$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-				Data Berhasil Disimpan.!
-				</div>');
-		} else {
-
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-				Data Gagal Disimpan.!
-				</div>');
-		}
-
-		redirect('/Usulan', 'refresh');
-	}
-
-
-	public function tambahDataKomponen()
-	{
-		$komponen = $this->input->post('komponen');
-		$volume = $this->input->post('volume');
-		$idData = $this->input->post('idData');
-		$ta = $this->session->userdata('thang');
-		$nm_komponen = $this->M_dinamis->getById('m_master_komponen', ['id' => $komponen]);
-
-		$dataInsert = array(
-			'id_master_komponen' => $komponen,
-			'id_usulan_simoni' => $idData,
-			'volume' => $volume,
-			'ta' => $ta,
-			'nm_komponen' => $nm_komponen->nm_komponen,
-			'satuan' => $nm_komponen->satuan,
-			'created_at' => date('Y-m-d H:i:s')
-		);
-
-		$pros = $this->M_usulan->ada_komponen($dataInsert, $idData, $ta);
+		$pros = $this->M_dinamis->save('m_usulan_simoni', $insertData);
 
 		if ($pros) {
 
@@ -244,11 +258,394 @@ class Usulan extends CI_Controller
 				</div>');
 		}
 
+		redirect('/Usulan/pengendalibanjirURK', 'refresh');
+	}
+
+	public function simpanChecklistSImoni()
+	{
+		$idEditSimoni = $this->input->post('idEditSimoni');
+		$idpenggunaX = $this->session->userdata('id');
+
+		$sid = $this->input->post('sid');
+		$ded = $this->input->post('ded');
+		$gambar_rencana = $this->input->post('gambar_rencana');
+		$aset_bendung = $this->input->post('aset_bendung');
+		$aset_primer = $this->input->post('aset_primer');
+		$aset_sekunder = $this->input->post('aset_sekunder');
+		$aset_bangunan_pengatur = $this->input->post('aset_bangunanan_pengatur');
+
+		$kondisi1_bendung = $this->input->post('kondisi1_bendung');
+		$kondisi1_primer = $this->input->post('kondisi1_primer');
+		$kondisi1_sekunder = $this->input->post('kondisi1_sekunder');
+		$kondisi1_bangunan_pengatur = $this->input->post('kondisi1_bangunanan_pengatur');
+
+		$kondisi2_bendung = $this->input->post('kondisi2_bendung');
+		$kondisi2_primer = $this->input->post('kondisi2_primer');
+		$kondisi2_sekunder = $this->input->post('kondisi2_sekunder');
+		$kondisi2_bangunan_pengatur = $this->input->post('kondisi2_bangunanan_pengatur');
+
+		$kesesuaian_bendung = $this->input->post('kesesuaian_bendung');
+		$kesesuaian_primer = $this->input->post('kesesuaian_primer');
+		$kesesuaian_sekunder = $this->input->post('kesesuaian_sekunder');
+		$kesesuaian_bangunan_pengatur = $this->input->post('kesesuaian_bangunanan_pengatur');
+		$ta = $this->input->post('ta');
+
+		$dataEdit = array(
+			'sid' => $sid,
+			'ded' => $ded,
+			'gambar_rencana' => $gambar_rencana,
+			'aset_bendung' => $aset_bendung,
+			'aset_primer' => $aset_primer,
+			'aset_sekunder' => $aset_sekunder,
+			'aset_bangunan_pengatur' => $aset_bangunan_pengatur,
+			'kondisi1_bendung' => $kondisi1_bendung,
+			'kondisi1_primer' => $kondisi1_primer,
+			'kondisi1_sekunder' => $kondisi1_sekunder,
+			'kondisi1_bangunan_pengatur' => $kondisi1_bangunan_pengatur,
+			'kondisi2_bendung' => $kondisi2_bendung,
+			'kondisi2_primer' => $kondisi2_primer,
+			'kondisi2_sekunder' => $kondisi2_sekunder,
+			'kondisi2_bangunan_pengatur' => $kondisi2_bangunan_pengatur,
+
+			'kesesuaian_bendung' => $kesesuaian_bendung,
+			'kesesuaian_primer' => $kesesuaian_primer,
+			'kesesuaian_sekunder' => $kesesuaian_sekunder,
+			'kesesuaian_bangunan_pengatur' => $kesesuaian_bangunan_pengatur,
+			'ta' => $ta,
+			'updated_at' => date('Y-m-d H:i:s')
+		);
+
+		$pros = $this->M_dinamis->update('m_usulan_simoni', $dataEdit, ['id' => $idEditSimoni]);
+
+		if ($pros) {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+				Data Berhasil Disimpan.!
+				</div>');
+		} else {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan.!
+				</div>');
+		}
+
+		redirect($this->agent->referrer());
+	}
+
+
+
+	public function simpanParafURK()
+	{
+		$kotakabid = $this->session->userdata('kotakabid');
+		$provid = substr($kotakabid, 0, 2);
+		$idData = $this->input->post('idData');
+		$nm_dinas = $this->input->post('nm_dinas');
+		$nm_kpl_dinas = $this->input->post('nm_kpl_dinas');
+		$nip = $this->input->post('nip');
+		$jabatan = $this->input->post('jabatan');
+		$ta = $this->session->userdata('thang');
+
+		// Validasi file upload
+		if (isset($_FILES['paraf']) && $_FILES['paraf']['size'] > 0) {
+			$config['upload_path'] = './assets/paraf/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 10240; // 10MB dalam KB
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('paraf')) {
+				$error = $this->upload->display_errors();
+				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>' . $error . '</div>');
+				redirect('/Usulan', 'refresh');
+				return;
+			} else {
+				$uploadData = $this->upload->data();
+				$paraf = $uploadData['file_name'];
+			}
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+            Paraf tidak boleh kosong atau melebihi 10MB.
+            </div>');
+			redirect('/Usulan', 'refresh');
+			return;
+		}
+
+		$dataInsert = array(
+			'provid' => $provid,
+			'kotakabid' => $kotakabid,
+			'id_usulan_simoni' => $idData,
+			'nm_kpl_dinas' => $nm_kpl_dinas,
+			'nm_dinas' => $nm_dinas,
+			'nip' => $nip,
+			'jabatan' => $jabatan,
+			'ta' => $ta,
+			'paraf' => $paraf,
+			'created_at' => date('Y-m-d H:i:s')
+		);
+
+		$pros = $this->M_dinamis->save('download_urk', $dataInsert);
+		if ($pros) {
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+            Data Berhasil Disimpan.!
+            </div>');
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+            Data Gagal Disimpan.!
+            </div>');
+		}
+
 		redirect('/Usulan', 'refresh');
 	}
 
 
+	public function generate_pdf($kotakabid = '')
+	{
+		// Ambil data dari model
+
+		if ($kotakabid == '') {
+			redirect('/Usulan/CheklistSimoni', 'refresh');
+			return;
+		}
+
+		$idprov = substr($kotakabid, 0, 2);
+		$kotakabid = $this->session->userdata('kotakabid');
+		// $nm_Provinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idprov])->provinsi;
+		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
+		$ta = $this->session->userdata('thang');
+
+		$data = array(
+			'tittle' => 'Usulan Rencana Kegiatan',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'dataKomponen' => $this->M_dinamis->add_all('m_master_komponen', '*', 'id', 'ASC'),
+			'idprov' => $idprov,
+			'kotakabid' => $kotakabid,
+			'nmKabkota' => $nmKabkota,
+			'dataKegiatan' => $this->M_usulan->getUrkSimoni($kotakabid),
+			// 'nm_Provinsi' => $nm_Provinsi,
+			// 'dataParaf' => $this->M_usulan->getUrkParaf($kotakabid),
+			'dataMenu' => $this->M_dinamis->add_all('m_menu', '*', 'id', 'asc'),
+			'dataKecamatan' => $this->M_dinamis->getResult('m_keca', ['kotakabid' => $kotakabid]),
+			'dataWS' => $this->M_dinamis->getResult('m_ws', ['kotakabid' => $kotakabid]),
+			'dataDiPembangunan' => $this->M_dinamis->getResult('m_di_pembangunan_baru', ['Idkokab' => $kotakabid]),
+			'dataParaf' => $this->M_dinamis->getResult('download_urk', ['kotakabid' => $kotakabid]),
+
+
+		);
+
+		$html = $this->load->view('Usulan/rkSimoni', $data, true);
+
+		// Konfigurasi TCPDF
+		// Konfigurasi TCPDF
+		$pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('URK');
+		$pdf->SetTitle('PDF Export URK');
+		$pdf->SetSubject('TCPDF Tutorial');
+		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+		// Set margin dan informasi lainnya
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(true);
+
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// Set margin kiri, atas, kanan, dan margin bawah
+		$pdf->SetMargins(10, 10, 10);
+		$pdf->SetAutoPageBreak(TRUE, 10); // Margin bawah diatur menjadi 10
+
+		// Tambah halaman pertama
+		$pdf->AddPage('L', 'mm', 'A4');
+		$pdf->SetFont('Times', '', 11, true);
+
+		// Tulis konten HTML ke PDF
+		$pdf->writeHTML($html, true, false, true, false, '');
+
+		// Output PDF
+		$pdf->Output('Export_URK.pdf', 'I');
+	}
+
+	public function simpanParafVerif()
+	{
+		// $id = $this->input->post('id');
+		$kotakabid = $this->session->userdata('kotakabid');
+		$provid = substr($kotakabid, 0, 2);
+		$nm_verif  = $this->input->post('nm_verif');
+		$desk = $this->input->post('desk');
+		$paraf_verif = $this->input->post('paraf_verif');
+		$ta = $this->session->userdata('thang');
+		// $idkabkota = $this->input->post('idkabkota');
+
+		// Validasi file upload
+		if (isset($_FILES['paraf_verif']) && $_FILES['paraf_verif']['size'] > 0) {
+			$config['upload_path'] = './assets/paraf/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 10240; // 10MB dalam KB
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('paraf_verif')) {
+				$error = $this->upload->display_errors();
+				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>' . $error . '</div>');
+				redirect('/Usulan', 'refresh');
+				return;
+			} else {
+				$uploadData = $this->upload->data();
+				$paraf_verif = $uploadData['file_name'];
+			}
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+            Paraf tidak boleh kosong atau melebihi 10MB.
+            </div>');
+			redirect('/Usulan', 'refresh');
+			return;
+		}
+
+		$dataInsert = array(
+
+			'provid' => $provid,
+			'kotakabid' => $kotakabid,
+			'nm_verif' => $nm_verif,
+			'desk' => $desk,
+			'ta' => $ta,
+			'paraf_verif' => $paraf_verif,
+			'created_at' => date('Y-m-d H:i:s')
+		);
+
+		$pros = $this->M_dinamis->save('download_urk_verif', $dataInsert);
+		if ($pros) {
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+            Data Berhasil Disimpan.!
+            </div>');
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+            Data Gagal Disimpan.!
+            </div>');
+		}
+
+		// redirect('/Usulan/cheklistURKSimoni/', 'refresh');
+		redirect($this->agent->referrer());
+	}
+
+	public function tambahDataKomponen()
+	{
+		$komponen = $this->input->post('komponen');
+		$volume = $this->input->post('volume');
+		$idData = $this->input->post('idData');
+		$ta = $this->session->userdata('thang');
+		$nm_komponen = $this->M_dinamis->getById('m_master_komponen', ['id' => $komponen]);
+		$dataInsert = array(
+			'id_master_komponen' => $komponen,
+			'id_usulan_simoni' => $idData,
+			'volume' => $volume,
+			'ta' => $ta,
+			'nm_komponen' => $nm_komponen->nm_komponen,
+			'satuan' => $nm_komponen->satuan,
+			'created_at' => date('Y-m-d H:i:s')
+		);
+		$pros = $this->M_usulan->ada_komponen($dataInsert, $idData, $ta);
+		if ($pros) {
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+				Data Berhasil Disimpan.!
+				</div>');
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan.!
+				</div>');
+		}
+		redirect('/Usulan', 'refresh');
+	}
+
+	public function tambahKomponenPengendaliBanjir()
+	{
+		$komponen = $this->input->post('komponen');
+		$volume = $this->input->post('volume');
+		$idData = $this->input->post('idData');
+		$ta = $this->session->userdata('thang');
+		$nm_komponen = $this->M_dinamis->getById('m_master_komponen', ['id' => $komponen]);
+		$dataInsert = array(
+			'id_master_komponen' => $komponen,
+			'id_usulan_simoni' => $idData,
+			'volume' => $volume,
+			'ta' => $ta,
+			'nm_komponen' => $nm_komponen->nm_komponen,
+			'satuan' => $nm_komponen->satuan,
+			'created_at' => date('Y-m-d H:i:s')
+		);
+		$pros = $this->M_usulan->ada_komponen($dataInsert, $idData, $ta);
+		if ($pros) {
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+				Data Berhasil Disimpan.!
+				</div>');
+		} else {
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan.!
+				</div>');
+		}
+		redirect('/Usulan/pengendalibanjirURK', 'refresh');
+	}
+
+
 	public function deleteKomponen()
+	{
+		$id = $this->input->post('id');
+		$idMasterData = $this->input->post('idMasterData');
+		$ta = $this->session->userdata('thang');
+
+		$pros = $this->M_usulan->deleteKomponen($id, $idMasterData, $ta);
+
+
+		if ($pros) {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+				Data Berhasil Dihapus.!
+				</div>');
+		} else {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Dihapus.!
+				</div>');
+		}
+
+
+		echo json_encode(['code' => 200]);
+	}
+
+	public function deleteKomponenPengendaliBanjir()
 	{
 		$id = $this->input->post('id');
 		$idMasterData = $this->input->post('idMasterData');
@@ -305,6 +702,99 @@ class Usulan extends CI_Controller
 		echo json_encode(['code' => 200]);
 	}
 
+
+	public function ChecklistPfid()
+	{
+		$tmp = array(
+			'tittle' => 'Rekap Irigasi Kab/Kota',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'content' => 'Usulan/ChecklistPfid',
+			'dataProv' => $this->M_dinamis->add_all('m_prov', '*', 'provid', 'ASC'),
+		);
+
+		$this->load->view('tamplate/baseTamplate', $tmp);
+	}
+
+	public function export_pdf($kotakabid = '')
+	{
+		// Cek apakah kotakabid kosong
+		if (empty($kotakabid)) {
+			redirect('/Usulan/CheklistSimoni', 'refresh');
+			return;
+		}
+
+		$idProv = substr($kotakabid, 0, 2);
+
+		// Ambil data dari model dan cek apakah data ada
+		$dataProvinsiResult = $this->M_dinamis->getById('m_prov', ['provid' => $idProv]);
+		if (!$dataProvinsiResult) {
+			// Redirect jika data tidak ditemukan
+			redirect('/Usulan/CheklistSimoni', 'refresh');
+			return;
+		}
+
+		$dataKabKotaResult = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid]);
+		if (!$dataKabKotaResult) {
+			// Redirect jika data tidak ditemukan
+			redirect('/Usulan/CheklistSimoni', 'refresh');
+			return;
+		}
+
+		$dataProvinsi = $dataProvinsiResult->provinsi;
+		$dataKabKota = $dataKabKotaResult->kemendagri;
+
+		$data = array(
+			'tittle' => 'Usulan Rencana Kegiatan',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'dataKomponen' => $this->M_dinamis->add_all('m_master_komponen', '*', 'id', 'ASC'),
+			'idProv' => $idProv,
+			'nm_prov' => $dataProvinsi,
+			'kotakabid' => $kotakabid,
+			'nmKabkota' => $dataKabKota,
+			'dataKegiatan' => $this->M_usulan->getUrkSimoni($kotakabid),
+			'dataMenu' => $this->M_dinamis->add_all('m_menu', '*', 'id', 'asc'),
+			'dataKecamatan' => $this->M_dinamis->getResult('m_keca', ['kotakabid' => $kotakabid]),
+			'dataWS' => $this->M_dinamis->getResult('m_ws', ['kotakabid' => $kotakabid]),
+			'dataDiPembangunan' => $this->M_dinamis->getResult('m_di_pembangunan_baru', ['Idkokab' => $kotakabid]),
+			'dataParaf' => $this->M_dinamis->getResult('download_urk', ['kotakabid' => $kotakabid]),
+		);
+
+		$html = $this->load->view('Usulan/rkSimoni', $data, true);
+
+		// Konfigurasi TCPDF
+		$pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('URK');
+		$pdf->SetTitle('PDF Export URK');
+		$pdf->SetSubject('TCPDF Tutorial');
+		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+		// Set margin dan informasi lainnya
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(true);
+
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// Set margin kiri, atas, kanan, dan margin bawah
+		$pdf->SetMargins(10, 10, 10);
+		$pdf->SetAutoPageBreak(TRUE, 10); // Margin bawah diatur menjadi 10
+
+		// Tambah halaman pertama
+		$pdf->AddPage('L', 'mm', 'A4');
+		$pdf->SetFont('Times', '', 11, true);
+
+		// Tulis konten HTML ke PDF
+		$pdf->writeHTML($html, true, false, true, false, '');
+
+		// Output PDF
+		$pdf->Output('Export_URK.pdf', 'I');
+	}
+
 	public function CheklistSimoni()
 	{
 		$kotakabid = $this->session->userdata('kotakabid');
@@ -315,6 +805,8 @@ class Usulan extends CI_Controller
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'Usulan/CeklistProvinsiSimoni',
 			'dataRekap' => $this->M_usulan->rekapCehklistSimoni(),
+			'dataProv' => $this->M_VerifikasiDataTeknis->getRekapProv(),
+			'dataBalai' => getWhereBalaiProv(),
 			'dataKegiatan' => $this->M_DataTeknis->rekapIrigasiProvinsi()
 		);
 
@@ -322,15 +814,14 @@ class Usulan extends CI_Controller
 	}
 
 
+
 	public function rekapKabKotaSimoni($idProv = '')
 	{
-
 		if ($idProv == '') {
 			redirect('/Usulan/CheklistSimoni', 'refresh');
 			return;
 		}
 		$nm_Provinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idProv])->provinsi;
-
 		$tmp = array(
 			'tittle' => 'Rekap Irigasi Kab/Kota',
 			'footer_content' => 'footer_content',
@@ -339,6 +830,7 @@ class Usulan extends CI_Controller
 			'content' => 'Usulan/CeklistKabKotaSimoni',
 			'dataRekap' => $this->M_usulan->rekapCehklistSimoniKabKota($idProv),
 			'nm_Provinsi' => $nm_Provinsi,
+			'dataBalai' => getWhereBalaiKotaKabid(),
 			'idProv' => $idProv
 		);
 
@@ -356,6 +848,7 @@ class Usulan extends CI_Controller
 		$idProv = substr($kotakabid, 0, 2);
 		$dataProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idProv])->provinsi;
 		$dataKabKota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
+
 		$ta = $this->session->userdata('thang');
 
 		$tmp = array(
@@ -377,6 +870,78 @@ class Usulan extends CI_Controller
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
+
+	public function cheklistURKSimoniPengendaliBanjir($kotakabid = '')
+	{
+		if ($kotakabid == '') {
+			redirect('/Usulan/CheklistSimoniPengendaliBanjir', 'refresh');
+			return;
+		}
+
+		$idProv = substr($kotakabid, 0, 2);
+		$dataProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idProv])->provinsi;
+		$dataKabKota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
+		$ta = $this->session->userdata('thang');
+
+		$tmp = array(
+			'tittle' => 'Rekap Simoni Pengendali Banjir',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'content' => 'Usulan/cheklistURKSimoniPengendaliBanjir',
+			'dataRekap' => $this->M_usulan->getUrkSimoni($kotakabid),
+			'dataKegiatan' => $this->M_usulan->getUrkSimoni($kotakabid),
+			'nm_prov' => $dataProvinsi,
+			'nm_kotakab' => $dataKabKota,
+			'kotakabid' => $kotakabid,
+			'idProv' => $idProv,
+			'dataMenu' => $this->M_dinamis->add_all('m_menu', '*', 'id', 'asc'),
+			'dataKecamatan' => $this->M_dinamis->getResult('m_keca', ['kotakabid' => $kotakabid]),
+			'dataWS' => $this->M_dinamis->getResult('m_ws', ['kotakabid' => $kotakabid]),
+		);
+
+		$this->load->view('tamplate/baseTamplate', $tmp);
+	}
+
+	public function CheklistSimoniPengendaliBanjir()
+	{
+		$kotakabid = $this->session->userdata('kotakabid');
+		$tmp = array(
+			'tittle' => 'Rekap Simoni Pengendali Banjir',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'dataBalai' => getWhereBalaiProv(),
+			'content' => 'Usulan/CheklistProvinsiSimoniPengendaliBanjir',
+			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirProvinsi()
+		);
+
+		$this->load->view('tamplate/baseTamplate', $tmp);
+	}
+
+
+	public function rekapKabKotaSimoniPengendaliBanjir($idProv = '')
+	{
+		if ($idProv == '') {
+			redirect('/Usulan/CheklistSimoniPengendaliBanjir', 'refresh');
+			return;
+		}
+		$nm_Provinsi = $this->M_dinamis->getById('m_prov', ['provid' => $idProv])->provinsi;
+		$tmp = array(
+			'tittle' => 'Rekap Simoni Pengendali Banjir',
+			'footer_content' => 'footer_content',
+			'NavbarTop' => 'NavbarTop',
+			'NavbarLeft' => 'NavbarLeft',
+			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirKabKota($idProv),
+			'content' => 'Usulan/CheklistKabKotaSimoniPengendaliBanjir',
+			'nm_Provinsi' => $nm_Provinsi,
+			'dataBalai' => getWhereBalaiKotaKabid(),
+			'idProv' => $idProv
+		);
+
+		$this->load->view('tamplate/baseTamplate', $tmp);
+	}
+
 
 
 	public function cheklistURKKonreg($kotakabid = '')
@@ -411,7 +976,6 @@ class Usulan extends CI_Controller
 	public function SimpanCheklistSimoni()
 	{
 		$id = $this->input->post('id');
-
 		$catat_balai = $this->input->post('catat_balai');
 		$catat_sda = $this->input->post('catat_sda');
 		$catat_pfid = $this->input->post('catat_pfid');
@@ -423,12 +987,16 @@ class Usulan extends CI_Controller
 
 		foreach ($id as $key => $val) {
 
-
+			$cheklist_provinsi = $this->input->post('cheklist_provinsi_' . $key);
 			$cheklist_balai = $this->input->post('cheklist_balai_' . $key);
 			$cheklist_sda = $this->input->post('cheklist_sda_' . $key);
 			$cheklist_pfid = $this->input->post('cheklist_pfid_' . $key);
 
-
+			if ($is_prive == 'provinsi') {
+				$dataUpdate = array(
+					'verif_provinsi' => ($cheklist_provinsi == 'on') ? '1' : '0',
+				);
+			}
 
 			if ($prive == 'balai') {
 				$dataUpdate = array(
@@ -468,6 +1036,7 @@ class Usulan extends CI_Controller
 						'komponen_json' => $dataSimoni->komponen_json,
 						'output' => $dataSimoni->output,
 						'kd_ws' => $dataSimoni->kd_ws,
+						'jns_luasan' => $dataSimoni->jns_luasan,
 						'kd_das' => $dataSimoni->kd_das,
 						'kd_menu' => $dataSimoni->kd_menu,
 						'kdkec' => $dataSimoni->kdkec,
@@ -657,6 +1226,7 @@ class Usulan extends CI_Controller
 			'kd_ws' => ($menuKegiatan_edit === '9') ? $wsPilihEdit : '',
 			'jns_luasan' => ($menuKegiatan_edit === '2') ? $jenisOutcome : '',
 			'kd_das' => ($menuKegiatan_edit === '9') ? $dasEdit : '',
+			'verif_provinsi' => 0,
 			'verif_balai' => 0,
 			'verif_sda' => 0,
 			'verif_pusat' => 0,
@@ -714,46 +1284,58 @@ class Usulan extends CI_Controller
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'Usulan/rekapPengendaliBanjirKabKota',
 			'idprov' => $idprov,
-			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirKabKota($idprov)
+			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirKabKota($idprov),
+			'dataBalai' => getWhereBalaiKotaKabid()
 		);
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
-	public function exportpdf()
+	public function exportURK()
 	{
-		$this->load->library('dompdf_gen');
+		// Memuat library Dompdf
+
 
 		$idprov = substr($this->session->userdata('kotakabid'), 0, 2);
 		$kotakabid = $this->session->userdata('kotakabid');
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid])->kemendagri;
 		$ta = $this->session->userdata('thang');
 
-
-		$tmp = array(
+		$data = array(
 			'tittle' => 'Usulan Rencana Kegiatan',
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'Usulan/rkSimoni',
-
+			'dataKomponen' => $this->M_dinamis->add_all('m_master_komponen', '*', 'id', 'ASC'),
 			'idprov' => $idprov,
 			'kotakabid' => $kotakabid,
 			'nmKabkota' => $nmKabkota,
 			'dataKegiatan' => $this->M_usulan->getUrkSimoni($kotakabid),
-
+			'dataMenu' => $this->M_dinamis->add_all('m_menu', '*', 'id', 'asc'),
+			'dataKecamatan' => $this->M_dinamis->getResult('m_keca', ['kotakabid' => $kotakabid]),
+			'dataWS' => $this->M_dinamis->getResult('m_ws', ['kotakabid' => $kotakabid]),
+			'dataDiPembangunan' => $this->M_dinamis->getResult('m_di_pembangunan_baru', ['Idkokab' => $kotakabid]),
+			'dataParaf' => $this->M_dinamis->getResult('download_urk', ['kotakabid' => $kotakabid]),
 		);
 
-		$this->load->view('tamplate/baseTamplate', $tmp);
+		// Load HTML dari view
 
-		$paper_size = 'A4';
-		$orientation = 'potrait';
-		$html = $this->output->get_output();
-		$this->dompdf->set_paper($paper_size, $orientation);
+		// Load view yang akan di-export menjadi PDF
+		$html = $this->load->view('Usulan/rkSimoni', $data, true);
 
-		$this->dompdf->load_html($html);
+		// Initialize Dompdf
+		$this->dompdf->loadHtml($html);
+
+		// Set paper size dan orientation
+		$this->dompdf->setPaper('A4', 'landscape');
+
+		// Render HTML menjadi PDF
 		$this->dompdf->render();
-		$this->dompdf->stream('Usulan Rencana Kegiatan', array('Attachment' => 0));
+
+		// Output PDF
+		$this->dompdf->stream("Export URK.pdf", array("Attachment" => 0));
 	}
+
 
 	public function rekapIrigasiKabKota($idprov = '')
 	{
@@ -773,6 +1355,7 @@ class Usulan extends CI_Controller
 			'idprov' => $idprov,
 			'dataRekap' => $this->M_DataTeknis->rekapIrigasiKabKota($idprov),
 
+
 		);
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
@@ -784,7 +1367,8 @@ class Usulan extends CI_Controller
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'Usulan/rekapPengendaliBanjirProvinsi',
-			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirProvinsi()
+			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirProvinsi(),
+			'dataBalai' => getWhereBalaiProv()
 		);
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
@@ -819,6 +1403,7 @@ class Usulan extends CI_Controller
 			'kd_ws' => ($menuKegiatan_edit === '9') ? $wsPilihEdit : '',
 			'jns_luasan' => ($menuKegiatan_edit === '2') ? $jenisOutcome : '',
 			'kd_das' => ($menuKegiatan_edit === '9') ? $dasEdit : '',
+			'verif_provinsi' => 0,
 			'verif_balai' => 0,
 			'verif_sda' => 0,
 			'verif_pusat' => 0,
@@ -844,6 +1429,65 @@ class Usulan extends CI_Controller
 		}
 
 		redirect('/Usulan', 'refresh');
+	}
+
+	public function editUsulanPengendaliBanjirSimoni()
+	{
+		$idEditSimoni = $this->input->post('idEditSimoni');
+		$kategoriDi_edit = $this->input->post('kategoriDi_edit');
+		$daerahIrigasi_edit = $this->input->post('daerahIrigasi_edit');
+		$nm_di_edit = $this->input->post('nm_di_edit');
+		$daerahIrigasiBaru_edit = $this->input->post('daerahIrigasiBaru_edit');
+		$output_edit = $this->input->post('output_edit');
+		$pengadaan_edit = $this->input->post('pengadaan_edit');
+		$pagu_kegiatan_edit = $this->input->post('pagu_kegiatan_edit');
+		$menuKegiatan_edit = $this->input->post('menuKegiatan_edit');
+		$kecamatan_edit = $this->input->post('kecamatan_edit');
+		$desa_edit = $this->input->post('desa_edit');
+		$wsPilihEdit = $this->input->post('wsPilihEdit');
+		$dasEdit = $this->input->post('dasEdit');
+		$jenisOutcome = $this->input->post('jenisOutcome-edit');
+
+		$dataEdit = array(
+			'kd_di' => ($kategoriDi_edit == 'BARU') ? '' : $daerahIrigasi_edit,
+			'kategori_di' => ($menuKegiatan_edit === '9') ? '' : $kategoriDi_edit,
+			'nm_di' => ($kategoriDi_edit == 'BARU') ? $daerahIrigasiBaru_edit : $nm_di_edit,
+			'output' => $output_edit,
+			'satuan_output' => 'Hektar',
+			'pagu_kegiatan' => $pagu_kegiatan_edit,
+			'pengadaan' => $pengadaan_edit,
+			'kdkec' => $kecamatan_edit,
+			'kddes' => $desa_edit,
+			'kd_menu' => $menuKegiatan_edit,
+			'kd_ws' => ($menuKegiatan_edit === '9') ? $wsPilihEdit : '',
+			'jns_luasan' => ($menuKegiatan_edit === '2') ? $jenisOutcome : '',
+			'kd_das' => ($menuKegiatan_edit === '9') ? $dasEdit : '',
+			'verif_provinsi' => 0,
+			'verif_balai' => 0,
+			'verif_sda' => 0,
+			'verif_pusat' => 0,
+			'updated_at' => date('Y-m-d H:i:s')
+		);
+
+		$pros = $this->M_dinamis->update('m_usulan_simoni', $dataEdit, ['id' => $idEditSimoni]);
+
+		if ($pros) {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
+				Data Berhasil Disimpan.!
+				</div>');
+		} else {
+
+			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+				Data Gagal Disimpan.!
+				</div>');
+		}
+
+		redirect('/Usulan/pengendalibanjirURK', 'refresh');
 	}
 
 
@@ -1356,5 +2000,102 @@ class Usulan extends CI_Controller
 
 		$tamplate->saveAs('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx');
 		force_download('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx', NULL);
+	}
+
+	public function download_urk()
+	{
+		// Load the TCPDF library
+		$this->load->library('tcpdf');
+
+		// Create new PDF document
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+		// Set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Your Name');
+		$pdf->SetTitle('Detail URK');
+		$pdf->SetSubject('PDF Download');
+		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+		// Set default header data
+		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+
+		// Set header and footer fonts
+		$pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		$pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+		// Set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// Set margins
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// Set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		// Set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// Set some language-dependent strings
+		if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+			require_once(dirname(__FILE__) . '/lang/eng.php');
+			$pdf->setLanguageArray($l);
+		}
+
+		// Add a page
+		$pdf->AddPage();
+
+		// Set font
+		$pdf->SetFont('helvetica', '', 12);
+
+		// Add content
+
+		$html += `
+		<table class=" table-bordered tableX " id="myTabelUsulan" style="width:100%;">
+		<thead class="theadX">
+			<tr id="boxThField">
+				<th class="text-center" rowspan="3">No.</th>
+				<th class="text-center" rowspan="3" style="width:15%;">Nama D.I.</th>
+				<th class="text-center" colspan="3">Upload Readiness</th>
+				<th class="text-center" colspan="6">ePAKSI</th>
+
+				<th class="text-center" rowspan="3">Lokasi Usulan (Sesuai/Tidak Sesuai)</th>
+				<th class="text-center" rowspan="3">Riwayat Penanganan</th>
+
+			</tr>
+
+			<tr id="boxThField">
+				<th class="text-center" rowspan="2">LAPORAN SID</th>
+				<th class="text-center" rowspan="2">LAPORAN DED</th>
+				<th class="text-center" rowspan="2">GAMBAR RENCANA</th>
+
+				<th class="text-center" colspan="2">IKSI</th>
+				<th class="text-center" colspan="4">Pengamatan Kondisi Aset</th>
+			</tr>
+
+			<tr id="boxThField">
+				<th class="tect-center">Tahun</th>
+				<th class="tect-center">Nilai</th>
+
+				<th class="text-center" colspan="2">Aset</th>
+				<th class="text-center">RS+RB</th>
+				<th class="text-center">Nilai Kondisi</th>
+
+			</tr>
+		</thead>
+
+		<tbody id="tbody_data">
+		</tbody>
+	</table>`;
+
+
+
+		$pdf->writeHTML($html, true, false, true, false, '');
+
+		// Output PDF document
+		$this->output->set_content_type('application/pdf');
+		$pdf->Output('Detail-URK.pdf', 'I');
 	}
 }

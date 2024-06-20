@@ -56,7 +56,7 @@
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-left" style="background-color:rgba(0, 255, 0, 0);">
 					<li class="breadcrumb-item"><a href="<?= base_url(); ?>Usulan/rekapIrigasiProvinsi">Rekapitulasi Nasional</a></li>
-					<li class="breadcrumb-item active"></li>
+					<!-- <li class="breadcrumb-item active"><?= $nm_Provinsi; ?></li> -->
 				</ol>
 			</div>
 		</div>
@@ -66,6 +66,7 @@
 					<div class="card-body">
 						<div class="text-center">
 							<h3 class="font-weight-bolder">REKAPITULASI DOKUMEN IRIGASI KAB/KOTA TA. <?= $this->session->userdata('thang'); ?></h3>
+							<!-- <h4 class="mb-2">PROVINSI <?= $nm_Provinsi; ?></h4> -->
 						</div>
 						<br>
 						<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'sda' or $this->session->userdata('balai')) { ?>
@@ -134,10 +135,11 @@
 								foreach ($dataRekap as $key => $val) { ?>
 									<tr>
 										<td class="text-right"><?= $no++; ?></td>
-										<td><?= $val->kemendagri; ?></td>
-										<!-- <td class="text-left">    
+										<!-- <td><?= $val->kemendagri; ?></td> -->
+										<td class="text-left">
 											<a href="<?= base_url(); ?>Usulan/cheklistURKSimoni/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
-										</td> -->
+
+										</td>
 										<!-- <?php if ($this->session->userdata('prive') == 'admin') { ?>
 											<td  class="text-center" >
 												<button id="idButton<?= $val->kotakabid; ?>" class="btn btn-success" button id="idButton<?= $val->kotakabid; ?>" class="btn btn-success" onclick="showModalURK('<?= $val->kotakabid; ?>');">

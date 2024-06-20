@@ -1,16 +1,17 @@
 <?php
-defined('BASEPATH') OR exit('No DIect script access allowed');
+defined('BASEPATH') or exit('No DIect script access allowed');
 
-class M_DataTeknis extends CI_Model {
+class M_DataTeknis extends CI_Model
+{
 
-	public function getNamaProv($idprov='')
+	public function getNamaProv($idprov = '')
 	{
-		$qry = "SELECT * FROM m_kotakab WHERE kotakabid='$idprov"."00'";
+		$qry = "SELECT * FROM m_kotakab WHERE kotakabid='$idprov" . "00'";
 		return $this->db->query($qry)->row();
 	}
 
 
-	public function getNamaKotakabid($kotakabid='')
+	public function getNamaKotakabid($kotakabid = '')
 	{
 		$qry = "SELECT * FROM m_kotakab WHERE kotakabid='$kotakabid'";
 		return $this->db->query($qry)->row();
@@ -107,7 +108,6 @@ class M_DataTeknis extends CI_Model {
 		LEFT JOIN (SELECT kotakabid, id AS id_kesanggupan_op, path AS path_kesanggupan_op, ekstensi AS ekstensi_kesanggupan_op, created_at as upload_time_kesanggupan_op FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='kesanggupan_op' ) AS q ON a.kotakabid=q.kotakabid";
 
 		return $this->db->query($qry)->result();
-
 	}
 
 
@@ -167,8 +167,40 @@ class M_DataTeknis extends CI_Model {
 		LEFT JOIN (SELECT kotakabid, id AS id_kesediaan_op_pb, path AS path_kesediaan_op_pb, ekstensi AS ekstensi_kesediaan_op_pb, created_at as upload_time_kesediaan_op_pb FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='kesediaan_op_pb' ) AS m ON a.kotakabid=m.kotakabid";
 
 		return $this->db->query($qry)->result();
-
 	}
 
+	public function getDataDownload($ta, $prive, $kotakabidx = null)
+	{
+		if ($kotakabidx == null) {
 
+			if ($prive == 'admin') {
+
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+			} else if ($prive == 'pemda') {
+
+				$kotakabid = $this->session->userdata('kotakabid');
+
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabid' ORDER BY d.provinsi, c.kemendagri";
+			}
+		} else {
+
+			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
+			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN m_prov as d on a.provid=d.provid
+			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+			WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabidx' ORDER BY d.provinsi, c.kemendagri";
+		}
+
+
+
+		return $this->db->query($qry)->result();
+	}
 }

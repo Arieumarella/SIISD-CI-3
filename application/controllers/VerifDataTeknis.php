@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -11,10 +11,12 @@ use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
 
-class VerifDataTeknis extends CI_Controller {
+class VerifDataTeknis extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -48,7 +50,7 @@ class VerifDataTeknis extends CI_Controller {
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
-	public function pemdaVerif($idprov=null)
+	public function pemdaVerif($idprov = null)
 	{
 		if ($idprov == null) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -73,15 +75,14 @@ class VerifDataTeknis extends CI_Controller {
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
-
 	}
 
 
 	public function prosesVerif()
 	{
 
-		
-		$kondisi = $this->input->post('kondisi');	
+
+		$kondisi = $this->input->post('kondisi');
 
 		// idJnsData = jika 1 maka pemda, 2 provinsi, 3 balai, 4 pusat.
 		$idJnsData = $this->input->post('idJnsData');
@@ -114,23 +115,19 @@ class VerifDataTeknis extends CI_Controller {
 
 
 		if ($getData == null) {
-			
+
 			$pros = $this->M_dinamis->save('m_verifteknis', $dataInsert);
+		} else {
 
-		}else{
-
-			$pros = $this->M_dinamis->update('m_verifteknis', $dataInsert, ['id' => $getData->id ]);
-
+			$pros = $this->M_dinamis->update('m_verifteknis', $dataInsert, ['id' => $getData->id]);
 		}
 
 
 		echo json_encode(['code' => ($pros) ? 200 : 500]);
-
-
 	}
 
 
-	public function DetailForm($kotakabid=null)
+	public function DetailForm($kotakabid = null)
 	{
 		if ($kotakabid == null) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -268,13 +265,11 @@ class VerifDataTeknis extends CI_Controller {
 		$getData = $this->M_dinamis->getById('m_detail_verifteknis', ['kotakabid' => $kotakabid]);
 
 		if ($getData == null) {
-			
-			$pros = $this->M_dinamis->save('m_detail_verifteknis', $dataInsert);
 
-		}else{
+			$pros = $this->M_dinamis->save('m_detail_verifteknis', $dataInsert);
+		} else {
 
 			$pros = $this->M_dinamis->update('m_detail_verifteknis', $dataInsert, ['id' => $getData->id]);
-
 		}
 
 		if ($pros == true) {
@@ -283,7 +278,7 @@ class VerifDataTeknis extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible text-left">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -292,8 +287,7 @@ class VerifDataTeknis extends CI_Controller {
 				</div>');
 		}
 
-		redirect('/VerifDataTeknis/DetailForm/'.$kotakabid, 'refresh');
-
+		redirect('/VerifDataTeknis/DetailForm/' . $kotakabid, 'refresh');
 	}
 
 	public function downloadBa()
@@ -308,7 +302,7 @@ class VerifDataTeknis extends CI_Controller {
 		$hari = $this->getNamaHari($date_now);
 		$nmBulan = $this->getNamaBulan($date_now);
 		$splitTanggal = @explode("-", $date_now);
-		$fixTanggal = @$splitTanggal[2].' '.$nmBulan.' '.@$splitTanggal[0];
+		$fixTanggal = @$splitTanggal[2] . ' ' . $nmBulan . ' ' . @$splitTanggal[0];
 
 		$nmProvinsi = $this->M_dinamis->getById('m_prov', ['provid' => substr($kotakabidBa, 0, 2)]);
 		$nmKabkota = $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabidBa]);
@@ -322,16 +316,16 @@ class VerifDataTeknis extends CI_Controller {
 
 		$tamplate->setValue('${desk}', ucwords(strtolower($desk)));
 		$tamplate->setValue('${verifikator_atas}', ucwords(strtolower($nm_verifikator)));
-		$tamplate->setValue('${tgl_atas}', ucwords(strtolower($hari.' '.$fixTanggal)));
+		$tamplate->setValue('${tgl_atas}', ucwords(strtolower($hari . ' ' . $fixTanggal)));
 		$tamplate->setValue('${verifikator_bawah}', ucwords(strtolower($nm_verifikator)));
 		$tamplate->setValue('${pemda_bawah}', ucwords(strtolower($nmKabkota->kemendagri)));
 
 
 		if ($baseData->sts_1a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1a == '2') {
+		} elseif ($baseData->sts_1a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
 
@@ -342,12 +336,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_1b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1b == '2') {
+		} elseif ($baseData->sts_1b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1b}', ucwords(strtolower($baseData->tgl_1b)));
 		$tamplate->setValue('${sts_1b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1b}', ucwords(strtolower($baseData->catat_1b)));
@@ -355,12 +349,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_1c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1c == '2') {
+		} elseif ($baseData->sts_1c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1c}', ucwords(strtolower($baseData->tgl_1c)));
 		$tamplate->setValue('${sts_1c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1c}', ucwords(strtolower($baseData->catat_1c)));
@@ -368,12 +362,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_1d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1d == '2') {
+		} elseif ($baseData->sts_1d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1d}', ucwords(strtolower($baseData->tgl_1d)));
 		$tamplate->setValue('${sts_1d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1d}', ucwords(strtolower($baseData->catat_1d)));
@@ -381,12 +375,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_1e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1e == '2') {
+		} elseif ($baseData->sts_1e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1e}', ucwords(strtolower($baseData->tgl_1e)));
 		$tamplate->setValue('${sts_1e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1e}', ucwords(strtolower($baseData->catat_1e)));
@@ -394,12 +388,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_1f == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_1f == '2') {
+		} elseif ($baseData->sts_1f == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_1f}', ucwords(strtolower($baseData->tgl_1f)));
 		$tamplate->setValue('${sts_1f}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_1f}', ucwords(strtolower($baseData->catat_1f)));
@@ -407,12 +401,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_2a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2a == '2') {
+		} elseif ($baseData->sts_2a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2a}', ucwords(strtolower($baseData->tgl_2a)));
 		$tamplate->setValue('${sts_2a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2a}', ucwords(strtolower($baseData->catat_2a)));
@@ -420,12 +414,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_2b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2b == '2') {
+		} elseif ($baseData->sts_2b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2b}', ucwords(strtolower($baseData->tgl_2b)));
 		$tamplate->setValue('${sts_2b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2b}', ucwords(strtolower($baseData->catat_2b)));
@@ -433,12 +427,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_2c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2c == '2') {
+		} elseif ($baseData->sts_2c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2c}', ucwords(strtolower($baseData->tgl_2c)));
 		$tamplate->setValue('${sts_2c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2c}', ucwords(strtolower($baseData->catat_2c)));
@@ -446,12 +440,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_2d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2d == '2') {
+		} elseif ($baseData->sts_2d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2d}', ucwords(strtolower($baseData->tgl_2d)));
 		$tamplate->setValue('${sts_2d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2d}', ucwords(strtolower($baseData->catat_2d)));
@@ -459,12 +453,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_2e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_2e == '2') {
+		} elseif ($baseData->sts_2e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_2e}', ucwords(strtolower($baseData->tgl_2e)));
 		$tamplate->setValue('${sts_2e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_2e}', ucwords(strtolower($baseData->catat_2e)));
@@ -472,12 +466,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_3a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_3a == '2') {
+		} elseif ($baseData->sts_3a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_3a}', ucwords(strtolower($baseData->tgl_3a)));
 		$tamplate->setValue('${sts_3a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_3a}', ucwords(strtolower($baseData->catat_3a)));
@@ -485,12 +479,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_3b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_3b == '2') {
+		} elseif ($baseData->sts_3b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_3b}', ucwords(strtolower($baseData->tgl_3b)));
 		$tamplate->setValue('${sts_3b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_3b}', ucwords(strtolower($baseData->catat_3b)));
@@ -498,12 +492,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_4a == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4a == '2') {
+		} elseif ($baseData->sts_4a == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4a}', ucwords(strtolower($baseData->tgl_4a)));
 		$tamplate->setValue('${sts_4a}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4a}', ucwords(strtolower($baseData->catat_4a)));
@@ -511,12 +505,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_4b == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4b == '2') {
+		} elseif ($baseData->sts_4b == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4b}', ucwords(strtolower($baseData->tgl_4b)));
 		$tamplate->setValue('${sts_4b}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4b}', ucwords(strtolower($baseData->catat_4b)));
@@ -524,25 +518,25 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_4c == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4c == '2') {
+		} elseif ($baseData->sts_4c == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4c}', ucwords(strtolower($baseData->tgl_4c)));
 		$tamplate->setValue('${sts_4c}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4c}', ucwords(strtolower($baseData->catat_4c)));
-		
+
 
 		if ($baseData->sts_4d == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4d == '2') {
+		} elseif ($baseData->sts_4d == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4d}', ucwords(strtolower($baseData->tgl_4d)));
 		$tamplate->setValue('${sts_4d}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4d}', ucwords(strtolower($baseData->catat_4d)));
@@ -550,12 +544,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_4e == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_4e == '2') {
+		} elseif ($baseData->sts_4e == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_4e}', ucwords(strtolower($baseData->tgl_4e)));
 		$tamplate->setValue('${sts_4e}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_4e}', ucwords(strtolower($baseData->catat_4e)));
@@ -563,12 +557,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_5 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_5 == '2') {
+		} elseif ($baseData->sts_5 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_5}', ucwords(strtolower($baseData->tgl_5)));
 		$tamplate->setValue('${sts_5}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_5}', ucwords(strtolower($baseData->catat_5)));
@@ -576,12 +570,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_6 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_6 == '2') {
+		} elseif ($baseData->sts_6 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_6}', ucwords(strtolower($baseData->tgl_6)));
 		$tamplate->setValue('${sts_6}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_6}', ucwords(strtolower($baseData->catat_6)));
@@ -589,12 +583,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_7 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_7 == '2') {
+		} elseif ($baseData->sts_7 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_7}', ucwords(strtolower($baseData->tgl_7)));
 		$tamplate->setValue('${sts_7}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_7}', ucwords(strtolower($baseData->catat_7)));
@@ -602,12 +596,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_8 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_8 == '2') {
+		} elseif ($baseData->sts_8 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_8}', ucwords(strtolower($baseData->tgl_8)));
 		$tamplate->setValue('${sts_8}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_8}', ucwords(strtolower($baseData->catat_8)));
@@ -615,12 +609,12 @@ class VerifDataTeknis extends CI_Controller {
 
 		if ($baseData->sts_9 == '1') {
 			$kondisi = 'Sesuai';
-		}elseif ($baseData->sts_9 == '2') {
+		} elseif ($baseData->sts_9 == '2') {
 			$kondisi = 'Tidak Sesuai';
-		}else{
+		} else {
 			$kondisi = 'Belum Diverifikasi';
 		}
-		
+
 		$tamplate->setValue('${tgl_9}', ucwords(strtolower($baseData->tgl_9)));
 		$tamplate->setValue('${sts_9}', ucwords(strtolower($kondisi)));
 		$tamplate->setValue('${ct_9}', ucwords(strtolower($baseData->catat_9)));
@@ -628,11 +622,11 @@ class VerifDataTeknis extends CI_Controller {
 
 		$tamplate->saveAs('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx');
 		force_download('assets/tamplate ba/tmp/BA-DATA TEKNIS IRIGASI.docx', NULL);
-
 	}
 
 
-	private function getNamaHari($tanggal) {
+	private function getNamaHari($tanggal)
+	{
 		$nama_hari = date('l', strtotime($tanggal));
 		$daftar_hari = array(
 			'Sunday' => 'Minggu',
@@ -647,7 +641,8 @@ class VerifDataTeknis extends CI_Controller {
 	}
 
 
-	private function getNamaBulan($tanggal) {
+	private function getNamaBulan($tanggal)
+	{
 		$nama_bulan = date('F', strtotime($tanggal));
 		$daftar_bulan = array(
 			'January' => 'Januari',
@@ -665,7 +660,4 @@ class VerifDataTeknis extends CI_Controller {
 		);
 		return $daftar_bulan[$nama_bulan];
 	}
-
-
-
 }

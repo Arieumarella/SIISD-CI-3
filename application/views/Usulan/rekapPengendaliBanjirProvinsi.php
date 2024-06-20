@@ -46,7 +46,6 @@
 	tbody tr:hover {
 		background-color: #E9DAC1;
 	}
-
 </style>
 
 <section class="content">
@@ -72,25 +71,25 @@
 								<tr id="boxThField" style="background-color:#18978F; color:#fff;">
 									<th class="text-center" style="border: thin solid #006666;" rowspan="2">No.</th>
 									<th class="text-center" style="border: thin solid #006666;" rowspan="2">PROVINSI</th>
-									<th class="text-center" style="border: thin solid #006666;" colspan="12">TOTAL DOKUMEN</th>                                            
+									<th class="text-center" style="border: thin solid #006666;" colspan="12">TOTAL DOKUMEN</th>
 								</tr>
-								<tr id="boxThField" style="background-color:#18978F; color:#fff;">   
-									<th class="text-center" style="border: thin solid #006666;">LEMBAR<br>CHECKLIST</th>            
-									<th class="text-center" style="border: thin solid #006666;">SID</th>    
-									<th class="text-center" style="border: thin solid #006666;">DED</th>    
-									<th class="text-center" style="border: thin solid #006666;">KAK</th>    
-									<th class="text-center" style="border: thin solid #006666;">SKEMA <br> JARINGAN</th>    
-									<th class="text-center" style="border: thin solid #006666;">SKEMA <br> BANGUNAN</th>    
-									<th class="text-center" style="border: thin solid #006666;">BC <br> VOLUME</th>    
-									<th class="text-center" style="border: thin solid #006666;">RAB</th> 
+								<tr id="boxThField" style="background-color:#18978F; color:#fff;">
+									<th class="text-center" style="border: thin solid #006666;">LEMBAR<br>CHECKLIST</th>
+									<th class="text-center" style="border: thin solid #006666;">SID</th>
+									<th class="text-center" style="border: thin solid #006666;">DED</th>
+									<th class="text-center" style="border: thin solid #006666;">KAK</th>
+									<th class="text-center" style="border: thin solid #006666;">SKEMA <br> JARINGAN</th>
+									<th class="text-center" style="border: thin solid #006666;">SKEMA <br> BANGUNAN</th>
+									<th class="text-center" style="border: thin solid #006666;">BC <br> VOLUME</th>
+									<th class="text-center" style="border: thin solid #006666;">RAB</th>
 									<th class="text-center" style="border: thin solid #006666;">DOKUMENTASI</th>
-									<th class="text-center" style="border: thin solid #006666;">AMDAL</th>    
+									<th class="text-center" style="border: thin solid #006666;">AMDAL</th>
 									<th class="text-center" style="border: thin solid #006666;">SURAT <br> KESEDIAAN OP</th>
-								</tr>								
+								</tr>
 							</thead>
 
 							<tbody id="tbody_data">
-								<?php 
+								<?php
 
 								$provinsi = 0;
 								$lembar_ck_irigasi = 0;
@@ -110,10 +109,29 @@
 								$kesanggupan_op = 0;
 
 								?>
-								<?php $no=1; foreach ($dataRekap as $key => $val) { ?>
+								<?php $no = 1;
+								foreach ($dataRekap as $key => $val) { ?>
 									<tr>
 										<td class="text-right"><?= $no++; ?></td>
-										<td><a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirKabKota/<?= $val->provid ?>"><?= $val->provinsi ?></a></td>
+										<td>
+											<?php if ($this->session->userdata('prive') == 'pemda') { ?>
+												<?php if ($val->provid == $this->session->userdata('provid')) { ?>
+													<a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirKabKota/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+												<?php } else { ?>
+													<?= $val->provinsi; ?>
+												<?php } ?>
+											<?php } else { ?>
+												<?php if ($this->session->userdata('prive') == 'balai') { ?>
+													<?php if (in_array($val->provid, $dataBalai)) { ?>
+														<a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirKabKota/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+													<?php } else {
+														echo $val->provinsi;
+													} ?>
+												<?php } else { ?>
+													<a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirKabKota/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+												<?php } ?>
+											<?php } ?>
+										</td>
 										<td class="text-right"><?= $val->lembar_ck_pb; ?></td>
 										<td class="text-right"><?= $val->sid_pb; ?></td>
 										<td class="text-right"><?= $val->ded_pb; ?></td>
@@ -126,7 +144,7 @@
 										<td class="text-right"><?= $val->dok_amdal_pb; ?></td>
 										<td class="text-right"><?= $val->kesediaan_op_pb; ?></td>
 									</tr>
-									<?php 
+									<?php
 
 									$lembar_ck_irigasi += (int)$val->lembar_ck_pb;
 									$sid += (int)$val->sid_pb;
@@ -162,7 +180,7 @@
 
 						</table>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -170,12 +188,12 @@
 </section>
 
 <script type="text/javascript">
-	$( document ).ready(function() {
+	$(document).ready(function() {
 		$('#selectRekap').on('change', function() {
-			let val=this.value;
+			let val = this.value;
 
 			if (val == 1) {
-				window.location.href = base_url()+"Usulan/rekapIrigasiProvinsi";
+				window.location.href = base_url() + "Usulan/rekapIrigasiProvinsi";
 			}
 
 		});

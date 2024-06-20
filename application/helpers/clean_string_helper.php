@@ -18,17 +18,15 @@ function clean($str)
 	}
 
 	if (!is_array($str)) {
-		return  str_replace(['"', "'"], '',$str);
-	}else{
+		return  str_replace(['"', "'"], '', $str);
+	} else {
 		return $str;
 	}
-
-	
 }
 
-function getProvByKotaKabId($kotakabid=null)
+function getProvByKotaKabId($kotakabid = null)
 {
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	$idProv = substr($kotakabid, 0, 2);
 
@@ -37,9 +35,9 @@ function getProvByKotaKabId($kotakabid=null)
 	return $CI->db->query($qry)->row()->provinsi;
 }
 
-function getKabKota($kotakabid=null)
+function getKabKota($kotakabid = null)
 {
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	$qry = "SELECT * FROM m_kotakab WHERE kotakabid='$kotakabid'";
 
@@ -48,7 +46,7 @@ function getKabKota($kotakabid=null)
 
 function getWhereBalai()
 {
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	$nma = $CI->session->userdata('nama');
 
@@ -59,7 +57,7 @@ function getWhereBalai()
 
 	$data = $CI->db->query($qry)->result();
 
-	$where='(';
+	$where = '(';
 
 	foreach ($data as $key => $value) {
 		$where .= $value->kotakabid;
@@ -67,13 +65,61 @@ function getWhereBalai()
 		if ($value != end($data)) {
 			$where .= ',';
 		}
-
 	}
 
 	$where .= ')';
 
 	return $where;
+}
 
+
+function getWhereBalaiProv()
+{
+	$CI = &get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+		$provid = substr($value->kotakabid, 0, 2);
+
+		$baseArray[] = $provid;
+	}
+
+
+	return $baseArray;
+}
+
+
+function getWhereBalaiKotaKabid()
+{
+	$CI = &get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+
+		$baseArray[] = $value->kotakabid;
+	}
+
+	return $baseArray;
 }
 
 
@@ -84,16 +130,16 @@ function getProvIdByKotakabid($kotakabid)
 }
 
 
-function getNamaBalaiByIdBalai($idBalai='')
+function getNamaBalaiByIdBalai($idBalai = '')
 {
 	$qry = "Select * from emonx.pengguna where kd_balai='$idBalai' ";
-	
-	$CI =& get_instance();
+
+	$CI = &get_instance();
 
 	$thang = $CI->load->database('2023', TRUE);
 
 
-	return $thang->query($qry)->row()->nama; 
+	return $thang->query($qry)->row()->nama;
 }
 
 function getNameBalaiById($kdbidang, $idBalai, $prive)
@@ -103,65 +149,60 @@ function getNameBalaiById($kdbidang, $idBalai, $prive)
 
 		$select = 'kdsatker, Jalan as nmBalai';
 		$groupBy = 'Jalan';
-		
+
 		if ($prive == '2') {
 			$where = "MID(kdsatker,3,2)=$idBalai";
-		}else{
+		} else {
 			$where = "kdsatker='$idBalai'";
 		}
-
-
-	}elseif($kdbidang == '02'){
+	} elseif ($kdbidang == '02') {
 
 		$select = 'kdsatker, Irigasi as nmBalai';
 		$groupBy = 'Irigasi';
 
 		if ($prive == '2') {
 			$where = "MID(kdsatker,3,2)=$idBalai";
-		}else{
+		} else {
 			$where = "kdsatker='$idBalai'";
 		}
-
-	}elseif($kdbidang == '03'){
+	} elseif ($kdbidang == '03') {
 
 		$select = 'kdsatker, Air_Minum as nmBalai';
 		$groupBy = 'Air_Minum';
 
 		if ($prive == '2') {
 			$where = "MID(kdsatker,3,2)=$idBalai";
-		}else{
+		} else {
 			$where = "kdsatker='$idBalai'";
 		}
-
-	}elseif($kdbidang == '04'){
+	} elseif ($kdbidang == '04') {
 
 		$select = 'kdsatker, Sanitasi as nmBalai';
 		$groupBy = 'Sanitasi';
 
 		if ($prive == '2') {
 			$where = "MID(kdsatker,3,2)=$idBalai";
-		}else{
+		} else {
 			$where = "kdsatker='$idBalai'";
 		}
-
-	}elseif($kdbidang == '05'){
+	} elseif ($kdbidang == '05') {
 
 		$select = 'kdsatker, Perumahan as nmBalai';
 		$groupBy = 'Perumahan';
 
 		if ($prive == '2') {
 			$where = "MID(kdsatker,3,2)=$idBalai";
-		}else{
+		} else {
 			$where = "kdsatker='$idBalai'";
 		}
 	}
 
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	$thang = $CI->load->database('2023', TRUE);
 
 
-	return $thang->query("SELECT $select FROM t_balai_all WHERE $where")->row(); 
+	return $thang->query("SELECT $select FROM t_balai_all WHERE $where")->row();
 }
 
 
@@ -171,38 +212,34 @@ function getNameBalaiByIdBalay($idBalai, $kdbidang)
 
 		$select = 'kdsatker, Jalan as nmBalai';
 		$groupBy = 'Jalan';
-
-
-	}elseif($kdbidang == '02'){
+	} elseif ($kdbidang == '02') {
 
 		$select = 'kdsatker, Irigasi as nmBalai';
 		$groupBy = 'Irigasi';
-
-	}elseif($kdbidang == '03'){
+	} elseif ($kdbidang == '03') {
 
 		$select = 'kdsatker, Air_Minum as nmBalai';
 		$groupBy = 'Air_Minum';
-
-	}elseif($kdbidang == '04'){
+	} elseif ($kdbidang == '04') {
 
 		$select = 'kdsatker, Sanitasi as nmBalai';
 		$groupBy = 'Sanitasi';
-
-	}elseif($kdbidang == '05'){
+	} elseif ($kdbidang == '05') {
 
 		$select = 'kdsatker, Perumahan as nmBalai';
 		$groupBy = 'Perumahan';
 	}
 
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	$thang = $CI->load->database('2023', TRUE);
 
 
-	return $thang->query("SELECT $select FROM t_balai_all WHERE kdsatker='$idBalai'")->row(); 
+	return $thang->query("SELECT $select FROM t_balai_all WHERE kdsatker='$idBalai'")->row();
 }
 
-function getArrayBulan() {
+function getArrayBulan()
+{
 	$data = array(
 		'01' => 'Januari',
 		'02' => 'Februari',
@@ -228,43 +265,43 @@ function getNameBulanByKdbulan($kdbulan)
 
 	switch ($kdbulan) {
 		case "01":
-		return "Januari";
-		break;
+			return "Januari";
+			break;
 		case "02":
-		return "Februari";
-		break;
+			return "Februari";
+			break;
 		case "03":
-		return "Maret";
-		break;
+			return "Maret";
+			break;
 		case "04":
-		return "April";
-		break;
+			return "April";
+			break;
 		case "05":
-		return "Mei";
-		break;
+			return "Mei";
+			break;
 		case "06":
-		return "Juni";
-		break;
+			return "Juni";
+			break;
 		case "07":
-		return "Juli";
-		break;
+			return "Juli";
+			break;
 		case "08":
-		return "Agustus";
-		break;
+			return "Agustus";
+			break;
 		case "09":
-		return "September";
-		break;
+			return "September";
+			break;
 		case "10":
-		return "Oktober";
-		break;
+			return "Oktober";
+			break;
 		case "11":
-		return "November";
-		break;
+			return "November";
+			break;
 		case "12":
-		return "Desember";
-		break;
+			return "Desember";
+			break;
 		default:
-		return null;
+			return null;
 	}
 }
 
@@ -293,7 +330,8 @@ function ubahKomaMenjadiTitik($str)
 }
 
 
-function cleanStr($str = null) {
+function cleanStr($str = null)
+{
 	if ($str === null) {
 		return '';
 	}
@@ -309,6 +347,3 @@ function cleanStr($str = null) {
 
 	return $str;
 }
-
-
-?>

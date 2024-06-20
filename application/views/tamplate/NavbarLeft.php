@@ -378,52 +378,40 @@
             </a>
           </li>
 
+
           <?php
           $uri1 = @$this->uri->segment(1);
           $arrayDataTeknisBase = ['DataTeknis'];
           ?>
+          <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+            <li class="nav-item has-treeview <?= (in_array($uri1, [$arrayDataTeknisBase])) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-folder-open"></i>
+                <p>
+                  Upload Readiness Criteria
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
 
-          <li class="nav-item has-treeview <?= (in_array($uri1, [$arrayDataTeknisBase])) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-folder-open"></i>
-              <p>
-                Upload Readiness Criteria
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>DataTeknis" class="nav-link <?= $tittle == 'Upload Data Teknis Irigasi' ? 'active' : ''; ?>">
+                    <p>
+                      1. - Upload Dokumen Irigasi
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>DataTeknis/DataTeknisPengendaliBanjir" class="nav-link <?= $tittle == 'Upload Data Teknis Pengendali Banjir' ? 'active' : ''; ?>">
+                    <p>
+                      2. - Upload Dokumen Pengendali Banjir
+                    </p>
+                  </a>
+                </li>
 
-              <li class="nav-item">
-                <a href="<?= base_url(); ?>DataTeknis" class="nav-link <?= $tittle == 'Upload Data Teknis Irigasi' ? 'active' : ''; ?>">
-                  <p>
-                    1. - Upload Dokumen Irigasi
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="<?= base_url(); ?>DataTeknis/DataTeknisPengendaliBanjir" class="nav-link <?= $tittle == 'Upload Data Teknis Pengendali Banjir' ? 'active' : ''; ?>">
-                  <p>
-                    2. - Upload Dokumen Pengendali Banjir
-                  </p>
-                </a>
-              </li>
-              <!--    <li class="nav-item">
-    <a href="<?= base_url(); ?>DataTeknis/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
-      <p>
-        3. - Rekapitulasi Dokumen Irigasi
-      </p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="<?= base_url(); ?>DataTeknis/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
-      <p>
-        4. - Rekapitulasi Dokumen Pengendali Banjir
-      </p>
-    </a>
-  </li> -->
-            </ul>
-          </li>
+              </ul>
+            </li>
+          <?php } ?>
 
           <!-- <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
     <a href="#" class="nav-link ">
@@ -505,30 +493,44 @@
       </p>
     </a>
   </li> -->
-              <?php if ($this->session->userdata('prive') == 'pemda' or $this->session->userdata('prive') == 'provinsi') { ?>
+              <?php if ($this->session->userdata('prive') == 'pemda') { ?>
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan" class="nav-link <?= $tittle == 'Usulan Rencana Kegiatan' ? 'active' : ''; ?>">
                     <p>
-                      1. - Input URK Simoni
+                      1. - Input URK Irigasi
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/pengendalibanjirURK" class="nav-link <?= $tittle == 'URK pengendali banjir' ? 'active' : ''; ?>">
                     <p>
-                      2. - Input URK Pengendali Banjir Simoni
+                      2. - Input URK Pengendali Banjir
                     </p>
                   </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
                     <p>
                       3. - Rekapitulasi Dokumen Irigasi
                     </p>
                   </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
+                  <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
+                    <p>
+                      3. - Rekapitulasi Dokumen Irigasi
+                    </p>
+                  </a>
+                </li>
+                <!-- <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
+                    <p>
+                      4. - Rekapitulasi Dokumen Pengendali Banjir
+                    </p>
+                  </a>
+                </li> -->
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>Usulan/CheklistSimoniPengendaliBanjir" class="nav-link <?= $tittle == 'Rekap Simoni Pengendali Banjir' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
                     <p>
                       4. - Rekapitulasi Dokumen Pengendali Banjir
                     </p>
@@ -551,25 +553,51 @@
  </a>
 </li>
 -->
-              <?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai' or $this->session->userdata('prive') == 'sda') { ?>
-                <li class="nav-item">
+              <?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai' or $this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'sda') { ?>
+                <!-- <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
+                    <p>
+                      1. - Rekapitulasi Dokumen Irigasi
+                    </p>
+                  </a>
+                </li> -->
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
                     <p>
                       1. - Rekapitulasi Dokumen Irigasi
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
+                  <a href="<?= base_url(); ?>Usulan/CheklistSimoniPengendaliBanjir" class="nav-link <?= $tittle == 'Rekap Simoni Pengendali Banjir' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
                     <p>
                       2. - Rekapitulasi Dokumen Pengendali Banjir
                     </p>
                   </a>
                 </li>
+
+                <!-- <li class="nav-item">
+                    <a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
+                      <p>
+                        2. - Rekapitulasi Dokumen Pengendali Banjir
+                      </p>
+                    </a>
+                  </li> -->
+
               <?php } ?>
             </ul>
           </li>
 
+        <?php } ?>
+        <?php if ($this->session->userdata('thang') == '2025') { ?>
+          <li class="nav-item">
+            <a href="<?= base_url(); ?>RiwayatPenaganan" class="nav-link <?= $tittle == 'Riwayat Penaganan' ? 'active' : ''; ?>">
+              <i class="nav-icon fa fa-history"></i>
+              <p>
+                Riwayat Penanganan
+              </p>
+            </a>
+          </li>
         <?php } ?>
 
         <?php if ($this->session->userdata('thang') == '2024' || $this->session->userdata('thang') == '2023' || $this->session->userdata('thang') == '2022' || $this->session->userdata('thang') == '2021' || $this->session->userdata('thang') == '2020' || $this->session->userdata('thang') == '2019') { ?>
@@ -596,7 +624,6 @@
               </p>
             </a>
           </li>
-
           <li class="nav-item">
             <a href="<?= base_url(); ?>RiwayatPenaganan" class="nav-link <?= $tittle == 'Riwayat Penaganan' ? 'active' : ''; ?>">
               <i class="nav-icon fa fa-history"></i>

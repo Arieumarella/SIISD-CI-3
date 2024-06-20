@@ -74,7 +74,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <h4 class="font-weight-bolder">USULAN RENCANA KEGIATAN SIMONI PENGENDALI BANJIR</h4>
+                            <h4 class="font-weight-bolder">USULAN RENCANA KEGIATAN PENGENDALI BANJIR</h4>
+                            <h4 class="font-weight-bolder">PENILAIAN SINKRONISASI DAN HARMONISASI</h4>
                             <h4 class="font-weight-bolder"><?= $nmKabkota; ?></h4>
                             <h4 class="font-weight-bolder">TA. <?= $this->session->userdata('thang'); ?></h4>
                         </div>
@@ -94,7 +95,6 @@
                                     <th class="text-center" rowspan="2" style="width:17%;">KOMPONEN</th>
                                     <th class="text-center" colspan="2">OUTCOME KEGIATAN</th>
                                     <th class="text-center" rowspan="2">KEBUTUHAN <br> DANA</th>
-                                    <th class="text-center" rowspan="2">STATUS <br> CHECKLIST</th>
                                     <th class="text-center" rowspan="2" style="width:7%;">AKSI</th>
                                 </tr>
                                 <tr id="boxThField">
@@ -105,17 +105,16 @@
 
                             <tbody id="tbody_data">
 
-                                <?php if ($dataKegiatan != null) { ?>
+                                <?php $hasData = false;
+                                if ($dataKegiatan != null) { ?>
 
                                     <?php $no = 1;
                                     foreach ($dataKegiatan as $key => $val) { ?>
-                                        <?php if ($val->kd_menu === '9') { ?>
-
-
+                                        <?php if ($val->kd_menu === '9') {
+                                            $hasData = true; ?>
                                             <tr>
-                                                <td class="text-center">
+                                                <td class="text-center" rowspan="6">
                                                     <?= $no++; ?>
-
                                                 </td>
                                                 <td>
                                                     <b><?= $val->nm_menu; ?></b>
@@ -137,7 +136,7 @@
                                                 <td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
                                                 <td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
                                                 <td class="text-right" style="vertical-align: top;">
-                                                    <?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+                                                    <?php if ($val->verif_balai === '0' and $val->verif_provinsi === '0' and  $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
                                                         <button class="btn btn-primary btn-sm mb-2" onclick="showModalKomponen('<?= $val->id; ?>')"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                                         <br>
                                                     <?php } ?>
@@ -152,7 +151,7 @@
                                                                 <tr>
                                                                     <td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
                                                                     <td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
-                                                                    <?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+                                                                    <?php if ($val->verif_balai === '0' and $val->verif_provinsi === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
                                                                         <td class="text-center" style="width:1%;"><button class="btn btn-danger btn-sm" onclick="hapuskomponen('<?= $datakomponen['id']; ?>', '<?= $datakomponen['id_usulan_simoni']; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                                                     <?php } ?>
                                                                 </tr>
@@ -162,53 +161,12 @@
                                                 </td>
                                                 <td class="text-right"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
                                                 <td><?= $val->satuan_output; ?></td>
-                                                <td class="text-right">Rp. <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?></td>
-                                                <td>
-                                                    <table class="tabelVerifikasi">
-
-                                                        <tr>
-                                                            <td style="width:10%;">Balai</td>
-                                                            <td style="width:10%;">
-                                                                <?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
-                                                                    <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-                                                                <?php } else { ?>
-                                                                    <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-                                                                <?php } ?>
-                                                            </td>
-                                                            <td style="width:80%;">
-
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:10%;">SDA</td>
-                                                            <td style="width:10%;">
-                                                                <?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
-                                                                    <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-                                                                <?php } else { ?>
-                                                                    <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-                                                                <?php } ?>
-                                                            </td>
-                                                            <td style="width:80%;">
-                                                                <?= $val->catat_sda; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:10%;">PFID</td>
-                                                            <td style="width:10%;">
-                                                                <?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
-                                                                    <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
-                                                                <?php } else { ?>
-                                                                    <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-                                                                <?php } ?>
-                                                            </td>
-                                                            <td style="width:80%;">
-                                                                <?= $val->catat_pusat; ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                                <td class="text-left"><b>- Dana :</b>Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br>
+                                                    <b>- Harga Satuan :</b> Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?>
                                                 </td>
-                                                <td class="text-center">
-                                                    <?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+
+                                                <td class="text-center" rowspan="6">
+                                                    <?php if ($val->verif_balai === '0' and $val->verif_provinsi === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
                                                         <br>
                                                         <button class="btn btn-danger btn-sm" onclick="hapusMainData('<?= $val->id; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                         <button class="btn btn-warning btn-sm" onclick="editnData('<?= $val->id; ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
@@ -216,9 +174,49 @@
                                                     <?php } ?>
                                                 </td>
                                             </tr>
+                                            <tr id="boxThField">
+                                            <tr class="row7">
+                                                <td colspan="2"><b>CHECKLIST</b></td>
+                                                <td colspan="5"><b>CATATAN</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
+                                                <td><?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
+                                                        <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+                                                    <?php } ?>
+                                                </td>
+                                                <td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_pusat; ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>DIREKTORAT SUNGAI DAN PANTAI</td>
+                                                <td><?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
+                                                        <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+                                                    <?php } ?>
+                                                </td>
+                                                <td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_sda; ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>BBWS/BWS</td>
+                                                <td>
+                                                    <?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
+                                                        <i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+                                                    <?php } ?>
+                                                </td>
+
+                                                <td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_balai; ?></textarea></td>
+
+                                            </tr>
+                                            </tr>
                                         <?php } ?>
                                     <?php } ?>
-                                <?php } else { ?>
+                                <?php }
+                                if (!$hasData) { ?>
                                     <tr>
                                         <td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
                                     </tr>
@@ -309,7 +307,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url(); ?>Usulan/simpanUsulanKegiatanSimoni">
+                <form method="POST" action="<?= base_url(); ?>Usulan/simpanURKSimoniPengendaliBanjir">
                     <div class="form-group">
                         <label for="menuKegiatan" class="col-form-label">Pilih Menu :</label>
                         <select class="form-control" name="menuKegiatan" id="menuKegiatan" required>
@@ -482,16 +480,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url(); ?>Usulan/editUsulanKegiatanSimoni">
+                <form method="POST" action="<?= base_url(); ?>Usulan/editUsulanPengendaliBanjirSimoni">
                     <input type="hidden" name="idEditSimoni" id="idEditSimoni">
                     <div class="form-group">
                         <label for="menuKegiatan_edit" class="col-form-label">Pilih Menu :</label>
                         <select class="form-control" name="menuKegiatan_edit" id="menuKegiatan_edit" required>
                             <option value="" selected disabled>-- Pilih Menu --</option>
-                            <?php foreach ($dataMenu as $key => $val) { ?>
-                                <option value="<?= $val->id; ?>"><?= $val->nm_menu; ?></option>
-                            <?php } ?>
-                        </select>
+                            <option value="9">Pembangunan Insfraktruktur Pengendali Banjir</option>
+                        </select>editUsulanPengendaliBanjirSimoni
                     </div>
                     <div class="form-group" id="pilih-ws-edit" style="display: none;">
                         <label for="wsPilihEdit" class="col-form-label">Pilih WS :</label>
@@ -598,7 +594,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url(); ?>Usulan/tambahDataKomponen">
+                <form method="POST" action="<?= base_url(); ?>Usulan/tambahKomponenPengendaliBanjir">
                     <div class="form-group">
                         <label for="komponen" class="col-form-label">Pilih Komponen :</label>
                         <select class="form-control select3" name="komponen" id="komponen" required>
@@ -795,7 +791,7 @@
 
                 if (result.value == true) {
 
-                    ajaxUntukSemua(base_url() + 'Usulan/deleteKomponen', {
+                    ajaxUntukSemua(base_url() + 'Usulan/deleteKomponenPengendaliBanjir', {
                         id,
                         idMasterData
                     }, function(data) {

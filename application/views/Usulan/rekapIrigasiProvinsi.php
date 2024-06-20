@@ -197,7 +197,7 @@
 			let val = this.value;
 
 			if (val == 2) {
-				window.location.href = base_url() + "Usulan/rekapPengendaliBanjirProvinsi";
+				window.location.href = base_url() + "Usulan/CeklistProvinsiSimoni";
 			}
 
 		});

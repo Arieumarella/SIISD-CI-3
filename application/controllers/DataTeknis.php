@@ -63,12 +63,113 @@ class DataTeknis extends CI_Controller
 		}
 
 		if ($idFile == 2) {
-			force_download('././assets/panduan/Format 2 - Checklist Pengendali Banjir.xlsx', NULL);
+			force_download('././assets/panduan/Format Menu Peng Banjir TA 2024.xlsx', NULL);
 		}
 
 		if ($idFile == 3) {
-			force_download('PATH FILE', NULL);
+			force_download('././assets/panduan/Surat Pernyataan.docx', NULL);
 		}
+	}
+
+	public function downloadTabel($idkabkota = null)
+	{
+		$prive = $this->session->userdata('prive');
+		$ta = $this->session->userdata('ta');
+
+		if ($idkabkota == null) {
+
+			if ($prive != 'admin' and $prive != 'pemda') {
+
+				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+					Roll Anda Tidak Dibolehkan.
+					</div>');
+
+				redirect("/FormTeknis", 'refresh');
+				return;
+			}
+		}
+
+		$data = $this->M_formTeknis->getDataDownload($ta, $prive, $idkabkota);
+
+		$menitDetik = date('i') . date('s');
+
+		copy('./assets/format/downladBase/A1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 4;
+		$nilaiAwal = 1;
+
+		foreach ($data as $key => $val) {
+
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nm_di);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->kd_menu);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->nm_komponen);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->output);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->pagu_kegiatan);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->sumberAir);
+			$spreadsheet->getActiveSheet()->getCell("J$indexLopp")->setValue($val->buBendung);
+			$spreadsheet->getActiveSheet()->getCell("K$indexLopp")->setValue($val->buPengambilanBebas);
+			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->buStasiunPompa);
+			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->buEmbung);
+			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->sTipeSaluran);
+			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->sPrimer);
+			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->sSekunder);
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->sTersier);
+			$spreadsheet->getActiveSheet()->getCell("R$indexLopp")->setValue($val->sPembuang);
+			$spreadsheet->getActiveSheet()->getCell("S$indexLopp")->setValue($val->bppBagi);
+			$spreadsheet->getActiveSheet()->getCell("T$indexLopp")->setValue($val->bppBagiSadap);
+			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->bppSadap);
+			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->bppBangunanPengukur);
+			$spreadsheet->getActiveSheet()->getCell("W$indexLopp")->setValue($val->bpGorong);
+			$spreadsheet->getActiveSheet()->getCell("X$indexLopp")->setValue($val->bpSipon);
+			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->bpTalang);
+			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->bpTerjunan);
+			$spreadsheet->getActiveSheet()->getCell("AA$indexLopp")->setValue($val->bpGotMiring);
+			$spreadsheet->getActiveSheet()->getCell("AB$indexLopp")->setValue($val->bpFlum);
+			$spreadsheet->getActiveSheet()->getCell("AC$indexLopp")->setValue($val->bpTerowongan);
+			$spreadsheet->getActiveSheet()->getCell("AD$indexLopp")->setValue($val->blinKantong);
+			$spreadsheet->getActiveSheet()->getCell("AE$indexLopp")->setValue($val->blinPelimpah);
+			$spreadsheet->getActiveSheet()->getCell("AF$indexLopp")->setValue($val->blinPenguras);
+			$spreadsheet->getActiveSheet()->getCell("AG$indexLopp")->setValue($val->blinSaluranGendong);
+			$spreadsheet->getActiveSheet()->getCell("AH$indexLopp")->setValue($val->blinKrib);
+			$spreadsheet->getActiveSheet()->getCell("AI$indexLopp")->setValue($val->blinPerkuatanTebing);
+			$spreadsheet->getActiveSheet()->getCell("AJ$indexLopp")->setValue($val->blinTanggul);
+			$spreadsheet->getActiveSheet()->getCell("AK$indexLopp")->setValue($val->bkapJalanInspeksi);
+			$spreadsheet->getActiveSheet()->getCell("AL$indexLopp")->setValue($val->bkapJembatan);
+			$spreadsheet->getActiveSheet()->getCell("AM$indexLopp")->setValue($val->bkapKantorPengamat);
+			$spreadsheet->getActiveSheet()->getCell("AN$indexLopp")->setValue($val->bkapGudang);
+			$spreadsheet->getActiveSheet()->getCell("AO$indexLopp")->setValue($val->bkapRumahJaga);
+			$spreadsheet->getActiveSheet()->getCell("AP$indexLopp")->setValue($val->bkapElektrikal);
+			$spreadsheet->getActiveSheet()->getCell("AQ$indexLopp")->setValue($val->bkapSanggarTani);
+			$spreadsheet->getActiveSheet()->getCell("AR$indexLopp")->setValue($val->saranaPintuAir);
+			$spreadsheet->getActiveSheet()->getCell("AS$indexLopp")->setValue($val->saranaAlatUkur);
+			$spreadsheet->getActiveSheet()->getCell("AT$indexLopp")->setValue($val->dokPeta);
+			$spreadsheet->getActiveSheet()->getCell("AU$indexLopp")->setValue($val->dokSkemaJaringan);
+			$spreadsheet->getActiveSheet()->getCell("AV$indexLopp")->setValue($val->dokGambarKonstruksi);
+			$spreadsheet->getActiveSheet()->getCell("AW$indexLopp")->setValue($val->dokBukuDataDI);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="A1.xlsx"');
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
 	}
 
 
@@ -126,9 +227,8 @@ class DataTeknis extends CI_Controller
 
 		$config['allowed_types'] = 'pdf';
 		$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.pdf';
-		$config['max_size'] = 250000;
+		$config['max_size'] = 500000;
 		$this->load->library('upload', $config);
-
 		foreach ($arrayPost as $key => $val) {
 
 			if (!empty($_FILES[$key]['name'])) {
@@ -166,7 +266,7 @@ class DataTeknis extends CI_Controller
 				$config['upload_path'] = $path;
 				$config['allowed_types'] = $ektensi[$key];
 				$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.' . $ext;
-				$config['max_size'] = 250000;
+				$config['max_size'] = 500000;
 
 				$this->upload->initialize($config);
 
@@ -470,7 +570,8 @@ class DataTeknis extends CI_Controller
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'DataTeknis/rekapPengendaliBanjirProvinsi',
-			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirProvinsi()
+			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirProvinsi(),
+			'dataBalai' => getWhereBalaiProv()
 		);
 
 
@@ -493,6 +594,7 @@ class DataTeknis extends CI_Controller
 			'NavbarLeft' => 'NavbarLeft',
 			'content' => 'DataTeknis/rekapPengendaliBanjirKabKota',
 			'idprov' => $idprov,
+			'dataBalai' => getWhereBalaiKotaKabid(),
 			'dataRekap' => $this->M_DataTeknis->rekapPengendaliBanjirKabKota($idprov)
 		);
 		$this->load->view('tamplate/baseTamplate', $tmp);

@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_dinamis extends CI_Model {
+class M_dinamis extends CI_Model
+{
 
     private $thang = '';
 
@@ -13,8 +14,44 @@ class M_dinamis extends CI_Model {
         return $this->db->get()->result();
     }
 
+
+
+    public function getDataBalaiByUserPrivilege($privilege)
+    {
+        $this->db->select('provid');
+        $this->db->from('m_balai'); // Assuming your table name is 'm_balai'
+        $this->db->where('prive', $privilege);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getWhereBalaiProv()
+    {
+        $CI = &get_instance();
+
+        $nma = $CI->session->userdata('nama');
+
+        $substring_to_remove = 'BALAI ';
+        $new_nma = str_replace($substring_to_remove, '', $nma);
+
+        $qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+        $data = $CI->db->query($qry)->result();
+
+        $baseArray = [];
+
+        foreach ($data as $key => $value) {
+            $provid = substr($value->kotakabid, 0, 2);
+
+            $baseArray[] = $provid;
+        }
+
+
+        return $baseArray;
+    }
+
     public function add_all_by_one_row($tabel, $select, $order, $urut, $where)
-    {   
+    {
         $this->db->where($where);
         $this->db->from($tabel);
         $this->db->select($select);
@@ -31,7 +68,8 @@ class M_dinamis extends CI_Model {
         return $this->db->get()->result();
     }
 
-    public function update($tabel, $dataUbah, $where){
+    public function update($tabel, $dataUbah, $where)
+    {
         $this->db->where($where);
         return $this->db->update($tabel, $dataUbah);
     }
@@ -66,7 +104,8 @@ class M_dinamis extends CI_Model {
         return $this->db->get()->row();
     }
 
-    public function save($tabel, $data){
+    public function save($tabel, $data)
+    {
         return $this->db->insert($tabel, $data);
     }
 
@@ -95,7 +134,8 @@ class M_dinamis extends CI_Model {
         return $this->db->get_where($tabel, $data)->row();
     }
 
-    public function delete($tabel, $data){
+    public function delete($tabel, $data)
+    {
         $this->db->where($data);
         return $this->db->delete($tabel);
     }
@@ -108,87 +148,84 @@ class M_dinamis extends CI_Model {
 
     public function insertBatch($table, $data)
     {
-       return $this->db->insert_batch($table, $data); 
-   }
+        return $this->db->insert_batch($table, $data);
+    }
 
-   public function getUser()
-   {
-    $qry = "SELECT t_users.*, t_role.name AS rollNamae FROM t_users
+    public function getUser()
+    {
+        $qry = "SELECT t_users.*, t_role.name AS rollNamae FROM t_users
     INNER JOIN 
     t_role ON t_users.user_roll=t_role.id";
 
-    return $this->db->query($qry)->result();
-}
+        return $this->db->query($qry)->result();
+    }
 
-public function getPaginateion($table,$number,$offset){
-    return $this->db->get($table,$number,$offset)->result();       
-}
+    public function getPaginateion($table, $number, $offset)
+    {
+        return $this->db->get($table, $number, $offset)->result();
+    }
 
-public function getByLimit($table, $limit, $order, $urut)
-{
-    $this->db->select('*');
-    $this->db->from($table);
-    $this->db->order_by($order, $urut);
-    $this->db->limit($limit);
-    return $this->db->get()->result();
-}
+    public function getByLimit($table, $limit, $order, $urut)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->order_by($order, $urut);
+        $this->db->limit($limit);
+        return $this->db->get()->result();
+    }
 
-public function getMenu()
-{
-    $qry = "SELECT * FROM t_menuWeb ORDER BY id";
-    return $this->db->query($qry)->result();
-}
+    public function getMenu()
+    {
+        $qry = "SELECT * FROM t_menuWeb ORDER BY id";
+        return $this->db->query($qry)->result();
+    }
 
-public function getKabKota($kdlokasi, $kdkabkota)
-{
+    public function getKabKota($kdlokasi, $kdkabkota)
+    {
 
-    $kdlokasi = clean($kdlokasi);
-    $kdkabkota = clean($kdkabkota);
+        $kdlokasi = clean($kdlokasi);
+        $kdkabkota = clean($kdkabkota);
 
-    $qry = "SELECT tlokasi.kdlokasi, tlokasi.NMLOKASI, KDKABKOTA, NMKABKOTA FROM tkabkota
+        $qry = "SELECT tlokasi.kdlokasi, tlokasi.NMLOKASI, KDKABKOTA, NMKABKOTA FROM tkabkota
     LEFT JOIN tlokasi ON tlokasi.kdlokasi=tkabkota.KDLOKASI
     WHERE tlokasi.kdlokasi='$kdlokasi' AND KDKABKOTA='$kdkabkota'";
 
-    return $this->db->query($qry)->row();
-}
+        return $this->db->query($qry)->row();
+    }
 
 
-public function deleteTabel($tbl)
-{
+    public function deleteTabel($tbl)
+    {
 
-    $tbl = clean($tbl);
+        $tbl = clean($tbl);
 
-    $qry = "TRUNCATE TABLE $tbl";
-    $this->db->query($qry);
-    return true;
-}
+        $qry = "TRUNCATE TABLE $tbl";
+        $this->db->query($qry);
+        return true;
+    }
 
-public function SimpanLog($dataInsert)
-{
+    public function SimpanLog($dataInsert)
+    {
 
-    $dataInsert = clean($dataInsert);
-    
-    $this->thang = $this->load->database('emonx', TRUE);
-    return $this->thang->insert('userlogdak', $dataInsert);
-}
+        $dataInsert = clean($dataInsert);
 
-
-public function getWs()
-{
-    $qry = "SELECT * FROM m_ws GROUP BY nm_ws";
-    return $this->db->query($qry)->result();
-
-}
+        $this->thang = $this->load->database('emonx', TRUE);
+        return $this->thang->insert('userlogdak', $dataInsert);
+    }
 
 
-public function getDas()
-{
-    $qry = "SELECT * FROM m_das GROUP BY nm_das";
-    return $this->db->query($qry)->result();
+    public function getWs()
+    {
+        $qry = "SELECT * FROM m_ws GROUP BY nm_ws";
+        return $this->db->query($qry)->result();
+    }
 
-}
 
-
+    public function getDas()
+    {
+        $qry = "SELECT * FROM m_das GROUP BY nm_das";
+        return $this->db->query($qry)->result();
+    }
 }
 
 /* End of file M_dinamis.php */

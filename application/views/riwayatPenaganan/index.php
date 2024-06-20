@@ -38,7 +38,6 @@
 	}
 </style>
 <style type="text/css">
-	
 	.option-input {
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -63,24 +62,28 @@
 		position: relative;
 		z-index: 0;
 	}
+
 	.option-input:hover {
 		background: #9faab7;
 	}
+
 	.option-input:checked {
 		background: #28a745;
 	}
+
 	.option-input:checked::before {
 		width: 28px;
 		height: 28px;
-		display:flex;
+		display: flex;
 		content: '\f00c';
 		font-size: 15px;
-		font-weight:bold;
+		font-weight: bold;
 		position: absolute;
-		align-items:center;
-		justify-content:center;
-		font-family:'Font Awesome 5 Free';
+		align-items: center;
+		justify-content: center;
+		font-family: 'Font Awesome 5 Free';
 	}
+
 	.option-input:checked::after {
 		-webkit-animation: click-wave 0.65s;
 		-moz-animation: click-wave 0.65s;
@@ -91,9 +94,11 @@
 		position: relative;
 		z-index: 100;
 	}
+
 	.option-input.radio {
 		border-radius: 50%;
 	}
+
 	.option-input.radio::after {
 		border-radius: 50%;
 	}
@@ -105,6 +110,7 @@
 			opacity: 0.35;
 			position: relative;
 		}
+
 		100% {
 			height: 200px;
 			width: 200px;
@@ -132,62 +138,65 @@
 						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php } else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda') { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
 
-						<?php }else if ($this->session->userdata('prive') == 'balai') { ?>
+						<?php } else if ($this->session->userdata('prive') == 'balai') { ?>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else{ ?>
+						<?php } else { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
 
 						<?php } ?>
+						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
-						<div class="col-sm-12 col-lg-3 p-0">
-							<div class="input-group input-group-sm">
 
-								<!-- <select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
+							<div class="col-sm-12 col-lg-3 p-0">
+								<div class="input-group input-group-sm">
+
+									<!-- <select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
 
 								</select> -->
 
-								<span class="input-group-append ml-1">
-									<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
-								</span>
+									<span class="input-group-append ml-1">
+										<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
+									</span>
 
+								</div>
 							</div>
-						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -271,7 +280,7 @@
 										</select>
 									</li>
 								</ul>
-							</nav>               
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -286,20 +295,19 @@
 </div>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 
 		var halamanSaatIni = '1',
-		search = '',
-		provid = '',
-		kotakabid = '';
+			search = '',
+			provid = '',
+			kotakabid = '';
 
-		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
-			try{
+		getDataTabel = async function(page = null, providX = null, kotakabidX = null) {
+			try {
 
 				if (page != null) {
 					halamanSaatIni = await page;
-				}else{
+				} else {
 					halamanSaatIni = 1;
 				}
 
@@ -314,19 +322,25 @@
 				$('#tbody_data').empty();
 				$('#tbody_data').html(` <tr><td class="text-center" colspan="4" style="font-size:20px;"><i class="fas fa-circle-notch fa-spin"></i> Loading Data ...</td></tr>`);
 
-				console.log('Halaman Saat Ini ---->'+halamanSaatIni)
+				console.log('Halaman Saat Ini ---->' + halamanSaatIni)
 
 				var perhalaman = $("#rowpage").val();
 
-				ajaxUntukSemua(base_url()+'RiwayatPenaganan/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid}, function(data) {
+				ajaxUntukSemua(base_url() + 'RiwayatPenaganan/getDataTable', {
+					perhalaman,
+					halamanSaatIni,
+					search,
+					provid,
+					kotakabid
+				}, function(data) {
 
-          // Set Data Body
+					// Set Data Body
 					setTabelKonten(data.data)
-          // End Set Data Body
+					// End Set Data Body
 
-          // Set Generet Pagination 
+					// Set Generet Pagination 
 					generatePagination(data.jml_data.jml_data, perhalaman, halamanSaatIni);
-          // End Set Generet Pagination
+					// End Set Generet Pagination
 
 
 				}, function(error) {
@@ -334,7 +348,7 @@
 				});
 
 
-			}catch(err){
+			} catch (err) {
 				console.log('Kesalahan:', error);
 			}
 
@@ -347,12 +361,14 @@
 
 
 			let tableConten = ``,
-			warnaAwal = `#F7ECDE`,
-			no = 1,
-			prive = '<?= $this->session->userdata('prive'); ?>',
-			startingYear = <?php echo $this->session->userdata('thang'); ?>,
-			numOfYears = 6,
-			yearArray = Array.from({ length: numOfYears }, (_, index) => startingYear - numOfYears + 1 + index);
+				warnaAwal = `#F7ECDE`,
+				no = 1,
+				prive = '<?= $this->session->userdata('prive'); ?>',
+				startingYear = <?php echo $this->session->userdata('thang'); ?>,
+				numOfYears = 6,
+				yearArray = Array.from({
+					length: numOfYears
+				}, (_, index) => startingYear - numOfYears + 1 + index);
 
 			$.each(data, function(key, value) {
 				console.log(value)
@@ -361,15 +377,15 @@
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.nama)}</td>
 				<td id="irigasiid_50581" style="border: thin solid #006666;" class="text-right">${value.laPermen}</td>`
-				
-				
+
+
 				yearArray.forEach(function(year) {
 
 					tableConten += `<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value['pembangunanBaru'+year])}</td>
 					<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value['peningkatan'+year])}</td>
 					<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value['rehabilitasi'+year])}</td>`;
 				});
-				
+
 
 				tableConten += `</tr>`;
 
@@ -377,26 +393,29 @@
 				no++;
 			});
 
-			
+
 
 			$('#tbody_data').html(tableConten);
 
 		}
 
-		verifFunc = function (irigasiId, idData) {
-			
-			let kondisi = ($(`#diId${idData}`).prop('checked')) ? '1':'0' ;
+		verifFunc = function(irigasiId, idData) {
 
-			ajaxUntukSemua(base_url()+'RiwayatPenaganan/prosesVerif', {irigasiId, kondisi}, function(data) {
+			let kondisi = ($(`#diId${idData}`).prop('checked')) ? '1' : '0';
+
+			ajaxUntukSemua(base_url() + 'RiwayatPenaganan/prosesVerif', {
+				irigasiId,
+				kondisi
+			}, function(data) {
 
 				if (data.code == 200) {
 					toastr.success('Data berhasil disimpan.!');
-				}else{
+				} else {
 					toastr.error('Data gagal disimpan.');
 				}
 
 			}, function(error) {
-				toastr.error('Error :'+error);
+				toastr.error('Error :' + error);
 
 			});
 
@@ -406,17 +425,17 @@
 		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
 			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
 			var paginationContainer = $('#pagination');
-			paginationContainer.empty(); 
+			paginationContainer.empty();
 
 			var startingPage = 1;
-			var endingPage = jumlahHalaman; 
+			var endingPage = jumlahHalaman;
 
 			if (jumlahHalaman > 3) {
 				startingPage = Math.max(1, halamanSaatIni - 1);
 				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
 			}
 
-  // Menampilkan tombol First
+			// Menampilkan tombol First
 			if (halamanSaatIni > 1) {
 				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
 				paginationContainer.append(firstButton);
@@ -448,7 +467,7 @@
 		}
 
 
-		cari = function () {
+		cari = function() {
 
 			provid = $('#prov').val();
 			kotakabid = $('#kabkota').val();
@@ -473,7 +492,9 @@
 			$('.select2_Irigasi').val(null).trigger('change');
 
 
-			ajaxUntukSemua(base_url()+'RiwayatPenaganan/getDataKabKota', {prov}, function(data) {
+			ajaxUntukSemua(base_url() + 'RiwayatPenaganan/getDataKabKota', {
+				prov
+			}, function(data) {
 
 				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
 
@@ -516,7 +537,7 @@
 				dataType: 'json',
 				type: 'post',
 				delay: 250,
-				data: function (params) {
+				data: function(params) {
 					var query = {
 						searchDi: params.term,
 						kdprov: $('#prov').val(),
@@ -524,12 +545,15 @@
 					};
 					return query;
 				},
-				processResults: function (response) {
+				processResults: function(response) {
 
-					response.data.unshift({ id: '', text: 'Tampilkan semua' });
+					response.data.unshift({
+						id: '',
+						text: 'Tampilkan semua'
+					});
 
 					return {
-						results: response.data 
+						results: response.data
 					};
 				},
 				cache: true
@@ -539,5 +563,4 @@
 
 
 	});
-
 </script>
