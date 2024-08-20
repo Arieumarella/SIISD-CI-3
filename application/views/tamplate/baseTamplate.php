@@ -188,6 +188,18 @@
   </div>
   <!-- ./wrapper -->
 
+  <!-- Modal PDF -->
+  <div class="modal modal-blur fade " id="modalPdf">
+    <div class="modal-dialog modal-xl " style="height:100%;">
+      <div class="modal-content " style="height:100%; margin-top: -40px;">
+        <div style="height: 100%; width: 100%; margin:auto;  justify-content: center;  align-items: center;">
+          <embed src="" id="idEmbed" frameborder="0" width="100%" height="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal PDF -->
+
 
   <!-- Bootstrap 4 -->
   <script type="text/javascript" src="<?= base_url(); ?>assets/admin/Ite/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -221,6 +233,7 @@
       }
 
       strx = str.toString();
+      strx = strx.replace(/['"`]/g, '');
 
       if (!isNaN(strx)) {
 
@@ -237,6 +250,23 @@
     }
 
 
+    function numberFormatJs(input = null) {
+
+      let intValue = parseInt(input, 10);
+
+      if (isNaN(intValue) || intValue === null) {
+        return 0;
+      } else {
+
+        let formattedValue = intValue.toLocaleString('id-ID', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        });
+        return formattedValue;
+      }
+    }
+
+
     function bgTabelKolom(kondsisi = null) {
 
       if (kondsisi == 'epaksi') {
@@ -246,15 +276,203 @@
       }
     }
 
+    function hasilKaliSaluran(nilaiKondisi = 0, panjangSaluran = 0) {
+
+      nilaiKondisi = nilaiKondisi == null ? 0 : parseFloat(nilaiKondisi);
+      panjangSaluran = panjangSaluran == null ? 0 : parseFloat(panjangSaluran);
+
+      return nilaiKondisi;
+
+    }
+
+    function totalPanjangSaluran(panjangSaluran1 = 0, panjangSaluran2 = 0, panjangSaluran3 = 0, panjangSaluran4 = 0) {
+
+      panjangSaluran1 = panjangSaluran1 == null ? 0 : parseFloat(panjangSaluran1);
+      panjangSaluran2 = panjangSaluran2 == null ? 0 : parseFloat(panjangSaluran2);
+      panjangSaluran3 = panjangSaluran3 == null ? 0 : parseFloat(panjangSaluran3);
+      panjangSaluran4 = panjangSaluran4 == null ? 0 : parseFloat(panjangSaluran4);
+
+
+
+      return panjangSaluran1 + panjangSaluran2 + panjangSaluran3 + panjangSaluran4;
+
+
+    }
+
+
+    function getNilaiRataRataKondisi(nilaiKondisiKerusakanFix = 0) {
+
+      nilaiKondisiKerusakanFix = nilaiKondisiKerusakanFix == null ? 0 : parseFloat(nilaiKondisiKerusakanFix);
+
+      if (nilaiKondisiKerusakanFix !== 0) {
+        if (nilaiKondisiKerusakanFix > 40) {
+          return "RB";
+        } else if (nilaiKondisiKerusakanFix >= 21) {
+          return "RS";
+        } else if (nilaiKondisiKerusakanFix >= 10) {
+          return "RR";
+        } else if (nilaiKondisiKerusakanFix > 0) {
+          return "B";
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+
+    }
+
+
+    function hitungSaluranTotal(saluranB1 = 0, saluranRR1 = 0, saluranRS1 = 0, saluranRB1 = 0, kondisi = 0) {
+      let totalSaluran = parseFloat(saluranB1) + parseFloat(saluranRR1) + parseFloat(saluranRS1) + parseFloat(saluranRB1);
+
+      if (totalSaluran === 0) {
+        return null;
+      }
+
+      saluranB1 = saluranB1 == null ? 0 : saluranB1;
+      saluranRR1 = saluranRR1 == null ? 0 : saluranRR1;
+      saluranRS1 = saluranRS1 == null ? 0 : saluranRS1;
+      saluranRB1 = saluranRB1 == null ? 0 : saluranRB1;
+      kondisi = kondisi == null ? 0 : kondisi;
+
+      saluranB1x = (parseFloat(saluranB1) * 1);
+      saluranRR1x = (parseFloat(saluranRR1) * 20);
+      saluranRS1x = (parseFloat(saluranRS1) * 40);
+      saluranRB1 = (parseFloat(saluranRB1) * 50);
+
+
+
+      let nilaiKondisiKerusakan = ((parseFloat(saluranB1) * 1) + (parseFloat(saluranRR1) * 20) + (parseFloat(saluranRS1) * 40) + (parseFloat(saluranRB1) * 50)) / totalSaluran;
+      let nilaiKondisiKerusakanFix = isNaN(nilaiKondisiKerusakan) ? 0 : nilaiKondisiKerusakan;
+
+      if (kondisi === 1) {
+        return nilaiKondisiKerusakanFix;
+      }
+
+      if (nilaiKondisiKerusakanFix !== 0) {
+        if (nilaiKondisiKerusakanFix > 40) {
+          return "RB";
+        } else if (nilaiKondisiKerusakanFix >= 21) {
+          return "RS";
+        } else if (nilaiKondisiKerusakanFix >= 10) {
+          return "RR";
+        } else if (nilaiKondisiKerusakanFix > 0) {
+          return "B";
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    }
+
+
+    function hitungTotalRataRataAllForm4(arrayAll = [], kondisi) {
+      // let nilaiTotal = 0;
+      // let totalData = 0;
+      // let nilaiHasilBagi = 0;
+
+      // arrayAll.forEach((val) => {
+      //   if (val !== null && val !== '' && val !== 0) {
+      //     totalData++;
+      //     nilaiTotal += parseFloat(val);
+      //   }
+      // });
+
+      // nilaiHasilBagi = nilaiTotal / totalData;
+
+      // if (isNaN(nilaiHasilBagi)) {
+      //   nilaiHasilBagi = 0;
+      // }
+
+
+      let nilaiTotal = 0;
+      let totalData = 0;
+
+      // Iterasi melalui array dan tambahkan nilai yang valid ke nilaiTotal
+      arrayAll.forEach((val) => {
+        if (!isNaN(val) && val !== null && parseFloat(val) > 0) {
+          nilaiTotal += parseFloat(val);
+          totalData++;
+        }
+      });
+
+
+      // Hitung rata-rata jika totalData lebih besar dari 0
+      let nilaiHasilBagi = totalData > 0 ? nilaiTotal / totalData : 0;
+
+
+
+      if (kondisi === 2) {
+        return nilaiHasilBagi;
+      } else {
+        if (nilaiHasilBagi !== 0) {
+          if (nilaiHasilBagi > 90) {
+            return 'B';
+          } else if (nilaiHasilBagi >= 80) {
+            return 'RR';
+          } else if (nilaiHasilBagi >= 60) {
+            return 'RS';
+          } else if (nilaiHasilBagi > 0) {
+            return 'RB';
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      }
+    }
+
 
     function bgTabelKolomForm8(kondsisi = 0) {
 
-      if (kondsisi != null) {
+      if (kondsisi != null && kondsisi > 0) {
         return `background-color:#66e45d;`;
       } else {
         return '';
       }
     }
+
+    // Rumus Form 4 Sesuai Excel
+    function hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB = 0, nilaiSaluarBR = 0, nilaiSaluarRS = 0, nilaiSaluarRB = 0) {
+
+      let totalSaluran = parseFloat(nilaiSaluarB) + parseFloat(nilaiSaluarBR) + parseFloat(nilaiSaluarRS) + parseFloat(nilaiSaluarRB);
+
+      if (totalSaluran === 0) {
+        return 0;
+      }
+
+      let nilaiSaluarBx = parseFloat(nilaiSaluarB) * 1,
+        nilaiSaluarBRx = parseFloat(nilaiSaluarBR) * 20,
+        nilaiSaluarRSx = parseFloat(nilaiSaluarRS) * 40,
+        nilaiSaluarRBx = parseFloat(nilaiSaluarRB) * 50;
+
+      totalSum = nilaiSaluarBx + nilaiSaluarBRx + nilaiSaluarRSx + nilaiSaluarRBx;
+
+
+
+      return totalSum;
+
+
+
+
+    }
+
+    function hitungSUmSaluran(nilaiSaluarB = 0, nilaiSaluarBR = 0, nilaiSaluarRS = 0, nilaiSaluarRB = 0) {
+
+
+      let totalSaluran = parseFloat(nilaiSaluarB) + parseFloat(nilaiSaluarBR) + parseFloat(nilaiSaluarRS) + parseFloat(nilaiSaluarRB);
+
+      if (totalSaluran === 0) {
+        return 0;
+      }
+
+      return totalSaluran;
+
+    }
+    // End Rumus Form 4 Sesuai Excel
   </script>
 
 

@@ -5,7 +5,7 @@ class M_DeleteDi extends CI_Model {
 
 	private $thang = '';
 
-public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
+	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
 	{
 
 		$cari = ($search != null) ? " AND irigasiid='$search'" : '';
@@ -167,34 +167,28 @@ public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $
 
 		return $this->db->query($qry)->result();
 	}
-
-	  public function delete($tabel, $data){
-        $this->db->where($data);
-        return $this->db->delete($tabel);
-    }
-
-     public function update($tabel, $dataUbah, $where){
-        $this->db->where($where);
-        return $this->db->update($tabel, $dataUbah);
-    }
+	public function delete($tabel, $data){
+		$this->db->where($data);
+		return $this->db->delete($tabel);
+	}
 
 
-    public function deleteDataDi($irigasiid)
-    {
- 
-    $this->db->where('irigasiid', $irigasiid);
-    $this->db->delete('m_irigasi');
+	public function deleteDataDi($irigasiid)
+	{
+		
+		$this->db->where('irigasiid', $irigasiid);
+		$this->db->delete('m_irigasi');
 
-    
-    return $this->db->affected_rows();
-   }
+		
+		return $this->db->affected_rows();
+	}
 
-     public function getData($selectedValue) {
+	public function getData($selectedValue) {
         // Lakukan query atau proses lain untuk mendapatkan data
         // Contoh: Ambil data dari tabel berdasarkan nilai yang dipilih
-        $this->db->where('irigasiid', $selectedValue);
-        $query = $this->db->get('m_irigasi');
-        return $query->result();
-    }
+		$this->db->where('irigasiid', $selectedValue);
+		$query = $this->db->get('m_irigasi');
+		return $query->result();
+	}
 
 }

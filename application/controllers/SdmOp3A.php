@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -10,10 +10,12 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class SdmOp3A extends CI_Controller {
+class SdmOp3A extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -52,7 +54,7 @@ class SdmOp3A extends CI_Controller {
 	{
 		$jumlahDataPerHalaman  = ($this->input->post('perhalaman')) ? $this->input->post('perhalaman') : 5;
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
-		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
+		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null;
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
 		$kotakabid = ($this->input->post('kotakabid') != '') ? $this->input->post('kotakabid') : null;
 
@@ -67,8 +69,6 @@ class SdmOp3A extends CI_Controller {
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
-
-
 	}
 
 
@@ -79,12 +79,11 @@ class SdmOp3A extends CI_Controller {
 
 		if ($this->session->userdata('prive') != 'balai') {
 			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
-		}else{
+		} else {
 			$data = $this->M_sdmOp3A->getkabKota($prov);
 		}
 
 		echo json_encode($data);
-
 	}
 
 
@@ -98,7 +97,8 @@ class SdmOp3A extends CI_Controller {
 			'tittle' => 'Tambah Data 3A',
 			'dataProvinsi' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('m_prov', '*', 'provinsi', 'ASC') : $this->M_dinamis->getById('m_prov', ['provid' => $provid]),
 			'dataKabKota' => ($this->session->userdata('prive') == 'admin') ? null : $this->M_dinamis->getById('m_kotakab', ['kotakabid' => $kotakabid]),
-			'dataKantor' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('p_f3_tempat', '*', 'id', 'asc') : $this->M_dinamis->getResult('p_f3_tempat', ['kdKewenangan' => $this->session->userdata('kdKewenangan')])
+			'dataKantor' => ($this->session->userdata('prive') == 'admin') ? $this->M_dinamis->add_all('p_f3_tempat', '*', 'id', 'asc') : $this->M_dinamis->getResult('p_f3_tempat', ['kdKewenangan' => $this->session->userdata('kdKewenangan')]),
+			'dataApbd' => ($this->session->userdata('prive') == 'pemda') ? $this->M_sdmOp3A->getDataApbd($kotakabid) : null,
 		);
 
 		$this->load->view('SdmOp/tamba3A', $tmp);
@@ -111,7 +111,7 @@ class SdmOp3A extends CI_Controller {
 
 		$data = $this->M_dinamis->getById('p_f3_tempat', ['id' => $valueOption]);
 
-		echo json_encode(['code' => ($data) ? 200:401, 'data' => $data]);
+		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
 	}
 
 
@@ -139,7 +139,7 @@ class SdmOp3A extends CI_Controller {
 
 		$pros = $this->M_sdmOp3A->simpanData($dataInsert3a);
 
-		
+
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -147,7 +147,7 @@ class SdmOp3A extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -157,11 +157,10 @@ class SdmOp3A extends CI_Controller {
 		}
 
 		redirect('/SdmOp3A', 'refresh');
-
 	}
 
 
-	public function getDetailData($id=null)
+	public function getDetailData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Detail Data 3A',
@@ -186,7 +185,7 @@ class SdmOp3A extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Dihapus.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -199,7 +198,7 @@ class SdmOp3A extends CI_Controller {
 	}
 
 
-	public function editData($id=null)
+	public function editData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Edit Data 3A',
@@ -214,7 +213,7 @@ class SdmOp3A extends CI_Controller {
 
 	public function SimpanDataEdit()
 	{
-		
+
 		$idEdit = $this->input->post('idEdit');
 
 		$provid = ubahKomaMenjadiTitik($this->input->post('provid'));
@@ -245,7 +244,7 @@ class SdmOp3A extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -255,72 +254,79 @@ class SdmOp3A extends CI_Controller {
 		}
 
 		redirect("/SdmOp3A", 'refresh');
-
 	}
 
 
-	public function downloadTabel($kotakabid=null)
+	public function downloadTabel($kotakabid = null)
 	{
 		$prive = $this->session->userdata('prive');
 		$thang = $this->session->userdata('thang');
 
 		if ($kotakabid == null) {
-			
 			if ($prive != 'admin' and $prive != 'pemda') {
-
 				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-					Roll Anda Tidak Dibolehkan.
-					</div>');
-
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+                Roll Anda Tidak Dibolehkan.
+                </div>');
 				redirect("/SdmOp3A", 'refresh');
 				return;
 			}
-
-
 		}
 
-		
 		$data = $this->M_sdmOp3A->getDataDownload($thang, $prive, $kotakabid);
 
-		$menitDetik = date('i').date('s');
+		// Group data by kotakabid and sum jmlOrg and kebutuhan
+		$groupedData = [];
+		foreach ($data as $row) {
+			if (!isset($groupedData[$row->kotakabid])) {
+				$groupedData[$row->kotakabid] = [
+					'provinsi' => $row->provinsi,
+					'kemendagri' => $row->kemendagri,
+					'jmlDI' => $row->jmlDI,
+					'luasDI' => $row->luasDI,
+					'alokasiApbn' => $row->alokasiApbn,
+					'dak' => $row->dak,
+					'jmlOrg' => 0,
+					'kebutuhan' => 0
+				];
+			}
+			$groupedData[$row->kotakabid]['jmlOrg'] += $row->jmlOrg;
+			$groupedData[$row->kotakabid]['kebutuhan'] += $row->kebutuhan;
+		}
 
+		$menitDetik = date('i') . date('s');
 		copy('./assets/format/downladBase/3A.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 		$indexLopp = 4;
 		$nilaiAwal = 1;
-		
-		foreach ($data as $key => $val) {
 
+		foreach ($groupedData as $kotakabid => $val) {
 			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
-			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
-			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
-			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->jmlDI);
-			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->luasDI);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->alokasiApbn);
-			
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val['provinsi']);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val['kemendagri']);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val['jmlDI']);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val['luasDI']);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val['alokasiApbn']);
+			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val['dak']);
+			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val['jmlOrg']);
+			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val['kebutuhan']);
+
 			$nilaiAwal++;
 			$indexLopp++;
 		}
 
-		
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
 
-
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="3A.xlsx"');  
+		header('Content-Disposition: attachment; filename="3A.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-		
 	}
-
-
-
 }

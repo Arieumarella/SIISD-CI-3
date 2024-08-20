@@ -35,7 +35,11 @@ class M_DataTeknis extends CI_Model
 		LEFT JOIN (SELECT kotakabid, path AS kebenaran_data FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='kebenaran_data') AS n ON a.kotakabid=n.kotakabid
 		LEFT JOIN (SELECT kotakabid, path AS pemenuhan_kriteria FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='pemenuhan_kriteria') AS o ON a.kotakabid=o.kotakabid
 		LEFT JOIN (SELECT kotakabid, path AS penyiapan_lahan FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='penyiapan_lahan') AS p ON a.kotakabid=p.kotakabid
-		LEFT JOIN (SELECT kotakabid, path AS kesanggupan_op FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='kesanggupan_op') AS q ON a.kotakabid=q.kotakabid";
+		LEFT JOIN (SELECT kotakabid, path AS kesanggupan_op FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='kesanggupan_op') AS q ON a.kotakabid=q.kotakabid
+		LEFT JOIN (SELECT kotakabid, path AS peningkatan_ip FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='peningkatan_ip') AS r ON a.kotakabid=r.kotakabid
+		LEFT JOIN (SELECT kotakabid, path AS dokumen_lingkungan FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='dokumen_lingkungan') AS s ON a.kotakabid=s.kotakabid
+		LEFT JOIN (SELECT kotakabid, path AS pernyataan_petani FROM m_data_teknis WHERE kotakabid='$kotakabid' AND ta='$thang' AND jns_file='pernyataan_petani') AS t ON a.kotakabid=t.kotakabid";
+
 
 		return $this->db->query($qry)->row();
 	}
@@ -65,7 +69,7 @@ class M_DataTeknis extends CI_Model
 
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT a.*, lembar_ck_irigasi, sid, ded, kak, skema_jaringan, skema_bangunan, bc_volume, rab, smk3, dpa, dokumentasi, kebenaran_data, pemenuhan_kriteria, penyiapan_lahan, kesanggupan_op FROM (SELECT * FROM m_prov) AS a
+		$qry = "SELECT a.*, lembar_ck_irigasi, sid, ded, kak, skema_jaringan, skema_bangunan, bc_volume, rab, smk3, dpa, dokumentasi, kebenaran_data, pemenuhan_kriteria, penyiapan_lahan, kesanggupan_op, peningkatan_ip, dokumen_lingkungan, pernyataan_petani FROM (SELECT * FROM m_prov) AS a
 		LEFT JOIN (SELECT provid, COUNT(*) AS lembar_ck_irigasi FROM m_data_teknis WHERE ta='$ta' AND jns_file='lembar_ck_irigasi' GROUP BY provid) AS c ON a.provid=c.provid
 		LEFT JOIN (SELECT provid, COUNT(*) AS sid FROM m_data_teknis WHERE ta='$ta' AND jns_file='sid' GROUP BY provid) AS d ON a.provid=d.provid
 		LEFT JOIN (SELECT provid, COUNT(*) AS ded FROM m_data_teknis WHERE ta='$ta' AND jns_file='ded' GROUP BY provid) AS e ON a.provid=e.provid
@@ -80,7 +84,10 @@ class M_DataTeknis extends CI_Model
 		LEFT JOIN (SELECT provid, COUNT(*) AS kebenaran_data FROM m_data_teknis WHERE ta='$ta' AND jns_file='kebenaran_data' GROUP BY provid) AS n ON a.provid=n.provid
 		LEFT JOIN (SELECT provid, COUNT(*) AS pemenuhan_kriteria FROM m_data_teknis WHERE ta='$ta' AND jns_file='pemenuhan_kriteria' GROUP BY provid) AS o ON a.provid=o.provid
 		LEFT JOIN (SELECT provid, COUNT(*) AS penyiapan_lahan FROM m_data_teknis WHERE ta='$ta' AND jns_file='penyiapan_lahan' GROUP BY provid) AS p ON a.provid=p.provid
-		LEFT JOIN (SELECT provid, COUNT(*) AS kesanggupan_op FROM m_data_teknis WHERE ta='$ta' AND jns_file='kesanggupan_op' GROUP BY provid) AS q ON a.provid=q.provid";
+		LEFT JOIN (SELECT provid, COUNT(*) AS kesanggupan_op FROM m_data_teknis WHERE ta='$ta' AND jns_file='kesanggupan_op' GROUP BY provid) AS q ON a.provid=q.provid
+		LEFT JOIN (SELECT provid, COUNT(*) AS peningkatan_ip FROM m_data_teknis WHERE ta='$ta' AND jns_file='peningkatan_ip' GROUP BY provid) AS r ON a.provid=r.provid
+		LEFT JOIN (SELECT provid, COUNT(*) AS dokumen_lingkungan FROM m_data_teknis WHERE ta='$ta' AND jns_file='dokumen_lingkungan' GROUP BY provid) AS s ON a.provid=s.provid
+		LEFT JOIN (SELECT provid, COUNT(*) AS pernyataan_petani FROM m_data_teknis WHERE ta='$ta' AND jns_file='pernyataan_petani' GROUP BY provid) AS t ON a.provid=t.provid";
 
 		return $this->db->query($qry)->result();
 	}
@@ -105,7 +112,10 @@ class M_DataTeknis extends CI_Model
 		LEFT JOIN (SELECT kotakabid, id AS id_kebenaran_data, path AS path_kebenaran_data, ekstensi AS ekstensi_kebenaran_data, created_at as upload_time_kebenaran_data FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='kebenaran_data' ) AS n ON a.kotakabid=n.kotakabid
 		LEFT JOIN (SELECT kotakabid, id AS id_pemenuhan_kriteria, path AS path_pemenuhan_kriteria, ekstensi AS ekstensi_pemenuhan_kriteria, created_at as upload_time_pemenuhan_kriteria FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='pemenuhan_kriteria' ) AS o ON a.kotakabid=o.kotakabid
 		LEFT JOIN (SELECT kotakabid, id AS id_penyiapan_lahan, path AS path_penyiapan_lahan, ekstensi AS ekstensi_penyiapan_lahan, created_at as upload_time_penyiapan_lahan FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='penyiapan_lahan' ) AS p ON a.kotakabid=p.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_kesanggupan_op, path AS path_kesanggupan_op, ekstensi AS ekstensi_kesanggupan_op, created_at as upload_time_kesanggupan_op FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='kesanggupan_op' ) AS q ON a.kotakabid=q.kotakabid";
+		LEFT JOIN (SELECT kotakabid, id AS id_kesanggupan_op, path AS path_kesanggupan_op, ekstensi AS ekstensi_kesanggupan_op, created_at as upload_time_kesanggupan_op FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='kesanggupan_op' ) AS q ON a.kotakabid=q.kotakabid
+		LEFT JOIN (SELECT kotakabid, id AS id_peningkatan_ip, path AS path_peningkatan_ip, ekstensi AS ekstensi_peningkatan_ip, created_at as upload_time_peningkatan_ip FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='peningkatan_ip' ) AS r ON a.kotakabid=r.kotakabid
+		LEFT JOIN (SELECT kotakabid, id AS id_dokumen_lingkungan, path AS path_dokumen_lingkungan, ekstensi AS ekstensi_dokumen_lingkungan, created_at as upload_time_dokumen_lingkungan FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='dokumen_lingkungan' ) AS s ON a.kotakabid=s.kotakabid
+		LEFT JOIN (SELECT kotakabid, id AS id_pernyataan_petani, path AS path_pernyataan_petani, ekstensi AS ekstensi_pernyataan_petani, created_at as upload_time_pernyataan_petani FROM m_data_teknis WHERE provid='$idprov' AND ta='$thang' AND jns_file='pernyataan_petani' ) AS t ON a.kotakabid=t.kotakabid";
 
 		return $this->db->query($qry)->result();
 	}
@@ -171,32 +181,34 @@ class M_DataTeknis extends CI_Model
 
 	public function getDataDownload($ta, $prive, $kotakabidx = null)
 	{
-		if ($kotakabidx == null) {
 
+		if ($kotakabidx == null) {
 			if ($prive == 'admin') {
 
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-				LEFT JOIN m_prov as d on a.provid=d.provid
-				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				$qry = "SELECT DISTINCT d.provinsi, c.kemendagri, b.nama, e.nm_ws, f.nm_das, a.* FROM m_usulan_simoni AS a
+				LEFT JOIN m_irigasi AS b ON a.kd_di=b.irigasiid
+				LEFT JOIN m_prov as d on a.kdprov=d.provid
+				LEFT JOIN m_kotakab as c on a.kdkabkota=c.kotakabid
+				LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid) AS e ON a.kd_ws=e.id_ws 
+		        LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws, id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
 				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
 			} else if ($prive == 'pemda') {
 
 				$kotakabid = $this->session->userdata('kotakabid');
 
 				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-				LEFT JOIN m_prov as d on a.provid=d.provid
-				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabid' ORDER BY d.provinsi, c.kemendagri";
+				LEFT JOIN m_irigasi AS b ON a.kd_di=b.irigasiid
+				LEFT JOIN m_prov as d on a.kdprov=d.provid
+				LEFT JOIN m_kotakab as c on a.kdkabkota=c.kotakabid
+				WHERE 1=1 AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
 			}
 		} else {
 
 			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM m_usulan_simoni AS a
-			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-			LEFT JOIN m_prov as d on a.provid=d.provid
-			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-			WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabidx' ORDER BY d.provinsi, c.kemendagri";
+			LEFT JOIN m_irigasi AS b ON a.kd_di=b.irigasiid
+			LEFT JOIN m_prov as d on a.kdprov=d.provid
+			LEFT JOIN m_kotakab as c on a.kdkabkota=c.kotakabid
+			WHERE 1=1 AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
 		}
 
 

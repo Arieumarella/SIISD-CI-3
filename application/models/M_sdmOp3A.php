@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No DIect script access allowed');
+defined('BASEPATH') or exit('No DIect script access allowed');
 
-class M_sdmOp3A extends CI_Model {
+class M_sdmOp3A extends CI_Model
+{
 
 	private $thang = '';
 
@@ -12,16 +13,16 @@ class M_sdmOp3A extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+		if ($this->session->userdata('prive') == 'balai' and $kotakabid == null) {
 			$stringCari = getWhereBalai();
 			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.provinsi, c.kemendagri, dak, a.* FROM (SELECT * FROM p_f3a WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
+		$qry = "SELECT b.provinsi, c.kemendagri, apbdNonDak as dak, a.* FROM (SELECT * FROM p_f3a WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
 		LEFT JOIN 
-		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+		(SELECT a.*, b.apbdNonDak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
 			LEFT JOIN
 			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		ORDER BY b.provinsi, c.kemendagri ";
@@ -32,9 +33,7 @@ class M_sdmOp3A extends CI_Model {
 		$jml_data = $this->db->query($qry2)->row();
 
 
-		return $dataArray = ($data == true AND $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
-
-
+		return $dataArray = ($data == true and $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
 	}
 
 
@@ -48,8 +47,8 @@ class M_sdmOp3A extends CI_Model {
 	}
 
 
-	public function getkabKota($prov='')
-	{	
+	public function getkabKota($prov = '')
+	{
 		$nama = $this->session->userdata('nama');
 		$substring_to_remove = 'BALAI ';
 		$nama = str_replace($substring_to_remove, '', $nama);
@@ -59,7 +58,7 @@ class M_sdmOp3A extends CI_Model {
 	}
 
 
-	public function getDataHeader($id='')
+	public function getDataHeader($id = '')
 	{
 
 		$ta = $this->session->userdata('thang');
@@ -68,7 +67,7 @@ class M_sdmOp3A extends CI_Model {
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid 
 		LEFT JOIN 
-		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+		(SELECT a.*, b.apbdNonDak as dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
 			LEFT JOIN
 			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		WHERE a.id='$id'
@@ -77,7 +76,19 @@ class M_sdmOp3A extends CI_Model {
 		return $this->db->query($qry)->row();
 	}
 
-	public function getDataBodyDetail($id='')
+	public function getDataApbd($kotakabid = '')
+	{
+
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT a.*, b.apbdNonDak as dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta AND kotakabid='$kotakabid') AS a
+		LEFT JOIN
+		(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5";
+
+		return $this->db->query($qry)->row();
+	}
+
+	public function getDataBodyDetail($id = '')
 	{
 		$qry = "SELECT * FROM p_f3a_detail WHERE idF3a='$id'";
 
@@ -97,7 +108,7 @@ class M_sdmOp3A extends CI_Model {
 		$this->db->insert('p_f3a', $dataInsert3a);
 		$idX = $this->db->insert_id();
 
-		
+
 		$uptd = $this->input->post('uptd');
 		$nilaiIndex = 0;
 
@@ -136,7 +147,6 @@ class M_sdmOp3A extends CI_Model {
 				$nilaiIndex++;
 				$this->db->insert('p_f3a_detail', $dataInsert);
 			}
-
 		}
 
 
@@ -164,7 +174,7 @@ class M_sdmOp3A extends CI_Model {
 		$this->db->delete('p_f3a_detail');
 
 		$idTempat = $this->input->post('idTempat');
-		
+
 		$labelid = $this->input->post('labelid');
 		$jmlOrg = $this->input->post('jmlOrg');
 		$stPnsOrg = $this->input->post('stPnsOrg');
@@ -186,7 +196,7 @@ class M_sdmOp3A extends CI_Model {
 		$nomorindexArray = 0;
 
 		foreach ($labelid as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => date('Y'),
 				'idF3a' => $idEdit,
@@ -214,15 +224,14 @@ class M_sdmOp3A extends CI_Model {
 			$baseArray[] = $dataInsert2;
 
 			if ($nomorLoop == '6') {
-				$nomorLoop=1;
+				$nomorLoop = 1;
 				$nomorindexArray++;
-			}else{
+			} else {
 				$nomorLoop++;
 			}
-
 		}
 
-		$this->db->insert_batch('p_f3a_detail', $baseArray); 
+		$this->db->insert_batch('p_f3a_detail', $baseArray);
 
 		$this->db->trans_complete();
 
@@ -233,23 +242,23 @@ class M_sdmOp3A extends CI_Model {
 			$this->db->trans_commit();
 			return TRUE;
 		}
-
 	}
 
 
-	public function getDataDownload($ta, $prive, $kotakabidx=null)
+	public function getDataDownload($ta, $prive, $kotakabidx = null)
 	{
 
 		if ($kotakabidx == null) {
-			
+
 			if ($prive == 'admin') {
 
-				$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
-				LEFT JOIN m_prov AS b ON a.provid=b.provid
-				LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri";
-
-			}else if($prive == 'pemda'){
+				$qry = "SELECT DISTINCT b.provinsi, c.kemendagri, e.jmlOrg, e.kebutuhan, d.apbdNonDak as dak, a.* FROM p_f3a  AS a
+		        LEFT JOIN m_prov AS b ON a.provid=b.provid
+		        LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
+		        LEFT JOIN (SELECT a.*, b.apbdNonDak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
+			    LEFT JOIN (SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
+		        LEFT JOIN (SELECT * FROM p_f3a_detail WHERE ta = $ta) AS e ON a.id = e.idF3a ORDER BY b.provinsi, c.kemendagri";
+			} else if ($prive == 'pemda') {
 
 				$kotakabid = $this->session->userdata('kotakabid');
 
@@ -257,22 +266,17 @@ class M_sdmOp3A extends CI_Model {
 				LEFT JOIN m_prov AS b ON a.provid=b.provid
 				LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
 				WHERE 1=1  AND a.kotakabid='$kotakabid' AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri";
-
 			}
-
-		}else{
+		} else {
 
 			$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f3a AS a
 			LEFT JOIN m_prov AS b ON a.provid=b.provid
 			LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
 			WHERE 1=1  AND a.kotakabid='$kotakabidx' AND a.ta=$ta ORDER BY b.provinsi, c.kemendagri";
-			
 		}
 
-		
+
 
 		return $this->db->query($qry)->result();
 	}
-
-
 }

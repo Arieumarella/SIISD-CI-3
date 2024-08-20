@@ -75,28 +75,19 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="text-center">
-							<h4 class="font-weight-bolder">USULAN RENCANA KEGIATANI</h4>
-							<h4 class="font-weight-bolder">PENILAIAN SINKRONISASI DAN HARMONISASI</h4>
-							<!-- <?php if ($this->session->userdata('prive') == 'provinsi') { ?>
-								<h4 class="font-weight-bolder">PROVINSI <?= $nm_Provinsi; ?></h4>
-							<?php } ?> -->
+							<h4 class="font-weight-bolder">Usulan Rencana Kegiatan Penilaian Dana Alokasi Khusus Bidang Irigasi TA. <?= $this->session->userdata('thang'); ?></h4>
+							<h4 class="font-weight-bolder">Menu Pembangunan/ Peningkatan/ Rehabilitasi Jaringan Irigasi</h4>
 							<h4 class="font-weight-bolder"><?= $nmKabkota; ?></h4>
-							<h4 class="font-weight-bolder">TA. <?= $this->session->userdata('thang'); ?></h4>
+
 						</div>
 						<?= $this->session->flashdata('psn'); ?>
 						<?php if ($this->session->userdata('prive') == 'pemda') { ?>
 							<button class="btn btn-sm btn-primary" style="float:right; margin-bottom: 5px;" onclick="tambahData();"><i class="fa fa-plus" aria-hidden="true"></i> TAMBAH DATA</button>
 							<br><br>
-
-							<!-- <form method="post">
-								<input type="submit" value="Convert To PDF" name="button" class="btn btn-danger">
-							</form> -->
-
-							<!-- <a href="<?= base_url(); ?>Usulan/exportURK " target="_blank" class="btn btn-danger btn-icon" style="float:right; margin-bottom: 5px;">Convert To PDF</a> -->
 						<?php } ?>
 
 						<table class=" table-bordered tableX " id="myTabelUsulan" style="width:100%;">
-							<thead class="theadX">
+							<thead class="theadX" style="background-color:#18978F; color:#fff;">
 								<!-- header utama -->
 								<tr id="boxThField">
 									<th class="text-center" rowspan="2">No.</th>
@@ -105,7 +96,7 @@
 									<th class="text-center" rowspan="2">PENGADAAN</th>
 									<th class="text-center" rowspan="2" style="width:17%;">KOMPONEN</th>
 									<th class="text-center" colspan="2">OUTCOME KEGIATAN</th>
-									<th class="text-center" rowspan="2">KEBUTUHAN <br> DANA</th>
+									<th class="text-center" rowspan="2">USULAN <br> PAGU</th>
 									<th class="text-center" rowspan="2" style="width:7%;">AKSI</th>
 
 								</tr>
@@ -117,7 +108,13 @@
 
 							<tbody id="tbody_data">
 								<?php $hasData = false;
-								if ($dataKegiatan != null) { ?>
+								if ($dataKegiatan != null) {
+									usort($dataKegiatan, function ($a, $b) {
+										$order = ['1', '2', '3'];
+										$pos_a = array_search($a->kd_menu, $order);
+										$pos_b = array_search($b->kd_menu, $order);
+										return $pos_a - $pos_b;
+									}); ?>
 									<?php $no = 1;
 									foreach ($dataKegiatan as $key => $val) { ?>
 										<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3') {
@@ -139,6 +136,17 @@
 														echo '<b>' . $val->nm_di . '</b>';
 													} ?>
 													<br><br>
+													<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+														<b><?= (substr($nmKabkota, 0, 4) == 'PROV') ? '-Provinsi' : '-Kabupaten'; ?>
+
+															:</b> <?= $nmKabkota; ?>
+														<br>
+													<?php } ?>
+
+													<?php if (substr($nmKabkota, 0, 4) == 'PROV') { ?>
+														<b>-Kabupaten :</b> <?= $val->kotax; ?>
+														<br>
+													<?php } ?>
 													<b>-Kecamatan :</b> <?= $val->keca; ?>
 													<br>
 													<b>-Desa :</b> <?= $val->desa; ?>
@@ -148,7 +156,7 @@
 												<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
 												<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
 												<td class="text-right" style="vertical-align: top;">
-													<?php if ($val->verif_balai === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0' and $val->verif_provinsi === '0') { ?>
+													<?php if ($val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
 														<button class="btn btn-primary btn-sm mb-2" onclick="showModalKomponen('<?= $val->id; ?>')"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														<br>
 													<?php } ?>
@@ -174,15 +182,66 @@
 												</td>
 												<td class="text-right"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
 												<td><?= $val->satuan_output; ?></td>
-												<td class="text-left"><b>- Dana :</b> Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br> <b>- Harga Satuan :</b>
-													Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
+												<td class="text-left">
+													<b>- Dana :</b> Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br>
+													<b>- Harga Satuan :</b>
+													Rp <?php
+														// Mengganti titik ribuan dengan kosong dan koma dengan titik untuk desimal
+														$output = str_replace('.', '', $val->output); // Hapus titik ribuan
+														$output = str_replace(',', '.', $output); // Ganti koma dengan titik untuk desimal
 
+														// Pastikan $output adalah angka yang valid dan bukan nol
+														if (is_numeric($output) && (float)$output != 0) {
+															// Mengkonversi pagu_kegiatan ke float untuk memastikan format yang tepat
+															$pagu_kegiatan = str_replace('.', '', $val->pagu_kegiatan); // Hapus titik ribuan dari pagu_kegiatan
+															$pagu_kegiatan = str_replace(',', '.', $pagu_kegiatan); // Ganti koma dengan titik untuk desimal
+
+															$pagu_kegiatan = (float)$pagu_kegiatan; // Konversi ke float
+
+															// Melakukan pembagian
+															$harga_satuan = $pagu_kegiatan / (float)$output;
+
+															// Menampilkan hasil dengan format angka
+															echo number_format($harga_satuan, 0, ',', '.');
+														} else {
+															// Menampilkan pesan error jika $output tidak valid
+															echo 'Invalid data';
+														}
+														?>
+												</td>
 												<td class="text-center" rowspan="6">
-													<?php if ($val->verif_balai === '0' and $val->verif_provinsi === '0' and $val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
+													<?php if ($val->verif_sda === '0' and $val->verif_pusat === '0') { ?>
 
 														<br>
 														<button class="btn btn-danger btn-sm" onclick="hapusMainData('<?= $val->id; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
 														<button class="btn btn-warning btn-sm" onclick="editnData('<?= $val->id; ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+
+													<?php } ?>
+
+													<?php if ($this->session->userdata('prive') == 'pemda') { ?>
+														<br><br><br>
+														<hr style="border-color: #000000; padding:4%">
+														<br>
+
+														<div class="form-group text-center">
+															<label for="recipient-name" class="col-form-label text-left">Penilaian Verifikator 2 : </label>
+															<br><br>
+															<?php
+															if ($val->verif_pusat2 == '1') { ?>
+																<i class="fa fa-window-close text-danger fa-2x" aria-hidden="true"></i>
+															<?php
+															} elseif ($val->verif_pusat3 == '1') { ?>
+																<i class="fa fa-check-square text-success fa-2x" style="width: 30px;" aria-hidden="true"></i>
+															<?php
+															} elseif (($val->verif_pusat2 == '0' || $val->verif_pusat2 === null) && ($val->verif_pusat3 == '0' || $val->verif_pusat3 === null)) { ?>
+																<label class="text-left">Belum dinilai verifikator 2</label>
+															<?php
+															}
+															?>
+
+
+
+														</div>
 
 													<?php } ?>
 												</td>
@@ -193,17 +252,37 @@
 												<td colspan="5"><b>CATATAN</b></td>
 											</tr>
 											<tr>
-												<td>PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
+												<td class="text-left">PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
 												<td><?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
 														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
 													<?php } else { ?>
 														<i class="fa fa-check-circle text-success" aria-hidden="true"></i>
 													<?php } ?>
 												</td>
-												<td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_pusat; ?></textarea></td>
+
+
+												<td colspan="5">
+													<!-- Textarea untuk input pengguna -->
+													<textarea class="form-control" rows="3" readonly id="textarea_<?= $val->id; ?>">
+1. Riwayat Penanganan : <?= $val->tahun; ?> 
+2. Rekomendasi Penilaian : <?= $val->catat_pusat; ?>
+    </textarea>
+
+													<!-- Input hidden untuk mengirimkan data ke server -->
+													<input type="hidden" name="catat_pfid[<?= $val->id; ?>]" id="hidden_input_<?= $val->id; ?>" value="<?= $val->catat_pusat; ?>">
+												</td>
+
+												<script>
+													document.getElementById('textarea_<?= $val->id; ?>').addEventListener('input', function() {
+														var textareaValue = this.value;
+														// Extract only the part after "2. Rekomendasi Penilaian :"
+														var extractedValue = textareaValue.split('2. Rekomendasi Penilaian :')[1].trim();
+														document.getElementById('hidden_input_<?= $val->id; ?>').value = extractedValue;
+													});
+												</script>
 											</tr>
 											<tr>
-												<td>DIREKTORAT IRIGASI DAN RAWA</td>
+												<td class="text-left">DIREKTORAT IRIGASI DAN RAWA</td>
 												<td><?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
 														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
 													<?php } else { ?>
@@ -213,7 +292,7 @@
 												<td colspan="5"><textarea class="form-control" rows="3" readonly><?= $val->catat_sda; ?></textarea></td>
 											</tr>
 											<tr>
-												<td>BBWS/BWS</td>
+												<td class="text-left">BBWS/BWS</td>
 												<td>
 													<?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
 														<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
@@ -227,6 +306,16 @@
 											</tr>
 											</tr>
 										<?php } ?>
+									<?php } ?>
+									<?php if ($dataParaf2 != null) { ?>
+										<?php
+										$lastVal = end($dataParaf2);
+										?>
+										<tr>
+											<td class="text-left">Catatan Verifikator 2</td>
+
+											<td colspan="9"><textarea class="form-control" rows="3" readonly><?= $lastVal->catat; ?></textarea></td>
+										</tr>
 									<?php } ?>
 								<?php }
 								if (!$hasData) { ?>
@@ -253,8 +342,8 @@
 
 					<div class="card-body">
 						<table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
-							<thead class="theadX">
-								<tr id="boxThField">
+							<thead class="theadX" style="background-color:#18978F; color:#fff;">
+								<tr id=" boxThField">
 									<th class="text-center">No</th>
 									<th class="text-center">Nama Dinas</th>
 									<th class="text-center">Nama <br> Kepala Dinas</th>
@@ -295,6 +384,10 @@
 		</div>
 	</div>
 </section>
+<?php
+$prive = $this->session->userdata('prive');
+$is_prive = $this->session->userdata('provinsi');
+?>
 
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -376,8 +469,11 @@
 					</div>
 					<div class="form-group">
 						<label for="output" class="col-form-label">Outcome (Hektar) :</label>
-						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/[^0-9,]/g, '')">
+
+						<!-- <input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/[^0-9.,]/g, '')"> -->
 					</div>
+
 					<div class="form-group">
 						<label for="kecamatan" class="col-form-label">Pilih Kecamatan :</label>
 						<select class="form-control select4" name="kecamatan" id="kecamatan" required>
@@ -402,10 +498,31 @@
 							<option value="1">Kontraktual</option>
 						</select>
 					</div>
+
+					<!-- <script>
+						function formatNumber(value) {
+							// Hapus semua karakter non-digit
+							value = value.replace(/\D/g, '');
+
+							// Format dengan titik sebagai pemisah ribuan
+							return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+						}
+
+						function handleInput(event) {
+							let input = event.target;
+							// Simpan nilai saat ini
+							let currentValue = input.value;
+							// Format nilai
+							input.value = formatNumber(currentValue);
+						}
+					</script> -->
+
 					<div class="form-group">
-						<label for="pagu_kegiatan" class="col-form-label">Kebutuhan Dana :</label>
+						<label for="pagu_kegiatan" class="col-form-label">Usulan Pagu :</label>
 						<input type="text" class="form-control" id="pagu_kegiatan" name="pagu_kegiatan" required oninput="this.value = this.value.replace(/\D/g, '')">
 					</div>
+
+
 			</div>
 			<div class="card-body">
 				<p class="keterangan">*Penulisan Kebutuhan Dana Tidak dapat menggunakan titik dan koma, Contoh "10000000"</p>
@@ -438,25 +555,23 @@
 			</div>
 			<div class="modal-body">
 				<form method="POST" action="<?= base_url(); ?>Usulan/simpanParafURK" enctype="multipart/form-data">
-
-
+					<input type="hidden" name="kdkabkota" value="<?= $kotakabid; ?>">
 					<div class="form-group">
 						<label for="output" class="col-form-label">Nama Dinas :</label>
-						<input type="text" class="form-control" id="nm_dinas" name="nm_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
+						<input type="text" class="form-control" id="nm_dinas" name="nm_dinas" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
 						<label for="output" class="col-form-label">Nama :</label>
-						<input type="text" class="form-control" id="nm_kpl_dinas" name="nm_kpl_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
+						<input type="text" class="form-control" id="nm_kpl_dinas" name="nm_kpl_dinas" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
 						<label for="output" class="col-form-label">Jabatan :</label>
 						<br>
-						<select name="jabatan" id="jabatan" class="col-form-label" required>
-							<option value="">--Pilih Jabatan--</option>
+						<select name="jabatan" id="jabatan" class="form-control" required>
+							<option value="">-- Pilih Jabatan --</option>
 							<option value="Kepala Dinas">Kepala Dinas</option>
 							<option value="Plt Kepala DInas">Plt Kepala Dinas</option>
 						</select>
-
 					</div>
 					<div class=" form-group">
 						<label for="output" class="col-form-label">NIP Kepala Dinas :</label>
@@ -570,9 +685,10 @@
 							<option value="Luasan">Luasan</option>
 						</select>
 					</div>
+
 					<div class="form-group">
-						<label for="output_edit" class="col-form-label">Outcome (Hektar) :</label>
-						<input type="text" class="form-control" id="output_edit" name="output_edit" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<label for="output" class="col-form-label">Outcome (Hektar) :</label>
+						<input type="text" class="form-control" id="output_edit" name="output_edit" required oninput="this.value = this.value.replace(/[^0-9,]/g, '')">
 					</div>
 					<div class="form-group">
 						<label for="kecamatan_edit" class="col-form-label">Pilih Kecamatan :</label>
@@ -594,12 +710,12 @@
 						<label for="pengadaan_edit" class="col-form-label">Pilih Pengadaan :</label>
 						<select class="form-control" name="pengadaan_edit" id="pengadaan_edit" required>
 							<option value="" selected disabled>-- Pilih Pengadaan --</option>
-							<option value="0">Swakelola</option>
+							<!-- <option value="0">Swakelola</option> -->
 							<option value="1">Kontraktual</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="pagu_kegiatan_edit" class="col-form-label">Kebutuhan Dana :</label>
+						<label for="pagu_kegiatan_edit" class="col-form-label">Usulan Pagu :</label>
 						<input type="text" class="form-control" id="pagu_kegiatan_edit" name="pagu_kegiatan_edit" required oninput="this.value = this.value.replace(/\D/g, '')">
 					</div>
 			</div>
@@ -680,6 +796,20 @@
 
 		$('.select5').select2({
 			placeholder: '-Pilih Desa-',
+			theme: 'default',
+			width: '100%'
+
+		})
+
+		$('.select6').select2({
+			placeholder: '-Pilih Kabupaten-',
+			theme: 'default',
+			width: '100%'
+
+		})
+
+		$('#kabupaten_edit').select2({
+			placeholder: '-Pilih Kabupaten-',
 			theme: 'default',
 			width: '100%'
 
@@ -767,6 +897,30 @@
 		});
 
 
+		// $('#kabupaten').on('change', function() {
+
+		// 	let val = this.value;
+
+		// 	ajaxUntukSemua(base_url() + 'Usulan/getKeca', {
+		// 		kdkabkota: val
+		// 	}, function(data) {
+
+
+		// 		let html = ``;
+
+		// 		$.map(data, function(val, key) {
+		// 			html += `<option value="${val.kecaid}">${val.keca}</option>`;
+		// 		})
+
+		// 		$('#desa').html(html);
+
+
+		// 	}, function(error) {
+		// 		alert(`Error : ${error}`);
+		// 		console.log('Kesalahan:', error);
+		// 	});
+
+		// });
 
 
 		$('#kecamatan').on('change', function() {

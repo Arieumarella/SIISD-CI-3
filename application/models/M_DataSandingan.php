@@ -335,43 +335,4 @@ class M_DataSandingan extends CI_Model {
 		return $qry;
 	}
 
-	public function getDataDownload($ta, $prive, $kotakabidx=null)
-	{
-		if ($kotakabidx == null) {
-			
-			if ($prive == 'admin') {
-
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1a AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-				LEFT JOIN m_prov as d on a.provid=d.provid
-				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
-
-			}else if($prive == 'pemda'){
-
-				$kotakabid = $this->session->userdata('kotakabid');
-
-				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1a AS a
-				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-				LEFT JOIN m_prov as d on a.provid=d.provid
-				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-				WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabid' ORDER BY d.provinsi, c.kemendagri";
-
-			}
-
-		}else{
-
-			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f1a AS a
-			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
-			LEFT JOIN m_prov as d on a.provid=d.provid
-			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
-			WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabidx' ORDER BY d.provinsi, c.kemendagri";
-
-		}
-
-		
-
-		return $this->db->query($qry)->result();
-	}
-
 }

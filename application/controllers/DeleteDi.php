@@ -36,7 +36,7 @@ class DeleteDi extends CI_Controller {
 	{
 
 		$tmp = array(
-			'tittle' => 'Setting DI',
+			'tittle' => 'Delete Data DI',
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
@@ -120,6 +120,20 @@ class DeleteDi extends CI_Controller {
 
 	}
 
+	// public function prosesDeleteDi()
+	// {
+	// 	$id = $this->input->post('id');
+	
+	// 	$id = ubahKomaMenjadiTitik($id);
+
+	// 	$this->M_dinamis->delete('m_irigasi', ['irigasiid' => $id]);
+	// 	$this->M_dinamis->delete('m_mapping_di', ['kode_di' => $id]);
+
+
+	// 	echo json_encode(['code' => 200]);
+	// }
+
+
 
 	public function prosesDeleteDi()
 	{
@@ -134,33 +148,6 @@ class DeleteDi extends CI_Controller {
     // Berikan respons dalam bentuk JSON, kode 200 jika penghapusan berhasil
 		echo json_encode(['code' => 200]);
 	}
-
-
-	public function prosesEditDi()
-	{
-
-		$siisd  = ubahKomaMenjadiTitik($this->input->post('siisd'));
-		$epaksi = ubahKomaMenjadiTitik($this->input->post('epaksi'));
-		
-		$pros = $this->M_dinamis->update('m_irigasi', ['kode_di' => $epaksi], ['irigasiid' => $siisd]);
-
-		echo json_encode(['code' => ($pros) ? 200:500]);	
-
-	}
-
-	// public function prosesEditDi()
-	// {
-	// 	$siisd  = ubahKomaMenjadiTitik($this->input->post('siisd'));
-	// 	$epaksi = ubahKomaMenjadiTitik($this->input->post('epaksi'));
-
-    // // Update tabel 'm_mapping_di' dengan kode_di = $siisd
-	// 	$this->M_dinamis->update('m_mapping_di', ['kode_di' => $siisd]);
-
-    // // Update tabel 'm_irigasi' dengan irigasiid = $siisd
-	// 	$this->M_dinamis->update('m_irigasi', ['irigasiid' => $siisd]);
-
-	// 	echo json_encode(['code' => 200]);    
-	// }
 
 
 }

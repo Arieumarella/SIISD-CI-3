@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kelembagaan extends CI_Controller {
+class Kelembagaan extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -42,7 +44,7 @@ class Kelembagaan extends CI_Controller {
 	{
 		$jumlahDataPerHalaman  = ($this->input->post('perhalaman')) ? $this->input->post('perhalaman') : 5;
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
-		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
+		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null;
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
 		$kotakabid = ($this->input->post('kotakabid') != '') ? $this->input->post('kotakabid') : null;
 
@@ -54,7 +56,6 @@ class Kelembagaan extends CI_Controller {
 		$data = $this->M_Kelembagaan->getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid);
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
-
 	}
 
 
@@ -64,12 +65,11 @@ class Kelembagaan extends CI_Controller {
 
 		if ($this->session->userdata('prive') != 'balai') {
 			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
-		}else{
+		} else {
 			$data = $this->M_Kelembagaan->getkabKota($prov);
 		}
 
 		echo json_encode($data);
-
 	}
 
 
@@ -95,7 +95,7 @@ class Kelembagaan extends CI_Controller {
 
 		$provid = ubahKomaMenjadiTitik($this->input->post('provid'));
 		$kotakabid = ubahKomaMenjadiTitik($this->input->post('kotakabid'));
-		
+
 		$dataInsertAwal = array(
 			'ta' => $this->session->userdata('thang'),
 			'provid' => $provid,
@@ -104,9 +104,10 @@ class Kelembagaan extends CI_Controller {
 			'uidDt' => date('Y-m-d H:i:s')
 		);
 
+
+
 		$pros = $this->M_Kelembagaan->simpanData($dataInsertAwal);
 
-		
 
 		if ($pros == true) {
 			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
@@ -114,24 +115,21 @@ class Kelembagaan extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-			
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
 				Data Gagal Disimpan.
 				</div>');
-
 		}
 
 		redirect('/Kelembagaan', 'refresh');
-
 	}
 
 
 
-	public function getDetailData($id=null)
+	public function getDetailData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Kelembagaan',
@@ -144,7 +142,7 @@ class Kelembagaan extends CI_Controller {
 	}
 
 
-	public function editData($id='')
+	public function editData($id = '')
 	{
 		$tmp = array(
 			'tittle' => 'Kelembagaan',
@@ -160,7 +158,7 @@ class Kelembagaan extends CI_Controller {
 	public function SimpanDataEdit()
 	{
 		$idEdit = $this->input->post('idEdit');
-		
+
 		$dataEditAwal = array(
 			'uidInUp' => $this->session->userdata('uid'),
 			'uidDtUp' => date('Y-m-d H:i:s')
@@ -175,27 +173,86 @@ class Kelembagaan extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-			
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
 				Data Gagal Disimpan.
 				</div>');
-
 		}
 
 		redirect("/Kelembagaan", 'refresh');
+	}
 
+	public function downloadTabel($kotakabid = null)
+	{
+		$prive = $this->session->userdata('prive');
+		$thang = $this->session->userdata('thang');
+
+		if ($kotakabid == null) {
+
+			if ($prive != 'admin' and $prive != 'pemda') {
+
+				$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
+					Roll Anda Tidak Dibolehkan.
+					</div>');
+
+				redirect("/Kelembagaan", 'refresh');
+				return;
+			}
+		}
+
+
+		$data = $this->M_Kelembagaan->getDataDownload($thang, $prive, $kotakabid);
+
+		$menitDetik = date('i') . date('s');
+
+		copy('./assets/format/downladBase/6.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
+
+		$path = "./assets/format/tmp/$menitDetik.xlsx";
+		$spreadsheet = IOFactory::load($path);
+		$indexLopp = 4;
+		$nilaiAwal = 1;
+
+		foreach ($data as $key => $val) {
+
+			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
+			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
+			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
+			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($val->nama);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->stKelengkapan);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->noSuratOrPeraturan);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->thnSuratOrPeraturan);
+			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->keterangan);
+
+			$nilaiAwal++;
+			$indexLopp++;
+		}
+
+
+		if (ob_get_contents()) {
+			ob_end_clean();
+		}
+
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="B1.xlsx"');
+		header('Cache-Control: max-age=0');
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		unlink("./assets/format/tmp/$menitDetik.xlsx");
 	}
 
 	public function delete()
 	{
 		$id = $this->input->post('id');
 
-		$this->M_dinamis->delete('p_f5', ['id' => $id]);
-		$this->M_dinamis->delete('p_f5_detail', ['idF6' => $id]);
+		$this->M_dinamis->delete('p_f6', ['id' => $id]);
+		$this->M_dinamis->delete('p_f6_detail', ['idF6' => $id]);
 
 		$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -204,9 +261,5 @@ class Kelembagaan extends CI_Controller {
 			</div>');
 
 		echo json_encode(['code' => 200]);
-
 	}
-
-
-
 }

@@ -74,10 +74,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <h4 class="font-weight-bolder">USULAN RENCANA KEGIATAN PENGENDALI BANJIR</h4>
-                            <h4 class="font-weight-bolder">PENILAIAN SINKRONISASI DAN HARMONISASI</h4>
+                            <h4 class="font-weight-bolder">Usulan Rencana Kegiatan Penilaian Dana Alokasi Khusus Bidang Irigasi TA. <?= $this->session->userdata('thang'); ?></h4>
+                            <h4 class="font-weight-bolder">Menu Pembangunan/ Peningkatan/ Rehabilitasi Jaringan Irigasi</h4>
                             <h4 class="font-weight-bolder"><?= $nmKabkota; ?></h4>
-                            <h4 class="font-weight-bolder">TA. <?= $this->session->userdata('thang'); ?></h4>
                         </div>
                         <?= $this->session->flashdata('psn'); ?>
                         <?php if ($this->session->userdata('prive') == 'pemda') { ?>
@@ -129,9 +128,22 @@
                                                         echo '<b>' . $val->nm_di . '</b>';
                                                     } ?>
                                                     <br><br>
+                                                    <?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+                                                        <b><?= (substr($nmKabkota, 0, 4) == 'PROV') ? '-Provinsi' : '-Kabupaten'; ?>
+
+                                                            :</b> <?= $nmKabkota; ?>
+                                                        <br>
+                                                    <?php } ?>
+
+                                                    <?php if (substr($nmKabkota, 0, 4) == 'PROV') { ?>
+                                                        <b>-Kabupaten :</b> <?= $val->kotax; ?>
+                                                        <br>
+                                                    <?php } ?>
                                                     <b>-Kecamatan :</b> <?= $val->keca; ?>
                                                     <br>
                                                     <b>-Desa :</b> <?= $val->desa; ?>
+                                                    <br>
+
                                                 </td>
                                                 <td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
                                                 <td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
@@ -226,69 +238,60 @@
                         </table>
                     </div>
 
-                    <!-- 
-					<div class="card-body">
-						<?= $this->session->flashdata('psn'); ?>
-						<?php if ($this->session->userdata('prive') == 'pemda') { ?>
-							<button class="btn btn-primary" style="float:left; " onclick="downloadurk();"><i class="fa fa-plus" aria-hidden="true"></i> TAMBAH DATA</button>
-						<?php } ?>
-					</div>
-					<div class="card-body">
-						<table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
-							<thead class="theadX">
-								<tr id="boxThField">
-									<th class="text-center">No</th>
-									<th class="text-center">Nama Dinas</th>
-									<th class="text-center">Nama <br> Kepala Dinas</th>
-									<th class="text-center">NIP <br> Kepala Dinas</th>
-									<th class="text-center">Tanda Tangan Kepala Dinas</th>
-								</tr>
-							</thead>
+                    <!-- Table untuk download URK -->
+                    <div class="card-body row col-sm-15  col-lg-4 p-0 ml-4">
+                        <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                            <button id="parafButton" class="btn btn-primary" style="float:right; margin-bottom: 5px;" onclick="downloadurk();"><i class="fa fa-save" aria-hidden="true"></i> Simpan</button>
 
-							<tbody id="tbody_data">
+                            &nbsp;&nbsp;
+                            <a href="<?= base_url(); ?>ExportPdf/generatePB_pdf " target="_blank" class="btn btn-success btn-icon" style="float:right; margin-bottom: 5px;"><i class="fa fa-download" aria-hidden="true"></i> URK</a>
+                        <?php } ?>
+                    </div>
+                    <div class="card-body">
+                        <a id="downloadButton" href="<?= base_url(); ?>DataTeknis/downloadFile/1" class="btn btn-primary" style="float: right; display: none;">Download</a>
+                    </div>
 
-								<?php if ($dataKegiatan != null) { ?>
+                    <div class="card-body">
+                        <table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
+                            <thead class="theadX">
+                                <tr id="boxThField">
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">Nama Dinas</th>
+                                    <th class="text-center">Nama <br> Kepala Dinas</th>
+                                    <th class="text-center">NIP <br> Kepala Dinas</th>
+                                    <th class="text-center">Tanda Tangan Kepala Dinas</th>
+                                </tr>
+                            </thead>
 
-									<?php $no = 1;
-                                    foreach ($dataKegiatan as $key => $val) { ?>
-										<tr>
-											<td class="text-center">
-												<?= $no++; ?>
+                            <tbody id="tbody_data">
+                                <?php if ($dataParaf != null) { ?>
+                                    <?php
+                                    $lastVal = end($dataParaf);
+                                    ?>
+                                    <?php $no = 1; { ?>
+                                        <tr>
+                                            <td class="text-center">
+                                                <?= $no++; ?>
+                                            </td>
+                                            <td>
+                                                <?= $lastVal->nm_dinas; ?>
+                                            </td>
+                                            <td style="width:auto;"><?= $lastVal->nm_kpl_dinas; ?></td>
+                                            <td><?= $lastVal->nip; ?></td>
+                                            <td><?= $lastVal->paraf; ?></td>
 
-											</td>
-											<td>
-												<b><?= $val->nm_menu; ?></b>
-												<br><br>
-
-												<?php
-                                                if ($val->kd_menu === '9') {
-                                                    echo '<b>WS : </b>' . $val->nm_ws;
-                                                    echo '<br>';
-                                                    echo '<b>DAS : </b>' . $val->nm_das;
-                                                } else {
-                                                    echo '<b>' . $val->nm_di . '</b>';
-                                                } ?>
-												<br><br>
-												<b>-Kecamatan :</b> <?= $val->keca; ?>
-												<br>
-												<b>-Desa :</b> <?= $val->desa; ?>
-											</td>
-											<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
-											<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <tr>
+                                        <td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSONG.!</b></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
 
 
-											<td><?= $val->satuan_output; ?></td>
-
-										</tr>
-									<?php } ?>
-								<?php } else { ?>
-									<tr>
-										<td class="text-center" colspan="10" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
-									</tr>
-								<?php } ?>
-							</tbody>
-						</table>
-					</div> -->
 
                 </div>
             </div>
@@ -374,7 +377,7 @@
                         </select>
                     </div> -->
                     <div class="form-group">
-                        <label for="output" class="col-form-label">Output (Hektar) :</label>
+                        <label for="output" class="col-form-label">Outcome (Hektar) :</label>
                         <input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
                     </div>
                     <div class="form-group">
@@ -405,6 +408,11 @@
                         <input type="text" class="form-control" id="pagu_kegiatan" name="pagu_kegiatan" required oninput="this.value = this.value.replace(/\D/g, '')">
                     </div>
             </div>
+            <div class="card-body">
+                <p class="keterangan">*Penulisan Kebutuhan Dana Tidak dapat menggunakan titik dan koma, Contoh "10000000"</p>
+                <p class="keterangan">*Penulisan Nama Daerah Irigasi Untuk Menu Pembangunan Harus Sesuai Format, contoh "D.I. ASEM"</p>
+                <p class="keterangan">*Penginputan Usulan diurutkan Sesuai Prioritas</p>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="Submit" class="btn btn-primary">SIMPAN</button>
@@ -416,45 +424,59 @@
 </div>
 <!-- End Modal tambah Data -->
 
-<!-- Modal Tambah Data -->
+<!-- Modal Download URK -->
 <div class="modal fade" id="modalParaf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">TAMBAH DATA</h5>
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Pengesahan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url(); ?>Usulan/simpanUsulanKegiatanSimoni">
+                <form method="POST" action="<?= base_url(); ?>Usulan/simpanParafPB" enctype="multipart/form-data">
 
 
                     <div class="form-group">
                         <label for="output" class="col-form-label">Nama Dinas :</label>
-                        <input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+                        <input type="text" class="form-control" id="nm_dinas" name="nm_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
                     </div>
                     <div class="form-group">
-                        <label for="output" class="col-form-label">Nama Kepala Dinas :</label>
-                        <input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+                        <label for="output" class="col-form-label">Nama :</label>
+                        <input type="text" class="form-control" id="nm_kpl_dinas" name="nm_kpl_dinas" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
                     </div>
                     <div class="form-group">
+                        <label for="output" class="col-form-label">Jabatan :</label>
+                        <br>
+                        <select name="jabatan" id="jabatan" class="col-form-label" required>
+                            <option value="">--Pilih Jabatan--</option>
+                            <option value="Kepala Dinas">Kepala Dinas</option>
+                            <option value="Plt Kepala DInas">Plt Kepala Dinas</option>
+                        </select>
+
+                    </div>
+                    <div class=" form-group">
                         <label for="output" class="col-form-label">NIP Kepala Dinas :</label>
-                        <input type="text" class="form-control" id="output" name="output" required oninput="this.value = this.value.replace(/\D/g, '')">
+                        <input type="text" class="form-control" id="nip" name="nip" required oninput="this.value = this.value.replace(/\D/g, '')" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Paraf Kepala Dinas :</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="fileExcel" name="fileExcel" accept="image/jpeg, image/jpg, image/png" required>
+                            <input type="file" class="custom-file-input" id="paraf" name="paraf" accept="image/*" required>
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                         <script>
-                            document.getElementById("fileExcel").addEventListener("change", function() {
+                            document.getElementById("paraf").addEventListener("change", function() {
                                 var fileName = this.files[0].name;
                                 var label = document.querySelector(".custom-file-label");
                                 label.textContent = fileName;
                             });
                         </script>
+                    </div>
+                    <div class="card-body">
+                        <p class="keterangan">*Tanda Tangan dilengkapi Cap Instansi</p>
+
                     </div>
 
 
@@ -487,7 +509,7 @@
                         <select class="form-control" name="menuKegiatan_edit" id="menuKegiatan_edit" required>
                             <option value="" selected disabled>-- Pilih Menu --</option>
                             <option value="9">Pembangunan Insfraktruktur Pengendali Banjir</option>
-                        </select>editUsulanPengendaliBanjirSimoni
+                        </select>
                     </div>
                     <div class="form-group" id="pilih-ws-edit" style="display: none;">
                         <label for="wsPilihEdit" class="col-form-label">Pilih WS :</label>

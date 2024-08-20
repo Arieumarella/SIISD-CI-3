@@ -16,7 +16,6 @@
 				<div class="card">
 					<div class="card-body text-center">
 						<h4 class="mt-4 mb-2"> REKAPITULASI VERIFIKASI DATA TEKNIS TA. <?= $this->session->userdata('thang'); ?> </h4>
-
 						<table class="table table-bordered mt-3">
 
 							<thead id="thead_data">
@@ -58,8 +57,23 @@
 												<?php } ?>
 
 											<?php }else{ ?>
+												
 
-												<a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+												<?php if ($this->session->userdata('prive') == 'balai') { ?>
+
+
+													<?php if (in_array($val->provid, $dataBalai)) { ?>
+
+														<a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+
+													<?php }else{echo $val->provinsi;} ?>
+
+												<?php }else{ ?>
+
+													<a href="<?= base_url(); ?>VerifDataTeknis/pemdaVerif/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
+
+												<?php } ?>
+
 
 											<?php } ?>
 

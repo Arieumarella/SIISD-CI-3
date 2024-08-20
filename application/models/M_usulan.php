@@ -186,11 +186,38 @@ class M_usulan extends CI_Model
 
 	public function rekapCehklistSimoni()
 	{
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT * FROM (
+                SELECT provid, provinsi 
+                FROM m_prov
+            ) AS a
+            LEFT JOIN (
+                SELECT 
+                    kdprov, 
+                    COUNT(*) AS jml_data, 
+                    SUM(IF(verif_provinsi=1,1,0)) AS jml_prov, 
+                    SUM(IF(verif_balai=1,1,0)) AS jml_balai, 
+                    SUM(IF(verif_sda=1,1,0)) AS jml_sda, 
+                    SUM(IF(verif_pusat=1,1,0)) AS jml_pusat, 
+                    COUNT(DISTINCT kdkabkota) AS jml_pemda  
+                FROM m_usulan_simoni 
+                WHERE ta = $ta 
+                GROUP BY kdprov
+            ) AS b 
+            ON a.provid = b.kdprov";
+
+		return $this->db->query($qry)->result();
+	}
+
+
+	public function rekapKabKotaSimoni($idProv)
+	{
 
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT * FROM (SELECT provid, provinsi FROM m_prov) AS a
-		LEFT JOIN (SELECT kdprov, COUNT(*) AS jml_data, SUM(IF(verif_provinsi=1,1,0)) AS jml_prov, SUM(IF(verif_balai=1,1,0)) AS jml_balai, SUM(IF(verif_sda=1,1,0)) AS jml_sda, SUM(IF(verif_pusat=1,1,0)) AS jml_pusat FROM m_usulan_simoni WHERE ta=$ta GROUP BY kdprov) AS b ON a.provid=b.kdprov";
+		$qry = "SELECT * FROM (SELECT kotakabid, kemendagri FROM m_kotakab WHERE provid='$idProv') AS a
+		LEFT JOIN (SELECT kdkabkota, COUNT(*) AS jml_data, SUM(IF(verif_provinsi=1,1,0)) AS jml_prov, SUM(IF(verif_balai=1,1,0)) AS jml_balai, SUM(IF(verif_sda=1,1,0)) AS jml_sda, SUM(IF(verif_pusat=1,1,0)) AS jml_pusat FROM m_usulan_simoni WHERE ta=$ta GROUP BY kdkabkota) AS b ON a.kotakabid=b.kdkabkota";
 
 		return $this->db->query($qry)->result();
 	}
@@ -233,7 +260,10 @@ class M_usulan extends CI_Model
 				n.id_kebenaran_data, n.path_kebenaran_data, n.ekstensi_kebenaran_data, n.upload_time_kebenaran_data,
 				o.id_pemenuhan_kriteria, o.path_pemenuhan_kriteria, o.ekstensi_pemenuhan_kriteria, o.upload_time_pemenuhan_kriteria,
 				p.id_penyiapan_lahan, p.path_penyiapan_lahan, p.ekstensi_penyiapan_lahan, p.upload_time_penyiapan_lahan,
-				q.id_kesanggupan_op, q.path_kesanggupan_op, q.ekstensi_kesanggupan_op, q.upload_time_kesanggupan_op
+				q.id_kesanggupan_op, q.path_kesanggupan_op, q.ekstensi_kesanggupan_op, q.upload_time_kesanggupan_op,
+				r.id_peningkatan_ip, r.path_peningkatan_ip, r.ekstensi_peningkatan_ip, r.upload_time_peningkatan_ip,
+				s.id_dokumen_lingkungan, s.path_dokumen_lingkungan, s.ekstensi_dokumen_lingkungan, s.upload_time_dokumen_lingkungan,
+				t.id_pernyataan_petani, t.path_pernyataan_petani, t.ekstensi_pernyataan_petani, t.upload_time_pernyataan_petani
 			FROM (
 				SELECT kotakabid, provid, kemendagri 
 				FROM m_kotakab 
@@ -323,41 +353,121 @@ class M_usulan extends CI_Model
 				SELECT kotakabid, id AS id_kesanggupan_op, path AS path_kesanggupan_op, ekstensi AS ekstensi_kesanggupan_op, created_at AS upload_time_kesanggupan_op
 				FROM m_data_teknis 
 				WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'kesanggupan_op'
-			) AS q ON a.kotakabid = q.kotakabid";
+			) AS q ON a.kotakabid = q.kotakabid
+			 LEFT JOIN (
+				SELECT kotakabid, id AS id_peningkatan_ip, path AS path_peningkatan_ip, ekstensi AS ekstensi_peningkatan_ip, created_at AS upload_time_peningkatan_ip
+				FROM m_data_teknis 
+				WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'peningkatan_ip'
+			) AS r ON a.kotakabid = r.kotakabid
+			 LEFT JOIN (
+				SELECT kotakabid, id AS id_dokumen_lingkungan, path AS path_dokumen_lingkungan, ekstensi AS ekstensi_dokumen_lingkungan, created_at AS upload_time_dokumen_lingkungan
+				FROM m_data_teknis 
+				WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'dokumen_lingkungan'
+			) AS s ON a.kotakabid = s.kotakabid
+			 LEFT JOIN (
+				SELECT kotakabid, id AS id_pernyataan_petani, path AS path_pernyataan_petani, ekstensi AS ekstensi_pernyataan_petani, created_at AS upload_time_pernyataan_petani
+				FROM m_data_teknis 
+				WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'pernyataan_petani'
+			) AS t ON t.kotakabid = t.kotakabid";
 
 		return $this->db->query($qry)->result();
 	}
-
-	// public function getWhereBalaiProv()
-	// {
-	// 	// Logika untuk mendapatkan data balai berdasarkan provinsi
-	// 	$query = $this->db->get_where('balai', array('provid' => $this->session->userdata('provid')));
-	// 	return $query->result();
-	// }
-
 
 	public function rekapCehklistSimoniKabKotaPengendaliBanjir($idProv)
 	{
 		$ta = $this->session->userdata('thang');
 
-		$qry = "SELECT * FROM (SELECT kotakabid, provid, kemendagri FROM m_kotakab WHERE provid='$idProv') AS a
-		LEFT JOIN (SELECT kotakabid, id AS id_lembar_ck_pb, path AS path_lembar_ck_pb, ekstensi AS ekstensi_lembar_ck_pb, created_at as upload_time_lembar_ck_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='lembar_ck_pb' ) AS c ON a.kotakabid=c.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_sid_pb, path AS path_sid_pb, ekstensi AS ekstensi_sid_pb, created_at as upload_time_sid_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='sid_pb' ) AS d ON a.kotakabid=d.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_ded_pb, path AS path_ded_pb, ekstensi AS ekstensi_ded_pb, created_at as upload_time_ded_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='ded_pb' ) AS e ON a.kotakabid=e.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_kak_pb, path AS path_kak_pb, ekstensi AS ekstensi_kak_pb, created_at as upload_time_kak_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='kak_pb' ) AS f ON a.kotakabid=f.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_skema_jaringan_pb, path AS path_skema_jaringan_pb, ekstensi AS ekstensi_skema_jaringan_pb, created_at as upload_time_skema_jaringan_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='skema_jaringan_pb' ) AS g ON a.kotakabid=g.kotakabid
-
-		LEFT JOIN (SELECT kotakabid, id AS id_skema_bangunan_pb, path AS path_skema_bangunan_pb, ekstensi AS ekstensi_skema_bangunan_pb, created_at as upload_time_skema_bangunan_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='skema_bangunan_pb' ) AS h ON a.kotakabid=h.kotakabid
-		LEFT JOIN (SELECT kotakabid, id AS id_bc_volume_pb, path AS path_bc_volume_pb, ekstensi AS ekstensi_bc_volume_pb, created_at as upload_time_bc_volume_pb FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='bc_volume_pb' ) AS i ON a.kotakabid=i.kotakabid
-
-		LEFT JOIN (SELECT kotakabid, id AS id_rab_pb, path AS path_rab_pb, ekstensi AS ekstensi_rab_pb, created_at as upload_time_rab_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='rab_pb' ) AS j ON a.kotakabid=j.kotakabid
-
-		LEFT JOIN (SELECT kotakabid, id AS id_dokumentasi_pb, path AS path_dokumentasi_pb, ekstensi AS ekstensi_dokumentasi_pb, created_at as upload_time_dokumentasi_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='dokumentasi_pb' ) AS k ON a.kotakabid=k.kotakabid
-
-		LEFT JOIN (SELECT kotakabid, id AS id_dok_amdal_pb, path AS path_dok_amdal_pb, ekstensi AS ekstensi_dok_amdal_pb, created_at as upload_time_dok_amdal_pb  FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='dok_amdal_pb' ) AS l ON a.kotakabid=l.kotakabid
-
-		LEFT JOIN (SELECT kotakabid, id AS id_kesediaan_op_pb, path AS path_kesediaan_op_pb, ekstensi AS ekstensi_kesediaan_op_pb, created_at as upload_time_kesediaan_op_pb FROM m_data_teknis WHERE provid='$idProv' AND ta='$ta' AND jns_file='kesediaan_op_pb' ) AS m ON a.kotakabid=m.kotakabid";
-
+		$qry = "
+        SELECT 
+            a.kotakabid, 
+            a.provid, 
+            a.kemendagri,
+            b.jml_data, 
+            b.jml_prov, 
+            b.jml_balai, 
+            b.jml_sda, 
+            b.jml_pusat,
+            c.id_lembar_ck_pb, c.path_lembar_ck_pb, c.ekstensi_lembar_ck_pb, c.upload_time_lembar_ck_pb,
+            d.id_sid_pb, d.path_sid_pb, d.ekstensi_sid_pb, d.upload_time_sid_pb,
+            e.id_ded_pb, e.path_ded_pb, e.ekstensi_ded_pb, e.upload_time_ded_pb,
+            f.id_kak_pb, f.path_kak_pb, f.ekstensi_kak_pb, f.upload_time_kak_pb,
+            g.id_skema_jaringan_pb, g.path_skema_jaringan_pb, g.ekstensi_skema_jaringan_pb, g.upload_time_skema_jaringan_pb,
+            h.id_skema_bangunan_pb, h.path_skema_bangunan_pb, h.ekstensi_skema_bangunan_pb, h.upload_time_skema_bangunan_pb,
+            i.id_bc_volume_pb, i.path_bc_volume_pb, i.ekstensi_bc_volume_pb, i.upload_time_bc_volume_pb,
+            j.id_rab_pb, j.path_rab_pb, j.ekstensi_rab_pb, j.upload_time_rab_pb,
+            m.id_dokumentasi_pb, m.path_dokumentasi_pb, m.ekstensi_dokumentasi_pb, m.upload_time_dokumentasi_pb,
+            r.id_dok_amdal_pb, r.path_dok_amdal_pb, r.ekstensi_dok_amdal_pb, r.upload_time_dok_amdal_pb,
+            q.id_kesediaan_op_pb, q.path_kesediaan_op_pb, q.ekstensi_kesediaan_op_pb, q.upload_time_kesediaan_op_pb
+        FROM (
+            SELECT kotakabid, provid, kemendagri 
+            FROM m_kotakab 
+            WHERE provid = '$idProv'
+        ) AS a
+        LEFT JOIN (
+            SELECT kdkabkota, COUNT(*) AS jml_data, 
+                SUM(IF(verif_provinsi=1,1,0)) AS jml_prov, 
+                SUM(IF(verif_balai=1,1,0)) AS jml_balai, 
+                SUM(IF(verif_sda=1,1,0)) AS jml_sda, 
+                SUM(IF(verif_pusat=1,1,0)) AS jml_pusat 
+            FROM m_usulan_simoni 
+            WHERE ta = '$ta' 
+            GROUP BY kdkabkota
+        ) AS b ON a.kotakabid = b.kdkabkota
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_lembar_ck_pb, path AS path_lembar_ck_pb, ekstensi AS ekstensi_lembar_ck_pb, created_at AS upload_time_lembar_ck_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'lembar_ck_pb'
+        ) AS c ON a.kotakabid = c.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_sid_pb, path AS path_sid_pb, ekstensi AS ekstensi_sid_pb, created_at AS upload_time_sid_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'sid_pb'
+        ) AS d ON a.kotakabid = d.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_ded_pb, path AS path_ded_pb, ekstensi AS ekstensi_ded_pb, created_at AS upload_time_ded_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'ded_pb'
+        ) AS e ON a.kotakabid = e.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_kak_pb, path AS path_kak_pb, ekstensi AS ekstensi_kak_pb, created_at AS upload_time_kak_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'kak_pb'
+        ) AS f ON a.kotakabid = f.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_skema_jaringan_pb, path AS path_skema_jaringan_pb, ekstensi AS ekstensi_skema_jaringan_pb, created_at AS upload_time_skema_jaringan_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'skema_jaringan_pb'
+        ) AS g ON a.kotakabid = g.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_skema_bangunan_pb, path AS path_skema_bangunan_pb, ekstensi AS ekstensi_skema_bangunan_pb, created_at AS upload_time_skema_bangunan_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'skema_bangunan_pb'
+        ) AS h ON a.kotakabid = h.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_bc_volume_pb, path AS path_bc_volume_pb, ekstensi AS ekstensi_bc_volume_pb, created_at AS upload_time_bc_volume_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'bc_volume_pb'
+        ) AS i ON a.kotakabid = i.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_rab_pb, path AS path_rab_pb, ekstensi AS ekstensi_rab_pb, created_at AS upload_time_rab_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'rab_pb'
+        ) AS j ON a.kotakabid = j.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_dokumentasi_pb, path AS path_dokumentasi_pb, ekstensi AS ekstensi_dokumentasi_pb, created_at AS upload_time_dokumentasi_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'dokumentasi_pb'
+        ) AS m ON a.kotakabid = m.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_dok_amdal_pb, path AS path_dok_amdal_pb, ekstensi AS ekstensi_dok_amdal_pb, created_at AS upload_time_dok_amdal_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'dok_amdal_pb'
+        ) AS r ON a.kotakabid = r.kotakabid
+        LEFT JOIN (
+            SELECT kotakabid, id AS id_kesediaan_op_pb, path AS path_kesediaan_op_pb, ekstensi AS ekstensi_kesediaan_op_pb, created_at AS upload_time_kesediaan_op_pb
+            FROM m_data_teknis 
+            WHERE provid = '$idProv' AND ta = '$ta' AND jns_file = 'kesediaan_op_pb'
+        ) AS q ON a.kotakabid = q.kotakabid";
 		return $this->db->query($qry)->result();
 	}
 
@@ -435,7 +545,115 @@ class M_usulan extends CI_Model
 	}
 
 
+	public function getRekapKabKota($idProv = '')
+	{
+
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT nm_menu, keca,desa, e.nm_ws, f.nm_das, a.* FROM 
+		(SELECT * FROM m_usulan_simoni WHERE kdkabkota='$idProv' AND ta='$ta') AS a 
+		LEFT JOIN (SELECT * FROM m_keca WHERE kotakabid='$idProv') AS b ON a.kdkabkota=b.kotakabid AND a.kdkec=b.kecaid 
+		LEFT JOIN (SELECT * FROM m_des WHERE LEFT(kecaid,4)='$idProv') AS c ON a.kddes=c.desaid AND a.kdkec=c.kecaid 
+		LEFT JOIN (SELECT * FROM m_menu) AS d ON a.kd_menu=d.id 
+		LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid='$idProv') AS e ON a.kd_ws=e.id_ws 
+		LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws,id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
+		";
+
+		return $this->db->query($qry)->result();
+	}
+
+	public function getKotaKabSimoni($idProv = '')
+	{
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT nm_menu, keca,desa, e.nm_ws, f.nm_das, a.* FROM 
+		(SELECT * FROM m_usulan_simoni WHERE kdkabkota='$idProv' AND ta='$ta') AS a 
+		LEFT JOIN (SELECT * FROM m_keca WHERE kotakabid='$idProv') AS b ON a.kdkabkota=b.kotakabid AND a.kdkec=b.kecaid 
+		LEFT JOIN (SELECT * FROM m_des WHERE LEFT(kecaid,4)='$idProv') AS c ON a.kddes=c.desaid AND a.kdkec=c.kecaid 
+		LEFT JOIN (SELECT * FROM m_menu) AS d ON a.kd_menu=d.id 
+		LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid='$idProv') AS e ON a.kd_ws=e.id_ws 
+		LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws,id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
+		";
+
+		return $this->db->query($qry)->result();
+	}
+
+	public function getParaf($ta, $kotakabid = '')
+	{
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT nm_menu, d.paraf_verif2, a.* FROM 
+		(SELECT * FROM m_usulan_simoni WHERE kdkabkota='$kotakabid' AND ta='$ta') AS a 
+		LEFT JOIN (SELECT * FROM paraf_verif2 WHERE kotakabid='$kotakabid') AS d ON a.kdkabkota=d.kotakabid 
+		
+		";
+
+		return $this->db->query($qry)->result();
+	}
+
+
 	public function getUrkSimoni($kotakabid = '')
+	{
+		$ta = $this->session->userdata('thang');
+
+		if (substr($kotakabid, -2) == 00) {;
+			$idprov = substr($kotakabid, 0, 2);
+
+			$qry = "SELECT DISTINCT nm_menu, keca, desa, i.kotax, e.nm_ws, f.nm_das, g.thang, g.iKSIJumlah, h.bppBagi, h.bppBagiSadap, h.buBendung, h.buPengambilanBebas, h.buEmbung, h.bppSadap, h.sPrimer, h.sSekunder, h.saranaPintuAir, g.iKSIJumlah, j.buBendungB, j.buPengambilanBebasB, j.buEmbungB, j.saluranPrimerNilai, j.saluranSekunderNilai, j.bppBagiB, j.bppBagiSadapB, j.bppSadapB, j.saranaPintuAirB, k.tahun, a.* FROM 
+			(SELECT * FROM m_usulan_simoni WHERE kdkabkota='$kotakabid' AND ta='$ta') AS a 
+			LEFT JOIN (SELECT * FROM m_keca WHERE LEFT(kotakabid,2)=$idprov) AS b ON LEFT(a.kdkec,4)=b.kotakabid AND a.kdkec=b.kecaid 
+			LEFT JOIN (SELECT * FROM m_des WHERE LEFT(kecaid,2)='$idprov') AS c ON a.kddes=c.desaid AND a.kdkec=c.kecaid 
+			LEFT JOIN (SELECT * FROM m_menu) AS d ON a.kd_menu=d.id 
+			LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid='$kotakabid') AS e ON a.kd_ws=e.id_ws AND kd_ws=e.nm_ws
+			LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws, id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
+			LEFT JOIN (SELECT * FROM p_f9 WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS g ON a.kd_di=g.irigasiid
+			LEFT JOIN (SELECT * FROM p_f1a WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS h ON a.kd_di=h.irigasiid
+			LEFT JOIN (SELECT kotakabid,kemendagri AS kotax FROM m_kotakab) AS i ON LEFT(a.kdkec,4)=i.kotakabid
+			LEFT JOIN (SELECT * FROM p_f4a WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS j ON a.kd_di=j.irigasiid
+			LEFT JOIN (SELECT * FROM tahun_riwayat WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS k ON a.kd_di=k.irigasiid
+			";
+		} else {
+			$qry = "SELECT DISTINCT nm_menu, keca, desa, i.kotax, e.nm_ws, f.nm_das, g.thang, g.iKSIJumlah, h.bppBagi, h.bppBagiSadap, h.buBendung, h.buPengambilanBebas, h.buEmbung, h.bppSadap, h.sPrimer, h.sSekunder, h.saranaPintuAir, j.buBendungB, j.buPengambilanBebasB, j.buEmbungB, j.saluranPrimerNilai, j.saluranSekunderNilai, j.bppBagiB, j.bppBagiSadapB, j.bppSadapB, j.saranaPintuAirB, k.tahun, a.* FROM 
+		(SELECT * FROM m_usulan_simoni WHERE kdkabkota='$kotakabid' AND ta='$ta') AS a 
+		LEFT JOIN (SELECT * FROM m_keca WHERE kotakabid='$kotakabid') AS b ON a.kdkabkota=b.kotakabid AND a.kdkec=b.kecaid 
+		LEFT JOIN (SELECT * FROM m_des WHERE LEFT(kecaid,4)='$kotakabid') AS c ON a.kddes=c.desaid AND a.kdkec=c.kecaid 
+		LEFT JOIN (SELECT * FROM m_menu) AS d ON a.kd_menu=d.id 
+		LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid='$kotakabid') AS e ON a.kd_ws=e.id_ws 
+		LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws, id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
+		LEFT JOIN (SELECT * FROM p_f9 WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS g ON a.kd_di=g.irigasiid
+		LEFT JOIN (SELECT * FROM p_f1a WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS h ON a.kd_di=h.irigasiid
+		LEFT JOIN (SELECT kotakabid,kemendagri AS kotax FROM m_kotakab) AS i ON LEFT(a.kdkec,4)=i.kotakabid
+		LEFT JOIN (SELECT * FROM p_f4a WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS j ON a.kd_di=j.irigasiid
+		LEFT JOIN (SELECT * FROM tahun_riwayat WHERE kotakabid='$kotakabid' GROUP BY irigasiid) AS k ON a.kd_di=k.irigasiid
+		
+		";
+		}
+
+
+		return $this->db->query($qry)->result();
+	}
+
+
+
+
+
+	public function getPaguPfid()
+	{
+		$ta = $this->session->userdata('thang');
+
+		$qry = "SELECT DISTINCT nm_menu, e.nm_ws, f.nm_das, a.* FROM 
+		(SELECT * FROM m_usulan_simoni WHERE kdkabkota AND ta='$ta') AS a 
+
+		LEFT JOIN (SELECT * FROM m_menu) AS d ON a.kd_menu=d.id 
+		LEFT JOIN (SELECT * FROM m_ws WHERE kotakabid) AS e ON a.kd_ws=e.id_ws 
+		LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws, id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
+	
+		";
+
+		return $this->db->query($qry)->result();
+	}
+
+	public function getPFID($kotakabid = '')
 	{
 		$ta = $this->session->userdata('thang');
 
@@ -497,6 +715,27 @@ class M_usulan extends CI_Model
 		LEFT JOIN (SELECT * FROM m_das GROUP BY id_ws,id_das) AS f ON a.kd_das=f.id_das AND a.kd_ws=f.id_ws 
 		";
 
+		return $this->db->query($qry)->result();
+	}
+
+	public function getKecamatan($kotakabid = null)
+	{
+		if ($this->session->userdata('is_provinsi') == 'provinsi') {
+			$kotakabid = substr($kotakabid, 0, 2);
+			$qry = "SELECT * FROM m_keca WHERE LEFT(kotakabid,2) =$kotakabid";
+		} else {
+			$qry = "SELECT * FROM m_keca WHERE kotakabid = $kotakabid";
+		}
+
+		return $this->db->query($qry)->result();
+	}
+
+	public function getDataBalais($kotakabid = null)
+	{
+		$qry = "SELECT kotakabid,nm_balai FROM t_kewenangan_balai WHERE kotakabid = $kotakabid";
+
+		$nmbalai = $this->db->query($qry)->row()->nm_balai;
+		$qry = "SELECT * FROM download_urk_verif WHERE usernamebalai = '$nmbalai'";
 		return $this->db->query($qry)->result();
 	}
 }

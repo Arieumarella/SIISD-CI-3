@@ -20,10 +20,6 @@ class M_sdmOp3B extends CI_Model {
 		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM (SELECT * FROM p_f3b WHERE 1=1 $cari AND ta=$ta LIMIT $jumlahDataPerHalaman OFFSET $offset) AS a
 		LEFT JOIN m_prov AS b ON a.provid=b.provid
 		LEFT JOIN m_kotakab AS c ON a.kotakabid=c.kotakabid
-		LEFT JOIN 
-		(SELECT a.*, b.dak FROM (SELECT * FROM p_f5 WHERE  ta=$ta) AS a
-			LEFT JOIN
-			(SELECT * FROM p_f5_detail WHERE ta=$ta AND labelid='4') AS b ON a.id=b.idF5) as d on a.kotakabid=d.kotakabid
 		ORDER BY b.provinsi, c.kemendagri";
 
 		$qry2 = "SELECT count(*) as jml_data FROM p_f3b AS a WHERE 1=1 $cari AND a.ta=$ta";

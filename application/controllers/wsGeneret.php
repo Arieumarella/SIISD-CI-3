@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class wsGeneret extends CI_Controller {
+class WsGeneret extends CI_Controller {
 
 
 	public function __construct() {
@@ -198,6 +198,53 @@ class wsGeneret extends CI_Controller {
 			);
 
 			$this->M_dinamis->update('m_das', $dataInsert, ['nm_das' => $val->nm_das]);
+		}
+
+		echo 'Selesai';
+	}
+
+
+	public function generetMappingDiBaru()
+	{
+		$dataMirigasi = $this->M_dinamis->add_all('m_irigasi', '*', 'irigasiid', 'asc');
+
+		foreach ($dataMirigasi as $key => $value) {
+			
+			$dataMappinglama = $this->M_dinamis->getById('m_mapping_dix', ['kode_di' => $value->irigasiid, 'k_di IS NOT NULL' => null]);
+
+			$dataInsert = array(
+
+				'k_provinsi' => @$dataMappinglama->k_provinsi,
+				'k_kabupaten' => @$dataMappinglama->k_kabupaten,
+				'k_di' => @$dataMappinglama->k_di,
+				'n_di' => clean($value->nama),
+				'kode_di' => $value->irigasiid,
+				'k_di_double' => @$dataMappinglama->k_provinsi
+
+			);
+
+			$this->M_dinamis->save('m_mapping_di_fix', $dataInsert);
+
+		}
+
+		echo 'Selesai';
+	}
+
+	public function generetProvDanKotaKabid()
+	{
+		$data = $this->M_dinamis->getResult('m_mapping_di', ['k_propinsi' => null, 'k_kabupaten' => null]);
+
+		foreach ($data as $key => $val) {
+			
+			$dataDi = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $val->kode_di]);
+
+			$dataEdit = array(
+				'k_propinsi' => $dataDi->provid,
+				'k_kabupaten' => $dataDi->kotakabid
+			);
+
+			$this->M_dinamis->update('m_mapping_di', $dataEdit, ['kode_di' => $val->kode_di]);
+
 		}
 
 		echo 'Selesai';

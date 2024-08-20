@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -10,10 +10,12 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class FormTeknis1F extends CI_Controller {
+class FormTeknis1F extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -52,7 +54,7 @@ class FormTeknis1F extends CI_Controller {
 	{
 		$jumlahDataPerHalaman  = ($this->input->post('perhalaman')) ? $this->input->post('perhalaman') : 5;
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
-		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
+		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null;
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
 		$kotakabid = ($this->input->post('kotakabid') != '') ? $this->input->post('kotakabid') : null;
 
@@ -67,8 +69,6 @@ class FormTeknis1F extends CI_Controller {
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
-
-
 	}
 
 
@@ -81,7 +81,6 @@ class FormTeknis1F extends CI_Controller {
 		$data = $this->M_FormTeknis1F->getDataDi($searchDi, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
-
 	}
 
 
@@ -91,12 +90,11 @@ class FormTeknis1F extends CI_Controller {
 
 		if ($this->session->userdata('prive') != 'balai') {
 			$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
-		}else{
+		} else {
 			$data = $this->M_FormTeknis1F->getkabKota($prov);
 		}
 
 		echo json_encode($data);
-
 	}
 
 
@@ -120,7 +118,6 @@ class FormTeknis1F extends CI_Controller {
 		$data = $this->M_FormTeknis1F->getDataDiTambah($searchDi);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
-
 	}
 
 
@@ -129,7 +126,7 @@ class FormTeknis1F extends CI_Controller {
 
 		$irigasiid  = ubahKomaMenjadiTitik($this->input->post('irigasiid'));
 		$laPermen = ubahKomaMenjadiTitik($this->input->post('laPermen'));
-		
+
 		$tkpaiInvAsetIrigasiThn = ubahKomaMenjadiTitik($this->input->post('tkpaiInvAsetIrigasiThn'));
 		$tkpaiInvAsetIrigasiPsen = ubahKomaMenjadiTitik($this->input->post('tkpaiInvAsetIrigasiPsen'));
 		$tkpaiPerencanaanPAIThn = ubahKomaMenjadiTitik($this->input->post('tkpaiPerencanaanPAIThn'));
@@ -175,7 +172,7 @@ class FormTeknis1F extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -185,11 +182,10 @@ class FormTeknis1F extends CI_Controller {
 		}
 
 		redirect('/FormTeknis1F', 'refresh');
-
 	}
 
 
-	public function getDetailData($id=null)
+	public function getDetailData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Detail Data 1F',
@@ -213,7 +209,7 @@ class FormTeknis1F extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Dihapus.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -226,7 +222,7 @@ class FormTeknis1F extends CI_Controller {
 	}
 
 
-	public function editData($id=null)
+	public function editData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Edit Data 1F',
@@ -287,7 +283,7 @@ class FormTeknis1F extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -297,7 +293,6 @@ class FormTeknis1F extends CI_Controller {
 		}
 
 		redirect("/FormTeknis1F", 'refresh');
-
 	}
 
 
@@ -318,16 +313,16 @@ class FormTeknis1F extends CI_Controller {
 		$kab = ($this->session->userdata('prive') == 'admin') ? $this->input->post('kab') : $this->session->userdata('kotakabid');
 		$thang = $this->session->userdata('thang');
 
-		$menitDetik = date('i').date('s');
+		$menitDetik = date('i') . date('s');
 
 		copy('./assets/format/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
 		$path = "./assets/format/tmp/$menitDetik.xlsx";
 		$spreadsheet = IOFactory::load($path);
 
-		
+
 		$data = $this->M_FormTeknis1F->getDataDiFull($thang, $kab);
-		
+
 
 		$indexLopp = 5;
 		$nilaiAwal = 1;
@@ -359,26 +354,25 @@ class FormTeknis1F extends CI_Controller {
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="export 1F.xlsx"');  
+		header('Content-Disposition: attachment; filename="export 1F.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-
 	}
 
 
 	public function prosesUploadExcel()
 	{
 
-		$prov = ($this->session->userdata('prive') == 'admin') ? $this->input->post('prov-upload') : $this->session->userdata('provid'); 
+		$prov = ($this->session->userdata('prive') == 'admin') ? $this->input->post('prov-upload') : $this->session->userdata('provid');
 		$kab = ($this->session->userdata('prive') == 'admin') ? $this->input->post('kab-upload') : $this->session->userdata('kotakabid');
 
 		if ($kab == null or $kab == '') {
@@ -396,7 +390,7 @@ class FormTeknis1F extends CI_Controller {
 		$nmKab = getKabKota($kab);
 
 		$config['allowed_types'] = 'xlsx';
-		$config['file_name'] = 'upload_time_'.date('Y-m-d').'_'.time().'.xlsx';
+		$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.xlsx';
 		$config['max_size'] = 50000;
 
 		$this->load->library('upload', $config);
@@ -426,12 +420,12 @@ class FormTeknis1F extends CI_Controller {
 
 			$config['upload_path'] = $path;
 			$config['allowed_types'] = 'xlsx';
-			$config['file_name'] = 'upload_time_'.date('Y-m-d').'_'.time().'.'.$ext;
+			$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.' . $ext;
 			$config['max_size'] = 200000;
 
 			$this->upload->initialize($config);
 
-			if (!$this->upload->do_upload('fileExcel')){
+			if (!$this->upload->do_upload('fileExcel')) {
 
 				$this->session->set_flashdata('psn', "<div class='alert alert-danger alert-dismissible'>
 					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
@@ -440,8 +434,7 @@ class FormTeknis1F extends CI_Controller {
 					</div>");
 
 				redirect("/FormTeknis1F/formExcel", 'refresh');
-
-			}else{
+			} else {
 
 				$upload_data = $this->upload->data();
 				$namaFile = $upload_data['file_name'];
@@ -468,7 +461,6 @@ class FormTeknis1F extends CI_Controller {
 						</div>');
 
 					redirect("/FormTeknis1F/formExcel", 'refresh');
-
 				}
 
 
@@ -479,10 +471,10 @@ class FormTeknis1F extends CI_Controller {
 				for ($i = 0; $i < $sheetCount; $i++) {
 					$sheet = $spreadsheet->getSheet($i);
 
-					$highestRow = $sheet->getHighestRow(); 
-					$highestColumn = $sheet->getHighestColumn(); 
+					$highestRow = $sheet->getHighestRow();
+					$highestColumn = $sheet->getHighestColumn();
 
-					for ($row = 5; $row <= $highestRow; $row++) { 
+					for ($row = 5; $row <= $highestRow; $row++) {
 						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
@@ -509,7 +501,6 @@ class FormTeknis1F extends CI_Controller {
 						);
 
 						$baseArray[] = $arrayRow;
-
 					}
 				}
 
@@ -524,7 +515,7 @@ class FormTeknis1F extends CI_Controller {
 						<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 						Data Berhasil Disimpan.!
 						</div>');
-				}else{
+				} else {
 
 					$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -534,22 +525,18 @@ class FormTeknis1F extends CI_Controller {
 				}
 
 				redirect("/FormTeknis1F", 'refresh');
-
 			}
-
-
 		}
-
 	}
 
 
 
-	public function downloadTabel($kotakabid=null)
+	public function downloadTabel($kotakabid = null)
 	{
 		$prive = $this->session->userdata('prive');
 		$thang = $this->session->userdata('thang');
 
-		if ($kotakabid == null) {	
+		if ($kotakabid == null) {
 
 			if ($prive != 'admin' and $prive != 'pemda') {
 
@@ -562,13 +549,12 @@ class FormTeknis1F extends CI_Controller {
 				redirect("/FormTeknis1F", 'refresh');
 				return;
 			}
-
 		}
 
-		
+
 		$data = $this->M_FormTeknis1F->getDataDownload($thang, $prive, $kotakabid);
 
-		$menitDetik = date('i').date('s');
+		$menitDetik = date('i') . date('s');
 
 		copy('./assets/format/downladBase/F1.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
@@ -576,9 +562,9 @@ class FormTeknis1F extends CI_Controller {
 		$spreadsheet = IOFactory::load($path);
 		$indexLopp = 5;
 		$nilaiAwal = 1;
-		
+
 		foreach ($data as $key => $val) {
-			
+
 			$spreadsheet->getActiveSheet()->getCell("A$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("B$indexLopp")->setValue($val->provinsi);
 			$spreadsheet->getActiveSheet()->getCell("C$indexLopp")->setValue($val->kemendagri);
@@ -600,21 +586,18 @@ class FormTeknis1F extends CI_Controller {
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="F1.xlsx"');  
+		header('Content-Disposition: attachment; filename="F1.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-		
-
-		
 	}
 
 	public function getLapermen()
@@ -623,7 +606,4 @@ class FormTeknis1F extends CI_Controller {
 		$data = $this->M_dinamis->getById('m_irigasi', ['irigasiid' => $irigasiid]);
 		echo json_encode($data);
 	}
-
-
-
 }

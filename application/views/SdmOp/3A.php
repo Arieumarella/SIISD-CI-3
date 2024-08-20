@@ -55,43 +55,43 @@
 						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php } else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda') { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
 
-						<?php }else if ($this->session->userdata('prive') == 'balai') { ?>
+						<?php } else if ($this->session->userdata('prive') == 'balai') { ?>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else{ ?>
+						<?php } else { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -100,7 +100,7 @@
 
 						<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai') { ?>
 							<div class="col-sm-12 col-lg-1 p-0">
-								
+
 
 								<input type="hidden" id="nm_di" name="nm_di">
 
@@ -108,10 +108,10 @@
 									<button id="btn_filter" onclick="cari()" linkPager='' aksi="false" class="btn btn-info btn-flat"><i class="fas fa-search-plus"></i> Cari</button>
 								</span>
 
-								
+
 							</div>
 						<?php } ?>
-						
+
 						<div class="row col-sm-12  col-lg-4 p-0" style="margin-left: -50px;">
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
@@ -130,7 +130,7 @@
 
 							<?php } ?>
 
-							
+
 						</div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@
 
 					<?= $this->session->flashdata('psn'); ?>
 					<table class="table table-bordered">
-						
+
 
 						<thead id="thead_data">
 							<tr id="boxThField0" style="background-color:#18978F; color:#fff;">
@@ -196,15 +196,10 @@
 											<option value="10" selected="">10</option>
 											<option value="50">50</option>
 											<option value="150">150</option>
-											<option value="250">250</option>
-											<option value="350">350</option>
-											<option value="450">450</option>
-											<option value="9000">9000</option>
-
 										</select>
 									</li>
 								</ul>
-							</nav>               
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -219,20 +214,19 @@
 </div>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 
 		var halamanSaatIni = '1',
-		search = '',
-		provid = '',
-		kotakabid = '';
+			search = '',
+			provid = '',
+			kotakabid = '';
 
-		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
-			try{
+		getDataTabel = async function(page = null, providX = null, kotakabidX = null) {
+			try {
 
 				if (page != null) {
 					halamanSaatIni = await page;
-				}else{
+				} else {
 					halamanSaatIni = 1;
 				}
 
@@ -247,19 +241,25 @@
 				$('#tbody_data').empty();
 				$('#tbody_data').html(` <tr><td class="text-center" colspan="4" style="font-size:20px;"><i class="fas fa-circle-notch fa-spin"></i> Loading Data ...</td></tr>`);
 
-				console.log('Halaman Saat Ini ---->'+halamanSaatIni)
+				console.log('Halaman Saat Ini ---->' + halamanSaatIni)
 
 				var perhalaman = $("#rowpage").val();
 
-				ajaxUntukSemua(base_url()+'SdmOp3A/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid}, function(data) {
+				ajaxUntukSemua(base_url() + 'SdmOp3A/getDataTable', {
+					perhalaman,
+					halamanSaatIni,
+					search,
+					provid,
+					kotakabid
+				}, function(data) {
 
-          // Set Data Body
+					// Set Data Body
 					setTabelKonten(data.data)
-          // End Set Data Body
+					// End Set Data Body
 
-          // Set Generet Pagination 
+					// Set Generet Pagination 
 					generatePagination(data.jml_data.jml_data, perhalaman, halamanSaatIni);
-          // End Set Generet Pagination
+					// End Set Generet Pagination
 
 
 				}, function(error) {
@@ -267,7 +267,7 @@
 				});
 
 
-			}catch(err){
+			} catch (err) {
 				console.log('Kesalahan:', error);
 			}
 
@@ -279,8 +279,8 @@
 		function setTabelKonten(data) {
 
 			let tableConten = ``,
-			warnaAwal = `#F7ECDE`,
-			no = 1;
+				warnaAwal = `#F7ECDE`,
+				no = 1;
 
 
 			$.each(data, function(key, value) {
@@ -291,7 +291,7 @@
 				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}SdmOp3A/getDetailData/${value.id}">${value.kemendagri}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.jmlDI)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.luasDI)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dak)}</td>
+				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${numberFormatJs(value.dak)}</td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
@@ -306,17 +306,17 @@
 		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
 			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
 			var paginationContainer = $('#pagination');
-			paginationContainer.empty(); 
+			paginationContainer.empty();
 
 			var startingPage = 1;
-			var endingPage = jumlahHalaman; 
+			var endingPage = jumlahHalaman;
 
 			if (jumlahHalaman > 3) {
 				startingPage = Math.max(1, halamanSaatIni - 1);
 				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
 			}
 
-  // Menampilkan tombol First
+			// Menampilkan tombol First
 			if (halamanSaatIni > 1) {
 				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
 				paginationContainer.append(firstButton);
@@ -348,7 +348,7 @@
 		}
 
 
-		cari = function () {
+		cari = function() {
 
 			provid = $('#prov').val();
 			kotakabid = $('#kabkota').val();
@@ -373,7 +373,9 @@
 			$('.select2_Irigasi').val(null).trigger('change');
 
 
-			ajaxUntukSemua(base_url()+'SdmOp3A/getDataKabKota', {prov}, function(data) {
+			ajaxUntukSemua(base_url() + 'SdmOp3A/getDataKabKota', {
+				prov
+			}, function(data) {
 
 				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
 
@@ -416,7 +418,7 @@
 				dataType: 'json',
 				type: 'post',
 				delay: 250,
-				data: function (params) {
+				data: function(params) {
 					var query = {
 						searchDi: params.term,
 						kdprov: $('#prov').val(),
@@ -424,12 +426,15 @@
 					};
 					return query;
 				},
-				processResults: function (response) {
+				processResults: function(response) {
 
-					response.data.unshift({ id: '', text: 'Tampilkan semua' });
+					response.data.unshift({
+						id: '',
+						text: 'Tampilkan semua'
+					});
 
 					return {
-						results: response.data 
+						results: response.data
 					};
 				},
 				cache: true
@@ -439,5 +444,4 @@
 
 
 	});
-
 </script>

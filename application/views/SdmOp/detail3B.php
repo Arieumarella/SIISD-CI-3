@@ -202,12 +202,14 @@
 
                             $kantor = '';
                             $kategori = '';
+                            $nm_kantor = '';
+                            $alamat = ''; 
 
                             ?>
 
                             <?php foreach ($dataBody as $key => $val) { ?>
                                 <!-- Kuning -->
-                                <?php if ($kantor != $val->upt) { ?>
+                                <?php if ($kantor != $val->upt || $nm_kantor !=  $val->nm_kantor || $alamat != $val->alamat) { ?>
                                     <tr>
                                         <td><?= $noKuning; ?></td>
                                         <td style="min-width:260px;">
@@ -220,15 +222,17 @@
                                         <td style="min-width:150px; background-color:#000;"></td>
                                     </tr>
 
-                                    <?php 
-
-                                    $noKuning++;
-                                    $kantor = $val->upt;
-
-                                    ?>
+                                    
                                 <?php } ?>
                                 <!-- End Kuning -->
+                                <?php 
 
+                                $noKuning++;
+                                $kantor = $val->upt;
+                                $nm_kantor =  $val->nm_kantor;
+                                $alamat = $val->alamat;
+
+                                ?>
 
                                 <!-- Kategori -->
                                 <?php if ($val->kategori != $kategori) { ?>

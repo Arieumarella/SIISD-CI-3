@@ -12,4 +12,12 @@ class M_TambahDi extends CI_Model {
 	}
 
 
+	public function getMaxId()
+	{
+		$qry = "SELECT max(irigasiid) as irigasiidMax FROM m_irigasi";
+
+		return $this->db->query($qry)->row();
+	}
+
+
 }

@@ -99,11 +99,16 @@
 		background: #28a745;
 	}
 
+	.option-input:check {
+		background: #28a745;
+	}
+
 	.option-input:checked::before {
 		width: 28px;
 		height: 28px;
 		display: flex;
 		content: '\f00c';
+		/* content: '\2716'; */
 		font-size: 15px;
 		font-weight: bold;
 		position: absolute;
@@ -129,6 +134,87 @@
 
 	.option-input.radio::after {
 		border-radius: 50%;
+	}
+
+
+	.option-input2 {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		-ms-appearance: none;
+		-o-appearance: none;
+		appearance: none;
+		position: relative;
+		top: 0px;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 28px;
+		width: 28px;
+		transition: all 0.15s ease-out 0s;
+		background: #cbd1d8;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		display: inline-block;
+		margin-right: 0.5rem;
+		outline: none;
+		position: relative;
+		z-index: 1000;
+	}
+
+	.option-input2:hover {
+		background: #9faab7;
+	}
+
+	.option-input2:checked {
+		background: #DC143C;
+	}
+
+	.option-input2:check {
+		background: #DC143C;
+	}
+
+	.option-input2:checked::before {
+		width: 28px;
+		height: 28px;
+		display: flex;
+		/* content: '\f00c'; */
+		content: '\2716';
+		font-size: 15px;
+		font-weight: bold;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Font Awesome 5 Free';
+	}
+
+	.option-input2:checked::after {
+		-webkit-animation: click-wave 0.65s;
+		-moz-animation: click-wave 0.65s;
+		animation: click-wave 0.65s;
+		background: #DC143C;
+		content: '';
+		display: block;
+		position: relative;
+		z-index: 100;
+	}
+
+	.option-input2.radio {
+		border-radius: 50%;
+	}
+
+	.option-input2.radio::after {
+		border-radius: 50%;
+	}
+
+	.warna1 {
+		background-color: #F7ECDE;
+		color: black;
+	}
+
+	.warna2 {
+		background-color: #fff;
+		color: black;
 	}
 
 	@keyframes click-wave {
@@ -165,175 +251,406 @@
 			<div class="col-md-12">
 				<!-- Presentase Berdasarkan Status -->
 				<div class="card">
-					<div class="card-body text-center">
-						<h4 class="mt-4"> REKAPITULASI CHEKLIST URK DAK FISIK INFRASTRUKTUR PUPR TA. <?= $this->session->userdata('thang'); ?></h4>
-						<h4 class="mb-2">PROVINSI <?= $nm_prov; ?></h4>
-						<h4 class="mb-2"><?= $nm_kotakab; ?></h4>
-						<?= $this->session->flashdata('psn'); ?>
-						<br><br>
-						<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'sda') { ?>
-							<select class="form-control form-control-sm col-2" id="selectRekap" tyle="margin-bottom:-15px;">
-								<option> --Pilih-- </option>
-								<option value="1">CHECKLIST PFID</option>
-								<option value="2">CHECKLIST IRWA</option>
-							</select>
-						<?php } ?>
-						<br><br>
-						<form method="POST" action="<?= base_url(); ?>Usulan/SimpanCheklistSimoni">
-							<input type="hidden" name="idkabkota" value="<?= $kotakabid; ?>">
-							<table class=" table-bordered tableX " id="myTabelUsulan" style="width:100%;">
-								<thead class="theadX">
-									<!-- header utama -->
-									<tr id="boxThField">
-										<th class="text-center" rowspan="2">No.</th>
-										<th class="text-center" rowspan="2">DETAIL KEGIATAN</th>
-										<th class="text-center" rowspan="2">JENIS DI</th>
-										<th class="text-center" rowspan="2">PENGADAAN</th>
-										<th class="text-center" rowspan="2" style="width:17%;">KOMPONEN</th>
-										<th class="text-center" colspan="2">OUTCOME KEGIATAN</th>
-										<th class="text-center" rowspan="2">KEBUTUHAN <br> DANA</th>
-										<th class="text-center" rowspan="2" style="width:8%;">AKSI</th>
+					<div class="card-body">
+						<div class="card-body text-center table-responsive p-0 tableFixHead" style="position: relative; overflow-y: scroll; height: 90vh; padding: 4px; margin: 0px;">
+							<!-- <div class="card-body table-responsive p-0 tableFixHead" style="position: relative; overflow-y: scroll; height: 83vh; padding:2px;"> -->
 
-									</tr>
-									<tr id="boxThField">
-										<th class="text-center">VOLUME</th>
-										<th class="text-center">SATUAN</th>
-									</tr>
-								</thead>
+							<h4 class="font-weight-bolder">Usulan Rencana Kegiatan Penilaian Dana Alokasi Khusus Bidang Irigasi TA. <?= $this->session->userdata('thang'); ?></h4>
+							<h4 class="font-weight-bolder">Menu Pembangunan/ Peningkatan/ Rehabilitasi Jaringan Irigasi</h4>
+							<h4 class="font-weight-bolder mb-2">PROVINSI <?= $nm_prov; ?></h4>
+							<h4 class="font-weight-bolder"><?= $nm_kotakab; ?></h4>
+							<?= $this->session->flashdata('psn'); ?>
+							<br><br>
 
-								<?php
-								$prive = $this->session->userdata('prive');
-								$is_prive = $this->session->userdata('sda');
-								?>
-
-								<tbody id="tbody_data">
-									<?php $hasData = false;
-									if ($dataKegiatan != null) { ?>
-										<?php $no = 1;
-										foreach ($dataKegiatan as $key => $val) { ?>
-											<?php
-											$checklist_provinsi = ($val->verif_provinsi == '1') ? 'checked' : '';
-											$checklist_balai = ($val->verif_balai == '1') ? 'checked' : '';
-											$checklist_sda = ($val->verif_sda == '1') ? 'checked' : '';
-											$checklist_pusat = ($val->verif_pusat == '1') ? 'checked' : '';
-											?>
-
-											<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3' or $val->kd_menu === '9') {
-												$hasData = true; ?>
-												<tr>
-													<td class="text-center" rowspan="6">
-														<?= $no++; ?>
-													</td>
-													<td class="text-left">
-														<b><?= $val->nm_menu; ?></b>
-														<br><br>
-
-														<?php
-														if ($val->kd_menu === '9') {
-															echo '<b>WS : </b>' . $val->nm_ws;
-															echo '<br>';
-															echo '<b>DAS : </b>' . $val->nm_das;
-														} else {
-															echo '<b>' . $val->nm_di . '</b>';
-														} ?>
-														<br><br>
-														<b>-Kecamatan :</b> <?= $val->keca; ?>
-														<br>
-														<b>-Desa :</b> <?= $val->desa; ?>
-														<br>
-
-													</td>
-													<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
-													<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
-													<td class="text-right" style="vertical-align: top;">
-
-														<!-- Cek Apakah Komponen ada -->
-														<?php if ($val->komponen_json != null) { ?>
-
-															<?php
-															// Konvert data komponen JSON -> Array
-															$dataKomponenArray = json_decode($val->komponen_json, true);
-															?>
-															<table class="tableKomponen">
-																<?php foreach ($dataKomponenArray as $datakomponen) { ?>
-																	<tr>
-																		<td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
-																		<td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
-
-																	</tr>
-																<?php } ?>
-															</table>
-														<?php } ?>
-													</td>
-													<td class="text-right"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
-													<td><?= $val->satuan_output; ?></td>
-													<td class="text-left"><b>- Dana :</b> Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br> <b>- Harga Satuan :</b>
-														Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
-
-													<?php if ($prive == 'admin') { ?>
-														<td class="text-left" style="vertical-align: center;" rowspan="6">
-															<button type="button" class="btn btn-danger" onclick="hapusMainData('<?= $val->id; ?>')">
-																<i class="fa fa-trash" aria-hidden="true"></i>
-															</button>
-															<button type="button" class="btn btn-warning" onclick="editnData('<?= $val->id; ?>')">
-																<i class="fa fa-eye" aria-hidden="true"></i>
-															</button>
-														</td>
-													<?php } ?>
-												</tr>
-												<tr id="boxThField">
-												<tr>
-													<td colspan="2"><b>CHECKLIST</b></td>
-													<td colspan="5"><b>CATATAN</b></td>
-												</tr>
-												<tr>
-													<td>PFID <input type="hidden" name="id[<?= $val->id; ?>]"></td>
-
-													<td>
-														<input id='pfid<?= $val->id; ?>' type="checkbox" class="option-input checkbox" name="cheklist_pfid_<?= $val->id; ?>" <?= $checklist_pusat; ?> <?= ($prive != 'admin') ? 'disabled' : ''; ?>>
-													</td>
-													<td colspan="5"><textarea class="form-control" rows="3" name="catat_pfid[<?= $val->id; ?>]" <?= ($prive != 'admin') ? 'readonly' : ''; ?>><?= $val->catat_pusat; ?></textarea></td>
-												</tr>
-												<tr>
-													<td>IRWA</td>
-													<td>
-														<input id='sda<?= $val->id; ?>' type="checkbox" name="cheklist_sda_<?= $val->id; ?>" class="option-input checkbox" <?= $checklist_sda; ?> <?= ($is_prive != 'sda') ? 'disabled' : ''; ?>>
-													</td>
-													<td colspan="5"><textarea class="form-control" rows="3" name="catat_sda[<?= $val->id; ?>]" <?= ($is_prive != 'sda') ? 'readonly' : ''; ?>><?= $val->catat_sda; ?></textarea></td>
-												</tr>
-												<tr>
-													<td>BALAI</td>
-													<td>
-														<input id='balai<?= $val->id; ?>' type="checkbox" name="cheklist_balai_<?= $val->id; ?>" class="option-input checkbox" <?= $checklist_balai; ?> <?= ($prive != 'balai') ? 'disabled' : ''; ?>>
-													</td>
-													<td colspan="5"><textarea class="form-control" rows="3" name="catat_balai[<?= $val->id; ?>]" <?= ($prive != 'balai') ? 'readonly' : ''; ?>><?= $val->catat_balai; ?></textarea></td>
-												</tr>
-												</tr>
-
+							<br><br>
+							<form method="POST" action="<?= base_url(); ?>Usulan/SimpanCheklistSimoni">
+								<input type="hidden" name="idkabkota" value="<?= $kotakabid; ?>">
+								<table class=" table-bordered tableX " id="myTabelUsulan" style="width:100%;">
+									<thead class="theadX" style="background-color:#18978F; color:#fff; border: 1px solid #000000 !important">
+										<!-- header utama -->
+										<tr id="boxThField">
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2">No.</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2">DETAIL KEGIATAN</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2">JENIS DI</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2">PENGADAAN</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2" style="width:17%;">KOMPONEN</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" colspan="2">OUTCOME KEGIATAN</th>
+											<th class="text-center" style="border: 1px solid #000000 !important" rowspan="2">KEBUTUHAN <br> DANA</th>
+											<?php if ($this->session->userdata('prive') == 'admin') { ?>
+												<th class="text-center" rowspan="2" style="width:15%;">AKSI</th>
 											<?php } ?>
-										<?php } ?>
+										</tr>
+										<tr id="boxThField">
+											<th class="text-center" style="border: thin solid;">VOLUME</th>
+											<th class="text-center" style="border: thin solid;">SATUAN</th>
+										</tr>
+									</thead>
 
-								</tbody>
-							</table>
-							<?php if ($prive == 'admin' || $prive == 'balai' || $is_prive == 'sda') { ?>
-								<button class="btn btn-primary m-2" type="submit" style="float:right;"><i class="fa fa-save" aria-hidden="true"></i> SIMPAN</button>
-							<?php } ?>
-							<?php foreach ($dataKegiatan as $key => $val) { ?>
+									<?php
+									$prive = $this->session->userdata('prive');
+									$is_prive = $this->session->userdata('provinsi');
+									?>
+
+									<tbody id="tbody_data">
+										<?php $hasData = false;
+										if ($dataKegiatan != null) {
+											usort($dataKegiatan, function ($a, $b) {
+												$order = ['1', '2', '3', '9'];
+												$pos_a = array_search($a->kd_menu, $order);
+												$pos_b = array_search($b->kd_menu, $order);
+												return $pos_a - $pos_b;
+											}); ?>
+											<?php $no = 1;
+											foreach ($dataKegiatan as $key => $val) { ?>
+												<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3') {
+													$hasData = true; ?>
+													<?php
+													$checklist_provinsi = ($val->verif_provinsi == '1') ? 'checked' : '';
+													$checklist_balai = ($val->verif_balai == '1') ? 'checked' : '';
+													$checklist_sda = ($val->verif_sda == '1') ? 'checked' : '';
+													$checklist_pusat = ($val->verif_pusat == '1') ? 'checked' : '';
+													$checklist_pusat2 = ($val->verif_pusat2 == '1') ? 'checked' : '';
+													$checklist_pusat3 = ($val->verif_pusat3 == '1') ? 'checked' : '';
+													?>
+
+													<?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3' or $val->kd_menu === '9') {
+														$hasData = true; ?>
+														<tr class="<?= ($no % 2 == 1) ? 'warna1' : 'warna2'; ?>">
+
+
+
+															<td class="text-center " rowspan="6">
+																<?= $no++; ?>
+															</td>
+															<td>
+																<b><?= $val->nm_menu; ?></b>
+																<br><br>
+
+																<?php
+																if ($val->kd_menu === '9') {
+																	echo '<b>WS : </b>' . $val->nm_ws;
+																	echo '<br>';
+																	echo '<b>DAS : </b>' . $val->nm_das;
+																} else {
+																	echo '<b>' . $val->nm_di . '</b>';
+																} ?>
+																<br><br>
+																<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+																	<b><?= (substr($nm_kotakab, 0, 4) == 'PROV') ? '-Provinsi' : '-Kabupaten'; ?>
+
+																		:</b> <?= $nm_kotakab; ?>
+																	<br>
+																<?php } ?>
+
+																<?php if (substr($nm_kotakab, 0, 4) == 'PROV') { ?>
+																	<b>-Kabupaten :</b> <?= $val->kotax; ?>
+																	<br>
+																<?php } ?>
+																<b>-Kecamatan :</b> <?= $val->keca; ?>
+																<br>
+																<b>-Desa :</b> <?= $val->desa; ?>
+																<br>
+
+															</td>
+															<td><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
+															<td><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
+															<td class="text-right" style="vertical-align: top;">
+
+																<button type="button" class="btn btn-primary btn-sm mb-2" onclick="showModalKomponen('<?= $val->id; ?>')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																<br>
+
+																<!-- Cek Apakah Komponen ada -->
+																<?php if ($val->komponen_json != null) { ?>
+																	<?php
+																	// Konvert data komponen JSON -> Array
+																	$dataKomponenArray = json_decode($val->komponen_json, true);
+																	?>
+																	<table class="tableKomponen">
+																		<?php foreach ($dataKomponenArray as $datakomponen) { ?>
+																			<tr>
+																				<td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
+																				<td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
+
+																				<td class="text-center" style="width:1%;"><button type="button" class="btn btn-danger btn-sm" onclick="hapuskomponen('<?= $datakomponen['id']; ?>', '<?= $datakomponen['id_usulan_simoni']; ?>')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+
+																			</tr>
+																		<?php } ?>
+																	</table>
+																<?php } ?>
+															</td>
+															<td class="text-right"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
+															<td><?= $val->satuan_output; ?></td>
+															<td class="text-left"><b>- Dana :</b> Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br> <b>- Harga Satuan :</b>
+																Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
+
+															<?php if ($prive == 'admin') { ?>
+																<td class="text-center" style="vertical-align: center;" rowspan="6">
+																	<br>
+																	<button type="button" class="btn btn-danger" onclick="hapusMainData('<?= $val->id; ?>')">
+																		<i class="fa fa-trash" aria-hidden="true"></i>
+																	</button>
+																	<button type="button" class="btn btn-warning" onclick="editnData('<?= $val->id; ?>')">
+																		<i class="fa fa-eye" aria-hidden="true"></i>
+																	</button>
+																	<br><br><br>
+																	<hr style="border-color: #000000; padding:4%">
+																	<br>
+
+																	<div class="form-group text-left">
+																		<label for="recipient-name" class="col-form-label text-left">Penilaian Verifikator 2</label>
+																		<br>
+																		<input id="pfid<?= $val->id; ?>_2" type="checkbox" class="option-input2 checkbox" name="cheklist_pfid2_<?= $val->id; ?>" <?= $checklist_pusat2; ?> <?= ($prive != 'admin') ? 'disabled' : ''; ?>>
+																		<input id="pfid<?= $val->id; ?>_3" type="checkbox" class="option-input checkbox" name="cheklist_pfid3_<?= $val->id; ?>" <?= $checklist_pusat3; ?> <?= ($prive != 'admin') ? 'disabled' : ''; ?>>
+																	</div>
+
+																	<style>
+																		.custom-text-input {
+																			height: calc(1.5em * 4);
+																			/* Approximately the height of a textarea with rows=3 */
+																			overflow: auto;
+																			/* Allows scrolling if content exceeds the height */
+																			box-sizing: border-box;
+																			/* Ensures padding and border are included in the height */
+																			resize: vertical;
+																			/* Allows vertical resizing of the input field */
+																		}
+																	</style>
+
+																	<div class="form-group text-left">
+																		<label for="recipient-name" class="col-form-label">Dana :</label>
+																		<input type="text" class="form-control custom-text-input"
+																			oninput="this.value = this.value.replace(/\D/g, '')"
+																			name="catat_verifikator2[<?= $val->id; ?>]"
+																			id="catat_verifikator2_<?= $val->id; ?>"
+																			value="<?= htmlspecialchars($val->catat_verifikator2); ?>"
+																			<?= ($prive != 'admin') ? 'readonly' : ''; ?>>
+																	</div>
+
+
+																	<script>
+																		$(document).ready(function() {
+																			$('#pfid<?= $val->id; ?>_2').change(function() {
+																				if ($(this).is(':checked')) {
+																					$('#pfid<?= $val->id; ?>_3').prop('checked', false); // Memastikan hanya satu yang tercentang
+																					$('#catat_verifikator2_<?= $val->id; ?>').prop('readonly', true);
+																				} else {
+																					$('#catat_verifikator2_<?= $val->id; ?>').prop('readonly', false);
+																				}
+																			});
+
+																			$('#pfid<?= $val->id; ?>_3').change(function() {
+																				if ($(this).is(':checked')) {
+																					$('#pfid<?= $val->id; ?>_2').prop('checked', false); // Memastikan hanya satu yang tercentang
+																					$('#catat_verifikator2_<?= $val->id; ?>').prop('readonly', false);
+																				}
+																			});
+
+																			// Inisialisasi readonly berdasarkan kondisi awal
+																			if ($('#pfid<?= $val->id; ?>_2').is(':checked')) {
+																				$('#catat_verifikator2_<?= $val->id; ?>').prop('readonly', true);
+																			} else if ($('#pfid<?= $val->id; ?>_3').is(':checked')) {
+																				$('#catat_verifikator2_<?= $val->id; ?>').prop('readonly', false);
+																			}
+																		});
+																	</script>
+
+
+
+
+																</td>
+
+
+															<?php } ?>
+														</tr>
+														<tr id="boxThField">
+														<tr>
+															<td colspan="2" style="background-color:#18978F; color:#fff; border: 1px solid #000000 !important "><b>CHECKLIST</b></td>
+															<td colspan="5" style="background-color:#18978F; color:#fff; border: 1px solid #000000 !important"><b>CATATAN</b></td>
+														</tr>
+														<tr class="<?= ($no % 2 == 1) ? 'warna2' : 'warna1'; ?>">
+															<td class="text-left">PUSAT FASILITASI INFRASTRUKTUR DAERAH<input type="hidden" name="id[<?= $val->id; ?>]"></td>
+
+															<td>
+																<input id='pfid<?= $val->id; ?>' type="checkbox" class="option-input checkbox" name="cheklist_pfid_<?= $val->id; ?>" <?= $checklist_pusat; ?> <?= ($prive != 'admin') ? 'disabled' : ''; ?>>
+															</td>
+															<td colspan="5">
+																<!-- Textarea untuk input pengguna -->
+																<textarea class="form-control" rows="8" id="textarea_<?= htmlspecialchars($val->id, ENT_QUOTES, 'UTF-8'); ?>" <?= ($prive != 'admin') ? 'readonly' : ''; ?>>
+1. Riwayat Penanganan : <?= htmlspecialchars($val->tahun, ENT_QUOTES, 'UTF-8'); ?> 
+2. Rekomendasi Penilaian : <?= htmlspecialchars($val->catat_pusat, ENT_QUOTES, 'UTF-8'); ?>
+    </textarea>
+
+																<!-- Input hidden untuk mengirimkan data ke server -->
+																<input type="hidden" name="catat_pfid[<?= htmlspecialchars($val->id, ENT_QUOTES, 'UTF-8'); ?>]" id="hidden_input_<?= htmlspecialchars($val->id, ENT_QUOTES, 'UTF-8'); ?>" value="<?= htmlspecialchars($val->catat_pusat, ENT_QUOTES, 'UTF-8'); ?>">
+															</td>
+
+															<script>
+																document.addEventListener('DOMContentLoaded', function() {
+																	document.getElementById('textarea_<?= htmlspecialchars($val->id, ENT_QUOTES, 'UTF-8'); ?>').addEventListener('input', function() {
+																		var textareaValue = this.value;
+																		// Extract only the part after "2. Rekomendasi Penilaian :"
+																		var extractedValue = textareaValue.split('2. Rekomendasi Penilaian :')[1]?.trim() || '';
+																		document.getElementById('hidden_input_<?= htmlspecialchars($val->id, ENT_QUOTES, 'UTF-8'); ?>').value = extractedValue;
+																	});
+																});
+															</script>
+
+														</tr>
+														<tr class="<?= ($no % 2 == 1) ? 'warna2' : 'warna1'; ?>">
+															<td class="text-left">DIREKTORAT IRIGASI DAN RAWA</td>
+															<td>
+																<input id='sda<?= $val->id; ?>' type="checkbox" name="cheklist_sda_<?= $val->id; ?>" class="option-input checkbox" <?= $checklist_sda; ?> <?= ($prive != 'sda') ? 'disabled' : ''; ?>>
+															</td>
+															<td colspan="5"><textarea class="form-control" rows="3" name="catat_sda[<?= $val->id; ?>]" <?= ($prive != 'sda') ? 'readonly' : ''; ?>><?= $val->catat_sda; ?></textarea></td>
+														</tr>
+														<tr class="<?= ($no % 2 == 1) ? 'warna2' : 'warna1'; ?>">
+															<td class="text-left">BBWS/BWS</td>
+															<td>
+																<input id='balai<?= $val->id; ?>' type="checkbox" name="cheklist_balai_<?= $val->id; ?>" class="option-input checkbox" <?= $checklist_balai; ?> <?= ($prive != 'balai') ? 'disabled' : ''; ?>>
+															</td>
+															<td colspan="5"><textarea class="form-control" rows="3" name="catat_balai[<?= $val->id; ?>]" <?= ($prive != 'balai') ? 'readonly' : ''; ?>><?= $val->catat_balai; ?></textarea></td>
+
+														</tr>
+														</tr>
+													<?php } ?>
+												<?php } ?>
+											<?php } ?>
+											<?php
+											$totalPagu = 0;
+											foreach ($dataKegiatan as $key => $val) {
+												if (is_numeric($val->pagu_kegiatan) && in_array($val->kd_menu, [1, 2, 3])) {
+													$totalPagu += $val->pagu_kegiatan;
+												}
+											}
+											?>
+											<?php if ($this->session->userdata('prive') == 'admin') { ?>
+												<tr class="<?= ($no % 2 == 1) ? 'warna2' : 'warna1'; ?>">
+													<td class="text-left" colspan="9" style="height: 50px;"><b>TOTAL USULAN PAGU :</b> Rp <?= number_format($totalPagu, 0, ',', '.'); ?>
+													</td>
+												</tr>
+											<?php } ?>
+
+
+									</tbody>
+								</table>
+
 								<?php if ($this->session->userdata('prive') == 'admin') { ?>
-									<?php if (isset($val->kotakabid) && $val->kotakabid == $this->session->userdata('kotakabid')) { ?>
-										<a href="<?= base_url(); ?>ExportPdf/export_pdf/<?= $val->kotakabid; ?>" class="btn btn-success btn-icon" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>
+									<br>
+									<p class="text-left" style="cursor: pointer; color: blue; text-decoration: underline;" onclick="parafVerif3();">Catatan Verifikator 1</p>
+									<?php
+												if (!empty($dataCatat)) {
+													// Get the last element of the array
+													$lastVal = end($dataCatat);
+													if ($lastVal) { // Ensure lastVal is valid
+									?>
+											<div>
+												<textarea class="form-control mt-3" rows="3" name="catat" id="catat" disabled placeholder="Belum ada catatan"><?= htmlspecialchars($lastVal->catat, ENT_QUOTES, 'UTF-8'); ?></textarea>
+											</div>
+										<?php
+													}
+												} else { ?>
+										<div>
+											<textarea class="form-control mt-3" rows="3" name="catat" id="catat" disabled placeholder="Belum ada catatan"></textarea>
+										</div>
+									<?php } ?>
+									<br>
+									<p class="text-left" style="cursor: pointer; color: blue; text-decoration: underline;" onclick="parafVerif2();">Catatan Verifikator 2</p>
+									<?php if (!empty($dataParaf)) {
+													$lastVal = end($dataParaf); // Get the last element of the array
+									?>
+										<div>
+											<textarea class="form-control mt-3" rows="3" name="catat" id="catat" disabled><?= $lastVal->catat; ?></textarea>
+										</div>
+									<?php } else { ?>
+										<div>
+											<textarea class="form-control mt-3" rows="3" name="catat" id="catat" disabled placeholder="Catatan belum terinput"></textarea>
+										</div>
 									<?php } ?>
 								<?php } ?>
+
+
+								<?php if ($prive == 'admin' || $prive == 'balai' || $prive == 'sda') { ?>
+									<button class="btn btn-primary m-2" type="submit" style="float:right;"><i class="fa fa-save" aria-hidden="true"></i>&nbsp; SIMPAN</button>
+
+								<?php } ?>
+								<?php foreach ($dataKegiatan as $key => $val) { ?>
+									<?php if ($this->session->userdata('prive') == 'admin') { ?>
+										<?php if (isset($val->kotakabid) && $val->kotakabid == $this->session->userdata('kotakabid')) { ?>
+											<a href="<?= base_url(); ?>ExportPdf/export_pdf/<?= $val->kotakabid; ?>" class="btn btn-success btn-icon" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
+								<div>
+									<?php if ($this->session->userdata('prive') == 'balai') { ?>
+										<button id="parafButton" type="button" class="btn btn-success" style="float:right; margin-top: 9px;" onclick="downloadURK();"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp; Paraf</button>
+									<?php } ?>
+								</div>
+								<?php if ($this->session->userdata('prive') == 'admin') { ?>
+									<button id="parafButton" type="button" class="btn btn-success" style="float:right; margin-top: 9px;" onclick="parafMainData();"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp; Paraf</button>
+									&nbsp;&nbsp;
+									<!-- <button id="parafButton" type="button" class="btn btn-info" style="float:right; margin-top: 9px;" onclick="parafVerif2();"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp; Paraf</button> -->
+								<?php } ?>
+
+								<?php if ($this->session->userdata('prive') == 'balai') { ?>
+									<br><br>
+									<div class="card-body">
+										<table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
+											<thead class="theadX" style="background-color:#18978F; color:#fff;">
+												<tr id="boxThField">
+													<th class="text-center" style="border: 1px solid #000000 !important">No</th>
+													<th class="text-center" style="width:25%; border: 1px solid #000000 !important">Petugas</th>
+													<th class="text-center" style="width:35%; border: 1px solid #000000 !important">Jabatan</th>
+													<th class="text-center" style="width:35%; border: 1px solid #000000 !important">Nama</th>
+													<th class="text-center" style="width:auto; border: 1px solid #000000 !important">Tanggal</th>
+													<th class="text-center" style="border: 1px solid #000000 !important">Paraf</th>
+												</tr>
+											</thead>
+
+											<tbody id="tbody_data">
+												<?php if ($dataBalai != null) { ?>
+													<?php foreach ($dataBalai as $key => $val) { ?>
+														<?php $no = 1; { ?>
+															<tr>
+																<td class="text-center">
+																	<?= $no++; ?>
+																</td>
+																<td>
+																	BBWS/BWS
+																</td>
+																<td style="width:auto;"><?= $val->jabatan; ?></td>
+																<td><?= $val->nm_verif; ?></td>
+																<td>
+																	<?php
+																	$date = new DateTime($val->created_at);
+																	echo $date->format('d-m-Y');
+																	?>
+																</td>
+																<td class="text-center" style="text-align: center;">
+																	<img class="profile-user-img img-fluid img-circle text-center" src="<?= base_url(); ?>assets/paraf/<?= $val->paraf_verif == null ? 'Data Kosong' : $val->paraf_verif; ?>" alt="User profile picture" style="width: 70px; text-align: center;">
+																</td>
+
+															</tr>
+														<?php } ?>
+													<?php } ?>
+												<?php } else { ?>
+													<tr>
+														<td class="text-center" colspan="6" style="height: 20px;"><b>DATA KOSONG.!</b></td>
+													</tr>
+												<?php } ?>
+											</tbody>
+										</table>
+									</div>
+								<?php } ?>
+
+							<?php }
+										if (!$hasData) { ?>
+								<tr>
+									<td class="text-center" colspan="9" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
+								</tr>
 							<?php } ?>
-						<?php }
-									if (!$hasData) { ?>
-							<tr>
-								<td class="text-center" colspan="9" style="height: 20px;"><b>DATA KOSOSNG.!</b></td>
-							</tr>
-						<?php } ?>
+							</form>
 
-						</form>
-
+						</div>
 					</div>
 				</div>
 			</div>
@@ -459,24 +776,26 @@
 </div>
 <!-- End Modal Edit Data -->
 
+<!-- start Modal Pengesahan Balai -->
 <div class="modal fade" id="modalParaf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Paraf Verifikator</h5>
+				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Pengesahan Balai</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<form method="POST" action="<?= base_url(); ?>Usulan/simpanParafVerif" enctype="multipart/form-data">
+					<input type="hidden" name="kotakabid" value="<?= $kotakabid; ?>">
 					<div class="form-group">
-						<label for="output" class="col-form-label">Nama Verifikator :</label>
-						<input type="text" class="form-control" id="nm_verif" name="nm_verif" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
+						<label for="output" class="col-form-label">Jabatan :</label>
+						<input type="text" class="form-control" id="jabatan" name="jabatan" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
-						<label for="output" class="col-form-label">Desk :</label>
-						<input type="text" class="form-control" id="desk" name="desk" required oninput="this.value = this.value.replace(/\D/g, '')" required>
+						<label for="output" class="col-form-label">Nama :</label>
+						<input type="text" class="form-control" id="nm_verif" name="nm_verif" required oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
 					</div>
 					<div class="form-group">
 						<label for="recipient-name" class="col-form-label">Paraf Verifikator :</label>
@@ -492,6 +811,34 @@
 							});
 						</script>
 					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="Submit" class="btn btn-primary">SIMPAN</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- End Modal Pengesahan Balai -->
+
+<!-- start Modal Pengesahan Verivikator 2 -->
+<div class="modal fade" id="modalParaf2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Pengesahan Verifikator 2</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="<?= base_url(); ?>Usulan/simpanParafVerif2" enctype="multipart/form-data">
+					<input type="hidden" name="kotakabid" value="<?= $kotakabid; ?>">
+					<div class="form-group">
+						<label for="output" class="col-form-label">Catat Verifikator 2 :</label>
+						<textarea class="form-control" name="catat" id="catat" required></textarea>
+					</div>
 
 
 			</div>
@@ -500,6 +847,78 @@
 				<button type="Submit" class="btn btn-primary">SIMPAN</button>
 			</div>
 			</form>
+		</div>
+	</div>
+</div>
+<!-- End Modal Pengesahan Balai -->
+
+<div class="modal fade" id="modalParaf3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Pengesahan Verifikator 2</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="<?= base_url(); ?>Usulan/simpanCatatVerifSimoni" enctype="multipart/form-data">
+					<input type="hidden" name="kotakabid" value="<?= $kotakabid; ?>">
+					<div class="form-group">
+						<label for="catat" class="col-form-label">Catat Verifikator 1 :</label>
+
+						<?php if (!empty($dataCatat)) {
+							$lastVal = end($dataCatat); // Get the last element of the array
+						?>
+							<textarea class="form-control" name="catat" id="catat" required><?= htmlspecialchars($lastVal->catat, ENT_QUOTES, 'UTF-8'); ?></textarea>
+						<?php } else { ?>
+							<textarea class="form-control" name="catat" id="catat" required></textarea>
+						<?php } ?>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">SIMPAN</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="modalKomponen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Tambah Komponen</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="<?= base_url(); ?>Usulan/tambahDataKomponenAdmin">
+					<div class="form-group">
+						<label for="komponen" class="col-form-label">Pilih Komponen:</label>
+						<select class="form-control select3" name="komponen" id="komponen" required>
+							<option value="" selected disabled>-- Pilih Komponen --</option>
+							<?php foreach ($dataKomponen as $key => $val) {
+								if (!in_array($val->id, ['34', '35', '36'])) { ?>
+									<option value="<?= $val->id ?>"><?= $val->nm_komponen . ' (' . $val->satuan . ')'; ?></option>
+							<?php }
+							} ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="volume" class="col-form-label">Volume:</label>
+						<input type="text" class="form-control" id="volume" name="volume" required oninput="this.value = this.value.replace(/\D/g, '')">
+						<input type="hidden" name="idData" id="idData">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -567,6 +986,13 @@
 
 		downloadURK = function() {
 			$('#modalParaf').modal('show');
+		}
+		parafVerif2 = function() {
+			$('#modalParaf2').modal('show');
+		}
+
+		parafVerif3 = function() {
+			$('#modalParaf3').modal('show');
 		}
 
 		tambahData = function() {
@@ -651,14 +1077,12 @@
 		});
 
 
-		showModalKomponen = function(id) {
+		window.showModalKomponen = function(id) {
 			$('#idData').val(id);
 			$('#modalKomponen').modal('show');
 		}
 
-
-		hapuskomponen = function(id, idMasterData) {
-
+		window.hapuskomponen = function(id, idMasterData) {
 			Swal.fire({
 				title: 'Apakah Anda yakin?',
 				text: "Data yang dihapus tidak akan bisa dikembalikan.!",
@@ -669,26 +1093,24 @@
 				confirmButtonText: 'Ya, hapus!',
 				cancelButtonText: 'Batal'
 			}).then((result) => {
-
 				if (result.value == true) {
-
-					ajaxUntukSemua(base_url() + 'Usulan/deleteKomponen', {
-						id,
-						idMasterData
-					}, function(data) {
-
-						location.reload();
-
-					}, function(error) {
-						alert(`Error : ${error}`);
-						console.log('Kesalahan:', error);
+					$.ajax({
+						url: base_url() + 'Usulan/deleteKomponen',
+						method: 'POST',
+						data: {
+							id: id,
+							idMasterData: idMasterData
+						},
+						success: function(data) {
+							location.reload();
+						},
+						error: function(error) {
+							alert(`Error : ${error}`);
+							console.log('Kesalahan:', error);
+						}
 					});
-
-
 				}
 			});
-
-
 		}
 
 
@@ -708,6 +1130,37 @@
 				if (result.value == true) {
 
 					ajaxUntukSemua(base_url() + 'Usulan/deleteBaseDaata', {
+						id
+					}, function(data) {
+
+						location.reload();
+
+					}, function(error) {
+						alert(`Error : ${error}`);
+						console.log('Kesalahan:', error);
+					});
+
+
+				}
+			});
+		}
+
+		parafMainData = function(id) {
+
+			Swal.fire({
+				title: 'Apakah anda yakin ingin paraf URK?',
+				text: "Tanda Tangan Usulan Rencana Kegiatan!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Ya, hapus!',
+				cancelButtonText: 'Batal'
+			}).then((result) => {
+
+				if (result.value == true) {
+
+					ajaxUntukSemua(base_url() + 'Usulan/readParaf', {
 						id
 					}, function(data) {
 
@@ -947,7 +1400,6 @@
 			}
 
 		});
-
 
 		$('#kecamatan_edit').on('change', function() {
 

@@ -9,25 +9,28 @@
         margin-top: -15px;
     }
 
-    .table {
-        font-size: 12px;
+    .tableX {
+        font-size: 14px;
     }
 
-    .table thead {
-        background-color: #18978F;
-        color: #fff;
+    .tableX thead {
+        background-color: #d6d6d6;
+        color: solid gray;
     }
 
-    .table th {
-        padding: 4px;
+    .tableX th {
+        padding: 10px;
         margin: 0px;
         text-align: center;
         vertical-align: center;
+        font-size: 14px;
+        border: 1px solid gray !important;
     }
 
-    .table td {
+    .tableX td {
         padding: 4px;
         margin: 0px;
+        border: 1px solid gray !important;
     }
 
     .number,
@@ -71,22 +74,23 @@
                             <thead id="thead_data">
 
                                 <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                    <th style="border: thin solid #006666; width: 5%" rowspan="2">No</th>
-                                    <th style="border: thin solid #006666; width: 25%;" rowspan="2">Kab/Kota</th>
-                                    <th style="border: thin solid #006666;" colspan="11">DOKUMEN</th>
+                                    <th style="border: 1px solid #000000 !important; width: 5%" rowspan="2">No</th>
+                                    <th style="border: 1px solid #000000 !important; width: 20%;" rowspan="2">Kab/Kota</th>
+                                    <th style="border: 1px solid #000000 !important;" colspan="12">DOKUMEN</th>
                                 </tr>
                                 <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                    <th class="text-center" style="border: thin solid #006666;">LEMBAR CHECKLIST</th>
-                                    <th style="border: thin solid #006666;">SID</th>
-                                    <th style="border: thin solid #006666;">DED</th>
-                                    <th style="border: thin solid #006666;">KAK</th>
-                                    <th style="border: thin solid #006666;">SKEMA JARINGAN</th>
-                                    <th style="border: thin solid #006666;">SKEMA BANGUNAN</th>
-                                    <th style="border: thin solid #006666;">BC VOLUME</th>
-                                    <th style="border: thin solid #006666;">RAB</th>
-                                    <th style="border: thin solid #006666;">DOKUMENTASI</th>
-                                    <th style="border: thin solid #006666;">AMDAL</th>
-                                    <th style="border: thin solid #006666;">SURAT KESEDIAAN OP</th>
+                                    <th class="text-center" style="border: 1px solid #000000 !important;">URK</th>
+                                    <th class="text-center" style="border: 1px solid #000000 !important;">LEMBAR CHECKLIST</th>
+                                    <th style="border: 1px solid #000000 !important;">SID</th>
+                                    <th style="border: 1px solid #000000 !important;">DED</th>
+                                    <th style="border: 1px solid #000000 !important;">KAK</th>
+                                    <th style="border: 1px solid #000000 !important;">SKEMA JARINGAN</th>
+                                    <th style="border: 1px solid #000000 !important;">SKEMA BANGUNAN</th>
+                                    <th style="border: 1px solid #000000 !important;">BC VOLUME</th>
+                                    <th style="border: 1px solid #000000 !important;">RAB</th>
+                                    <th style="border: 1px solid #000000 !important;">DOKUMENTASI</th>
+                                    <th style="border: 1px solid #000000 !important;">AMDAL</th>
+                                    <th style="border: 1px solid #000000 !important;">SURAT KESEDIAAN OP</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_data">
@@ -112,11 +116,11 @@
                                 <?php $no = 1;
                                 foreach ($dataRekap as $key => $val) { ?>
                                     <tr style="background-color: #F7ECDE;">
-                                        <td class="text-center" style="border: thin solid #006666;"><?= $no++; ?></td>
-                                        <td style="text-align: left; border: thin solid #006666;">
+                                        <td class="text-center" style="border: 1px solid #000000 !important;"><?= $no++; ?></td>
+                                        <td style="text-align: left; border: 1px solid #000000 !important;">
 
                                             <?php if ($this->session->userdata('prive') == 'pemda') { ?>
-                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid')) { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') or $this->session->userdata('is_provinsi') == 'provinsi') { ?>
                                                     <a href="<?= base_url(); ?>Usulan/cheklistURKSimoniPengendaliBanjir/<?= $val->kotakabid; ?>"><?= $val->kemendagri; ?></a>
                                                 <?php } else { ?>
                                                     <?= $val->kemendagri; ?>
@@ -133,190 +137,553 @@
                                                 <?php } ?>
                                             <?php } ?>
                                         </td>
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_lembar_ck_pb != null) { ?>
-                                                <?php if ($val->ekstensi_lembar_ck_pb == 'pdf') { ?>
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_lembar_ck_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                        <td style="border: 1px solid #000000 !important; text-align: left;" class="text-center">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid')) { ?>
+                                                    <a href="<?= base_url(); ?>ExportPdf/exportPB_pdf/<?= $val->kotakabid; ?>" class="btn btn-success btn-icon" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>
+
+                                                <?php }  ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <a href="<?= base_url(); ?>ExportPdf/exportPB_pdf/<?= $val->kotakabid; ?>" class="btn btn-success btn-icon" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <?php }  ?>
                                                 <?php } else { ?>
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_lembar_ck_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                    <a href="<?= base_url(); ?>ExportPdf/exportPB_pdf/<?= $val->kotakabid; ?>" class="btn btn-success btn-icon" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                 <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_lembar_ck_pb; ?>
-                                            <?php } ?>
-                                        </td>
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_sid_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_sid_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_sid_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-                                                <?php } else { ?>
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_sid_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_sid_pb; ?>
-
                                             <?php } ?>
                                         </td>
 
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_ded_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_ded_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_ded_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_ded_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_lembar_ck_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_lembar_ck_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_lembar_ck_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_lembar_ck_pb; ?>"
+                                                                class="btn btn-danger btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_lembar_ck_pb; ?>
+                                                    <?php } ?>
                                                 <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_ded_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
-
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_kak_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_kak_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kak_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_lembar_ck_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_lembar_ck_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_lembar_ck_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_lembar_ck_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_lembar_ck_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                 <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kak_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
+                                                    <?php if ($val->id_lembar_ck_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_lembar_ck_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_lembar_ck_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_lembar_ck_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_lembar_ck_pb; ?>
+                                                    <?php } ?>
                                                 <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_kak_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_skema_jaringan_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_skema_jaringan_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_jaringan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_jaringan_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_skema_jaringan_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_skema_bangunan_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_skema_bangunan_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_bangunan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_bangunan_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_skema_bangunan_pb; ?>
-
                                             <?php } ?>
                                         </td>
 
 
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_bc_volume_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_bc_volume_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_bc_volume_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_bc_volume_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_sid_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_sid_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_sid_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_sid_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_sid_pb; ?>
+                                                    <?php } ?>
                                                 <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_bc_volume_pb; ?>
-
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_sid_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_sid_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_sid_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_sid_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_sid_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_sid_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_sid_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_sid_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_sid_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_sid_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
                                             <?php } ?>
                                         </td>
 
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_rab_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_rab_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_rab_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_rab_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_ded_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_ded_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_ded_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_ded_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_ded_pb; ?>
+                                                    <?php } ?>
                                                 <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_rab_pb; ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_ded_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_ded_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_ded_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_ded_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_ded_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_ded_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_ded_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_ded_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_ded_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_ded_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
 
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_kak_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_kak_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_kak_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kak_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_kak_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_kak_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_kak_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kak_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kak_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_kak_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_kak_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_kak_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kak_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kak_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_kak_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_skema_jaringan_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_skema_jaringan_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_skema_jaringan_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_jaringan_pb; ?>"
+                                                                class="btn btn-danger btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_skema_jaringan_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_skema_jaringan_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_skema_jaringan_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_jaringan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_jaringan_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_skema_jaringan_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_skema_jaringan_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_skema_jaringan_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_jaringan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_jaringan_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_skema_jaringan_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_skema_bangunan_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_skema_bangunan_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_skema_bangunan_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_bangunan_pb; ?>"
+                                                                class="btn btn-danger btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_skema_bangunan_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_skema_bangunan_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_skema_bangunan_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_bangunan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_bangunan_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_skema_bangunan_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_skema_bangunan_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_skema_bangunan_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_skema_bangunan_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_skema_bangunan_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_skema_bangunan_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_bc_volume_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_bc_volume_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_bc_volume_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_bc_volume_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_bc_volume_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_bc_volume_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_bc_volume_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_bc_volume_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_bc_volume_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_bc_volume_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_bc_volume_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_bc_volume_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_bc_volume_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_bc_volume_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_bc_volume_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_rab_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_rab_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_rab_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_rab_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_rab_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_rab_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_rab_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_rab_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_rab_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_rab_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_rab_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_rab_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_rab_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_rab_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_rab_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_dokumentasi_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_dokumentasi_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_dokumentasi_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dokumentasi_pb; ?>"
+                                                                class="btn btn-dark btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-archive fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_dokumentasi_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_dokumentasi_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_dokumentasi_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dokumentasi_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dokumentasi_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_dokumentasi_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_dokumentasi_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_dokumentasi_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dokumentasi_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dokumentasi_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_dokumentasi_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_dok_amdal_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_dok_amdal_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_dok_amdal_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dok_amdal_pb; ?>"
+                                                                class="btn btn-danger btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_dok_amdal_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_dok_amdal_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_dok_amdal_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dok_amdal_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dok_amdal_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_dok_amdal_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_dok_amdal_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_dok_amdal_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dok_amdal_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dok_amdal_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_dok_amdal_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </td>
+
+                                        <td style="border: 1px solid #000000 !important; text-align: left;">
+                                            <?php if ($this->session->userdata('prive') == 'pemda') { ?>
+                                                <?php if ($val->kotakabid == $this->session->userdata('kotakabid') || $this->session->userdata('is_provinsi') == 'provinsi') { ?>
+                                                    <?php if ($val->id_kesediaan_op_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_kesediaan_op_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon"
+                                                                onclick="<?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'return false;' : "showPdf('{$val->path_kesediaan_op_pb}')" ?>"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'disabled' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kesediaan_op_pb; ?>"
+                                                                class="btn btn-danger btn-icon"
+                                                                <?= $this->session->userdata('is_provinsi') == 'provinsi' ? 'onclick="return false;" style="pointer-events: none;"' : '' ?>>
+                                                                <i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i>
+                                                            </a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_kesediaan_op_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <?php if ($this->session->userdata('prive') == 'balai') { ?>
+                                                    <?php if (in_array($val->kotakabid, $dataBalai)) { ?>
+                                                        <?php if ($val->id_kesediaan_op_pb != null) { ?>
+                                                            <?php if ($val->ekstensi_kesediaan_op_pb == 'zip') { ?>
+                                                                <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kesediaan_op_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kesediaan_op_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            <br>
+                                                            <?= $val->upload_time_kesediaan_op_pb; ?>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <?php if ($val->id_kesediaan_op_pb != null) { ?>
+                                                        <?php if ($val->ekstensi_kesediaan_op_pb == 'zip') { ?>
+                                                            <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kesediaan_op_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kesediaan_op_pb; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <?= $val->upload_time_kesediaan_op_pb; ?>
+                                                    <?php } ?>
+                                                <?php } ?>
                                             <?php } ?>
                                         </td>
 
 
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_dokumentasi_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_dokumentasi_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dokumentasi_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dokumentasi_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_dokumentasi_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
-
-
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_dok_amdal_pb != null) { ?>
-
-                                                <?php if ($val->ekstensi_dok_amdal_pb == 'pdf') { ?>
-
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_dok_amdal_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_dok_amdal_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_dok_amdal_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
-
-                                        <td class="text-center" style="border: thin solid #006666; width: 8%;">
-                                            <?php if ($val->id_kesediaan_op_pb != null) { ?>
-                                                <?php if ($val->ekstensi_kesediaan_op_pb == 'pdf') { ?>
-                                                    <button class="btn btn-danger btn-icon" onclick="showPdf('<?= $val->path_kesediaan_op_pb; ?>')"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></button>
-                                                <?php } else { ?>
-
-                                                    <a href="<?= base_url(); ?>DataTeknis/downloadFileById/<?= $val->id_kesediaan_op_pb; ?>" class="btn btn-dark btn-icon"><i class="fa fa-file-archive fa-lg" aria-hidden="true"></i></a>
-
-                                                <?php } ?>
-                                                <br>
-                                                <?= $val->upload_time_kesediaan_op_pb; ?>
-
-                                            <?php } ?>
-                                        </td>
                                     </tr>
 
                                 <?php } ?>
@@ -381,46 +748,32 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        showModalURK = function(kotakabid) {
-            $('#kotakabidBa').val(kotakabid);
-            $('#modalURK').modal('show');
-        }
+        showPdf = async function(path) {
 
-        verifFunc = function(idData, idJnsData, kotakabid) {
+            let cekString = path.indexOf("/var/www/html/");
 
-            let kondisi = ($(`#${idData}`).prop('checked')) ? '1' : '0';
+            if (cekString == -1) {
+                var sliceString = path.substring(11);
+                var spasiJadiPersen = sliceString.replace(' ', '%20');
+                var parent = await $('embed#idEmbed').parent();
+                var newElement = await "<embed src='" + base_url() + 'assets/2022/' + spasiJadiPersen + "' id='idEmbed' frameborder='0' width='100%' height='100%'>";
 
-            ajaxUntukSemua(base_url() + 'VerifDataTeknis/prosesVerif', {
-                kondisi,
-                idJnsData,
-                kotakabid
-            }, function(data) {
-
-                if (data.code == 200) {
-                    toastr.success('Data berhasil disimpan.!');
-                } else {
-                    toastr.error('Data gagal disimpan.');
-                }
-
-            }, function(error) {
-                toastr.error('Error :' + error);
-
-            });
-
-
-            if (idJnsData == '4') {
-
-                if (kondisi == '1') {
-                    $('#idButton' + kotakabid).attr('disabled', false);
-                } else {
-                    $('#idButton' + kotakabid).attr('disabled', true);
-                }
+                await $('embed#idEmbed').remove();
+                await parent.append(newElement);
+                await $('#modalPdf').modal('show');
+            } else {
+                var sliceString = path.substring(24);
+                var spasiJadiPersen = sliceString.replace(' ', '%20');
+                var parent = await $('embed#idEmbed').parent();
+                var newElement = await "<embed src='" + base_url() + spasiJadiPersen + "' id='idEmbed' frameborder='0' width='100%' height='100%'>";
+                await $('embed#idEmbed').remove();
+                await parent.append(newElement);
+                await $('#modalPdf').modal('show');
 
             }
 
 
-
         }
 
-    })
+    });
 </script>

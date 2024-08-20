@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -10,10 +10,12 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use PhpOffice\PhpWord\Table;
 
-class InfrastrukturPBanjir extends CI_Controller {
+class InfrastrukturPBanjir extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -52,7 +54,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 	{
 		$jumlahDataPerHalaman  = ($this->input->post('perhalaman')) ? $this->input->post('perhalaman') : 5;
 		$halamanSaatIni  = ($this->input->post('halamanSaatIni')) ? $this->input->post('halamanSaatIni') : 1;
-		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null; 
+		$search = ($this->input->post('search') != '') ? $this->input->post('search') : null;
 		$provid = ($this->input->post('provid') != '') ? $this->input->post('provid') : null;
 		$das = ($this->input->post('das') != '') ? $this->input->post('das') : null;
 
@@ -67,8 +69,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 
 		echo json_encode(['code' => ($data != false) ? 200 : 401, 'data' => ($data != false) ? $data['data'] : '', 'jml_data' => ($data != false) ? $data['jml_data'] : '']);
-
-
 	}
 
 
@@ -81,7 +81,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$data = $this->M_InfrastrukturPBanjir->getDataWS($ws, $kdprov, $kdKab);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
-
 	}
 
 
@@ -92,7 +91,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$data = $this->M_dinamis->getResult('m_kotakab', ['provid' => $prov]);
 
 		echo json_encode($data);
-
 	}
 
 
@@ -102,8 +100,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$data = $this->M_InfrastrukturPBanjir->getDataDasById($ws);
 
 		echo json_encode($data);
-
-
 	}
 
 
@@ -127,7 +123,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$data = $this->M_InfrastrukturPBanjir->getDataDiTambah($searchDi);
 
 		echo json_encode(['code' => ($data) ? 200 : 401, 'data' => $data]);
-
 	}
 
 
@@ -151,8 +146,13 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$petaGambar = ubahKomaMenjadiTitik($this->input->post('petaGambar'));
 		$bukuDataAset = ubahKomaMenjadiTitik($this->input->post('bukuDataAset'));
 
+		$kotakabid = $this->session->userdata('kotakabid');
+		$provid = substr($kotakabid, 0, 2);
+
 		$dataInsert =  array(
 			'ta' => $this->session->userdata('thang'),
+			'provid' => $provid,
+			'kotakabid' => $kotakabid,
 			'wsid' => $ws,
 			'dasid' => $das,
 			'dasluas' => $laDas,
@@ -162,7 +162,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 			'tanggulSungai' =>  $tanggulSungai,
 			'kolamRetensi' => $kolamRetensi,
 			'perkuatanTebingSungai' => $perkuatanTebingSungai,
-			'sudetanKanalBanjir' => $sudetanKanalBanjir ,
+			'sudetanKanalBanjir' => $sudetanKanalBanjir,
 			'checkDam' => $checkDam,
 			'Groundsill' => $Groundsill,
 			'bukuRencana' => $bukuRencana,
@@ -181,7 +181,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -191,11 +191,10 @@ class InfrastrukturPBanjir extends CI_Controller {
 		}
 
 		redirect('/InfrastrukturPBanjir', 'refresh');
-
 	}
 
 
-	public function getDetailData($id=null)
+	public function getDetailData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Bangunan Pengendali Banjir',
@@ -218,7 +217,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Dihapus.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -231,7 +230,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 	}
 
 
-	public function editData($id=null)
+	public function editData($id = null)
 	{
 		$tmp = array(
 			'tittle' => 'Edit Data Bangunan Pengendali Banjir',
@@ -272,7 +271,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 			'tanggulSungai' =>  $tanggulSungai,
 			'kolamRetensi' => $kolamRetensi,
 			'perkuatanTebingSungai' => $perkuatanTebingSungai,
-			'sudetanKanalBanjir' => $sudetanKanalBanjir ,
+			'sudetanKanalBanjir' => $sudetanKanalBanjir,
 			'checkDam' => $checkDam,
 			'Groundsill' => $Groundsill,
 			'bukuRencana' => $bukuRencana,
@@ -293,7 +292,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 				Data Berhasil Disimpan.!
 				</div>');
-		}else{
+		} else {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -303,7 +302,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 		}
 
 		redirect("/InfrastrukturPBanjir", 'refresh');
-
 	}
 
 
@@ -324,7 +322,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$kab = ($this->session->userdata('prive') == 'admin') ? $this->input->post('kab') : $this->session->userdata('kotakabid');
 		$thang = $this->session->userdata('thang');
 
-		$menitDetik = date('i').date('s');
+		$menitDetik = date('i') . date('s');
 
 		copy('./assets/format/7.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
@@ -335,8 +333,8 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 		if ($cek) {
 			$data = $this->M_InfrastrukturPBanjir->getDataDiFull($thang, $kab);
-		}else{
-			$thang = $thang-1;
+		} else {
+			$thang = $thang - 1;
 			$data = $this->M_InfrastrukturPBanjir->getDataDiFull((string)$thang, $kab);
 		}
 
@@ -355,9 +353,9 @@ class InfrastrukturPBanjir extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->nama);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->laPermen);
 
-			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R'.$indexLopp.'+AA'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S'.$indexLopp.'+AB'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("K$indexLopp", '=T'.$indexLopp.'+AC'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("I$indexLopp", '=R' . $indexLopp . '+AA' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("J$indexLopp", '=S' . $indexLopp . '+AB' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("K$indexLopp", '=T' . $indexLopp . '+AC' . $indexLopp);
 
 			$spreadsheet->getActiveSheet()->getCell("L$indexLopp")->setValue($val->P3ABhAktif);
 			$spreadsheet->getActiveSheet()->getCell("M$indexLopp")->setValue($val->GP3ABhAktif);
@@ -366,9 +364,9 @@ class InfrastrukturPBanjir extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->GP3ABhTidakAktif);
 			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->IP3ABhTidakAktif);
 
-			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=L'.$indexLopp.'+O'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=M'.$indexLopp.'+P'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=N'.$indexLopp.'+Q'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("R$indexLopp", '=L' . $indexLopp . '+O' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("S$indexLopp", '=M' . $indexLopp . '+P' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("T$indexLopp", '=N' . $indexLopp . '+Q' . $indexLopp);
 
 			$spreadsheet->getActiveSheet()->getCell("U$indexLopp")->setValue($val->P3ABelumBhAktif);
 			$spreadsheet->getActiveSheet()->getCell("V$indexLopp")->setValue($val->GP3ABelumBhAktif);
@@ -377,34 +375,33 @@ class InfrastrukturPBanjir extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("Y$indexLopp")->setValue($val->GP3ABelumBhTidakAktif);
 			$spreadsheet->getActiveSheet()->getCell("Z$indexLopp")->setValue($val->IP3ABelumBhTidakAktif);
 
-			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=U'.$indexLopp.'+X'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", '=V'.$indexLopp.'+Y'.$indexLopp);
-			$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", '=W'.$indexLopp.'+Z'.$indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AA$indexLopp", '=U' . $indexLopp . '+X' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AB$indexLopp", '=V' . $indexLopp . '+Y' . $indexLopp);
+			$spreadsheet->getActiveSheet()->setCellValue("AC$indexLopp", '=W' . $indexLopp . '+Z' . $indexLopp);
 
 			$nilaiAwal++;
 			$indexLopp++;
 		}
 
-		
+
 		if (ob_get_contents()) {
 			ob_end_clean();
 		}
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="export 7.xlsx"');  
+		header('Content-Disposition: attachment; filename="export 7.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-
 	}
 
 
 	public function prosesUploadExcel()
 	{
 
-		$prov = ($this->session->userdata('prive') == 'admin') ? $this->input->post('prov-upload') : $this->session->userdata('provid'); 
+		$prov = ($this->session->userdata('prive') == 'admin') ? $this->input->post('prov-upload') : $this->session->userdata('provid');
 		$kab = ($this->session->userdata('prive') == 'admin') ? $this->input->post('kab-upload') : $this->session->userdata('kotakabid');
 
 		if ($kab == null or $kab == '') {
@@ -422,7 +419,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 		$nmKab = getKabKota($kab);
 
 		$config['allowed_types'] = 'xlsx';
-		$config['file_name'] = 'upload_time_'.date('Y-m-d').'_'.time().'.xlsx';
+		$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.xlsx';
 		$config['max_size'] = 50000;
 
 		$this->load->library('upload', $config);
@@ -452,12 +449,12 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 			$config['upload_path'] = $path;
 			$config['allowed_types'] = 'xlsx';
-			$config['file_name'] = 'upload_time_'.date('Y-m-d').'_'.time().'.'.$ext;
+			$config['file_name'] = 'upload_time_' . date('Y-m-d') . '_' . time() . '.' . $ext;
 			$config['max_size'] = 200000;
 
 			$this->upload->initialize($config);
 
-			if (!$this->upload->do_upload('fileExcel')){
+			if (!$this->upload->do_upload('fileExcel')) {
 
 				$this->session->set_flashdata('psn', "<div class='alert alert-danger alert-dismissible'>
 					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
@@ -466,8 +463,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 					</div>");
 
 				redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
-
-			}else{
+			} else {
 
 				$upload_data = $this->upload->data();
 				$namaFile = $upload_data['file_name'];
@@ -494,7 +490,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 						</div>');
 
 					redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
-
 				}
 
 
@@ -505,10 +500,10 @@ class InfrastrukturPBanjir extends CI_Controller {
 				for ($i = 0; $i < $sheetCount; $i++) {
 					$sheet = $spreadsheet->getSheet($i);
 
-					$highestRow = $sheet->getHighestRow(); 
-					$highestColumn = $sheet->getHighestColumn(); 
+					$highestRow = $sheet->getHighestRow();
+					$highestColumn = $sheet->getHighestColumn();
 
-					for ($row = 6; $row <= $highestRow; $row++) { 
+					for ($row = 6; $row <= $highestRow; $row++) {
 						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
@@ -519,38 +514,38 @@ class InfrastrukturPBanjir extends CI_Controller {
 							'kotakabid' => ubahKomaMenjadiTitik($rowData[0][1]),
 							'irigasiid' => ubahKomaMenjadiTitik($rowData[0][2]),
 							'laPermen' => ubahKomaMenjadiTitik($rowData[0][7]),
-							
-							'P3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14]))+ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
+
+							'P3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][11])) + ubahKomaMenjadiTitik(floatval($rowData[0][14])) + ubahKomaMenjadiTitik(floatval($rowData[0][20])) + ubahKomaMenjadiTitik(floatval($rowData[0][23])),
 
 
-							'GP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15]))+ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
+							'GP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][12])) + ubahKomaMenjadiTitik(floatval($rowData[0][15])) + ubahKomaMenjadiTitik(floatval($rowData[0][21])) + ubahKomaMenjadiTitik(floatval($rowData[0][24])),
 
 
-							'IP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16]))+ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
+							'IP3Ajml' => ubahKomaMenjadiTitik(floatval($rowData[0][13])) + ubahKomaMenjadiTitik(floatval($rowData[0][16])) + ubahKomaMenjadiTitik(floatval($rowData[0][22])) + ubahKomaMenjadiTitik(floatval($rowData[0][22])),
 
 							'P3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][11]),
 							'GP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][12]),
 							'IP3ABhAktif' => ubahKomaMenjadiTitik($rowData[0][13]),
-							
+
 							'P3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][14]),
 							'GP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][15]),
 							'IP3ABhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][16]),
-							
-							'P3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][11]))+ubahKomaMenjadiTitik(floatval($rowData[0][14])),
-							'GP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][12]))+ubahKomaMenjadiTitik(floatval($rowData[0][15])),
-							'IP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][13]))+ubahKomaMenjadiTitik(floatval($rowData[0][16])),
+
+							'P3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][11])) + ubahKomaMenjadiTitik(floatval($rowData[0][14])),
+							'GP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][12])) + ubahKomaMenjadiTitik(floatval($rowData[0][15])),
+							'IP3ABhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][13])) + ubahKomaMenjadiTitik(floatval($rowData[0][16])),
 
 							'P3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][20]),
 							'GP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][21]),
 							'IP3ABelumBhAktif' => ubahKomaMenjadiTitik($rowData[0][22]),
-							
+
 							'P3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][23]),
 							'GP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][24]),
 							'IP3ABelumBhTidakAktif' => ubahKomaMenjadiTitik($rowData[0][25]),
 
-							'P3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][20]))+ubahKomaMenjadiTitik(floatval($rowData[0][23])),
-							'GP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][21]))+ubahKomaMenjadiTitik(floatval($rowData[0][24])),
-							'IP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][22]))+ubahKomaMenjadiTitik(floatval($rowData[0][22])),
+							'P3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][20])) + ubahKomaMenjadiTitik(floatval($rowData[0][23])),
+							'GP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][21])) + ubahKomaMenjadiTitik(floatval($rowData[0][24])),
+							'IP3ABelumBhJumlah' => ubahKomaMenjadiTitik(floatval($rowData[0][22])) + ubahKomaMenjadiTitik(floatval($rowData[0][22])),
 
 
 							'uidIn' => $this->session->userdata('uid'),
@@ -560,7 +555,6 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 
 						$baseArray[] = $arrayRow;
-
 					}
 				}
 
@@ -575,7 +569,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 						<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
 						Data Berhasil Disimpan.!
 						</div>');
-				}else{
+				} else {
 
 					$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -585,12 +579,8 @@ class InfrastrukturPBanjir extends CI_Controller {
 				}
 
 				redirect("/Infrastruktur_pengendali_banjir/formExcel", 'refresh');
-
 			}
-
-
 		}
-
 	}
 
 
@@ -614,7 +604,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 		$data = $this->M_InfrastrukturPBanjir->getDataDownload($thang, $prive);
 
-		$menitDetik = date('i').date('s');
+		$menitDetik = date('i') . date('s');
 
 		copy('./assets/format/downladBase/pengendaliBanjir.xlsx', "./assets/format/tmp/$menitDetik.xlsx");
 
@@ -641,7 +631,7 @@ class InfrastrukturPBanjir extends CI_Controller {
 			$spreadsheet->getActiveSheet()->getCell("N$indexLopp")->setValue($val->bukuRencana);
 			$spreadsheet->getActiveSheet()->getCell("O$indexLopp")->setValue($val->skemaSistem);
 			$spreadsheet->getActiveSheet()->getCell("P$indexLopp")->setValue($val->petaGambar);
-			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->bukuDataAset);			
+			$spreadsheet->getActiveSheet()->getCell("Q$indexLopp")->setValue($val->bukuDataAset);
 
 			$nilaiAwal++;
 			$indexLopp++;
@@ -654,14 +644,10 @@ class InfrastrukturPBanjir extends CI_Controller {
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="Bangunan Pengendali Banjir.xlsx"');  
+		header('Content-Disposition: attachment; filename="Bangunan Pengendali Banjir.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer = new Xlsx($spreadsheet);
 		$writer->save('php://output');
 		unlink("./assets/format/tmp/$menitDetik.xlsx");
-
 	}
-
-
-
 }

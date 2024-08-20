@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No DIect script access allowed');
+defined('BASEPATH') or exit('No DIect script access allowed');
 
-class M_Kelembagaan extends CI_Model {
+class M_Kelembagaan extends CI_Model
+{
 
 
 	public function getDataTable($jumlahDataPerHalaman, $search, $offset, $provid, $kotakabid)
@@ -11,7 +12,7 @@ class M_Kelembagaan extends CI_Model {
 		$cari .= ($kotakabid != null) ? " AND kotakabid='$kotakabid'" : '';
 		$ta = $this->session->userdata('thang');
 
-		if ($this->session->userdata('prive') == 'balai' AND $kotakabid == null) {
+		if ($this->session->userdata('prive') == 'balai' and $kotakabid == null) {
 			$stringCari = getWhereBalai();
 			$cari .= " AND kotakabid IN $stringCari";
 		}
@@ -27,8 +28,7 @@ class M_Kelembagaan extends CI_Model {
 		$jml_data = $this->db->query($qry2)->row();
 
 
-		return $dataArray = ($data == true AND $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
-
+		return $dataArray = ($data == true and $jml_data == true) ? array('data' => $data, 'jml_data' => $jml_data) : false;
 	}
 
 
@@ -42,8 +42,8 @@ class M_Kelembagaan extends CI_Model {
 	}
 
 
-	public function getkabKota($prov='')
-	{	
+	public function getkabKota($prov = '')
+	{
 		$nama = $this->session->userdata('nama');
 		$substring_to_remove = 'BALAI ';
 		$nama = str_replace($substring_to_remove, '', $nama);
@@ -52,7 +52,7 @@ class M_Kelembagaan extends CI_Model {
 		return $this->db->query($qry)->result();
 	}
 
-	public function simpanData($dataAwal='')
+	public function simpanData($dataAwal = '')
 	{
 		$this->db->trans_start();
 
@@ -60,7 +60,7 @@ class M_Kelembagaan extends CI_Model {
 		$thang = $this->session->userdata('thang');
 
 		$this->db->where(['kotakabid' => $kotakabid, 'ta' => $thang]);
-		return $this->db->delete('p_f6');
+		$this->db->delete('p_f6');
 
 
 		$this->db->insert('p_f6', $dataAwal);
@@ -74,7 +74,7 @@ class M_Kelembagaan extends CI_Model {
 		$nomorindexArray = 0;
 
 		foreach ($idLabel as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF6' => $idX,
@@ -87,12 +87,11 @@ class M_Kelembagaan extends CI_Model {
 				'uidDt' => date('Y-m-d H:i:s')
 			);
 
-			$baseArray[] = $dataInsert2;			
-
+			$baseArray[] = $dataInsert2;
 		}
 
 
-		$this->db->insert_batch('p_f6_detail', $baseArray); 
+		$this->db->insert_batch('p_f6_detail', $baseArray);
 
 		$this->db->trans_complete();
 
@@ -126,7 +125,7 @@ class M_Kelembagaan extends CI_Model {
 		$nomorindexArray = 0;
 
 		foreach ($idLabel as $key => $val) {
-			
+
 			$dataInsert2 = array(
 				'ta' => $this->session->userdata('thang'),
 				'idF6' => $idX,
@@ -139,12 +138,11 @@ class M_Kelembagaan extends CI_Model {
 				'uidDt' => date('Y-m-d H:i:s')
 			);
 
-			$baseArray[] = $dataInsert2;			
-
+			$baseArray[] = $dataInsert2;
 		}
 
 
-		$this->db->insert_batch('p_f6_detail', $baseArray); 
+		$this->db->insert_batch('p_f6_detail', $baseArray);
 
 		$this->db->trans_complete();
 
@@ -158,17 +156,50 @@ class M_Kelembagaan extends CI_Model {
 	}
 
 
-	public function getDataHeader($id='')
+	public function getDataHeader($id = '')
 	{
 		$qry = "SELECT b.provinsi, c.kemendagri, a.* FROM p_f6 as a LEFT JOIN m_prov as b on a.provid=b.provid LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid WHERE a.id='$id'";
 		return $this->db->query($qry)->row();
 	}
 
-	public function getDataBodyDetail($id='')
+	public function getDataBodyDetail($id = '')
 	{
 		$qry = "SELECT * FROM p_f6_detail as a LEFT JOIN m_label as b on a.labelid=b.id WHERE idF6='$id'";
 		return $this->db->query($qry)->result();
 	}
 
+	public function getDataDownload($ta, $prive, $kotakabidx = null)
+	{
+		if ($kotakabidx == null) {
 
+			if ($prive == 'admin') {
+
+				$qry = "SELECT d.provinsi, c.kemendagri, a.* FROM p_f6_detail AS a
+				LEFT JOIN m_label as b on a.labelid=b.id 
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.ta=$ta ORDER BY d.provinsi, c.kemendagri";
+			} else if ($prive == 'pemda') {
+
+				$kotakabid = $this->session->userdata('kotakabid');
+
+				$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f6 AS a
+				LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+				LEFT JOIN m_prov as d on a.provid=d.provid
+				LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+				WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabid' ORDER BY d.provinsi, c.kemendagri";
+			}
+		} else {
+
+			$qry = "SELECT d.provinsi, c.kemendagri, b.nama, a.* FROM p_f6 AS a
+			LEFT JOIN (SELECT * FROM m_irigasi WHERE isActive = '1') AS b ON a.irigasiid=b.irigasiid
+			LEFT JOIN m_prov as d on a.provid=d.provid
+			LEFT JOIN m_kotakab as c on a.kotakabid=c.kotakabid
+			WHERE 1=1 AND a.ta=$ta AND a.kotakabid='$kotakabidx' ORDER BY d.provinsi, c.kemendagri";
+		}
+
+
+
+		return $this->db->query($qry)->result();
+	}
 }

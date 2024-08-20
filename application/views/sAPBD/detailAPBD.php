@@ -188,8 +188,8 @@
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $value->label; ?></td>
-                                <td><?= str_replace('.', ',',$value->apbdNonDak); ?></td>
-                                <td><?= str_replace('.', ',',$value->dak); ?></td>
+                                <td><?=  number_format($value->apbdNonDak,0,',','.'); ?></td>
+                                <td><?=  number_format($value->dak,0,',','.'); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

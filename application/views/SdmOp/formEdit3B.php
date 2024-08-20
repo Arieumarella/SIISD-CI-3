@@ -215,6 +215,8 @@
 
                                             $noKuning = 1;
                                             $uptd = '';
+                                            $nm_kantor = '';
+                                            $alamat = '';
 
                                             $noKategori = 1;
                                             $nmKategori = '';
@@ -223,7 +225,7 @@
                                             <?php foreach ($dataBody as $key => $val) { ?>
 
                                                 <!-- Kuning -->
-                                                <?php if ($uptd != $val->upt) { ?>
+                                                <?php if ($uptd != $val->upt || $nm_kantor != $val->nm_kantor || $alamat != $val->alamat) { ?>
                                                     <tr class="bg-warning trHapus<?= $noKuning; ?>">
                                                         <td><?= $noKuning; ?><br><?= ($noKuning > 1) ? '<buttom class="btn btn-danger btn-sm" onclick="hapusManual('.$noKuning.')">X</buttom>':''; ?></td>
                                                         <td colspan="15"><div class="row col-sm-12">
@@ -254,14 +256,22 @@
 
                                                 <?php 
 
+
                                                 $noKuning++;
-                                                $uptd = $val->upt;
                                                 $noKategori=1;
 
                                                 ?>
 
                                             <?php } ?>
                                             <!-- End Kuning -->
+
+                                            <?php 
+
+                                            $uptd = $val->upt;
+                                            $nm_kantor = $val->nm_kantor;
+                                            $alamat = $val->alamat;
+
+                                            ?>
 
 
                                             <!-- Judul -->

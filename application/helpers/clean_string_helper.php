@@ -122,6 +122,76 @@ function getWhereBalaiKotaKabid()
 	return $baseArray;
 }
 
+function getTtdBalai()
+{
+	$CI = &get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from download_urk_simoni where nm_verif='$new_nma' AND jabatan='$new_nma' AND paraf='$new_nma' AND created_at='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+
+		$baseArray[] = $value->kotakabid;
+	}
+
+	return $baseArray;
+}
+
+function getBalai()
+{
+	$CI = &get_instance();
+
+	$nma = $CI->session->userdata('nama');
+
+	$substring_to_remove = 'BALAI ';
+	$new_nma = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from t_kewenangan_balai where nm_balai='$new_nma'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+
+		$baseArray[] = $value->kotakabid;
+	}
+
+	return $baseArray;
+}
+
+function getWhereProvinsiKotaKabid()
+{
+	$CI = &get_instance();
+
+	$nma = $CI->session->userdata('nama');
+	// $idProv = substr($kotakabid, 0, 2);
+
+	$substring_to_remove = 'PROVINSI ';
+	$idProv = str_replace($substring_to_remove, '', $nma);
+
+	$qry = "SELECT * from m_prov where provid='$idProv'";
+
+	$data = $CI->db->query($qry)->result();
+
+	$baseArray = [];
+
+	foreach ($data as $key => $value) {
+
+		$baseArray[] = $value->kotakabid;
+	}
+
+	return $baseArray;
+}
+
 
 function getProvIdByKotakabid($kotakabid)
 {

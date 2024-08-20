@@ -155,7 +155,7 @@
 												<i class="fa fa-file-pdf fa-lg" aria-hidden="true">
 												</i>
 											</button>
-											<!-- <a href="<?= base_url(); ?>Usulan/exportpdf/<?= $val->kotakabid; ?>" class="btn btn-danger btn-icon"><i class="fa fa-file-pdf fa-lg" aria-hidden="true"></i></a> -->
+
 										</td>
 
 										<td class="text-center">

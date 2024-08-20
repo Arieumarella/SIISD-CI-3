@@ -18,10 +18,10 @@ class M_stsVerifikasiDataTeknis extends CI_Model {
 			$cari .= " AND kotakabid IN $stringCari";
 		}
 
-		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi WHERE 1=1 $cari LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
+		$qry = "SELECT b.irigasiid as irigasiidX, d.provinsi, c.kemendagri, b.* FROM (SELECT * FROM m_irigasi WHERE 1=1 $cari ORDER BY isActive asc LIMIT $jumlahDataPerHalaman OFFSET $offset) AS b
 		LEFT JOIN m_prov as d on b.provid=d.provid
 		LEFT JOIN m_kotakab as c on b.kotakabid=c.kotakabid
-		ORDER BY isActive asc";
+		";
 
 		$qry2 = "SELECT count(*) as jml_data FROM (SELECT * FROM m_irigasi) AS b
 		WHERE 1=1 $cari";

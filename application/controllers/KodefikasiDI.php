@@ -100,6 +100,7 @@ class KodefikasiDI extends CI_Controller {
 
 	}
 
+
 	
 
 	public function getDiTambahData()
@@ -119,48 +120,20 @@ class KodefikasiDI extends CI_Controller {
 		$siisd  = ubahKomaMenjadiTitik($this->input->post('siisd'));
 		$epaksi = ubahKomaMenjadiTitik($this->input->post('epaksi'));
 		
-		$pros = $this->M_dinamis->update('m_irigasi', ['irigasiid' => $siisd], ['kode_di' => $siisd]);
+		$pros = $this->M_dinamis->update('m_mapping_di', ['k_di' => $epaksi], ['kode_di' => $siisd]);
 
 		echo json_encode(['code' => ($pros) ? 200:500]);	
 
 	}
+
+
 	public function downloadDiEpaksi()
 	{
 		force_download('././assets/panduan/di epaksi seluruh indonesia.xlsx',NULL);
 	}
 
-	public function editDI()
-	{
-		$siisd = $this->input->post('siisd');
 
 
-		$dataEdit = array(
-
-			'irigasiid' => $irigasiid,
-			'updated_at' => date('Y-m-d H:i:s')
-		);
-
-		$pros = $this->M_dinamis->update('m_irigasi', $dataEdit, ['id' => $idEditSimoni]);
-
-		if ($pros) {
-
-			$this->session->set_flashdata('psn', '<div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h5><i class="icon fas fa-check"></i> Berhasil.!</h5>
-				Data Berhasil Disimpan.!
-				</div>');
-		}else{
-
-			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h5><i class="icon fas fa-ban"></i> Gagal.!</h5>
-				Data Gagal Disimpan.!
-				</div>');
-		}
-
-		redirect('/Usulan', 'refresh');
-
-	}
 
 
 }

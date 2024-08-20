@@ -69,8 +69,7 @@
 								</select>
 							</div>
 
-						<?php }
-						else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -92,8 +91,7 @@
 								</select>
 							</div>
 
-						<?php }
-						else{ ?>
+						<?php }else{ ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -239,12 +237,12 @@
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label for="irigasiid_epaksi" class="col-form-label">Kode Daerah Irigasi EPAKSI :</label>
-						<input type="text" class="form-control" id="irigasiid_epaksi" readonly>
+						<label for="irigasiid_siisd" class="col-form-label">Kode Daerah Irigasi SIISD :</label>
+						<input type="text" class="form-control" id="irigasiid_siisd" readonly>
 					</div>
 					<div class="form-group">
-						<label for="irigasiid_siisd" class="col-form-label">Kode Daerah Irigasi SIISD :</label>
-						<input type="text" class="form-control" id="irigasiid_siisd" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+						<label for="irigasiid_epaksi" class="col-form-label">Kode Daerah Irigasi EPAKSI :</label>
+						<input type="text" class="form-control" id="irigasiid_epaksi" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 					</div>
 				</form>
 			</div>
@@ -293,7 +291,7 @@
 				console.log('Halaman Saat Ini ---->'+halamanSaatIni)
 
 				var perhalaman = $("#rowpage").val();
-				
+
 				ajaxUntukSemua(base_url()+'KodefikasiDI/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid, stsDataKdEpaksi}, function(data) {
 
           // Set Data Body
@@ -332,11 +330,11 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">${value.nama}</td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink">${cleanStr(value.nama.replace(/['"`]/g, ''))}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.lper)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid_epaksi)}</td>
-				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-warning" onclick="showModalEdit('${cleanStr(value.nama)}', '${cleanStr(value.irigasiid)}', '${cleanStr(value.irigasiid_epaksi)}')"><i class="fa fa-file"></i></button></td>
+				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-warning" onclick="showModalEdit('${cleanStr(value.nama.replace(/['"`]/g, ''))}', '${cleanStr(value.irigasiid)}', '${cleanStr(value.irigasiid_epaksi)}')"><i class="fa fa-file"></i></button></td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
@@ -412,12 +410,13 @@
 
 		});
 
+
 		prs_edit = function () {
 
 			let siisd = $('#irigasiid_siisd').val(),
 			epaksi = $('#irigasiid_epaksi').val();
 
-			if (siisd == null || siisd == '') {
+			if (epaksi == null || epaksi == '') {
 
 				toastr.error('Silahkan Input kode Daerah Irigasi EPAKSI');
 				return;
@@ -458,6 +457,7 @@
 			$('#tittleModal').text(nm_di);
 			$('#irigasiid_siisd').val(irigasiidSIISD);
 			$('#irigasiid_epaksi').val(irigasiidEPAKSI);
+
 			$('#modalEdit').modal('show');
 
 		}

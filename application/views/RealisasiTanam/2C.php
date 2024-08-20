@@ -117,7 +117,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>RealisasiTanam2C/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>RealisasiTanam2C/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 
@@ -406,7 +406,7 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2C/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}RealisasiTanam2C/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"> ${ (value.polatanamPadi3 == 'V') ? '<i class="fas fa-check"></i>': '' }</td>

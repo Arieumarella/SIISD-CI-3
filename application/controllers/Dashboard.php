@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Dashboard extends CI_Controller
+{
 
-	public function __construct() {
-		parent:: __construct();
+	public function __construct()
+	{
+		parent::__construct();
 		if ($this->session->userdata('sts_login') != true) {
 
 			$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible fade show text-center" style="font-size:15px;" role="alert">
@@ -19,6 +21,7 @@ class Dashboard extends CI_Controller {
 		}
 
 		$this->load->model('M_dinamis');
+		$this->load->model('M_usulan');
 	}
 
 
@@ -36,6 +39,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
+
 	public function downloadDokumen()
 	{
 		$tmp = array(
@@ -43,14 +47,18 @@ class Dashboard extends CI_Controller {
 			'footer_content' => 'footer_content',
 			'NavbarTop' => 'NavbarTop',
 			'NavbarLeft' => 'NavbarLeft',
-			'content' => 'DataTeknis/dwonloadFormatDataTeknis'
+			'content' => 'DataTeknis/dwonloadFormatDataTeknis',
+			// 'dataKegiatan' => $this->M_usulan->getPaguPfid(),
+			'dataKegiatan' => $this->M_usulan->getPaguPfid(),
+			// 'dataKegiatan' => $this->M_usulan->getUrkSimoni(),
+			'dataApprove' => $this->M_usulan->getPaguPfid(),
 		);
 
 		$this->load->view('tamplate/baseTamplate', $tmp);
 	}
 
 
-	public function setTahun($ta=null)
+	public function setTahun($ta = null)
 	{
 		if ($ta == null) {
 			$ta = '2023';
@@ -59,8 +67,5 @@ class Dashboard extends CI_Controller {
 		$this->session->set_userdata('thang', $ta);
 
 		redirect('/Dashboard', 'refresh');
-		
 	}
-
-
 }

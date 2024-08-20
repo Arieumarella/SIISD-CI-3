@@ -55,43 +55,43 @@
 						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php } else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda') { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
 
-						<?php }else if ($this->session->userdata('prive') == 'balai') { ?>
+						<?php } else if ($this->session->userdata('prive') == 'balai') { ?>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else{ ?>
+						<?php } else { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -101,7 +101,7 @@
 						<div class="col-sm-12 col-lg-3 p-0">
 							<div class="input-group input-group-sm">
 
-								<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
+								<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0">
 
 								</select>
 
@@ -116,6 +116,7 @@
 							<!-- -------------- -->
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+
 
 								<a href="<?= base_url(); ?>FormTeknis1B/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
 
@@ -174,30 +175,30 @@
 								<th style="border: thin solid #006666;">Potensial (Pemetaan&nbsp;IGT)</th>
 								<th style="border: thin solid #006666;">Fungsional (Pemetaan&nbsp;IGT)</th>
 								<th style="border: thin solid #006666;">Jenis Rawa (Pasut/Lebak)</th>
-								<th style="border: thin solid #006666;">Primer (m)</th>      
-								<th style="border: thin solid #006666;">Sekunder (m)</th>     
-								<th style="border: thin solid #006666;">Tersier (m)</th>   
-								<th style="border: thin solid #006666;">Pembuang (m)</th>   
+								<th style="border: thin solid #006666;">Primer (m)</th>
+								<th style="border: thin solid #006666;">Sekunder (m)</th>
+								<th style="border: thin solid #006666;">Tersier (m)</th>
+								<th style="border: thin solid #006666;">Pembuang (m)</th>
 								<th style="border: thin solid #006666;">Bangunan Pintu Primer (bh)</th>
 								<th style="border: thin solid #006666;">Bangunan Pintu Sekunder (bh)</th>
 								<th style="border: thin solid #006666;">Bangunan Pintu Tersier (bh)</th>
 								<th style="border: thin solid #006666;">Bangunan Pintu Pembuang (bh)</th>
-								<th style="border: thin solid #006666;">Bendung (bh)</th>       
-								<th style="border: thin solid #006666;">Tanggul (m)</th>        
-								<th style="border: thin solid #006666;">Polder (m)</th>             
-								<th style="border: thin solid #006666;">Jalan Inspeksi (m)</th>      
-								<th style="border: thin solid #006666;">Jembatan (bh)</th>                                                                                
+								<th style="border: thin solid #006666;">Bendung (bh)</th>
+								<th style="border: thin solid #006666;">Tanggul (m)</th>
+								<th style="border: thin solid #006666;">Polder (m)</th>
+								<th style="border: thin solid #006666;">Jalan Inspeksi (m)</th>
+								<th style="border: thin solid #006666;">Jembatan (bh)</th>
 								<th style="border: thin solid #006666;">Gorong-Gorong (bh)</th>
-								<th style="border: thin solid #006666;">Dermaga (bh)</th>   
+								<th style="border: thin solid #006666;">Dermaga (bh)</th>
 								<th style="border: thin solid #006666;">Kantor Pengamat (Bh)</th>
-								<th style="border: thin solid #006666;">Gudang (bh)</th>                                                                       
-								<th style="border: thin solid #006666;">Rumah Jaga (bh)</th>                                                                               
-								<th style="border: thin solid #006666;">Sanggar Tani (bh)</th>                                                                                
-								<th style="border: thin solid #006666;">Pintu Air (bh)</th>                                                                             
-								<th style="border: thin solid #006666;">Alat Ukur (bh)</th>                                                                               
-								<th style="border: thin solid #006666;">Peta (Ada/Tidak Ada)</th>                                                                              
-								<th style="border: thin solid #006666;">Skema Jaringan (Ada/Tidak Ada)</th> 								
-								<th style="border: thin solid #006666;">Gambar Konstruksi (Ada/Tidak Ada)</th>                                                    
+								<th style="border: thin solid #006666;">Gudang (bh)</th>
+								<th style="border: thin solid #006666;">Rumah Jaga (bh)</th>
+								<th style="border: thin solid #006666;">Sanggar Tani (bh)</th>
+								<th style="border: thin solid #006666;">Pintu Air (bh)</th>
+								<th style="border: thin solid #006666;">Alat Ukur (bh)</th>
+								<th style="border: thin solid #006666;">Peta (Ada/Tidak Ada)</th>
+								<th style="border: thin solid #006666;">Skema Jaringan (Ada/Tidak Ada)</th>
+								<th style="border: thin solid #006666;">Gambar Konstruksi (Ada/Tidak Ada)</th>
 								<th style="border: thin solid #006666;">Buku&nbsp;Data Daerah&nbsp;Irigasi (Ada/Tidak Ada)</th>
 							</tr>
 
@@ -265,7 +266,7 @@
 										</select>
 									</li>
 								</ul>
-							</nav>               
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -280,20 +281,19 @@
 </div>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 
 		var halamanSaatIni = '1',
-		search = '',
-		provid = '',
-		kotakabid = '';
+			search = '',
+			provid = '',
+			kotakabid = '';
 
-		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
-			try{
+		getDataTabel = async function(page = null, providX = null, kotakabidX = null) {
+			try {
 
 				if (page != null) {
 					halamanSaatIni = await page;
-				}else{
+				} else {
 					halamanSaatIni = 1;
 				}
 
@@ -308,19 +308,25 @@
 				$('#tbody_data').empty();
 				$('#tbody_data').html(` <tr><td class="text-center" colspan="4" style="font-size:20px;"><i class="fas fa-circle-notch fa-spin"></i> Loading Data ...</td></tr>`);
 
-				console.log('Halaman Saat Ini ---->'+halamanSaatIni)
+				console.log('Halaman Saat Ini ---->' + halamanSaatIni)
 
 				var perhalaman = $("#rowpage").val();
 
-				ajaxUntukSemua(base_url()+'FormTeknis1B/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid}, function(data) {
+				ajaxUntukSemua(base_url() + 'FormTeknis1B/getDataTable', {
+					perhalaman,
+					halamanSaatIni,
+					search,
+					provid,
+					kotakabid
+				}, function(data) {
 
-          // Set Data Body
+					// Set Data Body
 					setTabelKonten(data.data)
-          // End Set Data Body
+					// End Set Data Body
 
-          // Set Generet Pagination 
+					// Set Generet Pagination 
 					generatePagination(data.jml_data.jml_data, perhalaman, halamanSaatIni);
-          // End Set Generet Pagination
+					// End Set Generet Pagination
 
 
 				}, function(error) {
@@ -328,7 +334,7 @@
 				});
 
 
-			}catch(err){
+			} catch (err) {
 				console.log('Kesalahan:', error);
 			}
 
@@ -340,8 +346,8 @@
 		function setTabelKonten(data) {
 
 			let tableConten = ``,
-			warnaAwal = `#F7ECDE`,
-			no = 1;
+				warnaAwal = `#F7ECDE`,
+				no = 1;
 
 
 			$.each(data, function(key, value) {
@@ -350,36 +356,36 @@
 				<td style="border: thin solid #006666;" align="center">${no}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.provinsi)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${cleanStr(value.kemendagri)}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1B/getDetailData1B/${value.irigasiidX}">${value.nama}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}FormTeknis1B/getDetailData1B/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laBaku)}</td>
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPotensial)}</td>
 				<td id="laFungsional_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laFungsional)}</td>
 
-				<td id="sumberAir_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jenisRawa)}" class="options">${cleanStr(value.jenisRawa)}</td>
-				<td id="buBendung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPrimer)}" class="number">${cleanStr(value.sPrimer)}</td>
-				<td id="buPengambilanBebas_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sSekunder)}" class="number">${cleanStr(value.sSekunder)}</td>
-				<td id="buStasiunPompa_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sTersier)}" class="number">${cleanStr(value.sTersier)}</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPembuang)}" class="number">${cleanStr(value.sPembuang)}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPrimer)}" class="options">${cleanStr(value.bpPrimer)}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpSekunder)}" class="number">${cleanStr(value.bpSekunder)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpTersier)}" class="number">${cleanStr(value.bpTersier)}</td>
-				<td id="sTersier_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPembuang)}" class="number">${cleanStr(value.bpPembuang)}</td>
-				<td id="sPembuang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpBendung)}" class="number">${cleanStr(value.bpBendung)}</td>
-				<td id="bppBagi_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blTanggul)}" class="number">${cleanStr(value.blTanggul)}</td>
-				<td id="bppBagiSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blPolder)}" class="number">${cleanStr(value.blPolder)}</td>
-				<td id="bppSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jInspeksi)}" class="number">${cleanStr(value.jInspeksi)}</td>
-				<td id="bppBangunanPengukur_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jJembatan)}" class="number">${cleanStr(value.jJembatan)}</td>
-				<td id="bpGorong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jGorong)}" class="number">${cleanStr(value.jGorong)}</td>
-				<td id="bpSipon_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jDermaga)}" class="number">${cleanStr(value.jDermaga)}</td>
-				<td id="bpTalang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jPengamat)}" class="number">${cleanStr(value.jPengamat)}</td>
-				<td id="bpTerjunan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jGudang)}" class="number">${cleanStr(value.jGudang)}</td>
-				<td id="bpGotMiring_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jRumahJaga)}" class="number">${cleanStr(value.jRumahJaga)}</td>
-				<td id="bpFlum_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jSanggarTani)}" class="number">${cleanStr(value.jSanggarTani)}</td>
-				<td id="bpTerowongan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaPintuAir)}" class="number">${cleanStr(value.saranaPintuAir)}</td>
-				<td id="blinKantong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaAlatUkur)}" class="number">${cleanStr(value.saranaAlatUkur)}</td>
-				<td id="blinPelimpah_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokPeta)}" class="number">${cleanStr(value.dokPeta)}</td>
-				<td id="blinPenguras_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokSkemaJaringan)}" class="number">${cleanStr(value.dokSkemaJaringan)}</td>
+				<td id="sumberAir_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jenisRawax)}" class="options">${cleanStr(value.jenisRawa)}</td>
+				<td id="buBendung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPrimerx)}" class="number">${cleanStr(value.sPrimer)}</td>
+				<td id="buPengambilanBebas_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sSekunderx)}" class="number">${cleanStr(value.sSekunder)}</td>
+				<td id="buStasiunPompa_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sTersierx)}" class="number">${cleanStr(value.sTersier)}</td>
+				<td id="buEmbung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.sPembuangx)}" class="number">${cleanStr(value.sPembuang)}</td>
+				<td id="sTipeSaluran_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPrimerx)}" class="options">${cleanStr(value.bpPrimer)}</td>
+				<td id="sPrimer_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpSekunderx)}" class="number">${cleanStr(value.bpSekunder)}</td>
+				<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpTersierx)}" class="number">${cleanStr(value.bpTersier)}</td>
+				<td id="sTersier_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpPembuangx)}" class="number">${cleanStr(value.bpPembuang)}</td>
+				<td id="sPembuang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bpBendungx)}" class="number">${cleanStr(value.bpBendung)}</td>
+				<td id="bppBagi_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blTanggulx)}" class="number">${cleanStr(value.blTanggul)}</td>
+				<td id="bppBagiSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blPolderx)}" class="number">${cleanStr(value.blPolder)}</td>
+				<td id="bppSadap_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jInspeksix)}" class="number">${cleanStr(value.jInspeksi)}</td>
+				<td id="bppBangunanPengukur_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jJembatanx)}" class="number">${cleanStr(value.jJembatan)}</td>
+				<td id="bpGorong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jGorongx)}" class="number">${cleanStr(value.jGorong)}</td>
+				<td id="bpSipon_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jDermagax)}" class="number">${cleanStr(value.jDermaga)}</td>
+				<td id="bpTalang_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jPengamatx)}" class="number">${cleanStr(value.jPengamat)}</td>
+				<td id="bpTerjunan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jGudangx)}" class="number">${cleanStr(value.jGudang)}</td>
+				<td id="bpGotMiring_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jRumahJagax)}" class="number">${cleanStr(value.jRumahJaga)}</td>
+				<td id="bpFlum_50581" style="border: thin solid #006666; ${bgTabelKolom(value.jSanggarTanix)}" class="number">${cleanStr(value.jSanggarTani)}</td>
+				<td id="bpTerowongan_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaPintuAirx)}" class="number">${cleanStr(value.saranaPintuAir)}</td>
+				<td id="blinKantong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaAlatUkurx)}" class="number">${cleanStr(value.saranaAlatUkur)}</td>
+				<td id="blinPelimpah_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokPetax)}" class="number">${cleanStr(value.dokPeta)}</td>
+				<td id="blinPenguras_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokSkemaJaringanx)}" class="number">${cleanStr(value.dokSkemaJaringan)}</td>
 				<td id="blinSaluranGendong_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokGambarKonstruksi)}" class="number">${cleanStr(value.dokGambarKonstruksi)}</td>
 				<td id="blinKrib_50581" style="border: thin solid #006666; ${bgTabelKolom(value.dokBukuDataDI)}" class="number">${cleanStr(value.dokBukuDataDI)}</td>
 				</tr>`;
@@ -388,146 +394,150 @@
 				no++;
 			});
 
-$('#tbody_data').html(tableConten);
+			$('#tbody_data').html(tableConten);
 
-}
-
-
-function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
-	var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
-	var paginationContainer = $('#pagination');
-	paginationContainer.empty(); 
-
-	var startingPage = 1;
-	var endingPage = jumlahHalaman; 
-
-	if (jumlahHalaman > 3) {
-		startingPage = Math.max(1, halamanSaatIni - 1);
-		endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
-	}
-
-  // Menampilkan tombol First
-	if (halamanSaatIni > 1) {
-		var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
-		paginationContainer.append(firstButton);
-	}
-
-	var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
-	paginationContainer.append(prevButton);
-
-	for (var i = startingPage; i <= endingPage; i++) {
-		var listItem = $('<li class="page-item"></li>');
-		var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
-
-		linkItem.text(i);
-
-		if (Number(i) === Number(halamanSaatIni)) {
-			listItem.addClass('active');
 		}
-		listItem.append(linkItem);
-		paginationContainer.append(listItem);
-	}
-
-	if (halamanSaatIni < jumlahHalaman) {
-		var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
-		paginationContainer.append(nextButton);
-
-		var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
-		paginationContainer.append(lastButton);
-	}
-}
 
 
-cari = function () {
+		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
+			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
+			var paginationContainer = $('#pagination');
+			paginationContainer.empty();
 
-	provid = $('#prov').val();
-	kotakabid = $('#kabkota').val();
-	search = $('#in_irigasiid').val();
+			var startingPage = 1;
+			var endingPage = jumlahHalaman;
 
-	getDataTabel(null, provid, kotakabid)
+			if (jumlahHalaman > 3) {
+				startingPage = Math.max(1, halamanSaatIni - 1);
+				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
+			}
+
+			// Menampilkan tombol First
+			if (halamanSaatIni > 1) {
+				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
+				paginationContainer.append(firstButton);
+			}
+
+			var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
+			paginationContainer.append(prevButton);
+
+			for (var i = startingPage; i <= endingPage; i++) {
+				var listItem = $('<li class="page-item"></li>');
+				var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
+
+				linkItem.text(i);
+
+				if (Number(i) === Number(halamanSaatIni)) {
+					listItem.addClass('active');
+				}
+				listItem.append(linkItem);
+				paginationContainer.append(listItem);
+			}
+
+			if (halamanSaatIni < jumlahHalaman) {
+				var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
+				paginationContainer.append(nextButton);
+
+				var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
+				paginationContainer.append(lastButton);
+			}
+		}
 
 
-}
+		cari = function() {
+
+			provid = $('#prov').val();
+			kotakabid = $('#kabkota').val();
+			search = $('#in_irigasiid').val();
+
+			getDataTabel(null, provid, kotakabid)
+
+
+		}
 
 
 
-$('#rowpage').change(function() {
-	getDataTabel(null)
+		$('#rowpage').change(function() {
+			getDataTabel(null)
 
-});
-
-
-$('#prov').change(function() {
-	var prov = $(this).val();
-
-	$('.select2_Irigasi').val(null).trigger('change');
+		});
 
 
-	ajaxUntukSemua(base_url()+'FormTeknis1B/getDataKabKota', {prov}, function(data) {
+		$('#prov').change(function() {
+			var prov = $(this).val();
 
-		let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+			$('.select2_Irigasi').val(null).trigger('change');
 
-		$.each(data, function(key, value) {
-			opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+
+			ajaxUntukSemua(base_url() + 'FormTeknis1B/getDataKabKota', {
+				prov
+			}, function(data) {
+
+				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+
+				$.each(data, function(key, value) {
+					opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+				})
+
+				$('#kabkota').html(opt);
+
+			}, function(error) {
+				console.log('Kesalahan:', error);
+			});
+
+
+		});
+
+		$('#kabkota').change(function() {
+			$('.select2_Irigasi').val(null).trigger('change');
+		});
+
+
+		$('.select2').select2({
+			placeholder: '-Pilih Provinsi-',
+			theme: 'default',
+
 		})
 
-		$('#kabkota').html(opt);
+		$('.select3').select2({
+			placeholder: '-Pilih Kab/Kota-',
+			theme: 'default',
 
-	}, function(error) {
-		console.log('Kesalahan:', error);
+		})
+
+
+		$('.select2_Irigasi').select2({
+			placeholder: '-Tentukan Daerah Irigasi-',
+			theme: 'default',
+			ajax: {
+				url: base_url() + "FormTeknis1B/getDi",
+				dataType: 'json',
+				type: 'post',
+				delay: 250,
+				data: function(params) {
+					var query = {
+						searchDi: params.term,
+						kdprov: $('#prov').val(),
+						kdKab: $('#kabkota').val()
+					};
+					return query;
+				},
+				processResults: function(response) {
+
+					response.data.unshift({
+						id: '',
+						text: 'Tampilkan semua'
+					});
+
+					return {
+						results: response.data
+					};
+				},
+				cache: true
+			}
+		});
+
+
+
 	});
-
-
-});
-
-$('#kabkota').change(function() {
-	$('.select2_Irigasi').val(null).trigger('change');
-});
-
-
-$('.select2').select2({
-	placeholder: '-Pilih Provinsi-',
-	theme: 'default',
-
-})
-
-$('.select3').select2({
-	placeholder: '-Pilih Kab/Kota-',
-	theme: 'default',
-
-})
-
-
-$('.select2_Irigasi').select2({
-	placeholder: '-Tentukan Daerah Irigasi-',
-	theme: 'default',
-	ajax: {
-		url: base_url() + "FormTeknis1B/getDi",
-		dataType: 'json',
-		type: 'post',
-		delay: 250,
-		data: function (params) {
-			var query = {
-				searchDi: params.term,
-				kdprov: $('#prov').val(),
-				kdKab: $('#kabkota').val()
-			};
-			return query;
-		},
-		processResults: function (response) {
-
-			response.data.unshift({ id: '', text: 'Tampilkan semua' });
-
-			return {
-				results: response.data 
-			};
-		},
-		cache: true
-	}
-});
-
-
-
-});
-
 </script>

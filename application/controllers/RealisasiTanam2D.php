@@ -133,7 +133,7 @@ class RealisasiTanam2D extends CI_Controller {
 
 		$luasFix = 0;
 
-		if ($laPermen != null) {
+		if ($laPermen != null and $laPermen != '0') {
 			$luasFix = $laPermen;
 		}else{
 			$luasFix = $sawahFungsional;
@@ -328,7 +328,7 @@ class RealisasiTanam2D extends CI_Controller {
 
 		$luasFix = 0;
 
-		if ($laPermen != null) {
+		if ($laPermen != null AND $laPermen > 0) {
 			$luasFix = $laPermen;
 		}else{
 			$luasFix = $sawahFungsional;
@@ -684,7 +684,19 @@ class RealisasiTanam2D extends CI_Controller {
 
 						$kotakabidX = ubahKomaMenjadiTitik($rowData[0][1]);
 
-						if ($rowData[0][7] == '' and $rowData[0][6] == '') {
+						
+
+
+						$luasFix = 0;
+
+						if (ubahKomaMenjadiTitik($rowData[0][5]) != '') {
+							$luasFix = $rowData[0][5];
+						}else{
+							$luasFix = $rowData[0][6];
+						}
+
+
+						if ($luasFix < 1) {
 							
 							$this->session->set_flashdata('psn', '<div class="alert alert-danger alert-dismissible">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -695,15 +707,6 @@ class RealisasiTanam2D extends CI_Controller {
 							redirect("/RealisasiTanam2D/formExcel", 'refresh');
 
 
-						}
-
-
-						$luasFix = 0;
-
-						if (ubahKomaMenjadiTitik($rowData[0][5]) != '') {
-							$luasFix = $rowData[0][5];
-						}else{
-							$luasFix = $rowData[0][6];
 						}
 
 
@@ -889,7 +892,7 @@ class RealisasiTanam2D extends CI_Controller {
 
 			$spreadsheet->getActiveSheet()->getCell("D$indexLopp")->setValue($nilaiAwal);
 			$spreadsheet->getActiveSheet()->getCell("E$indexLopp")->setValue($val->nama);
-			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->laPermen);
+			$spreadsheet->getActiveSheet()->getCell("F$indexLopp")->setValue($val->lper);
 			$spreadsheet->getActiveSheet()->getCell("G$indexLopp")->setValue($val->sawahFungsional);
 			$spreadsheet->getActiveSheet()->getCell("H$indexLopp")->setValue($val->polatambakIkan3);
 			$spreadsheet->getActiveSheet()->getCell("I$indexLopp")->setValue($val->polatambakIkan2Lain);

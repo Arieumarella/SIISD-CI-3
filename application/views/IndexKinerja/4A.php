@@ -55,43 +55,43 @@
 						<?php if ($this->session->userdata('prive') == 'admin') { ?>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-lg-2 col-sm-12 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda'){ ?>
+						<?php } else if ($this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'pemda') { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
 
-						<?php }else if ($this->session->userdata('prive') == 'balai') { ?>
+						<?php } else if ($this->session->userdata('prive') == 'balai') { ?>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="prov" name="prov" class="form-control select2 p-0" >
-									<option value="" selected disabled >- Plilih Provinsi -</option>
+								<select id="prov" name="prov" class="form-control select2 p-0">
+									<option value="" selected disabled>- Plilih Provinsi -</option>
 									<?php foreach ($prov as $key => $value) { ?>
-										<option value="<?= $value->provid; ?>" ><?= $value->provinsi; ?></option>
+										<option value="<?= $value->provid; ?>"><?= $value->provinsi; ?></option>
 									<?php } ?>
 								</select>
 							</div>
 
 							<div class="col-sm-12 col-lg-2 p-0 mr-1">
-								<select id="kabkota" name="kabkota" class="form-control select3 p-0" >
+								<select id="kabkota" name="kabkota" class="form-control select3 p-0">
 
 								</select>
 							</div>
 
-						<?php }else{ ?>
+						<?php } else { ?>
 
 							<input type="hidden" id="prov" name="prov">
 							<input type="hidden" id="kabkota" name="kabkota">
@@ -101,7 +101,7 @@
 						<div class="col-sm-12 col-lg-3 p-0">
 							<div class="input-group input-group-sm">
 
-								<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0" >
+								<select id="in_irigasiid" name="nm_di" class="form-control select2_Irigasi p-0">
 
 								</select>
 
@@ -117,7 +117,7 @@
 
 							<?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
 
-								<a href="<?= base_url(); ?>IndexKinerja4A/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+								<!-- <a href="<?= base_url(); ?>IndexKinerja4A/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<?php } ?>
 
@@ -127,7 +127,7 @@
 
 								<a href="<?= base_url(); ?>IndexKinerja4A/TambahData" class="btn btn-primary mr-1" aksi="add" title="Tambah Data"><i class="fas fa-plus"></i> Tambah</a>
 
-								<a href="<?= base_url(); ?>IndexKinerja4A/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a>
+								<!-- <a href="<?= base_url(); ?>IndexKinerja4A/formExcel" class="btn btn-success" aksi="add" title="Tambah Data"><i class="fas fa-file-excel"></i> Format Excel</a> -->
 
 							<?php } ?>
 
@@ -210,94 +210,94 @@
 
 							<!-- header utama -->
 							<tr id="boxThField" style="background-color:#18978F; color:#fff;">
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                             
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                            
-								<th style="border: thin solid #006666;">B (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RR (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RS (%)</th>                                                                              
-								<th style="border: thin solid #006666;">RB (%)</th>                                                                               
-								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>                                                                          
-								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>                                                                       
-								<th style="border: thin solid #006666;">B (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RR (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RS (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RB (%)</th>                                                                                
-								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>                                                                             
-								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>                                                                            
-								<th style="border: thin solid #006666;">B (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RR (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RS (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RB (%)</th>                                                                                
-								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>                                                                          
-								<th style="border: thin solid #006666;">B (%)</th>                                                                              
-								<th style="border: thin solid #006666;">RR (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RS (%)</th>                                                                                
-								<th style="border: thin solid #006666;">RB (%)</th>                                                                               
-								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>                                                                          
-								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>                                                                               
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                            
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                             
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                            
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                               
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                                
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                               
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                          
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                               
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                             
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                          
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                                
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                           
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                            
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                       
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                           
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                   
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                       
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                                
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                           
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                              
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                          
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                         
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                            
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                  
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                                
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                               
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                           
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                                
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                              
-								<th style="border: thin solid #006666;">B/RR/RS/RB</th>                                                                               
-								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>                                                                                                                                       
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B (%)</th>
+								<th style="border: thin solid #006666;">RR (%)</th>
+								<th style="border: thin solid #006666;">RS (%)</th>
+								<th style="border: thin solid #006666;">RB (%)</th>
+								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>
+								<th style="border: thin solid #006666;">B (%)</th>
+								<th style="border: thin solid #006666;">RR (%)</th>
+								<th style="border: thin solid #006666;">RS (%)</th>
+								<th style="border: thin solid #006666;">RB (%)</th>
+								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>
+								<th style="border: thin solid #006666;">B (%)</th>
+								<th style="border: thin solid #006666;">RR (%)</th>
+								<th style="border: thin solid #006666;">RS (%)</th>
+								<th style="border: thin solid #006666;">RB (%)</th>
+								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>
+								<th style="border: thin solid #006666;">B (%)</th>
+								<th style="border: thin solid #006666;">RR (%)</th>
+								<th style="border: thin solid #006666;">RS (%)</th>
+								<th style="border: thin solid #006666;">RB (%)</th>
+								<th style="border: thin solid #006666;">Rerata (B/RR/RS/RB)</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi Kerusakan (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
+								<th style="border: thin solid #006666;">B/RR/RS/RB</th>
+								<th style="border: thin solid #006666;">Nilai Kondisi (%)</th>
 							</tr>
 
 							<!-- nomor kolom -->
@@ -428,7 +428,7 @@
 										</select>
 									</li>
 								</ul>
-							</nav>               
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -443,20 +443,20 @@
 </div>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 
 		var halamanSaatIni = '1',
-		search = '',
-		provid = '',
-		kotakabid = '';
+			search = '',
+			provid = '',
+			kotakabid = '',
+			priveXX = '<?= $this->session->userdata('prive'); ?>';
 
-		getDataTabel = async function (page=null, providX=null, kotakabidX=null) {
-			try{
+		getDataTabel = async function(page = null, providX = null, kotakabidX = null) {
+			try {
 
 				if (page != null) {
 					halamanSaatIni = await page;
-				}else{
+				} else {
 					halamanSaatIni = 1;
 				}
 
@@ -471,19 +471,25 @@
 				$('#tbody_data').empty();
 				$('#tbody_data').html(` <tr><td class="text-center" colspan="4" style="font-size:20px;"><i class="fas fa-circle-notch fa-spin"></i> Loading Data ...</td></tr>`);
 
-				console.log('Halaman Saat Ini ---->'+halamanSaatIni)
+				// console.log('Halaman Saat Ini ---->'+halamanSaatIni)
 
 				var perhalaman = $("#rowpage").val();
 
-				ajaxUntukSemua(base_url()+'IndexKinerja4A/getDataTable', {perhalaman, halamanSaatIni, search, provid, kotakabid}, function(data) {
+				ajaxUntukSemua(base_url() + 'IndexKinerja4A/getDataTable', {
+					perhalaman,
+					halamanSaatIni,
+					search,
+					provid,
+					kotakabid
+				}, function(data) {
 
-          // Set Data Body
+					// Set Data Body
 					setTabelKonten(data.data)
-          // End Set Data Body
+					// End Set Data Body
 
-          // Set Generet Pagination 
+					// Set Generet Pagination 
 					generatePagination(data.jml_data.jml_data, perhalaman, halamanSaatIni);
-          // End Set Generet Pagination
+					// End Set Generet Pagination
 
 
 				}, function(error) {
@@ -491,274 +497,389 @@
 				});
 
 
-			}catch(err){
+			} catch (err) {
 				console.log('Kesalahan:', error);
 			}
 
 		}
 
-		getDataTabel();
+		if (priveXX != 'admin') {
+			getDataTabel();
+		}
 
 
-		function setTabelKonten(data) {
 
-			let tableConten = ``,
-			warnaAwal = `#F7ECDE`,
-			tolltip ='',
-			no = 1;
+		async function setTabelKonten(data) {
+			try {
+				let tableContent = '',
+					warnaAwal = '#F7ECDE',
+					tooltip = '',
+					no = 1;
 
 
-			$.each(data, function(key, value) {
-				
-				if (value.buBendungA == null && value.buBendung != null) {
+				for (const [key, value] of Object.entries(data)) {
+					try {
 
-					warnaAwal = `#eb8080`;
-					tolltip = `data-toggle="tooltip" data-placement="top" title="Data Bendung kosong, sedangkan data bendung ada pada Form 1A"`;
+						tooltip = '';
+
+						if (value.buBendungA == null && value.embung1a > 0) {
+
+							warnaAwal = `#eb8080`;
+							tooltip = `data-toggle="tooltip" data-placement="top" title="Data Bendung kosong, sedangkan data bendung ada pada Form 1A"`;
+						}
+
+						let nilaiSaluarB = await hasilKaliSaluran(value.saluranPrimerB, value.pjg_saluranPrimerB),
+							nilaiSaluarBR = await hasilKaliSaluran(value.saluranPrimerBR, value.pjg_saluranPrimerBR),
+							nilaiSaluarRS = await hasilKaliSaluran(value.saluranPrimerRS, value.pjg_saluranPrimerRS),
+							nilaiSaluarRB = await hasilKaliSaluran(value.saluranPrimerRB, value.pjg_saluranPrimerRB),
+							totalPanjangSaluranPrimer = await totalPanjangSaluran(value.pjg_saluranPrimerB, value.pjg_saluranPrimerBR, value.pjg_saluranPrimerRS, value.pjg_saluranPrimerRB),
+							retaRataNilaiKondisi = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB) / hitungSUmSaluran(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB) / hitungSUmSaluran(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB);
+
+						// console.log(hitungNilaiKondisiKerusakanExcelForm4(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB), hitungSUmSaluran(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB))
+
+						let sekunderNilaiSaluarB = await hasilKaliSaluran(value.saluranSekunderB, value.pjg_saluranSekunderB),
+							sekunderNilaiSaluarBR = await hasilKaliSaluran(value.saluranSekunderBR, value.pjg_saluranSekunderBR),
+							sekunderNilaiSaluarRS = await hasilKaliSaluran(value.saluranSekunderRS, value.pjg_saluranSekunderRS),
+							sekunderNilaiSaluarRB = await hasilKaliSaluran(value.saluranSekunderRB, value.pjg_saluranSekunderRB),
+							totalPanjangSaluranSekunder = await totalPanjangSaluran(value.pjg_saluranSekunderB, value.pjg_saluranSekunderBR, value.pjg_saluranSekunderRS, value.pjg_saluranSekunderRB),
+							retaRataNilaiKondisiSekunder = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB) / hitungSUmSaluran(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB) / hitungSUmSaluran(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB);
+
+						let TersierNilaiSaluarB = await hasilKaliSaluran(value.saluranTersierB, value.pjg_saluranTersierB),
+							TersierNilaiSaluarBR = await hasilKaliSaluran(value.saluranTersierBR, value.pjg_saluranTersierBR),
+							TersierNilaiSaluarRS = await hasilKaliSaluran(value.saluranTersierRS, value.pjg_saluranTersierRS),
+							TersierNilaiSaluarRB = await hasilKaliSaluran(value.saluranTersierRB, value.pjg_saluranTersierRB),
+							totalPanjangSaluranTersier = await totalPanjangSaluran(value.pjg_saluranTersierB, value.pjg_saluranTersierBR, value.pjg_saluranTersierRS, value.pjg_saluranTersierRB),
+							retaRataNilaiKondisiTersier = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB) / hitungSUmSaluran(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB) / hitungSUmSaluran(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB);
+
+						let PembuangNilaiSaluarB = await hasilKaliSaluran(value.saluranPembuangB, value.pjg_saluranPembuangB),
+							PembuangNilaiSaluarBR = await hasilKaliSaluran(value.saluranPembuangBR, value.pjg_saluranPembuangBR),
+							PembuangNilaiSaluarRS = await hasilKaliSaluran(value.saluranPembuangRS, value.pjg_saluranPembuangRS),
+							PembuangNilaiSaluarRB = await hasilKaliSaluran(value.saluranPembuangRB, value.pjg_saluranPembuangRB),
+							totalPanjangSaluranPembuang = await totalPanjangSaluran(value.pjg_saluranPembuangB, value.pjg_saluranPembuangBR, value.pjg_saluranPembuangRS, value.pjg_saluranPembuangRB),
+							retaRataNilaiKondisiPembuang = await isNaN(hitungNilaiKondisiKerusakanExcelForm4(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB) / hitungSUmSaluran(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB)) ? 0 : hitungNilaiKondisiKerusakanExcelForm4(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB) / hitungSUmSaluran(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB);
+
+						let saluran1 = await hitungSaluranTotal(nilaiSaluarB, nilaiSaluarBR, nilaiSaluarRS, nilaiSaluarRB, 1),
+							saluran2 = await hitungSaluranTotal(sekunderNilaiSaluarB, sekunderNilaiSaluarBR, sekunderNilaiSaluarRS, sekunderNilaiSaluarRB, 1),
+							saluran3 = await hitungSaluranTotal(TersierNilaiSaluarB, TersierNilaiSaluarBR, TersierNilaiSaluarRS, TersierNilaiSaluarRB, 1),
+							saluran4 = await hitungSaluranTotal(PembuangNilaiSaluarB, PembuangNilaiSaluarBR, PembuangNilaiSaluarRS, PembuangNilaiSaluarRB, 1);
+
+
+						let arrayRataRata = [
+							value.buBendungB,
+							value.buPengambilanBebasB,
+							value.buStasiunPompaB,
+							value.buEmbungB,
+							value.bppBagiB,
+							value.bppBagiSadapB,
+							value.bppSadapB,
+							value.bppBangunanPengukurB,
+							value.bPembawaGorongB,
+							value.bPembawaSiponB,
+							value.bPembawaTalangB,
+							value.bPembawaTerjunanB,
+							value.bPembawaGotMiringB,
+							value.bPembawaFlumB,
+							value.bPembawaTerawanganB,
+							value.blinKantongB,
+							value.blinPelimpahB,
+							value.blinPengurasB,
+							value.blinSaluranGendongB,
+							value.blinKribB,
+							value.blinPerkuatanTebingB,
+							value.blinTanggungB,
+							value.balengJalanInspeksiB,
+							value.balengJembatanB,
+							value.balengKantorPengamatB,
+							value.balengGudangB,
+							value.balengRumahJagaB,
+							value.balengRumahB,
+							value.balengSanggarTaniB,
+							value.saranaPintuAirB,
+							value.saranaAlatUkurB,
+							retaRataNilaiKondisi,
+							retaRataNilaiKondisiSekunder,
+							retaRataNilaiKondisiTersier,
+							retaRataNilaiKondisiPembuang
+						];
+
+
+						let totalNilai = await hitungTotalRataRataAllForm4(arrayRataRata, 2),
+							totalNilaiKondisi = await hitungTotalRataRataAllForm4(arrayRataRata, 1);
+
+						tableContent += `<tr style="background-color:${warnaAwal};" ${tooltip}>
+						<td style="border: thin solid #006666;" align="center">${no}</td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
+						<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4A/getDetailData/${value.irigasiidX}">${cleanStr(value.nama)}</a></td>
+						<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.lper)}</td>
+						<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
+						<td id="buEmbung_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buBendungBx)}" class="">${cleanStr(value.buBendungA)}</td>
+						<td id="sTipeSaluran_50581" style="border: thin solid #006666;${bgTabelKolom(value.buBendungBx)}" class="options">${cleanStr(value.buBendungB)}</td>
+						<td id="sPrimer_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buPengambilanBebasBx)}" class="">${cleanStr(value.buPengambilanBebasA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buPengambilanBebasBx)}" class="number">${cleanStr(value.buPengambilanBebasB)}</td>
+
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buStasiunPompaBx)}" class="">${cleanStr(value.buStasiunPompaA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.buStasiunPompaBx)}" class="number">${cleanStr(value.buStasiunPompaB)}</td>
+
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buEmbungA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buEmbungB)}</td>
+
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerBx)}" class="number">${cleanStr(value.saluranPrimerB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerBRx)}" class="number">${cleanStr(value.saluranPrimerBR)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerRSx)}" class="number">${cleanStr(value.saluranPrimerRS)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPrimerRBx)}" class="number">${cleanStr(value.saluranPrimerRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisi))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisi)}</td>
+
+						<td id="sSekunder_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.saluranSekunderBx)}" class="number">${cleanStr(value.saluranSekunderB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.saluranSekunderBRx)}" class="number">${cleanStr(value.saluranSekunderBR)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.saluranSekunderRSx)}" class="number">${cleanStr(value.saluranSekunderRS)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.saluranSekunderRBx)}" class="number">${cleanStr(value.saluranSekunderRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiSekunder))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiSekunder)}</td>
+
+
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierBx)} " class="number">${cleanStr(value.saluranTersierB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierBRx)} " class="number">${cleanStr(value.saluranTersierBR)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierRSx)} " class="number">${cleanStr(value.saluranTersierRS)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranTersierRBx)} " class="number">${cleanStr(value.saluranTersierRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiTersier))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiTersier)}</td>
+
+
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangBx)} " class="number">${cleanStr(value.saluranPembuangB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangBRx)} " class="number">${cleanStr(value.saluranPembuangBR)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangRSx)} " class="number">${cleanStr(value.saluranPembuangRS)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saluranPembuangRBx)} " class="number">${cleanStr(value.saluranPembuangRB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(getNilaiRataRataKondisi(retaRataNilaiKondisiPembuang))}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(retaRataNilaiKondisiPembuang)}</td>
+
+
+						<td id="sSekunder_50581" style="border: thin solid #006666;}" class="">${cleanStr(value.bppBagiA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;  ${bgTabelKolom(value.bppBagiBx)} " class="number">${cleanStr(value.bppBagiB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiSadapA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bppBagiSadapBx)}" class="number">${cleanStr(value.bppBagiSadapB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppSadapA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppSadapB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBangunanPengukurA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBangunanPengukurB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGorongA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaGorongBx)}" class="number">${cleanStr(value.bPembawaGorongB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaSiponA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaSiponBx)}" class="number">${cleanStr(value.bPembawaSiponB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTalangA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTalangB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerjunanA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaTerjunanBx)}" class="number">${cleanStr(value.bPembawaTerjunanB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGotMiringA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaGotMiringx)}" class="number">${cleanStr(value.bPembawaGotMiringB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaFlumA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaFlumB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerawanganA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.bPembawaTerawanganBx)}" class="number">${cleanStr(value.bPembawaTerawanganB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKantongA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinKantongBx)}" class="number">${cleanStr(value.blinKantongB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelimpahA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpahB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPengurasA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinPengurasBx)}" class="number">${cleanStr(value.blinPengurasB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinSaluranGendongA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinSaluranGendongBx)}" class="number">${cleanStr(value.blinSaluranGendongB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKribA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinKribBx)}" class="number">${cleanStr(value.blinKribB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPerkuatanTebingA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebingB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinTanggungA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.blinTanggungBx)}" class="number">${cleanStr(value.blinTanggungB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJalanInspeksiA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengJalanInspeksiBx)}" class="number">${cleanStr(value.balengJalanInspeksiB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJembatanA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengJembatanBx)}" class="number">${cleanStr(value.balengJembatanB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengKantorPengamatA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengKantorPengamatBx)}" class="number">${cleanStr(value.balengKantorPengamatB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengGudangA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengGudangBx)}" class="number">${cleanStr(value.balengGudangB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahJagaA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahJagaB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengSanggarTaniA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.balengSanggarTaniBx)}" class="number">${cleanStr(value.balengSanggarTaniB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaPintuAirA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAirB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaAlatUkurA)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666; ${bgTabelKolom(value.saranaAlatUkurBx)}" class="number">${cleanStr(value.saranaAlatUkurB)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(totalNilaiKondisi)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(totalNilai)}</td>
+						<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
+						</tr>`;
+
+						warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
+						no++;
+
+					} catch (err) {
+						console.error('Error saat looping tabel:', err);
+					}
 				}
 
+				$('#tbody_data').html(tableContent);
+			} catch (err) {
+				console.error('Error:', err);
+			}
+		}
 
-				tableConten += `<tr style="background-color:${warnaAwal};" ${tolltip}>
-				<td style="border: thin solid #006666;" align="center">${no}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.provinsi}</td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="">${value.kemendagri}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}IndexKinerja4A/getDetailData/${value.irigasiidX}">${value.nama}</a></td>
-				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.laPermen)}</td>
-				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.sawahFungsional)}</td>
-				<td id="buEmbung_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buBendungA)}</td>
-				<td id="sTipeSaluran_50581" style="border: thin solid #006666;" class="options">${cleanStr(value.buBendungB)}</td>
-				<td id="sPrimer_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buPengambilanBebasA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buPengambilanBebasB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buStasiunPompaA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buStasiunPompaB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.buEmbungA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.buEmbungB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerBR)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRS)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerRB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPrimerRerata)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPrimerNilai)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderBR)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRS)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderRB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranSekunderRerata)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranSekunderNilai)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierBR)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRS)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierRB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranTersierRerata)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranTersierNilai)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangBR)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRS)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangRB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saluranPembuangRerata)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saluranPembuangNilai)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBagiSadapA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBagiSadapB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppSadapA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppSadapB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bppBangunanPengukurA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bppBangunanPengukurB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGorongA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGorongB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaSiponA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaSiponB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTalangA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTalangB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerjunanA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTerjunanB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaGotMiringA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaGotMiringB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaFlumA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaFlumB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.bPembawaTerawanganA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.bPembawaTerawanganB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKantongA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinKantongB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPelimpahA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPelimpahB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPengurasA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPengurasB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinSaluranGendongA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinSaluranGendongB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinKribA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinKribB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinPerkuatanTebingA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinPerkuatanTebingB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.blinTanggungA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.blinTanggungB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJalanInspeksiA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJalanInspeksiB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengJembatanA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengJembatanB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengKantorPengamatA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengKantorPengamatB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengGudangA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengGudangB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahJagaA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahJagaB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengRumahA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengRumahB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.balengSanggarTaniA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.balengSanggarTaniB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaPintuAirA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaPintuAirB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.saranaAlatUkurA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.saranaAlatUkurB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.rataJaringanA)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.rataJaringanB)}</td>
-				<td id="sSekunder_50581" style="border: thin solid #006666;" class="">${cleanStr(value.keterangan)}</td>
-				</tr>`;
 
-				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
-				no++;
+		function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
+			var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
+			var paginationContainer = $('#pagination');
+			paginationContainer.empty();
+
+			var startingPage = 1;
+			var endingPage = jumlahHalaman;
+
+			if (jumlahHalaman > 3) {
+				startingPage = Math.max(1, halamanSaatIni - 1);
+				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
+			}
+
+			// Menampilkan tombol First
+			if (halamanSaatIni > 1) {
+				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
+				paginationContainer.append(firstButton);
+			}
+
+			var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
+			paginationContainer.append(prevButton);
+
+			for (var i = startingPage; i <= endingPage; i++) {
+				var listItem = $('<li class="page-item"></li>');
+				var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
+
+				linkItem.text(i);
+
+				if (Number(i) === Number(halamanSaatIni)) {
+					listItem.addClass('active');
+				}
+				listItem.append(linkItem);
+				paginationContainer.append(listItem);
+			}
+
+			if (halamanSaatIni < jumlahHalaman) {
+				var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
+				paginationContainer.append(nextButton);
+
+				var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
+				paginationContainer.append(lastButton);
+			}
+		}
+
+
+		cari = function() {
+
+			provid = $('#prov').val();
+			kotakabid = $('#kabkota').val();
+			search = $('#in_irigasiid').val();
+
+			if (priveXX == 'admin') {
+				if (kotakabid == null || kotakabid == '') {
+					toastr.error('Pilih kabupaten kota terlebih dahulu')
+					return;
+				}
+			}
+
+			getDataTabel(null, provid, kotakabid)
+
+
+		}
+
+
+
+		$('#rowpage').change(function() {
+
+			provid = $('#prov').val();
+			kotakabid = $('#kabkota').val();
+			search = $('#in_irigasiid').val();
+
+			getDataTabel(null, provid, kotakabid)
+
+		});
+
+
+		$('#prov').change(function() {
+			var prov = $(this).val();
+
+			$('.select2_Irigasi').val(null).trigger('change');
+
+
+			ajaxUntukSemua(base_url() + 'IndexKinerja4A/getDataKabKota', {
+				prov
+			}, function(data) {
+
+				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
+
+				$.each(data, function(key, value) {
+					opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
+				})
+
+				$('#kabkota').html(opt);
+
+			}, function(error) {
+				console.log('Kesalahan:', error);
 			});
 
-$('#tbody_data').html(tableConten);
 
-}
+		});
 
-
-function generatePagination(totalData, dataPerHalaman, halamanSaatIni) {
-	var jumlahHalaman = Math.ceil(Number(totalData) / Number(dataPerHalaman));
-	var paginationContainer = $('#pagination');
-	paginationContainer.empty(); 
-
-	var startingPage = 1;
-	var endingPage = jumlahHalaman; 
-
-	if (jumlahHalaman > 3) {
-		startingPage = Math.max(1, halamanSaatIni - 1);
-		endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
-	}
-
-  // Menampilkan tombol First
-	if (halamanSaatIni > 1) {
-		var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
-		paginationContainer.append(firstButton);
-	}
-
-	var prevButton = $(`<li class="page-item"><a class="page-link c-pinter" onclick="getDataTabel(${Math.max(1, halamanSaatIni - 1)})" linkpager="prev">Previous</a></li>`);
-	paginationContainer.append(prevButton);
-
-	for (var i = startingPage; i <= endingPage; i++) {
-		var listItem = $('<li class="page-item"></li>');
-		var linkItem = $(`<a class="page-link c-pinter" onclick="getDataTabel(${i})"></a>`);
-
-		linkItem.text(i);
-
-		if (Number(i) === Number(halamanSaatIni)) {
-			listItem.addClass('active');
-		}
-		listItem.append(linkItem);
-		paginationContainer.append(listItem);
-	}
-
-	if (halamanSaatIni < jumlahHalaman) {
-		var nextButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${Math.min(jumlahHalaman, halamanSaatIni + 1)})">Next</a></li>`);
-		paginationContainer.append(nextButton);
-
-		var lastButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="last" onclick="getDataTabel(${jumlahHalaman})">Last</a></li>`);
-		paginationContainer.append(lastButton);
-	}
-}
+		$('#kabkota').change(function() {
+			$('.select2_Irigasi').val(null).trigger('change');
+		});
 
 
-cari = function () {
+		$('.select2').select2({
+			placeholder: '-Pilih Provinsi-',
+			theme: 'default',
 
-	provid = $('#prov').val();
-	kotakabid = $('#kabkota').val();
-	search = $('#in_irigasiid').val();
-
-	getDataTabel(null, provid, kotakabid)
-
-
-}
-
-
-
-$('#rowpage').change(function() {
-	getDataTabel(null)
-
-});
-
-
-$('#prov').change(function() {
-	var prov = $(this).val();
-
-	$('.select2_Irigasi').val(null).trigger('change');
-
-
-	ajaxUntukSemua(base_url()+'IndexKinerja4A/getDataKabKota', {prov}, function(data) {
-
-		let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
-
-		$.each(data, function(key, value) {
-			opt += `<option value="${value.kotakabid}" >${value.kemendagri}</option>`;
 		})
 
-		$('#kabkota').html(opt);
+		$('.select3').select2({
+			placeholder: '-Pilih Kab/Kota-',
+			theme: 'default',
 
-	}, function(error) {
-		console.log('Kesalahan:', error);
+		})
+
+
+		$('.select2_Irigasi').select2({
+			placeholder: '-Tentukan Daerah Irigasi-',
+			theme: 'default',
+			ajax: {
+				url: base_url() + "IndexKinerja4A/getDi",
+				dataType: 'json',
+				type: 'post',
+				delay: 250,
+				data: function(params) {
+					var query = {
+						searchDi: params.term,
+						kdprov: $('#prov').val(),
+						kdKab: $('#kabkota').val()
+					};
+					return query;
+				},
+				processResults: function(response) {
+
+					response.data.unshift({
+						id: '',
+						text: 'Tampilkan semua'
+					});
+
+					return {
+						results: response.data
+					};
+				},
+				cache: true
+			}
+		});
+
+
+
 	});
-
-
-});
-
-$('#kabkota').change(function() {
-	$('.select2_Irigasi').val(null).trigger('change');
-});
-
-
-$('.select2').select2({
-	placeholder: '-Pilih Provinsi-',
-	theme: 'default',
-
-})
-
-$('.select3').select2({
-	placeholder: '-Pilih Kab/Kota-',
-	theme: 'default',
-
-})
-
-
-$('.select2_Irigasi').select2({
-	placeholder: '-Tentukan Daerah Irigasi-',
-	theme: 'default',
-	ajax: {
-		url: base_url() + "IndexKinerja4A/getDi",
-		dataType: 'json',
-		type: 'post',
-		delay: 250,
-		data: function (params) {
-			var query = {
-				searchDi: params.term,
-				kdprov: $('#prov').val(),
-				kdKab: $('#kabkota').val()
-			};
-			return query;
-		},
-		processResults: function (response) {
-
-			response.data.unshift({ id: '', text: 'Tampilkan semua' });
-
-			return {
-				results: response.data 
-			};
-		},
-		cache: true
-	}
-});
-
-
-
-});
-
 </script>

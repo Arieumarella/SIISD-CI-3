@@ -25,6 +25,11 @@
     <nav class="mt-2" style="font-size:12px;">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+        <?php
+        $canAccessThang2025 = $this->session->userdata('canAccessThang2025');
+        $thang = $this->session->userdata('thang');
+        ?>
+
         <li class="nav-item">
           <span class="nav-link">
             <a href="/ta">
@@ -32,13 +37,15 @@
             </a>
             <p class="col-sm-6 p-0 m-0" style="">
               <select class="form-control form-control-sm" id="in_kuTaAktifX">
-                <option value="2025" <?= $this->session->userdata('thang') == '2025' ? 'selected' : ''; ?>>2025</option>
-                <option value="2024" <?= $this->session->userdata('thang') == '2024' ? 'selected' : ''; ?>>2024</option>
-                <option value="2023" <?= $this->session->userdata('thang') == '2023' ? 'selected' : ''; ?>>2023</option>
-                <option value="2022" <?= $this->session->userdata('thang') == '2022' ? 'selected' : ''; ?>>2022</option>
-                <option value="2021" <?= $this->session->userdata('thang') == '2021' ? 'selected' : ''; ?>>2021</option>
-                <option value="2020" <?= $this->session->userdata('thang') == '2020' ? 'selected' : ''; ?>>2020</option>
-                <option value="2019" <?= $this->session->userdata('thang') == '2019' ? 'selected' : ''; ?>>2019</option>
+                <?php if ($canAccessThang2025): ?>
+                  <option value="2025" <?= $thang == '2025' ? 'selected' : ''; ?>>2025</option>
+                <?php endif; ?>
+                <option value="2024" <?= $thang == '2024' ? 'selected' : ''; ?>>2024</option>
+                <option value="2023" <?= $thang == '2023' ? 'selected' : ''; ?>>2023</option>
+                <option value="2022" <?= $thang == '2022' ? 'selected' : ''; ?>>2022</option>
+                <option value="2021" <?= $thang == '2021' ? 'selected' : ''; ?>>2021</option>
+                <option value="2020" <?= $thang == '2020' ? 'selected' : ''; ?>>2020</option>
+                <option value="2019" <?= $thang == '2019' ? 'selected' : ''; ?>>2019</option>
               </select>
             </p>
           </span>
@@ -341,7 +348,6 @@
                     </p>
                   </a>
                 </li>
-
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>IntegrasiEpaksi/F9" class="nav-link <?= $tittle == 'Form 9' ? 'active' : ''; ?>">
                     <p>
@@ -349,7 +355,6 @@
                     </p>
                   </a>
                 </li>
-
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>IntegrasiEpaksi/F4" class="nav-link <?= $tittle == 'Form 4' ? 'active' : ''; ?>">
                     <p>
@@ -367,7 +372,7 @@
           <li class="nav-item">
             <a class="nav-link">
               <i class=""></i>
-              <p style="font-size:16px;"> USULAN SIMONI </p>
+              <p style="font-size:16px;"> PENILAIAN USULAN </p>
             </a>
           </li>
 
@@ -413,64 +418,6 @@
             </li>
           <?php } ?>
 
-          <!-- <li class="nav-item has-treeview <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'menu-open' : ''; ?>" style="#ccc; width:95%;">
-    <a href="#" class="nav-link ">
-      <i class="nav-icon fas fa-folder-open"></i>
-      <p>
-        Data Teknis TA. <?= $this->session->userdata('thang'); ?>
-        <i class="fas fa-angle-left right"></i>
-      </p>
-    </a>
-    <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
-
-
-      <li class="nav-item">
-        <a href="<?= base_url(); ?>DataTeknis/downloadFormat" class="nav-link <?= $tittle == 'Download Format Dokumen' ? 'active' : ''; ?>">
-          <p>
-           1. - Download Format Dokumen
-         </p>
-       </a>
-     </li>
-
-     <li class="nav-item">
-      <a href="<?= base_url(); ?>DataTeknis" class="nav-link <?= $tittle == 'Upload Data Teknis Irigasi' ? 'active' : ''; ?>">
-        <p>
-         2. - Upload Data Teknis Irigasi
-       </p>
-     </a>
-   </li>
-
-   <li class="nav-item">
-    <a href="<?= base_url(); ?>DataTeknis/DataTeknisPengendaliBanjir" class="nav-link <?= $tittle == 'Upload Data Teknis Pengendali Banjir' ? 'active' : ''; ?>">
-      <p>
-       3. - Upload Data Teknis Pengendali Banjir
-     </p>
-   </a>
- </li>
-
- <?php if ($this->session->userdata('prive') == 'admin' || $this->session->userdata('prive') == 'balai') { ?>
-
-  <li class="nav-item">
-    <a href="<?= base_url(); ?>DataTeknis/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
-      <p>
-        4. - Rekapitulasi Data Teknis Irigasi
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="<?= base_url(); ?>DataTeknis/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
-      <p>
-        5. - Rekapitulasi Data Teknis Pengendali Banjir
-      </p>
-    </a>
-  </li>
-
-<?php } ?>
-</ul>
-</li> -->
-
-
           <?php
           $uri1 = @$this->uri->segment(1);
           $arrayDataTeknisBase = ['Usulan'];
@@ -486,13 +433,7 @@
             </a>
             <ul class="nav nav-treeview pl-1" style="border-left: thin solid rgb(204, 204, 204); display: <?= (in_array($uri1, $arrayDataTeknisBase)) ? 'block;' : 'none'; ?>;">
 
-              <!-- <li class="nav-item">
-    <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Cheklist Simoni' ? 'active' : ''; ?>">
-      <p>
-        1. - Cheklist URK Simoni
-      </p>
-    </a>
-  </li> -->
+
               <?php if ($this->session->userdata('prive') == 'pemda') { ?>
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan" class="nav-link <?= $tittle == 'Usulan Rencana Kegiatan' ? 'active' : ''; ?>">
@@ -508,13 +449,7 @@
                     </p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a href="<?= base_url(); ?>Usulan/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
-                    <p>
-                      3. - Rekapitulasi Dokumen Irigasi
-                    </p>
-                  </a>
-                </li> -->
+
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
                     <p>
@@ -522,13 +457,7 @@
                     </p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
-                    <p>
-                      4. - Rekapitulasi Dokumen Pengendali Banjir
-                    </p>
-                  </a>
-                </li> -->
+
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/CheklistSimoniPengendaliBanjir" class="nav-link <?= $tittle == 'Rekap Simoni Pengendali Banjir' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
                     <p>
@@ -537,30 +466,9 @@
                   </a>
                 </li>
               <?php } ?>
-              <!--   <li class="nav-item">
-    <a href="<?= base_url(); ?>Usulan/CheklistKonreg" class="nav-link <?= $tittle == 'Cheklist Konreg' ? 'active' : ''; ?>">
-      <p>
-        2. - Cheklist URK Konreg
-      </p>
-    </a>
-  </li> -->
 
-              <!--   
-  <a href="<?= base_url(); ?>Usulan/PengususlanKonreg" class="nav-link <?= $tittle == 'Usulan Rencana Kegiatan Konreg' ? 'active' : ''; ?>">
-    <p>
-     4. - Usulan Kegiatan Konreg
-   </p>
- </a>
-</li>
--->
               <?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'balai' or $this->session->userdata('prive') == 'provinsi' or $this->session->userdata('prive') == 'sda') { ?>
-                <!-- <li class="nav-item">
-                  <a href="<?= base_url(); ?>Usulan/rekapIrigasiProvinsi" class="nav-link <?= $tittle == 'Rekap Irigasi Provinsi' || $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
-                    <p>
-                      1. - Rekapitulasi Dokumen Irigasi
-                    </p>
-                  </a>
-                </li> -->
+
                 <li class="nav-item">
                   <a href="<?= base_url(); ?>Usulan/CheklistSimoni" class="nav-link <?= $tittle == 'Rekap Irigasi Kab/Kota' ? 'active' : ''; ?>">
                     <p>
@@ -576,17 +484,17 @@
                   </a>
                 </li>
 
-                <!-- <li class="nav-item">
-                    <a href="<?= base_url(); ?>Usulan/rekapPengendaliBanjirProvinsi" class="nav-link <?= $tittle == 'Rekap Pengendali Banjir Provinsi' || $tittle == 'Rekap Pengendali Banjir Kab/Kota' ? 'active' : ''; ?>">
-                      <p>
-                        2. - Rekapitulasi Dokumen Pengendali Banjir
-                      </p>
-                    </a>
-                  </li> -->
-
               <?php } ?>
             </ul>
           </li>
+          <?php if ($this->session->userdata('prive') == 'admin') { ?>
+            <li class="nav-item">
+              <a href="<?= base_url(); ?>Usulan/rekapProv" class="nav-link <?= $tittle == 'Rekap Simoni' ? 'active' : ''; ?>">
+                <i class="nav-icon fas fa-file"></i>
+                <p> Rekapitulasi Checklist </p>
+              </a>
+            </li>
+          <?php } ?>
 
         <?php } ?>
         <?php if ($this->session->userdata('thang') == '2025') { ?>
@@ -632,23 +540,6 @@
               </p>
             </a>
           </li>
-
-
-          <!-- <li class="nav-item">
-  <a href="<?= base_url(); ?>Pengusulan" class="nav-link <?= $tittle == 'Pengusulan' ? 'active' : ''; ?>">
-    <i class="nav-icon fa fa-list-alt"></i>
-    <p>
-      Pengusulan Pekerjaan
-    </p>
-  </a>
-</li> -->
-
-          <!-- <li class="nav-item">
-  <a href="#" class="nav-link ">
-    <i class="nav-icon fa fa-history"></i>
-    <p> Riwayat Penanganan </p>
-  </a>
-</li> -->
 
         <?php } ?>
 

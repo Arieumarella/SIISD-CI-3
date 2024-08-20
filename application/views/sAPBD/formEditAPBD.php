@@ -110,7 +110,7 @@
             <form role="form" action="<?= base_url(); ?>SharingAPBD/SimpanDataEdit" method="POST" data-select2-id="25">
 
                 <input type="hidden" name="idEdit" value="<?= $id; ?>">
-                
+
                 <div class="content-header bg-warning">
                     <div class="container-fluid">
                       <div class="row m-0 p-0 text-left">
@@ -234,13 +234,13 @@
                                             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-                                                <input id="in_apbdNonDak" name="apbdNonDak[]" value="<?= str_replace('.', ',',$value->apbdNonDak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="APBD Non DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
+                                                <input id="in_apbdNonDak" name="apbdNonDak[]" value="<?= number_format($value->apbdNonDak,0,',','.'); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="APBD Non DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
                                                 <div class="invalid-feedback" id="pesan_apbdNonDak"></div>
                                             </td> 
                                             <td class="col-sm-3" style="min-width:100px; max-width:10%; ">
 
 
-                                                <input id="in_dak" name="dak[]" value="<?= str_replace('.', ',',$value->dak); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
+                                                <input id="in_dak" name="dak[]" value="<?= number_format($value->dak,0,',','.'); ?>" type="text" class="form-control form-control-sm text-right number" placeholder="DAK" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
                                                 <div class="invalid-feedback" id="pesan_dak"></div>
                                             </td>
                                         </tr>

@@ -97,10 +97,9 @@
 <body>
     <!-- Judul -->
     <div class="text-center">
-        <h3 class="font-weight-bolder">USULAN RENCANA KEGIATAN</h3>
-        <h3 class="font-weight-bolder">PENILAIAN SINKRONISASI DAN</h3>
-        <h3 class="font-weight-bolder"><?= $nmKabkota; ?></h3>
-        <h3 class="font-weight-bolder">TA. <?= $this->session->userdata('thang'); ?></h3>
+        <h4 class="font-weight-bolder">Usulan Rencana Kegiatan Penilaian Dana Alokasi Khusus Bidang Irigasi TA. <?= $this->session->userdata('thang'); ?></h4>
+        <h4 class="font-weight-bolder">Menu Pembangunan/ Peningkatan/ Rehabilitasi Jaringan Irigasi</h4>
+        <h4 class="font-weight-bolder"><?= $nmKabkota; ?></h4>
     </div>
     <!-- Tabel -->
     <table class="tableX" id="myTabelUsulan">
@@ -108,11 +107,11 @@
             <tr style="background-color: #DCDCDC ">
                 <th class="text-center" rowspan="2" style="width:5%;">No.</th>
                 <th class="text-center" rowspan="2" style="width:23%;">DETAIL KEGIATAN</th>
-                <th class="text-center" rowspan="2" style="width:7%;">JENIS DI</th>
+                <th class="text-center" rowspan="2" style="width:12%;">JENIS DI</th>
                 <th class="text-center" rowspan="2" style="width: 11%;">PENGADAAN</th>
                 <th class="text-center" rowspan="2" style="width:20%;">KOMPONEN</th>
                 <th class="text-center" colspan="2" style="width: 18%;">OUTCOME KEGIATAN</th>
-                <th class="text-center" rowspan="2" style="width: auto;">KEBUTUHAN DANA</th>
+                <th class="text-center" rowspan="2" style="width: auto;">USULAN PAGU</th>
             </tr>
             <tr style="background-color: #DCDCDC ">
                 <th class="text-center" style="width: 10%;">VOLUME</th>
@@ -120,90 +119,120 @@
             </tr>
         </thead>
         <tbody id="tbody_data">
-            <?php if ($dataKegiatan != null) { ?>
+            <?php if ($dataKegiatan != null) {
+                usort($dataKegiatan, function ($a, $b) {
+                    $cek = ['1', '2', '3'];
+                    $pos_a = array_search($a->kd_menu, $cek);
+                    $pos_b = array_search($b->kd_menu, $cek);
+                    return $pos_a - $pos_b;
+                }); ?>
                 <?php $no = 1;
                 foreach ($dataKegiatan as $key => $val) { ?>
-                    <tr>
+                    <?php if ($val->kd_menu === '1' or $val->kd_menu === '2' or $val->kd_menu === '3') {
+                        $hasData = true; ?>
+                        <tr>
+                            <td class="text-center" style="width:5%;" rowspan="5">
+                                <?= $no++; ?></td>
+                            <td style="width:23%;">
+                                <b><?= $val->nm_menu; ?></b><br><br>
+                                <?php
+                                if ($val->kd_menu === '9') {
+                                    echo '<b>WS : </b>' . $val->nm_ws . '<br>';
+                                    echo '<b> DAS : </b>' . $val->nm_das;
+                                } else {
+                                    echo '<b>' . $val->nm_di . '</b>';
+                                }
+                                ?><br>
+                                <?php if ($this->session->userdata('prive') == 'admin' or $this->session->userdata('prive') == 'pemda') { ?>
+                                    <b><?= (substr($nmKabkota, 0, 4) == 'PROV') ? '-Provinsi' : '-Kabupaten'; ?>
+                                        :</b> <?= $nmKabkota; ?>
+                                    <br>
+                                <?php } ?>
+                                <?php if (substr($nmKabkota, 0, 4) == 'PROV') { ?>
+                                    <b>-Kabupaten :</b> <?= $val->kotax; ?>
+                                    <br>
+                                <?php } ?>
+                                <b>-Kecamatan :</b> <?= $val->keca; ?>
+                                <br>
+                                <b>-Desa :</b> <?= $val->desa; ?>
+                                <br>
+                            </td>
+                            <td style="width:12%;" class="text-center"><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
+                            <td style="width: 11%;"><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
+                            <td class="text-right" style="vertical-align: top;" style="width:20%;">
 
-                        <td class="text-center" style="width:5%;" rowspan="5">
-                            <?= $no++; ?></td>
-                        <td style="width:23%;">
-                            <b><?= $val->nm_menu; ?></b><br><br>
-                            <?php
-                            if ($val->kd_menu === '9') {
-                                echo '<b>WS : </b>' . $val->nm_ws . '<br>';
-                                echo '<b>DAS : </b>' . $val->nm_das;
-                            } else {
-                                echo '<b>' . $val->nm_di . '</b>';
-                            }
-                            ?><br><br>
-                            <b>-Kecamatan :</b> <?= $val->keca; ?><br>
-                            <b>-Desa :</b> <?= $val->desa; ?>
-                        </td>
-                        <td style="width:7%;" class="text-center"><?= ($val->kategori_di == 'BARU') ? 'DI PEMBANGUNAN BARU' : $val->kategori_di; ?></td>
-                        <td style="width: 11%;"><?= ($val->pengadaan == '1') ? 'Kontraktual' : 'Swakelola'; ?></td>
-                        <td class="text-right" style="vertical-align: top;" style="width:20%;">
+                                <?php if ($val->komponen_json != null) { ?>
+                                    <?php $dataKomponenArray = json_decode($val->komponen_json, true); ?>
+                                    <table class="tableKomponen">
+                                        <?php foreach ($dataKomponenArray as $datakomponen) { ?>
+                                            <tr>
+                                                <td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
+                                                <td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
 
-                            <?php if ($val->komponen_json != null) { ?>
-                                <?php $dataKomponenArray = json_decode($val->komponen_json, true); ?>
-                                <table class="tableKomponen">
-                                    <?php foreach ($dataKomponenArray as $datakomponen) { ?>
-                                        <tr>
-                                            <td class="text-left" style="width:60%;"><?= $datakomponen['nm_komponen'] ?></td>
-                                            <td class="text-left" style="width:48%;"><?= $datakomponen['volume'] ?> <?= $datakomponen['satuan'] ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                    </table>
+                                <?php } ?>
+                            </td>
+                            <td class="text-right" style="width: 10%;"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
+                            <td style="width: 8%;"><?= $val->satuan_output; ?></td>
 
-                                        </tr>
-                                    <?php } ?>
-                                </table>
-                            <?php } ?>
-                        </td>
-                        <td class="text-right" style="width: 10%;"><?= ($val->jns_luasan != null) ? '<b>' . $val->jns_luasan . ' : </b>' : ''; ?> <?= $val->output; ?></td>
-                        <td style="width: 8%;"><?= $val->satuan_output; ?></td>
-
-                        <td class="text-left" style="width: auto;" rowspan="5"><b>- Dana :</b> <br>Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br><br> <b>- Harga Satuan :</b><br>
-                            Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
-                    </tr>
+                            <td class="text-left" style="width: auto;" rowspan="5"><br><br><b>- Pagu :</b> <br>Rp <?= number_format($val->pagu_kegiatan, 0, ',', '.'); ?> <br><br><b>- Harga Satuan :</b><br>
+                                Rp <?= number_format($val->pagu_kegiatan / $val->output, 0, ',', '.'); ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">CHECKLIST</td>
+                            <td colspan="5" class="text-center">CATATAN</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
+                            <td>
+                                <?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
+                                    Belum dinilai
+                                <?php } else { ?>
+                                    Sudah dinilai
+                                <?php } ?>
+                            </td>
+                            <td colspan="5">
+                                <?= isset($val->catat_pusat) ? $val->catat_pusat : ''; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">DIREKTORAT IRIGASI DAN RAWA</td>
+                            <td>
+                                <?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
+                                    Belum dinilai
+                                <?php } else { ?>
+                                    Sudah dinilai
+                                <?php } ?>
+                            </td>
+                            <td colspan="5">
+                                <?= isset($val->catat_sda) ? $val->catat_sda : ''; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">BBWS/BWS</td>
+                            <td>
+                                <?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
+                                    Belum dinilai
+                                <?php } else { ?>
+                                    Sudah dinilai
+                                <?php } ?>
+                            </td>
+                            <td colspan="5">
+                                <?= isset($val->catat_balai) ? $val->catat_balai : ''; ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                <?php } ?>
+                <?php if ($dataParaf2 != null) { ?>
+                    <?php
+                    $lastVal = end($dataParaf2);
+                    ?>
                     <tr>
-                        <td colspan="2" class="text-center">CHECKLIST</td>
-                        <td colspan="5" class="text-center">CATATAN</td>
-                    </tr>
-                    <tr>
-                        <td>PUSAT FASILITASI INFRASTRUKTUR DAERAH</td>
-                        <td>
-                            <?php if ($val->verif_pusat == '0' or $val->verif_pusat == null) { ?>
-                                <i class="fa fa-times-circle text-danger">Belum dinilai</i>
-                            <?php } else { ?>
-                                <i class="fa fa-check-circle text-success">Sudah dinilai</i>
-                            <?php } ?>
-                        </td>
-                        <td colspan="5">
-                            <?= isset($val->catat_pusat) ? $val->catat_pusat : ''; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>DIREKTORAT IRIGASI DAN RAWA</td>
-                        <td>
-                            <?php if ($val->verif_sda == '0' or $val->verif_sda == null) { ?>
-                                <i class="fa fa-times-circle text-danger" aria-hidden="true">Belum dinilai</i>
-                            <?php } else { ?>
-                                <i class="fa fa-check-circle text-success" aria-hidden="true">Sudah dinilai</i>
-                            <?php } ?>
-                        </td>
-                        <td colspan="5">
-                            <?= isset($val->catat_sda) ? $val->catat_sda : ''; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>BBWS/BWS</td>
-                        <td>
-                            <?php if ($val->verif_balai == '0' or $val->verif_balai == null) { ?>
-                                <i class="fa fa-times-circle text-danger" aria-hidden="true">Belum dinilai</i>
-                            <?php } else { ?>
-                                <i class="fa fa-check-circle text-success" aria-hidden="true">Sudah dinilai</i>
-                            <?php } ?>
-                        </td>
-                        <td colspan="5">
-                            <?= isset($val->catat_balai) ? $val->catat_balai : ''; ?>
+                        <td class="text-left" colspan="3">Catatan Verifikator 2</td>
+                        <td class="text-left" colspan="5">
+                            <?= $lastVal->catat; ?>
                         </td>
                     </tr>
                 <?php } ?>
@@ -214,8 +243,7 @@
                     <div class="signature">
                         <p><strong><?= $lastVal->jabatan; ?></strong></p>
                         <p><strong><?= $lastVal->nm_dinas; ?></strong></p>
-                        <img class="profile-user-img img-fluid img-circle" src="<?= base_url(); ?>assets/paraf/<?= $lastVal->paraf == null ? 'Data Kosong' : $lastVal->paraf; ?>" alt="User profile picture" style="width: 70px;">
-
+                        <img class="profile-user-img img-fluid img-circle" src="<?= base_url(); ?>assets/paraf/<?= $lastVal->paraf == null ? 'Data Kosong' : $lastVal->paraf; ?>" alt="User profile picture" style="width: 70px; float: right;">
                         <p><strong><?= $lastVal->nm_kpl_dinas; ?></strong></p>
                         <p>NIP: <?= $lastVal->nip; ?></p>
                     </div>
@@ -224,93 +252,96 @@
                     <table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
                         <thead class="theadX">
                             <tr id="boxThField">
-                                <th class="text-center"></th>
-                                <th class="text-center">Nama</th>
+                                <th class="text-center" style="width:40%;">Jabatan</th>
+                                <th class="text-center" style="width: 50%;">Nama</th>
                                 <th class="text-center">Tanggal</th>
                                 <th class="text-center">Paraf</th>
 
                             </tr>
                         </thead>
                         <tbody id="tbody_data">
+                            <?php if ($dataParaf2 != null) { ?>
+                                <?php
+                                $lastVal = end($dataParaf2); // Ambil elemen terakhir dari array $dataParaf
+                                ?>
+                                <tr>
+                                    <td class="text-center" style="width:40%;">
+                                        Kepala Bidang DAK SDA, PFID
+                                    </td>
+                                    <td class="text-left" style="width: 50%;">
+                                        Nina Handjani, S.T., M.T.
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                        if (isset($lastVal->created_at)) {
+                                            $date = new DateTime($lastVal->created_at);
+                                            echo $date->format('d-m-Y');
+                                        } else {
+                                            echo 'Tanggal tidak tersedia';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle" src="<?= base_url(); ?>assets/paraf/<?= $lastVal->paraf_verif2 == null ? 'Data Kosong' : $lastVal->paraf_verif2; ?>" alt="User profile picture" style="width: 70px; float: right;">
+                                    </td>
+                                </tr>
+                            <?php } ?>
                             <tr>
-                                <td class="text-center">
-                                    Kepala Bidang DAK SDA, PFID
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
+                                <td class="text-center" style="width:40%;">
                                     Kasubdit Irigasi dan Rawa
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left" style="width: 50%;">
+                                    Rahmat Suria Lubis, S.T., M.T.
                                 </td>
                                 <td class="text-center">
                                 </td>
                                 <td class="text-center">
                                 </td>
                             </tr>
+
 
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="card-body">
+
+                <div class="card-body">
                     <table class=" table-bordered tableX " id="myTabelUsulan2" style="width:40%;">
                         <thead class="theadX">
                             <tr id="boxThField">
-                                <th class="text-center"></th>
-                                <th class="text-center">Nama</th>
-                                <th class="text-center">Desk</th>
+                                <th class="text-center" style="width:25%;">Petugas</th>
+                                <th class="text-center" style="width:35%;">Jabatan</th>
+                                <th class="text-center" style="width:35%;">Nama</th>
+                                <th class="text-center">Tanggal</th>
                                 <th class="text-center">Paraf</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody_data">
-                            <tr>
-                                <td class="text-center">
-                                    Verifikator PFID
-                                </td>
-                                <td class="text-center">
 
-                                </td>
-                                <td class="text-center">
-
-                                </td>
-                                <td class="text-center">
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    Verifikator IRWA
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    Balai
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <?php foreach ($dataBalai as $key => $val) { ?>
+                            <tbody id="tbody_data" style="text-align: center;">
+                                <tr>
+                                    <td class="text-center" style="width:25%;">
+                                        BBWS/BWS
+                                    </td>
+                                    <td class="text-center" style="width:35%;">
+                                        <?= $val->jabatan; ?>
+                                    </td>
+                                    <td class="text-center" style="width:35%;">
+                                        <?= $val->nm_verif; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                        $date = new DateTime($val->created_at);
+                                        echo $date->format('d-m-Y');
+                                        ?>
+                                    </td>
+                                    <td class="text-center" style="text-align: center;">
+                                        <img class="profile-user-img img-fluid img-circle text-center" src="<?= base_url(); ?>assets/paraf/<?= $val->paraf_verif == null ? 'Data Kosong' : $val->paraf_verif; ?>" alt="User profile picture" style="width: 70px; text-align: center;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <?php } ?>
                     </table>
-                </div> -->
+                </div>
 
             <?php } else { ?>
                 <tr>

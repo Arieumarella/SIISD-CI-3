@@ -78,8 +78,8 @@ class M_SharingAPBD extends CI_Model {
 				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,
 				'labelid' => $val,
-				'apbdNonDak' => ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key]),
-				'dak' => ubahKomaMenjadiTitik($this->input->post('dak')[$key]),
+				'apbdNonDak' => str_replace(".", "",ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key])),
+				'dak' => str_replace(".", "",ubahKomaMenjadiTitik($this->input->post('dak')[$key])),
 				'uidIn' => $this->session->userdata('uid'),
 				'uidDt' => date('Y-m-d H:i:s')
 			);
@@ -128,8 +128,8 @@ class M_SharingAPBD extends CI_Model {
 				'ta' => $this->session->userdata('thang'),
 				'idF5' => $idX,
 				'labelid' => $val,
-				'apbdNonDak' => ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key]),
-				'dak' => ubahKomaMenjadiTitik($this->input->post('dak')[$key]),
+				'apbdNonDak' => str_replace(".", "",ubahKomaMenjadiTitik($this->input->post('apbdNonDak')[$key])),
+				'dak' => str_replace(".", "",ubahKomaMenjadiTitik($this->input->post('dak')[$key])),
 				'uidIn' => $this->session->userdata('uid'),
 				'uidDt' => date('Y-m-d H:i:s')
 			);

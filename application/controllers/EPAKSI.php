@@ -39,9 +39,6 @@ class EPAKSI extends CI_Controller {
 
 	public function index()
 	{
-
-		echo 'Untuk Sementara Fitur ini Dalam maintenance.!';
-		return;
 		
 		$tmp = array(
 			'tittle' => 'Form 8',

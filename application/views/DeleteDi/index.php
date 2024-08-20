@@ -113,7 +113,7 @@
 							</div>
 						</div>
 
-
+						
 
 						<div class="row col-sm-12  col-lg-2 p-0 ml-1">
 
@@ -149,10 +149,8 @@
 								<th style="border: thin solid #006666;" colspan="1" rowspan="3">Nomeklatur/Nama D.I.</th>
 								<th style="border: thin solid #006666;" colspan="1" rowspan="3">Luas D.I. Berdasarkan Permen <br> 14/2015 (Ha)</th>
 								<th style="border: thin solid #006666;" colspan="1" rowspan="3">Kode Daerah Irigasi <br> SIISD </th>
-
 								
-
-								<th style="border: thin solid #006666;" colspan="2" rowspan="3">Aksi</th>
+								<th style="border: thin solid #006666;" colspan="1" rowspan="3">Aksi</th>
 							</tr>
 							<tr id="boxThField1" style="background-color:#18978F; color:#fff;">
 							</tr>
@@ -170,7 +168,6 @@
 								<th style="border: thin solid #006666;">5</th>
 								<th style="border: thin solid #006666;">6</th>
 								<th style="border: thin solid #006666;">7</th>
-								<th style="border: thin solid #006666;">8</th>
 								
 							</tr>
 
@@ -230,6 +227,7 @@
 						<label for="irigasiid_siisd" class="col-form-label">Kode Daerah Irigasi SIISD :</label>
 						<input type="text" class="form-control" id="irigasiid_siisd" readonly>
 					</div>
+					
 				</form>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
@@ -239,34 +237,6 @@
 		</div>
 	</div>
 </div>
-
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document" id="loading">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="tittleModal"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<label for="irigasiid_edit" class="col-form-label">Edit Kode Daerah Irigasi SIISD :</label>
-						<input type="text" class="form-control" id="irigasiid_edit" name="irigasiid_edit" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-					</div>
-					
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" style="background-color:#18978F; color:#fff;" onclick="prs_edit()" >Simpan</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 
 <script type="text/javascript">
 
@@ -349,7 +319,6 @@
 				<td id="laBaku_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.irigasiid)}</td>
 				
 				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-danger" onclick="showModalDelete('${cleanStr(value.nama)}', '${cleanStr(value.irigasiid)}', '${cleanStr(value.irigasiid_epaksi)}')"><i class="fa fa-eraser"></i></button></td>
-				<td id="laPotensial_50581" style="border: thin solid #006666;" class="text-center"><button class="btn btn-sm btn-warning" onclick="showModalEdit('${cleanStr(value.nama)}', '${cleanStr(value.irigasiid)}')"><i class="fa fa-edit"></i></button></td>
 				</tr>`;
 
 				warnaAwal = (warnaAwal == '#F7ECDE') ? '#FFF' : '#F7ECDE';
@@ -374,7 +343,7 @@
 				endingPage = Math.min(jumlahHalaman, halamanSaatIni + 1);
 			}
 
-  // Menampilkan tombol First
+           // Menampilkan tombol First
 			if (halamanSaatIni > 1) {
 				var firstButton = $(`<li class="page-item"><a class="page-link c-pinter" linkpager="next" onclick="getDataTabel(${1})">First</a></li>`);
 				paginationContainer.append(firstButton);
@@ -418,13 +387,9 @@
 
 		}
 
-
-
 		$('#rowpage').change(function() {
 			getDataTabel(null)
-
 		});
-
 
 		prs_delete = function () {
 
@@ -454,7 +419,6 @@
 				$('#modalDelete').modal('hide');
 				toastr.error('Kesalahan :'+error);
 			});
-
 		}
 
 		showModalDelete = function (nm_di, irigasiidSIISD, irigasiidEPAKSI) {
@@ -467,90 +431,6 @@
 
 		}
 
-		prs_edit = function () {
-
-			let siisd = $('#irigasiid_edit').val(),
-			epaksi = $('#irigasiid_epaksi').val();
-			$("#loading").LoadingOverlay("show");
-
-			if (siisd == null || siisd == '') {
-				toastr.error('Silahkan Input kode Daerah Irigasi SIISD');
-				return;
-			}
-
-			ajaxUntukSemua(base_url()+'DeleteDi/prosesEditDi', {siisd, epaksi}, function(data) {
-
-				$("#loading").LoadingOverlay("hide");
-				$('#modalEdit').modal('hide');
-
-				if (data.code == 200) {
-
-					getDataTabel();
-					toastr.success('Data berhasil diubah');
-
-				}else{
-
-					toastr.error('Data gagal diubah');
-				}
-
-
-			}, function(error) {
-				console.log('Kesalahan:', error);
-				$("#loading").LoadingOverlay("hide");
-				$('#modalEdit').modal('hide');
-				toastr.error('Kesalahan :'+error);
-			});
-
-		}
-
-		// prs_edit = function () {
-
-		// 	let siisd = $('#irigasiid_edit').val(),
-		// 	epaksi = $('#irigasiid_epaksi').val();
-
-		// 	if (siisd == null || siisd == '') {
-
-		// 		toastr.error('Silahkan Input kode Daerah Irigasi SIISD');
-		// 		return;
-		// 	}
-
-		// 	$("#loading").LoadingOverlay("show");
-
-		// 	ajaxUntukSemua(base_url()+'DeleteDi/prosesEditDi', {siisd, epaksi}, function(data) {
-
-		// 		$("#loading").LoadingOverlay("hide");
-		// 		$('#modalEdit').modal('hide');
-
-		// 		if (data.code == 200) {
-
-		// 			getDataTabel();
-		// 			toastr.success('Data berhasil disimpan');
-
-		// 		}else{
-
-		// 			toastr.error('Data gagal disimpan');
-
-		// 		}
-
-
-		// 	}, function(error) {
-		// 		console.log('Kesalahan:', error);
-		// 		$("#loading").LoadingOverlay("hide");
-		// 		$('#modalEdit').modal('hide');
-		// 		toastr.error('Kesalahan :'+error);
-		// 	});
-
-		// }
-
-
-		showModalEdit = function (nm_di, irigasiidSIISD) {
-
-			$('#tittleModal').text(nm_di);
-			$('#irigasiid_edit').val(irigasiidSIISD);
-			$('#modalEdit').modal('show');
-
-		}
-
 
 		$('#prov').change(function() {
 			var prov = $(this).val();
@@ -558,7 +438,7 @@
 			$('.select2_Irigasi').val(null).trigger('change');
 
 
-			ajaxUntukSemua(base_url()+'DeleteDi/getDataKabKota', {prov}, function(data) {
+			ajaxUntukSemua(base_url()+'KodefikasiDI/getDataKabKota', {prov}, function(data) {
 
 				let opt = `<option value="" selected disabled>- Plih Kab/Kota -</option>`;
 
@@ -567,7 +447,6 @@
 				})
 
 				$('#kabkota').html(opt);
-
 			}, function(error) {
 				console.log('Kesalahan:', error);
 			});
@@ -597,7 +476,7 @@
 			placeholder: '-Tentukan Daerah Irigasi-',
 			theme: 'default',
 			ajax: {
-				url: base_url() + "DeleteDi/getDi",
+				url: base_url() + "KodefikasiDI/getDi",
 				dataType: 'json',
 				type: 'post',
 				delay: 250,

@@ -121,7 +121,7 @@
 							<!-- <a href="#" class="btn btn-success btn-sm" aksi="rekap" title="Rekap Data"><i class="fas fa-file-excel"></i> a</a> -->
 							<!-- -------------- -->
 
-							<a href="<?= base_url(); ?>InfrastrukturPBanjir/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a>
+							<!-- <a href="<?= base_url(); ?>InfrastrukturPBanjir/downloadTabel" class="btn btn-info mr-1"><i class="fas fa-file-excel"></i> Unduh</a> -->
 
 							<!-- ---------------- -->
 
@@ -308,7 +308,7 @@
 				console.log(value)
 				tableConten += `<tr style="background-color:${warnaAwal};">
 				<td style="border: thin solid #006666;" align="center">${no}</td>
-				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}InfrastrukturPBanjir/getDetailData/${value.id}">${value.nm_ws}</a></td>
+				<td id="irigasiid_50581" style="border: thin solid #006666;" class="options menuALink"><a href="${base_url()}InfrastrukturPBanjir/getDetailData/${value.id}">${cleanStr(value.nm_ws)}</a></td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.nm_das)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.dasluas)}</td>
 				<td id="laPermen_50581" style="border: thin solid #006666;" class="number">${cleanStr(value.wilayahAdministratif)}</td>

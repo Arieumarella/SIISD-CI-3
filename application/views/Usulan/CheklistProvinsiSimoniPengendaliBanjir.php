@@ -9,25 +9,29 @@
         margin-top: -15px;
     }
 
-    .table {
-        font-size: 12px;
+
+    .tableX {
+        font-size: 14px;
     }
 
-    .table thead {
-        background-color: #18978F;
-        color: #fff;
+    .tableX thead {
+        background-color: #d6d6d6;
+        color: solid gray;
     }
 
-    .table th {
-        padding: 4px;
+    .tableX th {
+        padding: 10px;
         margin: 0px;
         text-align: center;
         vertical-align: center;
+        font-size: 14px;
+        border: 1px solid gray !important;
     }
 
-    .table td {
+    .tableX td {
         padding: 4px;
         margin: 0px;
+        border: 1px solid gray !important;
     }
 
     .number,
@@ -57,7 +61,6 @@
                 </ol>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <!-- Presentase Berdasarkan Status -->
@@ -76,23 +79,23 @@
                         <table class="table-bordered tableX mt-3">
                             <thead id="thead_data">
                                 <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                    <th style="border: thin solid #006666; width: 5%" rowspan="2">No</th>
-                                    <th style="border: thin solid #006666; width: 25%;" rowspan="2">PROVINSI</th>
-                                    <!-- <th style="border: thin solid #006666; width: 20%;" rowspan="2">TOTAL <br> KEGIATAN</th> -->
-                                    <th style="border: thin solid #006666;" colspan="15">DOKUMEN</th>
+                                    <th style="border: 1px solid #000000 !important; width: 5%" rowspan="2">No</th>
+                                    <th style="border: 1px solid #000000 !important; width: 25%;" rowspan="2">PROVINSI</th>
+                                    <!-- <th style="border: 1px solid #000000 !important; width: 20%;" rowspan="2">TOTAL <br> KEGIATAN</th> -->
+                                    <th style="border: 1px solid #000000 !important;" colspan="15">DOKUMEN</th>
                                 </tr>
                                 <tr id="boxThField1" style="background-color:#18978F; color:#fff;">
-                                    <th class="text-center" style="border: thin solid #006666;">LEMBAR CHECKLIST</th>
-                                    <th style="border: thin solid #006666;">SID</th>
-                                    <th style="border: thin solid #006666;">DED</th>
-                                    <th style="border: thin solid #006666;">KAK</th>
-                                    <th style="border: thin solid #006666;">SKEMA JARINGAN</th>
-                                    <th style="border: thin solid #006666;">SKEMA BANGUNAN</th>
-                                    <th style="border: thin solid #006666;">BC VOLUME</th>
-                                    <th style="border: thin solid #006666;">RAB</th>
-                                    <th style="border: thin solid #006666;">DOKUMENTASI</th>
-                                    <th style="border: thin solid #006666;">AMDAL</th>
-                                    <th style="border: thin solid #006666;">SURAT KESEDIAAN OP</th>
+                                    <th class="text-center" style="border: 1px solid #000000 !important;">LEMBAR CHECKLIST</th>
+                                    <th style="border: 1px solid #000000 !important;">SID</th>
+                                    <th style="border: 1px solid #000000 !important;">DED</th>
+                                    <th style="border: 1px solid #000000 !important;">KAK</th>
+                                    <th style="border: 1px solid #000000 !important;">SKEMA JARINGAN</th>
+                                    <th style="border: 1px solid #000000 !important;">SKEMA BANGUNAN</th>
+                                    <th style="border: 1px solid #000000 !important;">BC VOLUME</th>
+                                    <th style="border: 1px solid #000000 !important;">RAB</th>
+                                    <th style="border: 1px solid #000000 !important;">DOKUMENTASI</th>
+                                    <th style="border: 1px solid #000000 !important;">AMDAL</th>
+                                    <th style="border: 1px solid #000000 !important;">SURAT KESEDIAAN OP</th>
                                 </tr>
                             </thead>
 
@@ -120,8 +123,8 @@
                                 <?php $no = 1;
                                 foreach ($dataRekap as $key => $val) { ?>
                                     <tr style="background-color: #F7ECDE;">
-                                        <td class="text-center" style="border: thin solid #006666;"><?= $no++; ?></td>
-                                        <td class="text-left" style="border: thin solid #006666;">
+                                        <td class="text-center" style="border: 1px solid #000000 !important;"><?= $no++; ?></td>
+                                        <td class="text-left" style="border: 1px solid #000000 !important;">
                                             <?php if ($this->session->userdata('prive') == 'pemda') { ?>
                                                 <?php if ($val->provid == $this->session->userdata('provid')) { ?>
                                                     <a href="<?= base_url(); ?>Usulan/rekapKabKotaSimoniPengendaliBanjir/<?= $val->provid; ?>"><?= $val->provinsi; ?></a>
@@ -141,17 +144,17 @@
                                             <?php } ?>
 
                                         </td>
-                                        <td class="text-right" style="border: thin solid #006666;"><?= $val->lembar_ck_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->sid_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->ded_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->kak_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->skema_jaringan_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->skema_bangunan_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->bc_volume_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->rab_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->dokumentasi_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->dok_amdal_pb; ?></td>
-                                        <td class="text-right" style="border: thin solid #006666; width: 8%;"><?= $val->kesediaan_op_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important;"><?= $val->lembar_ck_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->sid_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->ded_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->kak_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->skema_jaringan_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->skema_bangunan_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->bc_volume_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->rab_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->dokumentasi_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->dok_amdal_pb; ?></td>
+                                        <td class="text-right" style="border: 1px solid #000000 !important; width: 8%;"><?= $val->kesediaan_op_pb; ?></td>
                                     </tr>
                                     <?php
 
@@ -172,18 +175,18 @@
                             </tbody>
                             <tfoot>
                                 <tr style="background-color:#d9dee2;">
-                                    <th class="text-center" colspan="2" style="border: thin solid #006666;"><b>TOTAL</b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $lembar_ck_irigasi; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $sid; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $ded; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $kak; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $skema_jaringan; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $skema_bangunan; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $bc_volume; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $rab; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $smk3; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $dpa; ?></b></th>
-                                    <th class="text-right" style="border: thin solid #006666;"><b><?= $dokumentasi; ?></b></th>
+                                    <th class="text-center" colspan="2" style="border: 1px solid #000000 !important;"><b>TOTAL</b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $lembar_ck_irigasi; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $sid; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $ded; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $kak; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $skema_jaringan; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $skema_bangunan; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $bc_volume; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $rab; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $smk3; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $dpa; ?></b></th>
+                                    <th class="text-right" style="border: 1px solid #000000 !important;"><b><?= $dokumentasi; ?></b></th>
                                 </tr>
                             </tfoot>
 

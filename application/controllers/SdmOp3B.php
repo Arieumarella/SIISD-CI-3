@@ -133,7 +133,6 @@ class SdmOp3B extends CI_Controller {
 			'kotakabid' => $kotakabid,
 			'jmlDI' => $jmlDI,
 			'luasDI' => $luasDI,
-			'alokasiApbn' => $alokasiAPbn,
 			'uidIn' => $this->session->userdata('uid'),
 			'uidDt' => date('Y-m-d H:i:s')
 		);
