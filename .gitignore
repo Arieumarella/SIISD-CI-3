@@ -8,6 +8,9 @@ application/logs/*
 
 !application/*/.htaccess
 
+assets/upload_file/*
+assets/paraf/*
+assets/panduan/*
 composer.lock
 tests/mocks/database/ci_test.sqlite
 
